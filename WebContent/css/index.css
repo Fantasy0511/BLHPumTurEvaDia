@@ -1,0 +1,619 @@
+/**
+ * Created by FF on 2016/12/14.
+ */
+
+/*清除默认效果*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+/*设置底色为灰色*/
+body {
+	background-color: #f0f3f4;
+	height: 100%;
+	/*overflow:hidden;*/
+}
+
+div.app_main {
+	overflow: scroll;
+	overflow-x: hidden;
+}
+
+/*搜索和生成方案栏*/
+#showDiv {
+	width: 100%;
+	height: 7.2%;
+	font-size: 16px;
+	padding-top: 0.4%;
+}
+
+/*复选框大小改动（没用到）*/
+.box {
+	width: 100%;
+	height: 23px
+}
+
+/*app.html页面css设置*/
+.app {
+	width: 100%;
+	height: 100%;
+}
+
+.app_top {
+	height: 9.5%;
+	width: 100%;
+	z-index: 100;
+	background-color: #006698;
+	position: fixed;
+}
+
+.app_top_logo {
+	float: left;
+	height: 60px;
+	width: 46%;
+	left: 0;
+	background-color: #FFFFFF;
+	border-top-right-radius: 90em;
+}
+
+.logoText {
+	font-size: 21px;
+	color: #006698;
+	vertical-align: middle;
+}
+
+.app_top_nav {
+	float: left;
+	position: fixed;
+	right: -10px;
+	top: -20px;
+}
+
+.septalLine {
+	/*float: left;*/
+	margin-top: 60px;
+	position: absolute;
+	height: 5px;
+	width: 100%;
+	background-color: #D9F0F0;
+	z-index: 1;
+}
+
+.app_main {
+	/*float: left;*/
+	padding-top: 65px;
+	/*position: absolute;*/
+	height: 100%;
+}
+
+.nav_left {
+	width: 15%;
+	float: left;
+	position: fixed;
+	padding-right: 15%;
+}
+
+.main_right {
+	width: 100%;
+	float: right;
+	height: 620px;
+	border-left: 10px solid #d9edf7;
+	border-right: 10px solid #d9edf7;
+	padding-top: 0;
+	position: relative;
+	margin-left: 15%;
+	/*background-color: firebrick;*/
+}
+
+.app_foot {
+	height: 30px;
+	width: 100%;
+	padding-left: 900px;
+	margin-top: 100px;
+	/*position: fixed;
+    z-index: 100;
+    bottom: 0px;*/
+	background-color: #f5f5f5;
+	/*font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;*/
+	color: #006698;
+	text-decoration: none;
+	line-height: 30px;
+	font-size: 13px;
+	/*vertical-align: middle;*/
+}
+
+/*.app_foot>p{
+    position: relative;
+    right: 20px;
+}*/
+
+/*begin******************顶部导航栏css********************/
+.topNav li a, .nav_left_top {
+	font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+	color: white;
+	text-decoration: none;
+	font-size: 15px;
+	vertical-align: middle;
+}
+
+div.user {
+	/*display: inline-block;*/
+	float: left;
+	height: 50px;
+	width: 75px;
+	line-height: 50px;
+	padding-top: 25px;
+	margin-left: 30px;
+	margin-right: 15px;
+}
+
+div.user a {
+	color: white;
+	font-size: 15px;
+}
+
+.topNav ul {
+	list-style: none;
+}
+
+.topNav {
+	height: 50px;
+	margin-right: 20px;
+	margin-top: 30px;
+	width: 600px;
+	float: left;
+	/*display: inline-block;*/
+}
+
+.topNav li {
+	float: left;
+	position: relative;
+	height: 50px;
+	width: 120px;
+}
+
+.topNav li a {
+	display: block;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	width: 120px;
+	margin-left: 1px;
+	background: #006698;
+	font-size: 18px;
+	font-family: hei
+	
+}
+
+.topNav>li>a {
+	line-height: 25px;
+}
+
+.topNav>li>a:visited {
+	background: #006698;
+}
+
+/*
+nav class 和topNav发生冲突  fuck  放在内嵌样式表
+*/
+/*.topNav > li > a:hover {*/
+/*background-color: #6495ed;*/
+/*height: 60px;*/
+/*line-height: 35px;*/
+/*margin-top: -10px;*/
+/*毛玻璃*/
+/*-webkit-filter: blur(1px); !* Chrome, Opera *!*/
+/*-moz-filter: blur(1px);*/
+/*-ms-filter: blur(1px);*/
+/*border-bottom: 3px solid #7de4ff;*/
+/*}*/
+
+/*.nav>li>a:hover:after {*/
+/*background-attachment: fixed;*/
+/*margin: -30px;*/
+/*}*/
+.subNav {
+	position: absolute;
+	top: 50px;
+	left: 0;
+	width: 140px;
+	height: 0;
+	overflow: hidden;
+	z-index: 999;
+}
+
+.subNav a:hover {
+	background: cornflowerblue;
+	/*毛玻璃*/
+	/*-webkit-filter: blur(1px); !* Chrome, Opera *!*/
+	/*-moz-filter: blur(1px);*/
+	/*-ms-filter: blur(1px);*/
+	border-bottom: 3px solid #7de4ff;
+}
+
+.subNav a {
+	border-bottom: 1px solid #b9def0;
+}
+
+.topNav li ul {
+	transition: height 0.3s;
+}
+
+/*设置导航栏二级菜单总高度*/
+.topNav li:nth-child(2):hover ul {
+	height: 200px;
+}
+
+.topNav li:nth-child(3):hover ul {
+	height: 160px;
+}
+
+.topNav li:nth-child(6):hover ul {
+	height: 80px;
+}
+
+/*实现圆角*/
+.nav>li>a {
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+}
+
+/*******************顶部导航栏css*******************end*/
+
+/*begin******************左侧导航栏css********************/
+.nav_left_top {
+	height: 30px;
+	width: auto;
+	background-color: #006699;
+	margin-bottom: 10px;
+}
+
+.ac-container {
+	width: 100%;
+	/*margin: 10px auto 30px auto;*/
+	text-align: left;
+}
+
+/*设置li前面的点是否可见*/
+.ac-container ul {
+	list-style: none;
+}
+
+/*设置输入框的勾选框是否可见*/
+.ac-container input {
+	display: none;
+}
+
+/*.ac-container ul li ul li ul li input{*/
+/*display: block;*/
+/*}*/
+.ac-container ul {
+	margin: 0;
+	padding: 0;
+}
+
+.ac-container ul li ul {
+	/* by default hide all sub menus */
+	display: none;
+}
+
+/*.ac-container li{*/
+/*-webkit-user-select: none;*/
+/*-moz-user-select: none;*/
+/*-ms-user-select: none;*/
+/*user-select: none;*/
+/*}*/
+.ac-container label {
+	font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+	padding: 2px 20px;
+	position: relative;
+	z-index: 20;
+	display: block;
+	height: 30px;
+	cursor: pointer;
+	color: white;
+	margin-bottom: 1px;
+	margin-top: 0;
+	/*text-shadow: 1px 1px 1px rgba(255,255,255,0.8);*/
+	/*line-height: 33px;*/
+	font-size: 19px;
+	background: #6E67A6;
+	/*background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);*/
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));*/
+	/*background: -webkit-linear-gradient(top, #ffffff 1%,#eaeaea 100%);*/
+	/*background: -o-linear-gradient(top, #ffffff 1%,#eaeaea 100%);*/
+	/*background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);*/
+	/*background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);*/
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eaeaea', GradientType=0);*/
+	/*box-shadow:*/
+	/*0px 0px 0px 1px rgba(155,155,155,0.3),*/
+	/*1px 0px 0px 0px rgba(255,255,255,0.9) inset,*/
+	/*0px 2px 2px rgba(0,0,0,0.1);*/
+}
+
+/*鼠标移动到label上的时候的样式*/
+.ac-container label:hover {
+	background: cornflowerblue;
+}
+
+/*设置鼠标点击后的样式*/
+.ac-container input:checked+label, .ac-container input:checked+label:hover
+	{
+	background: #c6e1ec;
+	color: #3d7489;
+	text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6);
+	box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 0px 2px 2px
+		rgba(0, 0, 0, 0.1);
+}
+
+/*.ac-container label:hover:after,*/
+/*.ac-container input:checked + label:hover:after{*/
+/*content: '';*/
+/*position: absolute;*/
+/*width: 24px;*/
+/*height: 24px;*/
+/*right: 13px;*/
+/*top: 7px;*/
+/*background: transparent url(../images/arrow_down.png) no-repeat center center;*/
+/*}*/
+/*.ac-container input:checked + label:hover:after{*/
+/*background-image: url(../images/arrow_up.png);*/
+/*}*/
+
+/*外观线条*/
+/*.ac-container input:checked ~ article {*/
+/*-webkit-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;*/
+/*-moz-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;*/
+/*-o-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;*/
+/*-ms-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;*/
+/*transition: height 0.5s ease-in-out, box-shadow 0.1s linear;*/
+/*box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3);*/
+/*}*/
+.ac-container input[type=checkbox]:checked+label+ul {
+	display: block;
+}
+
+/*.ac-container ul li ul {*/
+/*margin-left: 0px;*/
+/*}*/
+
+/*******************左侧导航栏css*******************end*/
+
+/*.main_right_border {*/
+/*background-color: blue;*/
+/*width: 10px;*/
+/*height: 100%;*/
+/*float: left;*/
+/*}*/
+.page_top {
+	height: 30px;
+	width: 100%;
+	background-color: #006699;
+	margin-bottom: 0.5%;
+	color: #FFF;
+	font-size: 17px;
+	padding: 0.2% 1%;
+}
+
+.page_operation_bar {
+	height: 50px;
+	width: auto;
+	margin: 10px;
+	background-color: #d9edf7;
+}
+
+/*button*/
+.btn1 {
+	margin-top: 0px;
+	margin-left: 10px;
+}
+
+.btn2 {
+	margin-top: 0px;
+	margin-right: 10px;
+	float: right;
+}
+
+.btn3 {
+	margin-top: 0px;
+	margin-right: 10px;
+	float: right;
+}
+
+.btn4 {
+	margin-top: 0px;
+	margin-right: 10px;
+	float: right;
+}
+
+.btn5 {
+	margin-top: 0px;
+	margin-right: 10px;
+	float: right;
+}
+
+.cd-accordion-menu input[type=checkbox] {
+	/* hide native checkbox */
+	position: absolute;
+	opacity: 0;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+.cd-accordion-menu label, .cd-accordion-menu a {
+	position: relative;
+	display: block;
+	padding: 18px 18px 18px 64px;
+	background: #006699;
+	box-shadow: inset 0 -1px #555960;
+	color: #ffffff;
+	font-size: 1.6rem;
+}
+
+.cd-accordion-menu ul {
+	/* by default hide all sub menus */
+	display: none;
+}
+
+.cd-accordion-menu input[type=checkbox]:checked+label+ul,
+	.cd-accordion-menu input[type=checkbox]:checked+label:nth-of-type(n)+ul
+	{
+	/* use label:nth-of-type(n) to fix a bug on safari (<= 8.0.8) with multiple adjacent-sibling selectors*/
+	/* show children when item is checked */
+	display: block;
+}
+
+.has-children {
+	cursor: pointer;
+	font-size: 0;
+}
+
+.cd-accordion-menu {
+	font-size: 0;
+}
+
+/*show and hide*/
+.from-below, .from-below-to-below .effeckt-modal {
+	-webkit-transform: translateX(100%);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: translateY(-100%);
+	opacity: 0;
+	-webkit-transition: all 200ms;
+	-o-transition: 200ms;
+	transition: 200ms;
+}
+
+.effeckt-show, .effeckt-show.from-below-to-below .effeckt-modal {
+	-webkit-transform: translateX(0);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+}
+
+.effeckt-show .effeckt-modal {
+	visibility: visible;
+}
+
+/*wizard*/
+#wizard-step-container {
+	margin: 10px 0;
+}
+
+#wizard-content-container {
+	margin: 0;
+}
+
+#wizard-navigation-container {
+	border-top: 1px solid #eee;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+
+/*
+.fix-right {
+    !* position: fixed;
+     bottom: 10%;
+     right: 1%;
+    !*margin-left: 1100px;*!
+    position: relative;
+    float: right;
+    margin: 10px 23px 0 0;
+}
+*/
+
+/*introduce*/
+.introduce {
+	font-size: 24px;
+	padding: 48px;
+	/*font-family: 华文行楷;*/
+	color: #5394C7;
+}
+
+/*component*/
+.component {
+	/* position: relative;
+     height: 305px;*/
+	margin: 0 10px;
+}
+
+.component1 {
+	position: relative;
+	height: 305px;
+	margin: 0 10px;
+}
+
+/*detail_bar*/
+.detail_bar {
+	position: relative;
+	height: 50px;
+	width: auto;
+	margin: 10px;
+	background-color: #d9edf7;
+}
+
+.detail_bar2 {
+	position: relative;
+	height: 50px;
+	width: auto;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.panel-body {
+	padding: 2px;
+}
+
+.list-group-item {
+	cursor: pointer;
+}
+
+/*slide page*/
+/*slide page*/
+/*单站动画*/
+.next-view-page.ng-enter {
+	transition: transform .5s;
+	transform: translateX(100%);
+}
+
+.next-view-page.ng-enter.ng-enter-active {
+	transform: translateX(0);
+	/*margin-top: -440px*/
+}
+
+/*.next-view-page.ng-leave{
+    !*margin-top: -440px;*!
+    transition: transform .5s;
+}
+.next-view-page.ng-leave.ng-leave-active{
+    transform: translateX(-100%);
+
+}*/
+.last-view-page.ng-enter {
+	transition: transform .5s;
+	transform: translateX(-100%);
+}
+
+.last-view-page.ng-enter.ng-enter-active {
+	transform: translateX(0%);
+}
+
+/*
+.last-view-page.ng-leave{
+
+    transition: transform .5s;
+    transform: translateX(0);
+}
+.last-view-page.ng-leave.ng-leave-active{
+    transform: translateX(100%);
+}*/
+.form-control {
+	border-radius: 4px
+}

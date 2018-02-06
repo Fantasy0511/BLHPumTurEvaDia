@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>         <!--用户登录页面-->
+<link rel="stylesheet" href="/BLHPumTurEvaDia/css/login/login.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/Font-Awesome-3.2.1/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+</head>
+<style>
+body {
+	zoom: 0.78;
+}
+
+::-webkit-input-placeholder {
+	padding-left: 2%;
+}
+
+input:hover {
+	background-color: #faffbd;
+}
+
+input:before {
+	background-color: #faffbd;
+}
+
+input {
+	border-left-color: #000000;
+	padding-left: 3%;
+}
+
+label {
+	padding-bottom: 2%;
+}
+
+i {
+	padding-left: 5%;
+	color: #1f56a8;
+}
+
+#notice {
+	color: red;
+	margin-bottom: 20px;
+}
+</style>
+<script>
+    function onLogIn() {
+        var username = $("#name").val();
+        var password = $("#password").val();
+        if ((username == "HUSTER") && (password == "123456")) {
+            window.location.href="/BLHPumTurEvaDia/main";
+            window.event.returnValue=false;  
+        } else {
+            $("#notice").html("账号或密码错误，请检查！");
+        }
+    }
+    $(function () {
+        $("#loginbutton").click(onLogIn);
+    });
+
+
+</script>
+<body>
+	<div class="loginbody">
+		<img class="background" src="/BLHPumTurEvaDia/images/timg%20(10).jpg">
+
+		<div class="headerTopStyle1">
+			<img src="/BLHPumTurEvaDia/images/stateGridLogo.png" height="80px">
+		</div>
+		<div class="headerTopStyle2"></div>
+
+		<div class="headerTopStyle">
+			<div class="headerTopStyle3"></div>
+			<div class="headerTopStyle4"></div>
+			<div class="headerTopStyle5"></div>
+			<div class="headerTopStyle6"></div>
+			<div class="headerTopStyle7"></div>
+		</div>
+		<div class="headerstyle">
+			<span></span>
+
+			<h1>莲蓄电站抽水蓄能机组状态评估及故障预警系统</h1>
+		</div>
+		<div class=" loginbox">
+			<div class="col-md-4 col-sm-4 col-xs-4 littleball1">
+				<div class="ball1"></div>
+				<div class="ball2"></div>
+				<div class="ball3"></div>
+				<div class="ball4"></div>
+				<div class="ball5"></div>
+				<div class="ball6"></div>
+				<div class="ball7"></div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4">
+				<div class="transparent-login">
+					<form role="form" class="fromstyle" name="myForm">
+						<label>请输入用户名:</label>
+
+						<div class="form-group text">
+							<span class="add-on"><i class="icon-user-md icon-large"></i></span>
+							<input id="name" class="text" type="text" placeholder="User Name">
+						</div>
+						<label>请输入密码:</label>
+
+						<div class="form-group text">
+							<span class="add-on"><i class="icon-key icon-large"></i></span> <input
+								id="password" class="text1" type="text" placeholder="Pass Word">
+						</div>
+						<div class="checkstyle">
+							<label class="slideOne"> <input type="checkbox"
+								id="slideOne">
+							</label><label
+								style="top: -3px; font-size: 10px; color: rgba(0, 0, 0, 0.3); margin-left: 10px;">记住密码</label>
+						</div>
+						<div id="notice"></div>
+						<div class="form-group ">
+							<button class="form-control" id="loginbutton">
+								登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+								<!--btn-default-->
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4 littleball2">
+				<div class="ball11"></div>
+				<div class="ball12"></div>
+				<div class="ball13"></div>
+				<div class="ball14"></div>
+				<div class="ball15"></div>
+				<div class="ball16"></div>
+				<div class="ball17"></div>
+			</div>
+		</div>
+
+		<!--</div>-->
+
+		<div class=" login_foot1">
+			<span>Copyright ©2017 华中科技大学水电学院 All Rights Reserved</span>
+		</div>
+	</div>
+	<div class=" login_foot2"></div>
+	<div class="login_foot">
+		<div class=" login_foot3"></div>
+
+		<div class=" login_foot4"></div>
+		<div class=" login_foot5"></div>
+		<div class=" login_foot6"></div>
+	</div>
+
+</body>
+</html>

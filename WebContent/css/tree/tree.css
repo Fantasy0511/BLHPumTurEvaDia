@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+DEMO 4
+*/
+
+.a_demo_four {
+	font-family: 'SimHei', Microsoft YaHe;
+	font-size:14px;
+	text-decoration:none;
+	color:#fff;
+	position:relative;
+	padding:4px;
+	padding-right:50px;
+	margin-right:10px;
+	background-image: linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(62,184,229) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(62,184,229) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(62,184,229) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(62,184,229) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(62,184,229) 100%);
+	background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0, rgb(102, 102, 204)),
+	color-stop(1, rgb(102, 102, 204))
+	);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 5px 0px 0px #2F4F4F, 0px 10px 5px #999;
+	-moz-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 5px 0px 0px #2F4F4F, 0px 10px 5px #999;
+	-o-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 5px 0px 0px #2F4F4F, 0px 10px 5px #999;
+	box-shadow: inset 0px 1px 0px #2F4F4F, 0px 5px 0px 0px #2F4F4F, 0px 10px 5px #999;
+}
+
+.a_demo_four:active {
+	top:3px;
+	background-image: linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(102, 102, 204) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(102, 102, 204) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(102, 102, 204) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(102, 102, 204) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(102, 102, 204) 0%, rgb(102, 102, 204) 100%);
+	background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0, rgb(62,184,229)),
+	color-stop(1, rgb(102, 102, 204))
+	);
+	-webkit-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 2px 0px 0px #2F4F4F, 0px 5px 3px #999;
+	-moz-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 2px 0px 0px #2F4F4F, 0px 5px 3px #999;
+	-o-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 2px 0px 0px #2F4F4F, 0px 5px 3px #999;
+	box-shadow: inset 0px 1px 0px #2F4F4F, 0px 2px 0px 0px #2F4F4F, 0px 5px 3px #999;
+}
+
+.a_demo_four::before {
+	background-color:#6666cc;
+	background-image:url(/HPPumTurReg/images/right_arrow.png);
+	background-repeat:no-repeat;
+	background-position:center center;
+	content:"";
+	width:20px;
+	height:20px;
+	position:absolute;
+	right:15px;
+	top:50%;
+	margin-top:-9px;
+	
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 1px 0px #2F4F4F;
+	-moz-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 1px 0px #2F4F4F;
+	-o-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 1px 0px #2F4F4F;
+	box-shadow: inset 0px 1px 0px #2F4F4F, 0px 1px 0px #2F4F4F;
+}
+
+.a_demo_four:active::before {
+	top:10%;
+	margin-top:-12px;
+	-webkit-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 3px 0px #2F4F4F, 0px 6px 3px #2F4F4F;
+	-moz-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 3px 0px #2F4F4F, 0px 6px 3px #2F4F4F;
+	-o-box-shadow: inset 0px 1px 0px #2F4F4F, 0px 3px 0px #2F4F4F, 0px 6px 3px #2F4F4F;
+	box-shadow: inset 0px 1px 0px #2F4F4F, 0px 3px 0px #2F4F4F, 0px 6px 3px #2F4F4F;
+}

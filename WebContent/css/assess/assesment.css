@@ -1,0 +1,65 @@
+.assesment-container {
+	width: 100%;
+	position: relative;
+}
+
+#assement-container {
+	width: 260px;
+	height: 260px;
+	float: left;
+	position: relative;
+}
+
+.midDiv-container {
+	position: relative;
+	margin-left: 260px;
+	height: 100%;
+}
+
+.midDiv {
+	position: relative;
+	top: 60px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: 260px;
+	width: 610px;
+	text-align: left;
+}
+
+.tt {
+	font: 18px "微软雅黑";
+	height: 24px;
+	line-height: 24px;
+	margin: 18px 0;
+}
+
+.middle {
+	height: 80px;
+	width: 180px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.middleImg {
+	width: 60px;
+	height: 60px;
+	margin-bottom: 4px
+}
+
+.middle div {
+	font: 16px "微软雅黑";
+	height: 22px;
+	margin: 0;
+	line-height: 30px;
+}
+
+.table-container {
+	height: 450px
+}
+
+.img-container {
+	height: 450px
+}

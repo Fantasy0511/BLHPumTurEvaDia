@@ -1,0 +1,628 @@
+#loginbutton {
+    border-radius: 10px;
+    border-color: transparent;
+    height: 40px;
+    background-color: #64b8cc;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+#loginbutton:hover {
+    text-shadow: 1px 1px 2px #00799e;
+    animation: button1 1s infinite alternate ease-in-out;
+    -webkit-animation: button1 1s infinite alternate ease-in-out;
+}
+
+@keyframes button1 {
+    from {
+        background-color: rgba(107, 218, 237, 0.93);
+    }
+    to {
+        background-color: #64b8cc;
+    }
+}
+
+@-webkit-keyframes button1 {
+    from {
+        background-color: rgba(107, 218, 237, 0.93);
+    }
+    to {
+        background-color: #64b8cc;
+    }
+}
+
+@keyframes login {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    33% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+        -webkit-box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.99), 0 0 60px rgba(253, 255, 232, 0.4);
+        -moz-box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.99), 0 0 60px rgba(255, 255, 255, 0.4);
+        box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.99), 0 0 60px rgba(255, 255, 255, 0.4);
+    }
+    66% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes login /* Safari and Chrome */
+{
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    33% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+    66% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes title {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    60% {
+        -webkit-transform: translate(3px, 1px);
+        transform: translate(3px, 1px);
+    }
+    80% {
+        -webkit-transform: translate(1px, 2px);
+        transform: translate(1px, 2px);
+    }
+    100% {
+        -webkit-transform: translate(1px, 0px);
+        transform: translate(1px, 0px);
+    }
+}
+
+@-webkit-keyframes title /* Safari and Chrome */
+{
+    0% {
+        -webkit-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+    }
+    60% {
+        -webkit-transform: translate(3px, 1px);
+        transform: translate(3px, 1px);
+    }
+    80% {
+        -webkit-transform: translate(1px, 2px);
+        transform: translate(1px, 2px);
+    }
+    100% {
+        -webkit-transform: translate(1px, 0px);
+        transform: translate(1px, 0px);
+    }
+}
+
+.alertstyle {
+    background-color: rgba(100, 184, 204, 0.3);
+    font-weight: bold;
+}
+
+.headerTopStyle div {
+    float: left;
+    margin-top: 0;
+    height: 50px;
+    -moz-transform: skewX(-45deg);
+    -webkit-transform: skewX(-45deg);
+    -o-transform: skewX(-45deg);
+    -ms-transform: skewX(-45deg);
+}
+
+.headerTopStyle1 {
+    float: left;
+    width: 480px;
+    margin: 0;
+    /*padding-left: 20px;*/
+    height: 85px;
+    background-color: white;
+    padding-left: 10px;
+}
+
+.headerTopStyle2 {
+    float: left;
+    width: 90px;
+    margin-left: -45px;
+    margin-top: 0;
+    height: 85px;
+    background-color: white;
+    -moz-transform: skewX(-45deg);
+    -webkit-transform: skewX(-45deg);
+    -o-transform: skewX(-45deg);
+    -ms-transform: skewX(-45deg);
+}
+
+.headerTopStyle3 {
+    width: 20%;
+    height: 85px;
+    margin-left: 30px;
+    background-color: white;
+    /*-webkit-box-shadow: 2px 2px 2px rgb(0, 74, 176,0.99), 1px 20px 20px rgba(0, 74, 176,0.1);*/
+    /*-moz-box-shadow: 2px 2px 2px  rgba(0, 74, 176,0.99), 1px 20px 20px rgba(0, 74, 176,0.1);*/
+    /*box-shadow: 2px 2px 2px  rgba(0, 74, 176,0.99), 1px 20px 20px rgba(0, 74, 176,0.1);*/
+}
+
+.headerTopStyle4 {
+    width: 7%;
+    margin-left: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.headerTopStyle5 {
+    width: 2%;
+    margin-left: 5px;
+    background-color: rgba(255, 255, 255, 0.84);
+}
+
+.headerTopStyle6 {
+    width: 1%;
+    margin-left: 5px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.headerTopStyle7 {
+    width: 12%;
+    margin-left: 5px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-bottom-right-radius: 30px;
+}
+
+.headerstyle {
+    margin-top: 120px;
+    text-align: center;
+}
+
+.headerstyle h1 {
+    font-size: 60px;
+    color: #ffffff;
+    /*padding: 2px 0 10px 0;*/
+    font-family: 'FranchiseRegular', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    /*padding-bottom: 30px;*/
+    text-shadow: 1px 1px 0 #5f8fc6,
+    2px 2px 0 #466991,
+    3px 3px 0 #466991,
+    4px 4px 0 #466991;
+    -webkit-text-shadow: 0 0 5px rgba(255, 255, 255, 0.99), 0 0 40px rgba(255, 255, 255, 0.4);
+    -moz-text-shadow: 0 0 5px rgba(255, 255, 255, 0.99), 0 0 40px rgba(255, 255, 255, 0.4);
+    /*text-shadow: 0 0 5px  rgba(255, 255, 255, 0.99), 0 0 40px rgba(255, 255, 255, 0.4);*/
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(50%, transparent), to(rgba(250, 250, 250, 0.3)));
+    /*animation: title 1s 1 alternate ease-in-out;*/
+    /*-webkit-animation: title 1s 1 alternate ease-in-out;*/
+
+}
+
+.littleball1 div {
+    position: absolute;
+    border-radius: 100%;
+
+}
+
+.littleball2 div {
+    position: absolute;
+    border-radius: 100%;
+    /*animation: ball 3s infinite alternate ease-in-out;*/
+    /*-webkit-animation: ball 3s infinite alternate ease-in-out;*/
+}
+
+@keyframes ball {
+    from {
+        -webkit-box-shadow: 0 0 7px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+        -moz-box-shadow: 0 0 7px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 7px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        -webkit-box-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+        -moz-box-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+
+        /*background-color: rgba(100, 184, 204, 0);*/
+    }
+}
+
+@-webkit-keyframes ball {
+    from {
+        -webkit-box-shadow: 0 0 5px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+        -moz-box-shadow: 0 0 5px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        -webkit-box-shadow: 0 0 7px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+        -moz-box-shadow: 0 0 7px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 7px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+}
+
+@keyframes ballmove {
+    0% {
+        -webkit-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+    }
+    60% {
+        -webkit-transform: translate(3px, 1px);
+        transform: translate(3px, 1px);
+    }
+    80% {
+        -webkit-transform: translate(1px, 2px);
+        transform: translate(1px, 2px);
+    }
+    100% {
+        -webkit-transform: translate(1px, 0px);
+        transform: translate(1px, 0px);
+    }
+}
+
+@-webkit-keyframes ballmove /* Safari and Chrome */
+{
+    0% {
+        -webkit-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+    }
+    60% {
+        -webkit-transform: translate(3px, 1px);
+        transform: translate(3px, 1px);
+    }
+    80% {
+        -webkit-transform: translate(1px, 2px);
+        transform: translate(1px, 2px);
+    }
+    100% {
+        -webkit-transform: translate(1px, 0px);
+        transform: translate(1px, 0px);
+    }
+}
+
+.ball1 {
+    right: 10px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: ball 2s 0.1s infinite alternate ease-in-out, ballmove 2s 0.1s infinite alternate ease-in-out;
+    -webkit-animation: ball 2s 0.1s infinite alternate ease-in-out, ballmove 2s 0.1s infinite alternate ease-in-out;
+
+}
+
+.ball2 {
+    right: 50px;
+    width: 5px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ball 2s 0s infinite alternate ease-in-out;
+    -webkit-animation: ball 2s 0s infinite alternate ease-in-out;
+}
+
+.ball3 {
+    top: 50px;
+    right: 100px;
+    width: 5px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    animation: ball 1.5s 0.7s infinite alternate linear;
+    -webkit-animation: ball 1.5s 0.7s infinite alternate linear;
+}
+
+.ball4 {
+    top: 80px;
+    right: -15px;
+    width: 7px;
+    height: 7px;
+    background-color: rgba(255, 255, 255, 0.9);
+    animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 1s 0s infinite alternate ease-in-out;;
+    -webkit-animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 1s 0s infinite alternate ease-in-out;;
+
+}
+
+.ball5 {
+    top: 180px;
+    right: 53px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ball 5s 0.1s infinite alternate ease-in-out;
+    -webkit-animation: ball 5s 0.1s infinite alternate ease-in-out;
+}
+
+.ball6 {
+    top: 159px;
+    right: 25px;
+    width: 2px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.9);
+    animation: ball 1.5s 0.7s infinite alternate linear;
+    -webkit-animation: ball 1.5s 0.7s infinite alternate linear;
+}
+
+.ball7 {
+    top: 123px;
+    right: 222px;
+    width: 4px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ball 1.5s 0.7s infinite alternate linear;
+    -webkit-animation: ball 1.5s 0.7s infinite alternate linear;
+}
+
+.ball11 {
+    left: 35px;
+    top: 21px;
+    width: 9px;
+    height: 9px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: ball 5s 0.1s infinite alternate ease-in-out;
+    -webkit-animation: ball 5s 0.1s infinite alternate ease-in-out;
+}
+
+.ball12 {
+    top: 55px;
+    left: 65px;
+    width: 5px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ball 2s 0.1s infinite alternate ease-in-out;
+    -webkit-animation: ball 2s 0.1s infinite alternate ease-in-out;
+}
+
+.ball13 {
+    top: 40px;
+    left: 76px;
+    width: 7px;
+    height: 7px;
+    background-color: rgba(255, 255, 255, 0.6);
+    animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 1.5s 0.3s infinite alternate ease-in-out;;
+    -webkit-animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 1.5s 0.3s infinite alternate ease-in-out;;
+}
+
+.ball14 {
+    top: 125px;
+    left: 0px;
+    width: 4px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.9);
+    animation: ball 2s 0.1s infinite alternate ease-in-out;
+    -webkit-animation: ball 2s 0.1s infinite alternate ease-in-out;
+}
+
+.ball15 {
+    top: 205px;
+    left: 43px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    animation: ball 2s 0s infinite alternate ease-in-out;
+    -webkit-animation: ball 2s 0s infinite alternate ease-in-out;
+}
+
+.ball16 {
+    top: 156px;
+    left: 96px;
+    width: 7px;
+    height: 7px;
+    background-color: rgba(255, 255, 255, 0.6);
+    animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 3s 0.1s infinite alternate ease-in-out;;
+    -webkit-animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 3s 0.1s infinite alternate ease-in-out;;
+}
+
+.ball17 {
+    top: 189px;
+    left: 105px;
+    width: 3px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.9);
+    animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 2.2s 0.6s infinite alternate ease-in-out;;
+    -webkit-animation: ball 2s 0.3s infinite alternate ease-in-out, ballmove 2s 0.6s infinite alternate ease-in-out;;
+}
+
+.loginbody {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #1994f8;
+    /*background-color: #1E88C7;*/
+    background: -moz-linear-gradient(top, #1b73d6, #1994f8, #1b73d6);
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, left top, right top, from(#1b73d6), color-stop(0.5, #1994f8), to(#1b73d6));
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #1b73d6, #1994f8, #1b73d6);
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #1b73d6, #1994f8, #1b73d6);
+}
+
+.transparent-login {
+    padding: 15px;
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.31)), color-stop(0.5, rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0.31)));
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.31), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.31));
+    /*background-color: rgba(255,255,255,0.3);*/
+    margin-top: 10%;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 15px;
+    -webkit-box-shadow: 0 0 7px rgba(255, 255, 255, 0.99), 0 0 40px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 7px rgba(255, 255, 255, 0.99), 0 0 40px rgba(255, 255, 255, 0.4);
+    /*inset*/
+}
+
+.transparent-login:hover {
+    animation: login 0.5s 1 alternate ease-in-out;
+    -webkit-animation: login 0.5s 1 alternate ease-in-out;
+}
+
+.slideOne {
+    width: 50px;
+    height: 8px;
+    top: 10px;
+    background-color: rgba(25, 148, 248, 0.8);
+    margin: 0px auto;
+    margin-left: 5px;
+    position: relative;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.slideOne label:hover {
+    background-color: rgb(161, 221, 237);
+}
+
+.slideOne label {
+    /*display: block;*/
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -5px;
+    margin: 0px auto;
+    left: -5px;
+    cursor: pointer;
+    background-color: rgb(107, 218, 237);
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.slideOne input[type=checkbox] {
+    visibility: hidden;
+}
+
+.slideOne input[type=checkbox]:checked + label {
+    left: 37px;
+}
+
+.checkstyle {
+    line-height: 23px;
+    text-align: left;
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+.fromstyle {
+
+    padding: 3% 8% 1% 8%;
+    background-color: rgba(232, 245, 255, 0.7);
+    border-radius: 5px;
+
+}
+
+.text {
+    margin-left: 7%;
+    padding-left: 3%;
+    height: 50px;
+    width: 78%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border-color: transparent;
+}
+
+.text1 {
+    margin-left: 7%;
+    padding-left: 2%;
+    height: 50px;
+    width: 76%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border-color: transparent;
+}
+
+.loginbox {
+    font-size: 13pt
+}
+
+.login_foot div {
+    position: fixed;
+    bottom: 0px;
+    height: 30px;
+    -moz-transform: skewX(-45deg);
+    -webkit-transform: skewX(-45deg);
+    -o-transform: skewX(-45deg);
+    -ms-transform: skewX(-45deg);
+}
+
+.login_foot1 {
+    width: 550px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    line-height: 30px;
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    color: #004ca7;
+}
+
+.login_foot2 {
+    position: fixed;
+    bottom: 0px;
+    right: 530px;
+    width: 50px;
+    height: 30px;
+    background-color: white;
+    -moz-transform: skewX(-45deg);
+    -webkit-transform: skewX(-45deg);
+    -o-transform: skewX(-45deg);
+    -ms-transform: skewX(-45deg);
+
+}
+
+.login_foot3 {
+    right: 590px;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.93);
+}
+
+.login_foot4 {
+    right: 849px;
+    width: 50px;
+    background-color: rgba(255, 255, 255, 0.84);
+}
+
+.login_foot5 {
+    right: 904px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.login_foot6 {
+    right: 929px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-top-left-radius: 30px;
+}

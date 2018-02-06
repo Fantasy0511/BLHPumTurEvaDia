@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>首页</title>
+<link rel="stylesheet" href="/BLHPumTurEvaDia/css/index.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/Font-Awesome-3.2.1/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/tabs.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+<style>
+.topNav>li>a:hover {                 /*顶部首页、数据挖掘等的样式*/
+	background-color: #6495ed;
+	height: 60px;
+	line-height: 35px;
+	margin-top: -10px;
+	border-bottom: 3px solid #7de4ff;
+}
+</style>
+
+<script type="text/javascript">              
+function addPanel(path,title){          //鼠标放上去的动作设置  addPanel鼠标放上加上下滑选项
+	if($("#tabs").tabs("exists",title)){
+		$("#tabs").tabs("select",title);
+		return;
+		}else{
+		var option={
+		title:title,
+		content:'<iframe src="'+path+'" style="width:100%;height:100%;border:none;scrolling:false"></iframe>',
+		closable:true,
+		style:{
+			padding: '1px'}
+			};
+		$('#tabs').tabs('add',option);
+		}
+}
+
+
+function pageJump() {                   // 页面跳转
+	$(".jump").click(function() {
+		var path = $(this).attr("data-path");
+		var title = $(this).text();
+		console.log(path+title)
+		addPanel(path, title);
+	});
+}
+
+$(function(){
+	pageJump();
+});
+	
+</script>
+</head>
+<body>
+	<div class="app_top">
+		<div class="app_top_logo">
+			<img src="images/CCGClogo.jpg" height=60px width="auto" /> <span
+				class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
+		</div>
+		<div class="app_top_nav">
+			<ul class="nav topNav">
+				<li class="current"><a href="">首页</a></li>
+				<li><a href="#">数据挖掘</a>
+					<ul class="subNav">
+						<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/dataMine/fusion/action">数据融合</a></li>
+						<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/dataMine/relation/history">状态历史查询</a></li>
+						<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/dataMine/relation/action">关联分析</a></li>
+					</ul></li>
+				<li><a href="#">故障诊断</a>
+					<ul class="subNav">
+						<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/faultDiag/tree/action">故障树诊断</a></li>
+						<li><a>故障预警</a></li>
+					</ul></li>
+				<li><a class="jump" data-path="/BLHPumTurEvaDia/assess/action">状态评估</a></li>
+				<li><a class="jump" data-path="/BLHPumTurEvaDia/dataUpload/upload">
+						文件导入</a></li>
+			</ul>
+			<div class="user">
+				<a href="jsp/login.html"><span class="glyphicon glyphicon-user"></span></a>
+				&nbsp;&nbsp; <a><span class="glyphicon glyphicon-question-sign"></span></a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="tabs" class="easyui-tabs"
+		style="width: 100%; height: 89.5%; position: absolute; top: 9.5%; width: 100%">
+		<div title="首页" style="padding: 1px">
+			<iframe id="home" src="welcome"
+				style="width: 100%; height: 100%; border: none"></iframe>    <!--在固定页头下面 加载其他网页-->
+		</div>
+	</div>
+
+</body>
+</html>

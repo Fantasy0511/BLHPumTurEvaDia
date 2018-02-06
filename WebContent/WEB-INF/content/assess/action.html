@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>白莲河状态评估</title>
+
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/icon.css">
+
+
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/assesment.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/exporting.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/highcharts-more.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/test_drawGuage.js"></script>
+
+<script>
+	function myformatter(date){
+	    var y = date.getFullYear();
+	    var m = date.getMonth()+1;
+	    var d = date.getDate();
+	    return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+	}
+	function myparser(s){
+        if (!s) return new Date();
+        var ss = (s.split('-'));
+        var y = parseInt(ss[0],10);
+        var m = parseInt(ss[1],10);
+        var d = parseInt(ss[2],10);
+        if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+            return new Date(y,m-1,d);
+        } else {
+            return new Date();
+        }
+    }
+//开始评估  
+				
+	function assess() {
+		showMask();   // 显示与隐藏
+		url += makeInput(getComboboxValue("unitNo"));
+		var begin =getDate("beginDate");
+		var system=$("#subSystem").val()
+		$("#label1").html("油系统性能");
+			$("#label2").html("工况性能");
+		if (system=="pum"){
+			$("#label1").html("主轴密封");
+			$("#label2").html("振动信号性能");
+			}
+		var url = "/BLHPumTurEvaDia/asscss/"+system+"-assess";
+		url+=makeInput(begin);
+		console.log(url);
+		var success = function(data) {
+			var view = data.assessView;
+			drawGuage('assement-container', view.topScore);
+			loadData("result_table", view.bottomDetail);
+			drawPic("chart_middle_bar", view.middleBar);
+			setTexts(view);
+		}
+		getJSON(url, success);
+	}
+
+	$(function() {
+		clearText(".easyui-textbox");
+		drawGuage('assement-container', 0);
+		$("#bt_assess").click(assess);     // “开始评估”按钮
+		
+	});
+</script>
+
+</head>
+<body>
+	<div class="input_div" style="margin-bottom: 5px;">
+		<span class="input_title">条件输入：</span> <label for="model">机组：
+		</label> <select id="unitNo" class="easyui-combobox" style="width: 100px;">
+			<option value="1">1#</option>
+			<option value="2">2#</option>
+			<option value="3">3#</option>
+			<option value="4">4#</option>
+		</select> <label for="model">子系统： </label> <select id="subSystem"
+			class="easyui-combobox" style="width: 100px;">
+			<option value="gov">Gov</option>
+			<option value="pum">Pum</option>
+			<option value="ball">ball</option>
+			<option value="exc">Exc</option>
+			<option value="transfer">Transfer</option>
+		</select> <label style="margin-bottom: 5px">时间：</label><input id="beginDate"
+			class="easyui-datebox"
+			data-options="formatter:myformatter,parser:myparser" required
+			style="width: 150px; height: 26px">
+		<div class="control" style="padding-left: 50px">
+			<a id="bt_assess" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'">开始评估</a> <a id="bt_history"
+				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/history">历史数据</a>
+		</div>
+	</div>
+
+	<!--分项评估结果 共 3 项 -->
+
+	<div style="margin-left: auto; margin-right: auto; width: 1110px">
+		<div class="assesment-container">
+			<div id="assement-container"></div>
+			<div class="midDiv-container">
+				<div class="midDiv">
+					<div>
+						<pre class="tt">分项评估结果 共 3 项</pre>
+					</div>
+					<hr />
+					<div class="middle">
+						<img class="middleImg"
+							src="/BLHPumTurEvaDia/images/pages/assessment/ad_oil.png" />
+						<div>
+							<label id="label1" style="margin-bottom: 5px">油系统性能：</label><input
+								id="text_oil_remark" class="easyui-textbox"
+								data-options="readonly:true,editable:false" style="width: 40px" />
+						</div>
+					</div>
+					<div class="middle">
+						<img class="middleImg"
+							src="/BLHPumTurEvaDia/images/pages/assessment/ad_gov1.png" />
+						<div>
+							<label id="label2" style="margin-bottom: 5px">工况性能：</label> <input
+								id="text_condition_remark" class="easyui-textbox"
+								data-options="readonly:true,editable:false" style="width: 40px" />
+						</div>
+
+					</div>
+					<div class="middle">
+						<img class="middleImg"
+							src="/BLHPumTurEvaDia/images/pages/assessment/ad_his.png" />
+						<div>
+							<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
+								id="text_history_remark" class="easyui-textbox"
+								data-options="readonly:true,editable:false" style="width: 40px" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table id="result_table" title="详细评估信息" class="easyui-datagrid"
+			style="width: 550px; height: 450px"
+			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'2px'}">
+			<thead>
+				<tr>
+					<th data-options="field:'name',width:100">计算指标</th>
+					<th data-options="field:'value',width:100">计算值</th>
+				</tr>
+			</thead>
+		</table>
+
+		<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
+			style="width: 550px; height: 450px" style="display:inline;float:left">
+			<div id="chart_middle_bar"></div>
+		</div>
+	</div>
+	<div style="height: 50px"></div>
+</body>
+</html>

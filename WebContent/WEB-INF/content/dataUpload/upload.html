@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/easyui.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<script type="text/javascript">
+function upLoad() {
+	var file =$("#excelId").val();
+	if(file==""){
+		alert("请选择上传文件！");
+		return false;
+	}else{
+		var fileName =document.getElementById("excelId").files[0].name;
+		var url = "/BLHPumTurEvaDia/dataUpload/excelToDb?fileName="+fileName;
+		console.log(url);
+		$('form').attr('action',url);
+		alert('上传成功');
+	}
+	
+}
+$(function() {
+	$("#uploadBtn").click(upLoad);
+})
+</script>
+<body>
+
+	<div class="panel panel-primary" style=" width: 25%; height: 300px" > <!-- 插入panel -->
+	  <div class="panel-heading" > 上传文件</div>
+	  <div class="panel-body" style="height: 70px">
+	  
+	  <div class="col-md-7">
+	    <form method="post" enctype="multipart/form-data">
+			<input type="file" id="excelId" name="excel"
+				accept="application/vnd.ms-excel"> 
+		</form>
+	  </div>	
+		
+	  <div class="col-md-2" >	
+		<input type="submit"  id="uploadBtn" value="上传">
+	  </div>
+		
+	  </div>
+	</div>
+
+</body>
+</html>

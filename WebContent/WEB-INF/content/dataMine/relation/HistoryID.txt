@@ -1,0 +1,5 @@
+﻿【查询】按键的                                  id=btn_query
+历史运行状态数据中的表的               id=historyTable
+故障图1放在                                       “id=container1”
+故障图2放在                                       “id=container2”
+子系统选择栏（ball等）                id=subSystem
