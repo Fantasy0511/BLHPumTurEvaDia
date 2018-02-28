@@ -11,6 +11,7 @@
 	<error-code>404</error-code>
 	<location>/jsp/404.html</location>
 	</error-page>
+	
 	<filter>
 	<filter-name>struts2</filter-name>
 	<filter-class>
