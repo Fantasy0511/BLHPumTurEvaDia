@@ -27,4 +27,5 @@
 10、在BaseDAO里面加了两句：String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; //加载JDBC驱动
                        Class.forName(driverName);   --贾天龙
                        
-11、  git小测试，丢弃svn吧                       
+11、  git小测试，丢弃svn吧           
+12、2018            
