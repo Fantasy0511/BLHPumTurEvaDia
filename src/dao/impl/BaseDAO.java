@@ -29,7 +29,7 @@ public class BaseDAO implements IBaseDAO{
 
 	private void getConnection() throws ClassNotFoundException{//建立数据库连接
 		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; //加载JDBC驱动
-        String url = "jdbc:sqlserver://218.197.228.63;DatabaseName=lianxuDB;";
+        String url = "jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;";
         try {
             // 连接数据库
         	Class.forName(driverName);    //后加的一句

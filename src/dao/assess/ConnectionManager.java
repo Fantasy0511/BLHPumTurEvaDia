@@ -14,10 +14,10 @@ public final class ConnectionManager {
 	private ConnectionManager() throws SQLException, PropertyVetoException {
 		dataSource = new ComboPooledDataSource();
 
-		dataSource.setUser("sa"); // 用户名
-		dataSource.setPassword("123456"); // 密码
+		dataSource.setUser("user04"); // 用户名
+		dataSource.setPassword("lianxu"); // 密码
 		dataSource.setJdbcUrl(
-				"jdbc:sqlserver://218.197.228.63:1433;DatabaseName=lianxuDB;");// 数据库地址
+				"jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;");// 数据库地址
 		dataSource
 				.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		dataSource.setInitialPoolSize(6); // 初始化连接数

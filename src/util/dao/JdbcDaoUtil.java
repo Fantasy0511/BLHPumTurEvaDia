@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class JdbcDaoUtil extends JdbcDaoSupport {
 	private static String CONFIG_DRIVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static String CONFIG_URL = "jdbc:sqlserver://218.197.228.63:1433;DatabaseName=lianxuDB;";
+	private static String CONFIG_URL = "jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;";
 	private static String CONFIG_USER_NAME = "user04";
 	private static String CONFIG_PASSWORD = "lianxu";
 	private static DataSource dataSource = null;
