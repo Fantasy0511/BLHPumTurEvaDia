@@ -89,12 +89,16 @@ public class ReadData implements IBaseDAO{
 	/**
 	 * 查询特定系统的故障信息
 	 * */
+	public ArrayList<FaultUtils> queFault(String system,Long startTime,Long endTime){
+		BaseDAO database = new BaseDAO();
+		ArrayList<FaultUtils> faults = database.queFault(system,startTime,endTime);
+		return faults;
+	}
 	public ArrayList<FaultUtils> queFault(String system){
 		BaseDAO database = new BaseDAO();
 		ArrayList<FaultUtils> faults = database.queFault(system);
 		return faults;
 	}
-	
 
 
 }
