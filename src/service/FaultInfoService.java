@@ -19,9 +19,9 @@ public class FaultInfoService {
 	/**
 	 * 获取指定子系统的所有故障样本,参数中的code已转化为中文
 	 * */
-	public List<FaultUtils> getFaultInfos(String system){
+	public List<FaultUtils> getFaultInfos(String system,Long startTime,Long endTime){
 		ReadData rd = new ReadData();
-		List<FaultUtils> faultInfos= rd.queFault(system);
+		List<FaultUtils> faultInfos= rd.queFault(system,startTime,endTime);
 		HashMap<String, DataInfo> maps = rd.queInfo();
 		for(FaultUtils faultInfo:faultInfos){
 			String[] parameters = faultInfo.getParamters().split(" ");

@@ -106,10 +106,10 @@ var drawGuage = function (id,scores){
 		            color: '#F7D253' // yellow
 		        }, {
 		            from: 60,
-		            to: 80,
+		            to: 90,
 		            color: '#4AC5F8' // blue
 		        }, {
-		            from: 80,
+		            from: 90,
 		            to: 100,
 		            color: '#42E9B6' // green
 		        }]        

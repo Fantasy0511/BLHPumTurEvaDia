@@ -51,8 +51,11 @@
 	function queryHistory() { //queryHistory()查询方法
 		table.destroy(); //表格销毁
 		var system = $("#subSystem option:selected").text(); //把前端选择的子系统传给“system”
+		var starTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		
 		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
-				    + system; //将某个子系统历史数据的地址传给url1
+				    + system+"//"+starTime+"//"+endTime ; //将某个子系统历史数据的地址传给url1
 		console.log(url1);//传递成功显示“url1”
 
 		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
@@ -156,11 +159,11 @@
 			<div align="left" id="showDiv">
 				<form action="" class="form-inline" role="form">
 					<div class="col-sm-3 form-group" style="margin-right: -60px">
-						<label for="dtp_input2" class="control-label">开始时间&nbsp;</label>
+						<label for="dtp_input2"  class="control-label">开始时间&nbsp;</label>
 
 						<div class="input-group date form_date col-md-7" data-date=""
 							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" placeholder="点击选择"
+							<input style="background-color: #ffffff" id="startTime" placeholder="点击选择"
 								class="form-control" size="16" type="text" value="" readonly>
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-calendar"></span></span>
@@ -172,7 +175,7 @@
 
 						<div class="input-group date form_date col-md-7" data-date=""
 							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" placeholder="点击选择"
+							<input style="background-color: #ffffff" id="endTime" placeholder="点击选择"
 								class="form-control" size="16" type="text" value="" readonly>
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-calendar"></span></span>
