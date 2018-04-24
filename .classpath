@@ -66,11 +66,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xstream-1.4.8.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/c3p0-0.9.0.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mchange-commons-java-0.2.3.4.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0 (3)">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web;#system#"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
