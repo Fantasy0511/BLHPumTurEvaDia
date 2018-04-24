@@ -51,7 +51,7 @@
 					<div class="col-sm-2 form-group" style="margin-right: -50px">
 						<label class="control-label" for="unitNo"> 机组选择 &nbsp;</label>
 
-						<div class="col-sm-4 input-group" id="unitNo">
+						<div class="col-sm-5 input-group" id="unitNo">
 							<select class="form-control">
 								<option>1#</option>
 								<option>2#</option>
@@ -99,11 +99,11 @@
 
 						<div class="col-sm-6 input-group">
 							<select class="form-control" id="subSystem">
-								<option>ball</option>
-								<option>Exc</option>
-								<option>Gov</option>
-								<option>Pum</option>
-								<option>Transfer</option>
+								<option value="Gov">调速器系统</option>
+								<option value="Pum">水泵水轮机系统</option>
+								<option value="ball">球阀系统</option>
+								<option value="Exc">发电机及励磁系统</option>
+								<option value="Transfer">主变系统</option>
 							</select>
 						</div>
 					</div>
@@ -244,12 +244,25 @@ var graph = {
 -->
 	<script type="text/javascript">
 	//开始挖掘方法
-	var relationTable = $('#relationTable').DataTable();
+	var relationTable = $('#relationTable').DataTable({
+		"sPaginationType": "simple_numbers",
+        "oLanguage": {
+        "sZeroRecords": "抱歉， 没有找到",
+        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+        "sInfoEmpty": "没有数据",
+		"sLengthMenu": "每页显示 _MENU_ 条记录",
+		"sSearch": "模糊查询:  ",
+        "oPaginate": {
+            "sPrevious": "前一页",
+            "sNext": "后一页",
+        	}
+        },
+	});
 	function beginDateMine(){
 		relationTable.destroy();
 		var minConfidence=$("#minConfidence").val();
 		var minSupport =$("#minSupport").val();
-		var subSystem=$("#subSystem option:selected").text();
+		var subSystem=$("#subSystem").val();
 		console.log(subSystem);
 		console.log(minSupport);
 		var urlAction="/BLHPumTurEvaDia/datamine/relation/relation";
@@ -265,7 +278,19 @@ var graph = {
 				columns:[
 					{ "data": "deviceType" },
 					{ "data": "deviceState" }
-				]
+				],
+				"sPaginationType": "simple_numbers",
+		        "oLanguage": {
+		        "sZeroRecords": "抱歉， 没有找到",
+		        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+		        "sInfoEmpty": "没有数据",
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sSearch": "模糊查询:  ",
+		        "oPaginate": {
+		            "sPrevious": "前一页",
+		            "sNext": "后一页",
+		        	}
+		        },
 			});
 			var categories = [];
 			var cats=["全场数据","1号机组","2号机组","3号机组","4号机组"]
@@ -292,7 +317,7 @@ var graph = {
 	    tooltip: {
 	        formatter: function (params, ticket, callback) {//回调函数
 	            var str = appendPath(graph.nodes[params.dataIndex].id);
-	            document.getElementById("div1").innerHTML = str;
+	        	document.getElementById("div1").innerHTML = str;
 	            return str;//
 	        }
 	    },
@@ -351,11 +376,24 @@ var graph = {
 	}
 	});
 }
-var table = $('#historyTable').DataTable();	
+var table = $('#historyTable').DataTable({
+	"sPaginationType": "simple_numbers",
+    "oLanguage": {
+    "sZeroRecords": "抱歉， 没有找到",
+    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+    "sInfoEmpty": "没有数据",
+	"sLengthMenu": "每页显示 _MENU_ 条记录",
+	"sSearch": "模糊查询:  ",
+    "oPaginate": {
+        "sPrevious": "前一页",
+        "sNext": "后一页",
+    	}
+    },
+});	
 function viewFrequentItem(){
 	table.destroy();
 	var minSupport =$("#minSupport").val();
-	var subSystem=$("#subSystem option:selected").text();
+	var subSystem=$("#subSystem").val();
 	console.log(subSystem);
 	console.log(minSupport);
 	var urlAction="/BLHPumTurEvaDia/datamine/relation/view-frequent";

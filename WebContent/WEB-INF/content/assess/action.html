@@ -9,8 +9,6 @@
 	href="/BLHPumTurEvaDia/js/assess/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/js/assess/icon.css">
-
-
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/assesment.css">
 <link rel="stylesheet" type="text/css"
@@ -95,27 +93,37 @@
 </head>
 <body>
 	<div class="input_div" style="margin-bottom: 5px;">
-		<span class="input_title">条件输入：</span> <label for="model">机组：
-		</label> <select id="unitNo" class="easyui-combobox" style="width: 100px;">
+		<span class="input_title">条件输入：</span> 
+		<label for="model">机组：</label> 
+		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
 			<option value="1">1#</option>
 			<option value="2">2#</option>
 			<option value="3">3#</option>
 			<option value="4">4#</option>
-		</select> <label for="model">子系统： </label> <select id="subSystem"
-			class="easyui-combobox" style="width: 100px;">
-			<option value="gov">Gov</option>
-			<option value="pum">Pum</option>
-			<option value="ball">ball</option>
-			<option value="exc">Exc</option>
-			<option value="transfer">Transfer</option>
-		</select> <label style="margin-bottom: 5px">时间：</label><input id="beginDate"
+		</select> 
+		<label for="model">子系统： </label> 
+		
+		<select id="subSystem"
+			class="easyui-combobox" style="width: 120px;">
+			<option value="gov">球阀系统</option>
+			<option value="pum">发电机及励磁系统</option>
+			<option value="ball">调速器系统</option>
+			<option value="exc">主变系统</option>
+			<option value="transfer">水泵水轮机</option>
+		</select> 
+		
+		<label style="margin-bottom: 5px">时间：</label>
+		<input id="beginDate"
 			class="easyui-datebox"
 			data-options="formatter:myformatter,parser:myparser" required
 			style="width: 150px; height: 26px">
 		<div class="control" style="padding-left: 50px">
 			<a id="bt_assess" href="#" class="easyui-linkbutton"
-				data-options="iconCls:'icon-ok'">开始评估</a> <a id="bt_history"
+				data-options="iconCls:'icon-ok'">开始评估</a> 
+			<a id="bt_history"
 				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/history">历史数据</a>
+			<a id="bt_ahp"
+				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/ahp">层次分析</a>
 		</div>
 	</div>
 

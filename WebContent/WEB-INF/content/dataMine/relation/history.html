@@ -50,7 +50,7 @@
 	var table = $('#historyTable').DataTable();//jQuery dataTable（表格解决方案）的初始化
 	function queryHistory() { //queryHistory()查询方法
 		table.destroy(); //表格销毁
-		var system = $("#subSystem option:selected").text(); //把前端选择的子系统传给“system”
+		var system = $("#subSystem option:selected").val(); //把前端选择的子系统传给“system”
 		var starTime = $("#startTime").val();
 		var endTime = $("#endTime").val();
 		
@@ -60,6 +60,9 @@
 
 		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
 		table = $('#historyTable').DataTable({             /* json数组 */
+			"iDisplayLength": 5,
+	        "lengthMenu": [[5, 15, 25, -1], [5, 15, 25, "所有"]],
+
 			ajax : {url : url1},
 			columns : [ 
 				{"data" : "faultID"},//JSON语句+数组               columns:纵列
@@ -80,7 +83,24 @@
 					return '<a>' + row.paramters + '</a>';
 				},
 				"targets" : 7//targets参数设置一个列或者多列
-			} ]
+			} ],
+			"sPaginationType": "simple_numbers",
+	        "oLanguage": {
+	            "sProcessing": "<img src='/images/datatable_loading.gif'>  努力加载数据中.",
+	            "sLengthMenu": "每页显示 _MENU_ 条记录",
+	            "sZeroRecords": "抱歉， 没有找到",
+	            "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+	            "sInfoEmpty": "没有数据",
+	            "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+	            //"sZeroRecords": "没有检索到数据",
+	            "sSearch": "模糊查询:  ",
+	            "oPaginate": {
+	                
+	                "sPrevious": "前一页",
+	                "sNext": "后一页",
+	                
+	            }
+	        },
 		});
 	}
 
@@ -105,6 +125,7 @@
 					var para = data.paramters; //将选中那行的元素--参数传给“para”
 					console.log(para); //传递成功显示“para”
 					var titleChart = para.split(" ");
+					
 					url = url + start + "//" + end
 					+ "//" + para; //重新定义了传入地址url
 					console.log(url);
@@ -113,13 +134,11 @@
 					$.getJSON(url,
 							function(result) { //调用url地址json数据，加载成功执行回调函数result
 									options1.series[0].data = result.data1.value;
-									options1.title.text = titleChart[0];
-									chart1 = new Highcharts.Chart(
-											options1);
-											options2.title.text = titleChart[1];
+									options1.series[0].name = titleChart[0];
+									chart1 = new Highcharts.Chart(options1);
+											options2.series[0].name = titleChart[1];
 											options2.series[0].data = result.data2.value;
-											chart2 = new Highcharts.Chart(
-											options2);
+											chart2 = new Highcharts.Chart(options2);
 											chart1.series[0]
 												.update(options1.series[0].data);
 													});
@@ -130,22 +149,75 @@
 											type : 'spline'
 											},
 											series : [ {} ],
-											title : {},
+											title : null,
+											xAxis: {
+										        lineWidth: 2,
+										        lineColor:'black',
+										        gridLineColor:'#A0A0A0',
+										        gridLineDashStyle:'dash',
+										        minorGridLineWidth: 0,
+										        minorTickLength:5,
+										        minorTickInterval: 'auto',
+										        minorTickPosition: 'outside',
+										        minorTickWidth: 1
+										    },
+										    yAxis: {
+										    	title:{
+										    		text:null
+										    	},
+										        lineWidth: 2,
+										        lineColor:'black',
+										        gridLineColor:'#A0A0A0',
+										        gridLineDashStyle:'dash',
+										        minorGridLineWidth: 0,
+										        minorTickLength:5,
+										        minorTickInterval: 'auto',
+										        minorTickPosition: 'outside',
+										        minorTickWidth: 1
+										    },
 											credits : {
 											enabled : false
 												}
 											};
+									
 								    var options2 = {
 										 chart : {
 											 renderTo : 'container2', //生成的故障图2扔进“container2”里
 											  type : 'spline'
 												},
 												series : [ {} ],
-												title : {},
+												title : null,
+												xAxis: {
+											        lineWidth: 2,
+											        lineColor:'black',
+											        gridLineColor:'#A0A0A0',
+											        gridLineDashStyle:'dash',
+											        minorGridLineWidth: 0,
+											        minorTickLength:5,
+											        minorTickInterval: 'auto',
+											        minorTickPosition: 'outside',
+											        minorTickWidth: 1
+											    },
+											    yAxis: {
+											    	title:{
+											    		text:null
+											    	},
+											        lineWidth: 2,
+											        lineColor:'black',
+											        gridLineColor:'#A0A0A0',
+											        gridLineDashStyle:'dash',
+											        minorGridLineWidth: 0,
+											        minorTickLength:5,
+											        minorTickInterval: 'auto',
+											        minorTickPosition: 'outside',
+											        minorTickWidth: 1
+											    },
+											    
 												credits : {
 													enabled : false
 												}
 											};
+								                       
 										});
 					});
 	$(function() {
@@ -188,11 +260,11 @@
 
 						<div class="col-sm-6 input-group">
 							<select class="form-control" id="subSystem">
-								<option>ball</option>
-								<option>Exc</option>
-								<option>Gov</option>
-								<option>Pum</option>
-								<option>Transfer</option>
+								<option>球阀系统</option>
+								<option>发电机及励磁系统</option>
+								<option>调速器系统</option>
+								<option>主变系统</option>
+								<option>水泵水轮机</option>
 							</select>
 						</div>
 					</div>
