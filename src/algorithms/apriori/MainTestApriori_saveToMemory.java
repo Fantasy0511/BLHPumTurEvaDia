@@ -51,10 +51,10 @@ public class MainTestApriori_saveToMemory {
 		long endTime=System.currentTimeMillis(); //获取结束时间
 		System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
 		*/
-		saveDatabase("src/items_Pum.txt","水泵水轮机");//103kb
-		saveDatabase("src/items_Exc.txt","发电机及励磁系统");
-		saveDatabase("src/items_Transfer.txt","主变系统");
-		saveDatabase("src/items_Gov.txt","调速器系统");
+		saveDatabase("src/items_Pum.txt","Pum");//103kb
+		saveDatabase("src/items_Exc.txt","Exc");
+		saveDatabase("src/items_Transfer.txt","Transfer");
+		saveDatabase("src/items_Gov.txt","Gov");
 	}
 	
 	

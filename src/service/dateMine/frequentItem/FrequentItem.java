@@ -22,12 +22,21 @@ public class FrequentItem {
 		super();
 	}
 
-	public FrequentItem getFrequentItem(String system, int frequent)
-			throws IOException {
-		// BufferedReader in = new BufferedReader(
-		// new FileReader("src/" + system + ".txt"));
-		BufferedReader in = new BufferedReader(new FileReader(
-				PathUtil.getWebRealBasePath() + "data/" + system + ".txt"));
+	public static void main(String[] args) {
+		try {
+			FrequentItem frequentItem = new FrequentItem().getFrequentItem("Gov", 4);
+			List<String> list = frequentItem.getItems();
+			System.out.println(list.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public FrequentItem getFrequentItem(String system, int frequent) throws IOException {
+		@SuppressWarnings("resource")
+		BufferedReader in = new BufferedReader(
+				new FileReader(PathUtil.getWebRealBasePath() + "data/" + system +".txt"));
 		String line = null;
 		FrequentItem fItem = new FrequentItem();
 		while ((line = in.readLine()) != null) {
@@ -53,6 +62,7 @@ public class FrequentItem {
 	}
 
 	public static String getSupport(String string) {
+		@SuppressWarnings("unused")
 		List<String> frqItems = new ArrayList<>();
 		String[] strs = string.split("  ");
 		return strs[0].split(" ")[1];

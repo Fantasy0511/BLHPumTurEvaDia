@@ -28,8 +28,8 @@ public class QueryFaultHistoryAction extends AbstractActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		system = SystemConvert.valueOf(getFirstInput()).getSystem();
-		System.out.println(getSecondInput());
+		system = getFirstInput();
+		System.out.println(getFirstInput());
 		startTime=TimeUtils.StringtoLong(getSecondInput()+" 00:00:00");
 		endTime=TimeUtils.StringtoLong(getThirdInput()+" 00:00:00");
 		System.out.println(system+","+startTime);

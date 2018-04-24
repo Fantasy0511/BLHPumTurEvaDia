@@ -17,7 +17,6 @@ import service.dateMine.frequentItem.FrequentItem;
 public class ViewFrequentAction extends AbstractActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private FrequentItem frequentItem;
 	private String system;
 	private int frequent;
 	private String result;
@@ -26,11 +25,12 @@ public class ViewFrequentAction extends AbstractActionSupport {
 	public String execute() throws Exception {
 		system = getFirstInput();
 		frequent = Integer.parseInt(getSecondInput());
-		frequentItem = new FrequentItem().getFrequentItem(system, frequent);
+		System.out.println(system + "   " + frequent);
+		FrequentItem frequentItem = new FrequentItem().getFrequentItem(system, frequent);
+		System.out.println(frequentItem);
 		List<String> list = frequentItem.getItems();
-		for (String string : list) {
-			result = result + " ;"+string;
-		}
+		System.out.println(list.toString());
+		result=list.toString().replaceAll(",", " ; ").replace("[", "").replace("]", "");
 		return super.execute();
 	}
 
