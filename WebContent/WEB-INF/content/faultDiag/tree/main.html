@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>assessment main</title>
+
+<link rel="icon" href="/BLHPumTurEvaDia/images/ico.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/icon.css">
+
+<script src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var map = {
+			0 : {
+				init : false,
+				id : "item0",
+				url : "/BLHPumTurEvaDia/faultDiag/tree/action"
+			},
+			1 : {
+				init : false,
+				id : "item1",
+				url : "/BLHPumTurEvaDia/faultDiag/tree/test"
+			}
+		};
+		$("#tabs").tabs({
+			onSelect : function(title, index) {
+				var item = map[index];
+				if (item.init == true) {
+					return;
+				} else {
+					$("#" + item.id).attr("src", item.url);
+					item.init = true;
+				}
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="tabs" class="easyui-tabs"
+		data-options="fit:true,tabPosition:'left',tabWidth:146,tabHeight:60">
+		<div
+			title="<table><tr><td align='center' valign='middle'> <img src='/BLHPumTurEvaDia/images/modem.png'/></td><td align='center' valign='middle'>调速系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item0" src="/BLHPumTurEvaDia/faultDiag/tree/action"
+				style="width: 100%; height: 100%; border: none"></iframe>
+		</div>
+		<div
+			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>水泵水轮机系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item1" src="/BLHPumTurEvaDia/faultDiag/tree/test"
+			style="width: 100%; height: 100%; border: none"></iframe>
+		</div>
+	</div>
+</body>
+</html>
