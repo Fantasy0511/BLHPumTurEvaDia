@@ -62,8 +62,8 @@
 		table = $('#historyTable').DataTable({             /* json数组 */
 			"iDisplayLength": 5,
 	        "lengthMenu": [[5, 15, 25, -1], [5, 15, 25, "所有"]],
-
-			ajax : {url : url1},
+			"bAutoWidth":true,
+	        ajax : {url : url1},
 			columns : [ 
 				{"data" : "faultID"},//JSON语句+数组               columns:纵列
 				{"data" : "system"}, 
@@ -95,10 +95,8 @@
 	            //"sZeroRecords": "没有检索到数据",
 	            "sSearch": "模糊查询:  ",
 	            "oPaginate": {
-	                
 	                "sPrevious": "前一页",
 	                "sNext": "后一页",
-	                
 	            }
 	        },
 		});
@@ -269,7 +267,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-4 form-group">
+					<div class="col-md-3 form-group">
 						<button type="button" class="btn btn-primary" id="btn_query">查询</button>
 						<!--查询按键的id=btn_query-->
 					</div>
@@ -279,8 +277,8 @@
 	</div>
 
 	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
+		<div class="panel panel-default" >
+			<div class="panel-heading" style="width:100%">
 				<b><i class="glyphicon glyphicon glyphicon-edit">历史运行状态数据</i></b>
 			</div>
 			<div>
