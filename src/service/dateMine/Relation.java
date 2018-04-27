@@ -1,6 +1,7 @@
 package service.dateMine;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -46,9 +47,11 @@ public class Relation {
 	 * @param confidence
 	 *            置信度，建议大于0.6
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	public List<node> getNodes(String system, double confidence)
-			throws IOException {
+			throws IOException, ClassNotFoundException, SQLException {
 		FPTree fptree = new FPTree(confidence);
 		System.out.println(PathUtil.getWebRealBasePath());
 		// List<List<String>> transactions = fptree

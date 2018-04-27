@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,8 +43,10 @@ public class DataProcess {
 	
 	/**
 	 * 根据开始、结束时间获得离散后的事务
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static int[] getItem(ReadData readDB,String startstr,String endstr,DataDiscrete discrete){		
+	private static int[] getItem(ReadData readDB,String startstr,String endstr,DataDiscrete discrete) throws ClassNotFoundException, SQLException{		
 		ArrayList<DataUtils> datas = readDB.queAllRecord(startstr, endstr);
 		List<Integer> item = new ArrayList<>();
 		for(int i=0;i<datas.size();i++){
@@ -73,8 +76,10 @@ public class DataProcess {
 	
 	/**
 	 * 获得所有故障样本的时间段
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static ArrayList<String> getTimes(ReadData readDB){
+	private static ArrayList<String> getTimes(ReadData readDB) throws ClassNotFoundException, SQLException{
 		ArrayList<FaultUtils> faults = readDB.queFault();
 		ArrayList<String> times = new ArrayList<>();
 		for(FaultUtils fault:faults){
@@ -88,8 +93,10 @@ public class DataProcess {
 	
 	/**
 	 * 获得指定系统故障样本的时间段
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static ArrayList<String> getTimes(ReadData readDB,String system){
+	private static ArrayList<String> getTimes(ReadData readDB,String system) throws ClassNotFoundException, SQLException{
 		ArrayList<FaultUtils> faults = readDB.queFault(system);
 		ArrayList<String> times = new ArrayList<>();
 		for(FaultUtils fault:faults){
@@ -103,8 +110,10 @@ public class DataProcess {
 	
 	/**
 	 * 把离散后的所有故障样本整合到一起，存放入txt中
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static void saveDatabase(String savefile,String system) throws IOException{
+	private static void saveDatabase(String savefile,String system) throws IOException, ClassNotFoundException, SQLException{
 		ReadData readDB = new ReadData();
 		ArrayList<String> times=null;
 		if(system.equals("all")){
@@ -130,7 +139,7 @@ public class DataProcess {
 		writer.close();
 	}
 	
-	static void saveItemsinString(String path,List<Itemset> itemsets) throws IOException{
+	static void saveItemsinString(String path,List<Itemset> itemsets) throws IOException, ClassNotFoundException, SQLException{
 		DataDiscrete discrete = new DataDiscrete();
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(path));

@@ -34,6 +34,10 @@ public class BaseDAO implements IBaseDAO {
 		conn = DriverManager.getConnection(url, "user04", "lianxu");
 	}
 
+	public BaseDAO() throws ClassNotFoundException, SQLException {
+		getConnection();
+	}
+
 	private void closeAll() {// 关闭数据库连接
 		try {
 			if (rs != null) {
@@ -65,6 +69,9 @@ public class BaseDAO implements IBaseDAO {
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
@@ -92,12 +99,6 @@ public class BaseDAO implements IBaseDAO {
 	 * 查询时间段内的所有数据
 	 */
 	public ArrayList<DataUtils> queAllRecord(long starttime, long endtime) {
-		try {
-			getConnection();
-		} catch (ClassNotFoundException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		ArrayList<String> bool_sqls = getSQL("bool", starttime, endtime);
 		ArrayList<String> float_sqls = getSQL("float", starttime, endtime);
 		ArrayList<String> double_sqls = getSQL("double", starttime, endtime);
@@ -186,12 +187,6 @@ public class BaseDAO implements IBaseDAO {
 		System.out.println(sql);
 		DataInfo datainfo = null;
 		try {
-			getConnection();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -224,12 +219,6 @@ public class BaseDAO implements IBaseDAO {
 		String sql = "select * from InfoTable" + " ORDER BY typeid ASC";
 		System.out.println(sql);
 		HashMap<String, DataInfo> maps = new HashMap<String, DataInfo>();
-		try {
-			getConnection();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -265,12 +254,6 @@ public class BaseDAO implements IBaseDAO {
 		System.out.println(sql);
 		ArrayList<FaultUtils> faults = new ArrayList<>();
 		try {
-			getConnection();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -305,12 +288,6 @@ public class BaseDAO implements IBaseDAO {
 		System.out.println("fuck" + sql);
 		ArrayList<FaultUtils> faults = new ArrayList<>();
 		try {
-			getConnection();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -339,12 +316,6 @@ public class BaseDAO implements IBaseDAO {
 				+ " ORDER BY StartTime ASC";
 		System.out.println("fuck" + sql);
 		ArrayList<FaultUtils> faults = new ArrayList<>();
-		try {
-			getConnection();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);

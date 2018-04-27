@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import util.TypeNums;
  */
 public class MainTestApriori_saveToMemory {
 
-	public static void main(String[] arg) throws IOException {
+	public static void main(String[] arg) throws IOException, ClassNotFoundException, SQLException {
 
 		
 		/*
@@ -60,8 +61,10 @@ public class MainTestApriori_saveToMemory {
 	
 	/**
 	 * 根据开始、结束时间获得离散后的事务
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static int[] getItem(ReadData readDB,String startstr,String endstr,DataDiscrete discrete){		
+	private static int[] getItem(ReadData readDB,String startstr,String endstr,DataDiscrete discrete) throws ClassNotFoundException, SQLException{		
 		ArrayList<DataUtils> datas = readDB.queAllRecord(startstr, endstr);
 		List<Integer> item = new ArrayList<>();
 		for(int i=0;i<datas.size();i++){
@@ -93,8 +96,10 @@ public class MainTestApriori_saveToMemory {
 	
 	/**
 	 * 获得所有故障样本的时间段
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static ArrayList<String> getTimes(ReadData readDB){
+	private static ArrayList<String> getTimes(ReadData readDB) throws ClassNotFoundException, SQLException{
 		ArrayList<FaultUtils> faults = readDB.queFault();
 		ArrayList<String> times = new ArrayList<>();
 		for(FaultUtils fault:faults){
@@ -108,8 +113,10 @@ public class MainTestApriori_saveToMemory {
 	
 	/**
 	 * 获得指定系统故障样本的时间段
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static ArrayList<String> getTimes(ReadData readDB,String system){
+	private static ArrayList<String> getTimes(ReadData readDB,String system) throws ClassNotFoundException, SQLException{
 		ArrayList<FaultUtils> faults = readDB.queFault(system);
 		ArrayList<String> times = new ArrayList<>();
 		for(FaultUtils fault:faults){
@@ -123,8 +130,10 @@ public class MainTestApriori_saveToMemory {
 	
 	/**
 	 * 把离散后的所有故障样本整合到一起，存放入txt中
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	private static void saveDatabase(String savefile,String system) throws IOException{
+	private static void saveDatabase(String savefile,String system) throws IOException, ClassNotFoundException, SQLException{
 		ReadData readDB = new ReadData();
 		ArrayList<String> times = getTimes(readDB,system); 
 		DataDiscrete discrete = new DataDiscrete();
@@ -144,7 +153,7 @@ public class MainTestApriori_saveToMemory {
 		writer.close();
 	}
 	
-	private static void saveItemsinString(String path,Itemsets result,int databasesize) throws IOException{
+	private static void saveItemsinString(String path,Itemsets result,int databasesize) throws IOException, ClassNotFoundException, SQLException{
 		DataDiscrete discrete = new DataDiscrete();
 		
 		List<List<Itemset>> levels = result.getLevels();//通过一层层遍历level即可获得所需

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,9 +42,11 @@ public class FPTree
 	 * 加载事务数据库  
 	 * @param file 文件路径名  文件中每行item由空格分隔
 	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException
 	{
 		String[] systems = new String[]{"ball","Exc","Gov","Pum","Transfer"};
 		int index = 3;

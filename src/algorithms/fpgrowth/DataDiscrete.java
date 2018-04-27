@@ -1,5 +1,6 @@
 package algorithms.fpgrowth;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -26,7 +27,7 @@ public class DataDiscrete {
 	 * 离散化bool表里读出的数据
 	 * */
 	private HashMap<String, DataInfo> maps;
-	public DataDiscrete(){
+	public DataDiscrete() throws ClassNotFoundException, SQLException{
 		ReadData readDB = new ReadData();
 		this.maps = readDB.queInfo();
 	}

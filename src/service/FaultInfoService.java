@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,8 +19,10 @@ public class FaultInfoService {
 	
 	/**
 	 * 获取指定子系统的所有故障样本,参数中的code已转化为中文
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * */
-	public List<FaultUtils> getFaultInfos(String system,Long startTime,Long endTime){
+	public List<FaultUtils> getFaultInfos(String system,Long startTime,Long endTime) throws ClassNotFoundException, SQLException{
 		ReadData rd = new ReadData();
 		List<FaultUtils> faultInfos= rd.queFault(system,startTime,endTime);
 		HashMap<String, DataInfo> maps = rd.queInfo();
@@ -36,8 +39,11 @@ public class FaultInfoService {
 	
 	/**
 	 * 获取参数在故障时间范围内的值
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws NumberFormatException 
 	 * */
-	public DataUtils getData(String typeid,String startTime,String endTime){
+	public DataUtils getData(String typeid,String startTime,String endTime) throws NumberFormatException, ClassNotFoundException, SQLException{
 		ReadData rd = new ReadData();
 		String pattern = "(\\D*)(\\d+)(.*)";
 		Pattern r = Pattern.compile(pattern);
