@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,8 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 
 import dao.IBaseDAO;
+import util.ConfigReadUtil;
 import util.DataInfo;
 import util.DataUtils;
 import util.FaultUtils;
@@ -25,17 +28,32 @@ public class BaseDAO implements IBaseDAO {
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-
-	public void getConnection() throws ClassNotFoundException, SQLException {// 建立数据库连接
-		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; // 加载JDBC驱动
-		String url = "jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;";
-		// 连接数据库
-		Class.forName(driverName); // 后加的一句
-		conn = DriverManager.getConnection(url, "user04", "lianxu");
-	}
+	private static String CONFIG_DRIVER_CLASS_NAME;
+	private static String CONFIG_URL;
+	private static String CONFIG_USER_NAME;
+	private static String CONFIG_PASSWORD;
 
 	public BaseDAO() throws ClassNotFoundException, SQLException {
 		getConnection();
+	}
+
+	{
+		try {
+			Properties properties = ConfigReadUtil.config("db_config");
+			CONFIG_DRIVER_CLASS_NAME = properties
+					.getProperty("DRIVER_CLASS_NAME");
+			CONFIG_URL = properties.getProperty("URL");
+			CONFIG_USER_NAME = properties.getProperty("USER_NAME");
+			CONFIG_PASSWORD = properties.getProperty("PASSWORD");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void getConnection() throws ClassNotFoundException, SQLException {
+		Class.forName(CONFIG_DRIVER_CLASS_NAME);
+		conn = DriverManager.getConnection(CONFIG_URL, CONFIG_USER_NAME,
+				CONFIG_PASSWORD);
 	}
 
 	private void closeAll() {// 关闭数据库连接
