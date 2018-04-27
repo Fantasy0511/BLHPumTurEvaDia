@@ -26,17 +26,12 @@ public class BaseDAO implements IBaseDAO {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 
-	private void getConnection() throws ClassNotFoundException {// 建立数据库连接
+	public void getConnection() throws ClassNotFoundException, SQLException {// 建立数据库连接
 		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; // 加载JDBC驱动
 		String url = "jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;";
-		try {
-			// 连接数据库
-			Class.forName(driverName); // 后加的一句
-			conn = DriverManager.getConnection(url, "user04", "lianxu");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("数据库连接失败");
-		}
+		// 连接数据库
+		Class.forName(driverName); // 后加的一句
+		conn = DriverManager.getConnection(url, "user04", "lianxu");
 	}
 
 	private void closeAll() {// 关闭数据库连接
@@ -63,7 +58,8 @@ public class BaseDAO implements IBaseDAO {
 	/**
 	 * 查询时间段内的id值与对应的时间
 	 */
-	public DataUtils queRecord(String table, int id, long starttime, long endtime) {
+	public DataUtils queRecord(String table, int id, long starttime,
+			long endtime) {
 		try {
 			getConnection();
 		} catch (ClassNotFoundException e1) {
@@ -105,7 +101,8 @@ public class BaseDAO implements IBaseDAO {
 		ArrayList<String> bool_sqls = getSQL("bool", starttime, endtime);
 		ArrayList<String> float_sqls = getSQL("float", starttime, endtime);
 		ArrayList<String> double_sqls = getSQL("double", starttime, endtime);
-		int boolnums = TypeNums.BOOL.getNums(), doublenums = TypeNums.DOUBLE.getNums(),
+		int boolnums = TypeNums.BOOL.getNums(),
+				doublenums = TypeNums.DOUBLE.getNums(),
 				floatnums = TypeNums.FLOAT.getNums();
 		ArrayList<DataUtils> datas = new ArrayList<>();
 		for (int i = 0; i < boolnums; i++) {
@@ -148,7 +145,8 @@ public class BaseDAO implements IBaseDAO {
 				while (rs.next()) {
 					int id = rs.getInt("id");
 					datas.get(id + boolnums - 1).addTime(rs.getLong("time"));
-					datas.get(id + boolnums - 1).addValue(rs.getDouble("value"));
+					datas.get(id + boolnums - 1)
+							.addValue(rs.getDouble("value"));
 				}
 			}
 			// closeAll();
@@ -164,8 +162,10 @@ public class BaseDAO implements IBaseDAO {
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
 					int id = rs.getInt("id");
-					datas.get(id + boolnums + doublenums - 1).addTime(rs.getLong("time"));
-					datas.get(id + boolnums + doublenums - 1).addValue(rs.getDouble("value"));
+					datas.get(id + boolnums + doublenums - 1)
+							.addTime(rs.getLong("time"));
+					datas.get(id + boolnums + doublenums - 1)
+							.addValue(rs.getDouble("value"));
 				}
 			}
 
@@ -204,7 +204,8 @@ public class BaseDAO implements IBaseDAO {
 				int LLLimite = rs.getInt("LLLimite");
 				int HLimite = rs.getInt("HLimite");
 				int LLimite = rs.getInt("LLimite");
-				datainfo = new DataInfo(typeid, position, parameters, description, unit, alarmlevel, HHLimite, LLLimite,
+				datainfo = new DataInfo(typeid, position, parameters,
+						description, unit, alarmlevel, HHLimite, LLLimite,
 						HLimite, LLimite);
 			}
 		} catch (SQLException e) {
@@ -243,8 +244,10 @@ public class BaseDAO implements IBaseDAO {
 				int LLLimite = rs.getInt("LLLimite");
 				int HLimite = rs.getInt("HLimite");
 				int LLimite = rs.getInt("LLimite");
-				maps.put(typeid, new DataInfo(typeid, position, parameters, description, unit, alarmlevel, HHLimite,
-						LLLimite, HLimite, LLimite));
+				maps.put(typeid,
+						new DataInfo(typeid, position, parameters, description,
+								unit, alarmlevel, HHLimite, LLLimite, HLimite,
+								LLimite));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -279,8 +282,9 @@ public class BaseDAO implements IBaseDAO {
 				long endtime = rs.getLong("EndTime");
 				String workConditon = rs.getString("WorkCondition");
 				String parameters = rs.getString("Parameters");
-				faults.add(new FaultUtils(faultID, system, faultName, faultReason, starttime, endtime, workConditon,
-						parameters));
+				faults.add(
+						new FaultUtils(faultID, system, faultName, faultReason,
+								starttime, endtime, workConditon, parameters));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,9 +297,11 @@ public class BaseDAO implements IBaseDAO {
 	/**
 	 * 查询特定系统下的故障样本
 	 */
-	public ArrayList<FaultUtils> queFault(String system, Long startTime, Long endTime) {
-		String sql = "select * from FaultInfoTable where System='" + system + "' AND StartTime between " + startTime
-				+ " and " + endTime + " and EndTime<" + endTime + " ORDER BY StartTime ASC";
+	public ArrayList<FaultUtils> queFault(String system, Long startTime,
+			Long endTime) {
+		String sql = "select * from FaultInfoTable where System='" + system
+				+ "' AND StartTime between " + startTime + " and " + endTime
+				+ " and EndTime<" + endTime + " ORDER BY StartTime ASC";
 		System.out.println("fuck" + sql);
 		ArrayList<FaultUtils> faults = new ArrayList<>();
 		try {
@@ -315,8 +321,9 @@ public class BaseDAO implements IBaseDAO {
 				long endtime = rs.getLong("EndTime");
 				String workConditon = rs.getString("WorkCondition");
 				String parameters = rs.getString("Parameters");
-				faults.add(new FaultUtils(faultID, system, faultName, faultReason, starttime, endtime, workConditon,
-						parameters));
+				faults.add(
+						new FaultUtils(faultID, system, faultName, faultReason,
+								starttime, endtime, workConditon, parameters));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -328,7 +335,8 @@ public class BaseDAO implements IBaseDAO {
 	}
 
 	public ArrayList<FaultUtils> queFault(String system) {
-		String sql = "select * from FaultInfoTable where System='" + system + " ORDER BY StartTime ASC";
+		String sql = "select * from FaultInfoTable where System='" + system
+				+ " ORDER BY StartTime ASC";
 		System.out.println("fuck" + sql);
 		ArrayList<FaultUtils> faults = new ArrayList<>();
 		try {
@@ -348,8 +356,9 @@ public class BaseDAO implements IBaseDAO {
 				long endtime = rs.getLong("EndTime");
 				String workConditon = rs.getString("WorkCondition");
 				String parameters = rs.getString("Parameters");
-				faults.add(new FaultUtils(faultID, system, faultName, faultReason, starttime, endtime, workConditon,
-						parameters));
+				faults.add(
+						new FaultUtils(faultID, system, faultName, faultReason,
+								starttime, endtime, workConditon, parameters));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -359,11 +368,12 @@ public class BaseDAO implements IBaseDAO {
 
 		return faults;
 	}
-	
+
 	/**
 	 * 生成查询的sql语句
 	 */
-	public ArrayList<String> getSQL(String table, int id, long starttime, long endtime) {
+	public ArrayList<String> getSQL(String table, int id, long starttime,
+			long endtime) {
 		if (starttime > endtime) {
 			long tmp = starttime;
 			starttime = endtime;
@@ -381,14 +391,18 @@ public class BaseDAO implements IBaseDAO {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear + startMounth + " where id=" + id + " AND time<"
-					+ endtime + " AND time>" + starttime + " ORDER BY time ASC";
+			String sql = "select * from " + table + "_" + startYear
+					+ startMounth + " where id=" + id + " AND time<" + endtime
+					+ " AND time>" + starttime + " ORDER BY time ASC";
 			sqls.add(sql);
 		} else {
-			while (!(startYear.equals(endYear) && startMounth.equals(endMounth))) {
+			while (!(startYear.equals(endYear)
+					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear + startMounth + " where id=" + id + " AND time<"
-						+ endtime + " AND time>" + starttime + " ORDER BY time ASC";
+				String sql = "select * from " + table + "_" + startYear
+						+ startMounth + " where id=" + id + " AND time<"
+						+ endtime + " AND time>" + starttime
+						+ " ORDER BY time ASC";
 				sqls.add(sql);
 				Date stratDate = TimeUtils.StringtoDate(startStr);
 				stratDate = TimeUtils.AddUnits(stratDate, "month", 1);
@@ -404,7 +418,8 @@ public class BaseDAO implements IBaseDAO {
 	/**
 	 * 生成查询的sql语句
 	 */
-	public ArrayList<String> getSQL(String table, long starttime, long endtime) {
+	public ArrayList<String> getSQL(String table, long starttime,
+			long endtime) {
 		if (starttime > endtime) {
 			long tmp = starttime;
 			starttime = endtime;
@@ -422,14 +437,17 @@ public class BaseDAO implements IBaseDAO {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear + startMounth + " where time<" + endtime
-					+ " AND time>" + starttime + " ORDER BY time ASC";
+			String sql = "select * from " + table + "_" + startYear
+					+ startMounth + " where time<" + endtime + " AND time>"
+					+ starttime + " ORDER BY time ASC";
 			sqls.add(sql);
 		} else {
-			while (!(startYear.equals(endYear) && startMounth.equals(endMounth))) {
+			while (!(startYear.equals(endYear)
+					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear + startMounth + " where time<" + endtime
-						+ " AND time>" + starttime + " ORDER BY time ASC";
+				String sql = "select * from " + table + "_" + startYear
+						+ startMounth + " where time<" + endtime + " AND time>"
+						+ starttime + " ORDER BY time ASC";
 				sqls.add(sql);
 				Date stratDate = TimeUtils.StringtoDate(startStr);
 				stratDate = TimeUtils.AddUnits(stratDate, "month", 1);
