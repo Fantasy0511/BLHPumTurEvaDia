@@ -9,14 +9,17 @@
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/Font-Awesome-3.2.1/css/font-awesome.min.css">
 <link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/icon.css">
+<link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/tabs.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
-	<script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
@@ -59,24 +62,24 @@
 		});
 	}
 
-	function testDbException() {
+	function testDbException() { //是否成功连接数据库
 		var url = "/BLHPumTurEvaDia/exception/dbexception";
 		console.log(url);
 		var success = function(data) {
-			alert(data.exceptionString.message);
+			showMessage(data.exceptionString.message,3000);
 		}
 		getJSON(url, success);
 	}
 	$(function() {
-		pageJump();
 		testDbException();
+		pageJump();
 	});
 </script>
 </head>
 <body>
 	<div class="app_top">
 		<div class="app_top_logo">
-			<img src="images/CCGClogo.jpg" height=60px width="auto" /> <span
+			<img src="images/CCGClogo.jpg" height=90% width="auto" /> <span
 				class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
 		</div>
 		<div class="app_top_nav">
@@ -97,6 +100,8 @@
 							data-path="/BLHPumTurEvaDia/faultDiag/tree/main">故障树诊断</a></li>
 						<li><a class="jump"
 							data-path="/BLHPumTurEvaDia/faultDiag/faultWarning/main">故障预警</a></li>
+						<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/faultDiag/trendPrediction/main">趋势预测</a></li>
 					</ul></li>
 				<li><a class="jump" data-path="/BLHPumTurEvaDia/assess/action">状态评估</a></li>
 				<li><a class="jump"
