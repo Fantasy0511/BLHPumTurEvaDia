@@ -12,6 +12,8 @@
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/js/assess/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/assesment.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
@@ -27,12 +29,34 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
 </head>
+<script type="text/javascript">
+	function myformatter(date) {
+		var y = date.getFullYear();
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		return y + '-' + (m < 10 ? ('0' + m) : m) + '-'
+				+ (d < 10 ? ('0' + d) : d);
+	}
+	function myparser(s) {
+		if (!s)
+			return new Date();
+		var ss = (s.split('-'));
+		var y = parseInt(ss[0], 10);
+		var m = parseInt(ss[1], 10);
+		var d = parseInt(ss[2], 10);
+		if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+			return new Date(y, m - 1, d);
+		} else {
+			return new Date();
+		}
+	}
+</script>
 <script>
 	function predict() {
 		showMask();
 		var url = "/BLHPumTurEvaDia/predict/predict";
 		url += makeInput(getComboboxValue("unitNo"), getComboboxValue("item"),
-				getComboboxValue("step"));
+				getDate("beginDate"), getComboboxValue("step"));
 		console.log(url);
 		getJSON(url, function(data) {
 			loadData("table_comparison", data.tableComparison);
@@ -53,11 +77,20 @@
 			<option value="2">2号机组</option>
 			<option value="3">3号机组</option>
 			<option value="4">4号机组</option>
-		</select> <label for="model">选择对象： </label> <select id="item"
-			class="easyui-combobox" style="width: 150px;">
-			<option value="TotalState" selected="selected">总体性能状态</option>
-			<option value="WCState">工况性能状态</option>
-			<option value="OilPumpEfficiency">油泵效率</option>
+		</select><label style="margin-bottom: 5px">时间：</label> <input id="beginDate"
+			class="easyui-datebox"
+			data-options="formatter:myformatter,parser:myparser" required
+			style="width: 150px; height: 26px"> <label for="model">选择对象：
+		</label> <select id="item" class="easyui-combobox" style="width: 150px;">
+			<option value="B14B">油路压力</option>
+			<option value="LQLL">冷却水流量</option>
+			<option value="SW">水温</option>
+			<option value="YWEI">油位</option>
+			<option value="U18V">磨损</option>
+			<option value="LG0C">出口油温</option>
+			<option value="B144">水导X轴振摆速率</option>
+			<option value="B145">水导Y轴振摆速率</option>
+			<option value="B146">水导Z轴振摆速率</option>
 		</select> <label style="font-size: 14px">选择步长：</label> <select id="step"
 			class="easyui-combobox" style="width: 80px">
 			<option value="singleStep" selected="selected">单步</option>
@@ -66,7 +99,7 @@
 			data-options="iconCls:'icon-ok'">开始预测</a>
 	</div>
 
-	<div style="margin-left:2%; margin-right: 2%; width:96% ">
+	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
 		<table id="table_comparison" title="预测结果对比表" class="easyui-datagrid"
 			style="width: 37%; height: 490px"
 			data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"

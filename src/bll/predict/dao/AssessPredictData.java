@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.TestUtil;
+import util.TimeUtils;
 import util.dao.JdbcDaoUtil;
 import bll.predict.PredictInput;
 
@@ -27,32 +28,25 @@ public class AssessPredictData {
 	 *            含三种可能的字符串："TotalState","WCState","OilPumpEfficiency"
 	 * @return
 	 */
-	public static PredictInput read(int unitNo, String objStr) {
+	public static PredictInput read(String tableName, int unitNo,
+			String objStr) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<String> times = new ArrayList<String>();
 		List<Double> datas = new ArrayList<Double>();
-		String sql = "select top 50 * from [lianxuDB].[dbo].[Assess_Result] where UnitNo="
-				+ unitNo + " order by Time";
+		String sql = "SELECT top 50 * from " + tableName + " where pos ='"
+				+ objStr + "';";
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();
 			System.out.println(sql);
 			rs = stmt.executeQuery(sql);
 			while (rs.next() == true) {
-				times.add(rs.getString("Time"));
-				switch (objStr) {
-				case "TotalState":
-					datas.add(rs.getDouble("TotalState"));
-					break;
-				case "WCState":
-					datas.add(rs.getDouble("WCState"));
-					break;
-				case "OilPumpEfficiency":
-					datas.add(rs.getDouble("OilPumpEfficiency"));
-					break;
-				}
+				times.add(TimeUtils
+						.LongtoString(Long.parseLong(rs.getString("time"))));
+				datas.add(Double.parseDouble(rs.getString("value")));
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +73,7 @@ public class AssessPredictData {
 	}
 
 	public static void main(String[] args) {
-		PredictInput input = read(1, "TotalState");
+		PredictInput input = read("float_201701", 1, "LG1G");
 		TestUtil.print(input.getTime());
 		TestUtil.print(input.getData());
 	}
