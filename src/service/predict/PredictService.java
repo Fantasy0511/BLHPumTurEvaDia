@@ -18,8 +18,9 @@ public class PredictService {
 	private JasperPrint jp = null;
 	private PredictReport report = new PredictReport();
 
-	public PredictService(int unitNo, String item, int step) {
-		PredictInput input = AssessPredictData.read(unitNo, item);
+	public PredictService(String tableName, Long time, int unitNo, String item,
+			int step) {
+		PredictInput input = AssessPredictData.read(tableName,unitNo, item);
 		predict = new TendencyPredict();
 		try {
 			predict.predictMain(input, step);
@@ -58,7 +59,8 @@ public class PredictService {
 		Vector<Double> predictedY = predict.getAllPredictValues();
 
 		return LineDataBuilder.createBuilder("", "序号", "百分比")
-				.addSeries("实测值", x, toDoubleArray(predict.getTransfer().getVy()))
+				.addSeries("实测值", x,
+						toDoubleArray(predict.getTransfer().getVy()))
 				.addSeries("预测值", x1, toDoubleArray(predictedY)).build();
 	}
 
@@ -81,7 +83,6 @@ public class PredictService {
 		}
 	}
 
-
 	/**
 	 * 生成jfreechart.linechart数据源
 	 * 
@@ -101,7 +102,5 @@ public class PredictService {
 
 		return defaultcategorydataset;
 	}
-
-
 
 }

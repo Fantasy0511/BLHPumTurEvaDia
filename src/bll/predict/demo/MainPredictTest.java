@@ -11,7 +11,7 @@ public class MainPredictTest {
 		int unitNo = 1;
 		String objStr = "TotalState";
 		int stepNum = 3;
-		PredictInput input = AssessPredictData.read(unitNo, objStr);
+		PredictInput input = AssessPredictData.read("float_201507",unitNo, objStr);
 		TendencyPredict predict = new TendencyPredict();
 		predict.predictMain(input, stepNum);
 
