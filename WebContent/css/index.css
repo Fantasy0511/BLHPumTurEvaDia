@@ -54,7 +54,7 @@ div.app_main {
 
 .app_top_logo {
 	float: left;
-	height: 60px;
+	height: 99%;
 	width: 46%;
 	left: 0;
 	background-color: #FFFFFF;
@@ -187,7 +187,6 @@ div.user a {
 	background: #006698;
 	font-size: 18px;
 	font-family: hei
-	
 }
 
 .topNav>li>a {
