@@ -2,9 +2,137 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>故障树</title>
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/tree/pumTur.js"></script>
+</head>
+<script type="text/javascript">
+	var id;
+	$(function() {
+		var tree = new TreeEditor({
+			container : 'container',
+			enabled : false,
+			connectable : false,    
+			movable : false,
+			resizable : false
+		});
+		tree.fromJSON(cell);
+		tree.graph.refresh();
+
+		function changecolor1(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+
+			for (i in result) {
+
+				for (j = 0; j < cell1.cells.length; j++) {
+					if (cell1.cells[j].id == result[i]) {
+						var stylename = cell1.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+
+			}
+			tree.fromJSON(graphJSON);
+		}
+
+		function changecolor2(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+			for (i in result) {
+				for (j = 0; j < cell2.cells.length; j++) {
+					if (cell2.cells[j].id == result[i]) {
+						var stylename = cell2.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+			}
+			tree.fromJSON(graphJSON);
+		}
+
+		function changecolor3(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+			for (i in result) {
+				for (j = 0; j < cell3.cells.length; j++) {
+					if (cell3.cells[j].id == result[i]) {
+						var stylename = cell3.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+			}
+			tree.fromJSON(graphJSON);
+		}
+
+	});
+
+	function diagnose() {//从后台得到故障id
+		showMask();
+		var url = "/HPPumTurReg/faulttree/fault-tree";
+		getJSON(url, function(data) {
+			id = data.resultNode;
+			loadData("faultInfo", data.faultInfo);
+		});
+	}
+</script>
+
+<style type="text/css">
+.datagrid-header-row td {
+	background-color: #ADF0A3;
+	color: #fff
+}
+</style>
 </head>
 <body>
-<a>水泵水轮机</a>
+	
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<b><i class="glyphicon glyphicon glyphicon-deit">故障树展示</i></b>
+			</div>
+		</div>
+		<div id="drag" title="故障树">
+			<div style="cursor: pointer;">
+				<span id="container" style="float: left"></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<b><i class="glyphicon glyphicon glyphicon-deit">诊断结果分析</i></b>
+			</div>
+			<div style="height: 350px">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>故障名称</th>
+							<th>发生概率</th>
+							<th>建议描述</th>
+						      </tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
