@@ -68,16 +68,16 @@
 	function faultWarning() {
 		showMask();
 		table.destroy();
-		var system = $("#subSystem option:selected").text(); //把前端选择的子系统传给“system”
+		var system = $("#subSystem option:selected").val(); //把前端选择的子系统传给“system”
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
-		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
+		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
-		console.log(url1);
 		$.getJSON(url1, function(data) {
-			console.log(data);
-			loadData('historyTable', data[1]);
+			var rows = data.historyTable;
+			loadData('historyTable', rows);
 		});
+		hideMask();
 	}
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
@@ -111,8 +111,9 @@
 													+ "//" + para; //重新定义了传入地址url
 											console.log(url);
 											var chart1 = Highcharts.chart;
-											
-													$.getJSON(
+
+											$
+													.getJSON(
 															url,
 															function(result) { //调用url地址json数据，加载成功执行回调函数result
 																options1.series[0].data = result.data1.value;
@@ -188,17 +189,17 @@
 		</script>
 		<label for="model">系统选择：</label> <select id="subSystem"
 			class="easyui-combobox" style="width: 120px;">
-			<option value="gov">球阀系统</option>
-			<option value="pum">发电机及励磁系统</option>
+			<option value="Gov">球阀系统</option>
+			<option value="Pum">发电机及励磁系统</option>
 			<option value="ball">调速器系统</option>
-			<option value="exc">主变系统</option>
-			<option value="transfer">水泵水轮机</option>
+			<option value="Exc">主变系统</option>
+			<option value="Transfer">水泵水轮机</option>
 		</select> <a id="bt_warning" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始查询</a>
 	</div>
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
-		<table id="table_comparison" title="查询结果" class="easyui-datagrid"
+		<table title="查询结果" class="easyui-datagrid"
 			style="width: 37%; height: 490px"
 			data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"
 			id="historyTable">
@@ -218,7 +219,7 @@
 	</div>
 
 	<div class="ipad" style="height: 25px"></div>
-	
+
 	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
 		<div class="easyui-panel" title="预警结果分析图"
 			style="width: 94%; height: 450px">
