@@ -65,14 +65,14 @@
 			"bAutoWidth":true,
 	        ajax : {url : url1},
 			columns : [ 
-				{"data" : "faultID"},//JSON语句+数组               columns:纵列
-				{"data" : "system"}, 
-				{"data" : "faultName"}, 
-				{"data" : "faultReason"}, 
-				{"data" : "startTimeString"},
-				{"data" : "endTimeString"},
-				{"data" : "workConditon"},
-				{"data" : "paramters"} 
+				{"data" : "faultID", orderable:false},//JSON语句+数组               columns:纵列
+				{"data" : "system", orderable:false}, 
+				{"data" : "faultName", orderable:false}, 
+				{"data" : "faultReason", orderable:false}, 
+				{"data" : "startTimeString", orderable:false},
+				{"data" : "endTimeString", orderable:false},
+				{"data" : "workConditon", orderable:false},
+				{"data" : "paramters", orderable:false} 
 				],
 			"columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
 			// "visible": false,
@@ -85,20 +85,20 @@
 				"targets" : 7//targets参数设置一个列或者多列
 			} ],
 			"sPaginationType": "simple_numbers",
-	        "oLanguage": {
-	            "sProcessing": "<img src='/images/datatable_loading.gif'>  努力加载数据中.",
-	            "sLengthMenu": "每页显示 _MENU_ 条记录",
-	            "sZeroRecords": "抱歉， 没有找到",
-	            "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-	            "sInfoEmpty": "没有数据",
-	            "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-	            //"sZeroRecords": "没有检索到数据",
-	            "sSearch": "模糊查询:  ",
+			searching:false, //去掉搜索框
+		    bLengthChange:false,//去掉每页多少条框体
+			"language": {
+                "lengthMenu": "每页 _MENU_ 条记录",
+                "zeroRecords": "抱歉，没有找到",
+                "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                "infoEmpty": "无记录",
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",
+                "sSearch": "模糊查询:  ",
 	            "oPaginate": {
 	                "sPrevious": "前一页",
 	                "sNext": "后一页",
 	            }
-	        },
+            }
 		});
 	}
 

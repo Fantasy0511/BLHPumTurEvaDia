@@ -16,14 +16,19 @@
 	href="/BLHPumTurEvaDia/css/assess/assesment.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+	
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+
+
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
+	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
@@ -36,8 +41,7 @@
 	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/warningChart/echarts.min.js"></script>
 </head>
@@ -66,98 +70,135 @@
 <script type="text/javascript">
 	var table = $('#historyTable').DataTable();
 	function faultWarning() {
-		showMask();
+		
 		table.destroy();
-		var system = $("#subSystem option:selected").val(); //把前端选择的子系统传给“system”
+		var system = $("#subSystem option:selected").text(); //把前端选择的子系统传给“system”
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
-		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
+		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
-		$.getJSON(url1, function(data) {
+				
+		console.log(url1);
+		/* $.getJSON(url1, function(data) {
 			var rows = data.historyTable;
 			loadData('historyTable', rows);
+		}); */
+		
+		
+		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
+		table = $('#historyTable').DataTable({             /* json数组 */
+			"iDisplayLength": 5,
+	        "lengthMenu": [[5, 15, 25, -1], [5, 15, 25, "所有"]],
+			"bAutoWidth":true,
+	        ajax : {url : url1},
+			columns : [ 
+				//JSON语句+数组               columns:纵列
+				{"data" : "faultName",  orderable:false}, 
+				{"data" : "paramters", orderable:false} 
+				],
+			/* "columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
+			// "visible": false,
+			//"targets": 0
+			}, 
+			{
+				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
+					return '<a>' + row.paramters + '</a>';
+				},
+				"targets" : 3//targets参数设置一个列或者多列
+			} ], */
+			searching:false, //去掉搜索框
+		    bLengthChange:false,//去掉每页多少条框体
+			"language": {
+                "lengthMenu": "每页 _MENU_ 条记录",
+                "zeroRecords": "抱歉，没有找到",
+                "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                "infoEmpty": "无记录",
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",
+                "sSearch": "模糊查询:  ",
+	            "oPaginate": {
+	                "sPrevious": "前一页",
+	                "sNext": "后一页",
+	            }
+            }
 		});
-		hideMask();
+		
+		
 	}
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
-	$(document)
-			.ready(
-					function() {
-						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
-						function() {
-							$(this).toggleClass('selected');
-						});
-						$('#historyTable tbody').on('mouseout', 'tr',
-								function() {
-									$(this).toggleClass('selected');
-								});
-						$('#historyTable tbody')
-								.on(
-										'click',
-										'tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
-										function() {
-											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
-											// $(this).toggleClass('selected');
-											var data = table.row('.selected')
-													.data(); //将前端点击的行的选择传给参数“data”
-											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
-											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
-											var para = data.paramters; //将选中那行的元素--参数传给“para”
-											console.log(para); //传递成功显示“para”
-											var titleChart = para.split(" ");
+	
+	$(document).ready(function() {
+		 $('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
+		      function() {
+						   $(this).toggleClass('selected');
+						  });
+		 $('#historyTable tbody').on('mouseout', 'tr',
+			  function() {
+						   $(this).toggleClass('selected');
+					      });
+		 $('#historyTable tbody').on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
+			  function() {
+					var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
+					// $(this).toggleClass('selected');
+					var data = table.row('.selected')
+					.data(); //将前端点击的行的选择传给参数“data”
+					var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
+					var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
+					var para = data.paramters; //将选中那行的元素--参数传给“para”
+					console.log(para); //传递成功显示“para”
+					var titleChart = para.split(" ");
+					
+					url = url + start + "//" + end
+					+ "//" + para; //重新定义了传入地址url
+					console.log(url);
+					var chart1 = Highcharts.chart;
+					var chart2 = Highcharts.chart;
+					$.getJSON(url,
+							function(result) { //调用url地址json数据，加载成功执行回调函数result
+									options1.series[0].data = result.data1.value;
+									options1.series[0].name = titleChart[0];
+									chart1 = new Highcharts.Chart(options1);
+											options2.series[0].name = titleChart[1];
+											options2.series[0].data = result.data2.value;
+											chart2 = new Highcharts.Chart(options2);
+											chart1.series[0]
+												.update(options1.series[0].data);
+													});
 
-											url = url + start + "//" + end
-													+ "//" + para; //重新定义了传入地址url
-											console.log(url);
-											var chart1 = Highcharts.chart;
-
-											$
-													.getJSON(
-															url,
-															function(result) { //调用url地址json数据，加载成功执行回调函数result
-																options1.series[0].data = result.data1.value;
-																options1.series[0].name = titleChart[0];
-																chart1 = new Highcharts.Chart(
-																		options1);
-																chart1.series[0]
-																		.update(options1.series[0].data);
-															});
-
-											var options1 = {
-												chart : {
-													renderTo : 'container1', //生成的故障图1扔进“container1”里
-													type : 'spline'
-												},
-												series : [ {} ],
-												title : null,
-												xAxis : {
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												yAxis : {
-													title : {
-														text : null
-													},
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												credits : {
-													enabled : false
+									var options1 = {
+									    chart : {
+											renderTo : 'container1', //生成的故障图1扔进“container1”里
+											type : 'spline'
+											},
+											series : [ {} ],
+											title : null,
+											xAxis: {
+										        lineWidth: 2,
+										        lineColor:'black',
+										        gridLineColor:'#A0A0A0',
+										        gridLineDashStyle:'dash',
+										        minorGridLineWidth: 0,
+										        minorTickLength:5,
+										        minorTickInterval: 'auto',
+										        minorTickPosition: 'outside',
+										        minorTickWidth: 1
+										    },
+										    yAxis: {
+										    	title:{
+										    		text:null
+										    	},
+										        lineWidth: 2,
+										        lineColor:'black',
+										        gridLineColor:'#A0A0A0',
+										        gridLineDashStyle:'dash',
+										        minorGridLineWidth: 0,
+										        minorTickLength:5,
+										        minorTickInterval: 'auto',
+										        minorTickPosition: 'outside',
+										        minorTickWidth: 1
+										    },
+											credits : {
+											enabled : false
 												}
 											};
 										});
@@ -188,7 +229,7 @@
 			})
 		</script>
 		<label for="model">系统选择：</label> <select id="subSystem"
-			class="easyui-combobox" style="width: 120px;">
+			class="easyui-combobox" style="width: 140px;">
 			<option value="Gov">球阀系统</option>
 			<option value="Pum">发电机及励磁系统</option>
 			<option value="ball">调速器系统</option>
@@ -199,123 +240,144 @@
 	</div>
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
-		<table title="查询结果" class="easyui-datagrid"
-			style="width: 37%; height: 490px"
-			data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"
-			id="historyTable">
-			<thead>
-				<tr>
-					<th data-options="field:'faultID',align:'center',width:200">故障名称</th>
-					<th data-options="field:'paramters',align:'center',width:250">关联参数</th>
-				</tr>
-			</thead>
-		</table>
-		<div class="easyui-panel" title="查询结果图"
-			style="width: 55%; height: 490px">
-			<div id="container1">
+		<div style="width:47%;height: auto; float:left; display:inline;margin-right: 2%">
+		<div class="easyui-panel" title="历史运行状态数据"
+			style="width: 100%; height: 400px;">
+			<div>
+				<table class="table" id="historyTable" border="1" style="text-align:left" >
+					<thead>
+						<tr>
+							<th >故障名称</th>
+							<th >关联参数</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+		
+		<div style="width:45%;height: auto; float:left; display:inline">
+		<div class="easyui-panel" title="运行状态数据图"
+			style="width: 100%; height: 400px;">
+			<div id="container1" style="height:100%">
 				<pre>    暂无结果</pre>
 			</div>
 		</div>
+		</div>
+		
 	</div>
 
-	<div class="ipad" style="height: 25px"></div>
+	<div class="ipad" style="height: 30px"></div>
 
-	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
+	
+	<div style="margin-left: 2%; margin-right: 2%; width: 96%;height: 450px">
 		<div class="easyui-panel" title="预警结果分析图"
-			style="width: 94%; height: 450px">
-			<div id="container3" style="width: 94%; height: 450px"></div>
+			style="width: 94%; height:450px">
+			<div class=“easyui-layout” data-option="fit:true">
+				<div id="container3" style="width: 55%; height: 380px;float:left;margin-right: 2%"></div>
+				<div style="width: 40%; height: 380px;float:left; ">
+					<div class="easyui-panel" title="评价与建议"  style="width: 100%; height: 380px ">
+						<table border="1" style="height: 300px ;width: 50%;float:left;margin-right: 4%">
+							<tr>
+								<th >故障名称</th>
+								<th>概率</th>
+							</tr>
+							<tr>
+								<td >油路压力</td>
+								<td>10.2%</td>
+							</tr>
+							<tr>
+								<td>冷却水流量</td>
+								<td>9.44%</td>
+							</tr>
+							<tr>
+								<td>水温</td>
+								<td>7.13%</td>
+							</tr>
+							<tr>
+								<td>油位</td>
+								<td>4.11%</td>
+							</tr>
+							<tr>
+								<td>磨损情况</td>
+								<td>30.45%</td>
+							</tr>
+							<tr>
+								<td>水导X轴振动</td>
+								<td>4.11%</td>
+							</tr>
+							<tr>
+								<td>水导Y轴振动</td>
+								<td>30.45%</td>
+							</tr>
+							<tr>
+								<td>水导Z轴振动</td>
+								<td>4.11%</td>
+							</tr>
+
+						</table>
+						<table border="1" style="height: 300px; width: 35%">
+							<tr>
+								<td>评价与建议</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>
 	<script type="text/javascript">
-		var dom = document.getElementById("container3");
-		var myChart = echarts.init(dom);
-		var app = {};
-		option = null;
-		var data = genData(50);
-
-		option = {
-			title : {
-				text : '故障预警结果分析',
-				subtext : '概率分布',
-				x : 'center'
-			},
-			tooltip : {
-				trigger : 'item',
-				formatter : "{a} <br/>{b} : {c} ({d}%)"
-			},
-			legend : {
-				type : 'scroll',
-				orient : 'vertical',
-				right : 10,
-				top : 20,
-				bottom : 20,
-				data : data.legendData,
-
-				selected : data.selected
-			},
-			series : [ {
-				name : '故障类型',
-				type : 'pie',
-				radius : '55%',
-				center : [ '40%', '50%' ],
-				data : data.seriesData,
-				itemStyle : {
-					emphasis : {
-						shadowBlur : 10,
-						shadowOffsetX : 0,
-						shadowColor : 'rgba(0, 0, 0, 0.5)'
-					}
-				}
-			} ]
-		};
-
-		function genData(count) {
-			var nameList = [ '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈',
-					'褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕',
-					'施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢',
-					'邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范',
-					'彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任',
-					'袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺',
-					'倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于',
-					'时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟',
-					'平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛',
-					'禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋',
-					'茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮',
-					'蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危' ];
-			var legendData = [];
-			var seriesData = [];
-			var selected = {};
-			for (var i = 0; i < 25; i++) {
-				name = Math.random() > 0.65 ? makeWord(4, 1) + '·'
-						+ makeWord(3, 0) : makeWord(2, 1);
-				legendData.push(name);
-				seriesData.push({
-					name : name,
-					value : Math.round(Math.random() * 100000)
-				});
-				selected[name] = i < 5;
-			}
-
-			return {
-				legendData : legendData,
-				seriesData : seriesData,
-				selected : selected
-			};
-
-			function makeWord(max, min) {
-				var nameLen = Math.ceil(Math.random() * max + min);
-				var name = [];
-				for (var i = 0; i < nameLen; i++) {
-					name.push(nameList[Math.round(Math.random()
-							* nameList.length - 1)]);
-				}
-				return name.join('');
-			}
-		};
-		if (option && typeof option === "object") {
-			myChart.setOption(option, true);
-		}
+	var dom = document.getElementById("container3");
+	var myChart = echarts.init(dom);
+	var app = {};
+	option = null;
+	option = {
+	    title : {
+	        text: '预警结果分析',
+	        subtext: false,
+	        x:'center'
+	    },
+	    tooltip : {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    },
+	    legend: {
+	        orient: 'vertical',
+	        left: 'left',
+	        data: ['油路压力','冷却水流量','水温','油位','磨损情况','水导X轴振动','水导Y轴振动','水导Z轴振动']
+	    },
+	    series : [
+	        {
+	            name: '故障类别',
+	            type: 'pie',
+	            radius : '55%',
+	            center: ['50%', '60%'],
+	            data:[
+	                {value:335, name:'油路压力'},
+	                {value:310, name:'冷却水流量'},
+	                {value:234, name:'水温'},
+	                {value:135, name:'油位'},
+	                {value:1000, name:'磨损情况'},
+	                {value:135, name:'水导X轴振动'},
+	                {value:1000, name:'水导Y轴振动'},
+	                {value:135, name:'水导Z轴振动'},
+	            ],
+	            itemStyle: {
+	                emphasis: {
+	                    shadowBlur: 10,
+	                    shadowOffsetX: 0,
+	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+	                }
+	            }
+	        }
+	    ]
+	};
+	;
+	if (option && typeof option === "object") {
+	    myChart.setOption(option, true);
+	}
 	</script>
 
 
