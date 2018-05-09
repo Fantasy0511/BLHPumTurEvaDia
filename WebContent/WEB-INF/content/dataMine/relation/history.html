@@ -9,8 +9,16 @@
 	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
@@ -53,169 +61,194 @@
 		var system = $("#subSystem option:selected").val(); //把前端选择的子系统传给“system”
 		var starTime = $("#startTime").val();
 		var endTime = $("#endTime").val();
-		
+
 		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
-				    + system+"//"+starTime+"//"+endTime ; //将某个子系统历史数据的地址传给url1
+				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
 		console.log(url1);//传递成功显示“url1”
 
 		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
-		table = $('#historyTable').DataTable({             /* json数组 */
-			"iDisplayLength": 5,
-	        "lengthMenu": [[5, 15, 25, -1], [5, 15, 25, "所有"]],
-			"bAutoWidth":true,
-	        ajax : {url : url1},
-			columns : [ 
-				{"data" : "faultID", orderable:false},//JSON语句+数组               columns:纵列
-				{"data" : "system", orderable:false}, 
-				{"data" : "faultName", orderable:false}, 
-				{"data" : "faultReason", orderable:false}, 
-				{"data" : "startTimeString", orderable:false},
-				{"data" : "endTimeString", orderable:false},
-				{"data" : "workConditon", orderable:false},
-				{"data" : "paramters", orderable:false} 
-				],
+		table = $('#historyTable').DataTable({ /* json数组 */
+			"iDisplayLength" : 3,
+			"lengthMenu" : [ [ 3, 6, 18, -1 ], [ 3, 6, 18, "所有" ] ],
+			"bAutoWidth" : true,
+			ajax : {
+				url : url1
+			},
+			columns : [ {
+				"data" : "faultID",
+				orderable : false
+			},//JSON语句+数组               columns:纵列
+			{
+				"data" : "system",
+				orderable : false
+			}, {
+				"data" : "faultName",
+				orderable : false
+			}, {
+				"data" : "faultReason",
+				orderable : false
+			}, {
+				"data" : "startTimeString",
+				orderable : false
+			}, {
+				"data" : "endTimeString",
+				orderable : false
+			}, {
+				"data" : "workConditon",
+				orderable : false
+			}, {
+				"data" : "paramters",
+				orderable : false
+			} ],
 			"columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
 			// "visible": false,
 			//"targets": 0
-			}, 
-			{
+			}, {
 				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
 					return '<a>' + row.paramters + '</a>';
 				},
-				"targets" : 7//targets参数设置一个列或者多列
+				"targets" : 7
+			//targets参数设置一个列或者多列
 			} ],
-			"sPaginationType": "simple_numbers",
-			searching:false, //去掉搜索框
-		    bLengthChange:false,//去掉每页多少条框体
-			"language": {
-                "lengthMenu": "每页 _MENU_ 条记录",
-                "zeroRecords": "抱歉，没有找到",
-                "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-                "infoEmpty": "无记录",
-                "infoFiltered": "(从 _MAX_ 条记录过滤)",
-                "sSearch": "模糊查询:  ",
-	            "oPaginate": {
-	                "sPrevious": "前一页",
-	                "sNext": "后一页",
-	            }
-            }
+			"sPaginationType" : "simple_numbers",
+			searching : false, //去掉搜索框
+			bLengthChange : false,//去掉每页多少条框体
+			"language" : {
+				"lengthMenu" : "每页 _MENU_ 条记录",
+				"zeroRecords" : "抱歉，没有找到",
+				"info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty" : "无记录",
+				"infoFiltered" : "(从 _MAX_ 条记录过滤)",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			}
 		});
 	}
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
-	$(document).ready(function() {
-		 $('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
-		      function() {
-						   $(this).toggleClass('selected');
-						  });
-		 $('#historyTable tbody').on('mouseout', 'tr',
-			  function() {
-						   $(this).toggleClass('selected');
-					      });
-		 $('#historyTable tbody').on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
-			  function() {
-					var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
-					// $(this).toggleClass('selected');
-					var data = table.row('.selected')
-					.data(); //将前端点击的行的选择传给参数“data”
-					var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
-					var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
-					var para = data.paramters; //将选中那行的元素--参数传给“para”
-					console.log(para); //传递成功显示“para”
-					var titleChart = para.split(" ");
-					
-					url = url + start + "//" + end
-					+ "//" + para; //重新定义了传入地址url
-					console.log(url);
-					var chart1 = Highcharts.chart;
-					var chart2 = Highcharts.chart;
-					$.getJSON(url,
-							function(result) { //调用url地址json数据，加载成功执行回调函数result
-									options1.series[0].data = result.data1.value;
-									options1.series[0].name = titleChart[0];
-									chart1 = new Highcharts.Chart(options1);
-											options2.series[0].name = titleChart[1];
-											options2.series[0].data = result.data2.value;
-											chart2 = new Highcharts.Chart(options2);
-											chart1.series[0]
-												.update(options1.series[0].data);
-													});
+	$(document)
+			.ready(
+					function() {
+						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
+						function() {
+							$(this).toggleClass('selected');
+						});
+						$('#historyTable tbody').on('mouseout', 'tr',
+								function() {
+									$(this).toggleClass('selected');
+								});
+						$('#historyTable tbody')
+								.on(
+										'click',
+										'tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
+										function() {
+											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
+											// $(this).toggleClass('selected');
+											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
+											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
+											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
+											var para = data.paramters; //将选中那行的元素--参数传给“para”
+											console.log(para); //传递成功显示“para”
+											var titleChart = para.split(" ");
 
-									var options1 = {
-									    chart : {
-											renderTo : 'container1', //生成的故障图1扔进“container1”里
-											type : 'spline'
-											},
-											series : [ {} ],
-											title : null,
-											xAxis: {
-										        lineWidth: 2,
-										        lineColor:'black',
-										        gridLineColor:'#A0A0A0',
-										        gridLineDashStyle:'dash',
-										        minorGridLineWidth: 0,
-										        minorTickLength:5,
-										        minorTickInterval: 'auto',
-										        minorTickPosition: 'outside',
-										        minorTickWidth: 1
-										    },
-										    yAxis: {
-										    	title:{
-										    		text:null
-										    	},
-										        lineWidth: 2,
-										        lineColor:'black',
-										        gridLineColor:'#A0A0A0',
-										        gridLineDashStyle:'dash',
-										        minorGridLineWidth: 0,
-										        minorTickLength:5,
-										        minorTickInterval: 'auto',
-										        minorTickPosition: 'outside',
-										        minorTickWidth: 1
-										    },
-											credits : {
-											enabled : false
-												}
-											};
-									
-								    var options2 = {
-										 chart : {
-											 renderTo : 'container2', //生成的故障图2扔进“container2”里
-											  type : 'spline'
+											url = url + start + "//" + end
+													+ "//" + para; //重新定义了传入地址url
+											console.log(url);
+											var chart1 = Highcharts.chart;
+											var chart2 = Highcharts.chart;
+											$.getJSON(
+															url,
+															function(result) { //调用url地址json数据，加载成功执行回调函数result
+																options1.series[0].data = result.data1.value;
+																options1.series[0].name = titleChart[0];
+																chart1 = new Highcharts.Chart(
+																		options1);
+																options2.series[0].name = titleChart[1];
+																options2.series[0].data = result.data2.value;
+																chart2 = new Highcharts.Chart(
+																		options2);
+																chart1.series[0]
+																		.update(options1.series[0].data);
+															});
+
+											var options1 = {
+												chart : {
+													renderTo : 'container1', //生成的故障图1扔进“container1”里
+													type : 'spline'
 												},
 												series : [ {} ],
 												title : null,
-												xAxis: {
-											        lineWidth: 2,
-											        lineColor:'black',
-											        gridLineColor:'#A0A0A0',
-											        gridLineDashStyle:'dash',
-											        minorGridLineWidth: 0,
-											        minorTickLength:5,
-											        minorTickInterval: 'auto',
-											        minorTickPosition: 'outside',
-											        minorTickWidth: 1
-											    },
-											    yAxis: {
-											    	title:{
-											    		text:null
-											    	},
-											        lineWidth: 2,
-											        lineColor:'black',
-											        gridLineColor:'#A0A0A0',
-											        gridLineDashStyle:'dash',
-											        minorGridLineWidth: 0,
-											        minorTickLength:5,
-											        minorTickInterval: 'auto',
-											        minorTickPosition: 'outside',
-											        minorTickWidth: 1
-											    },
-											    
+												xAxis : {
+													lineWidth : 2,
+													lineColor : 'black',
+													gridLineColor : '#A0A0A0',
+													gridLineDashStyle : 'dash',
+													minorGridLineWidth : 0,
+													minorTickLength : 5,
+													minorTickInterval : 'auto',
+													minorTickPosition : 'outside',
+													minorTickWidth : 1
+												},
+												yAxis : {
+													title : {
+														text : null
+													},
+													lineWidth : 2,
+													lineColor : 'black',
+													gridLineColor : '#A0A0A0',
+													gridLineDashStyle : 'dash',
+													minorGridLineWidth : 0,
+													minorTickLength : 5,
+													minorTickInterval : 'auto',
+													minorTickPosition : 'outside',
+													minorTickWidth : 1
+												},
 												credits : {
 													enabled : false
 												}
 											};
-								                       
+
+											var options2 = {
+												chart : {
+													renderTo : 'container2', //生成的故障图2扔进“container2”里
+													type : 'spline'
+												},
+												series : [ {} ],
+												title : null,
+												xAxis : {
+													lineWidth : 2,
+													lineColor : 'black',
+													gridLineColor : '#A0A0A0',
+													gridLineDashStyle : 'dash',
+													minorGridLineWidth : 0,
+													minorTickLength : 5,
+													minorTickInterval : 'auto',
+													minorTickPosition : 'outside',
+													minorTickWidth : 1
+												},
+												yAxis : {
+													title : {
+														text : null
+													},
+													lineWidth : 2,
+													lineColor : 'black',
+													gridLineColor : '#A0A0A0',
+													gridLineDashStyle : 'dash',
+													minorGridLineWidth : 0,
+													minorTickLength : 5,
+													minorTickInterval : 'auto',
+													minorTickPosition : 'outside',
+													minorTickWidth : 1
+												},
+
+												credits : {
+													enabled : false
+												}
+											};
+
 										});
 					});
 	$(function() {
@@ -229,13 +262,13 @@
 			<div align="left" id="showDiv">
 				<form action="" class="form-inline" role="form">
 					<div class="col-sm-3 form-group" style="margin-right: -60px">
-						<label for="dtp_input2"  class="control-label">开始时间&nbsp;</label>
+						<label for="dtp_input2" class="control-label">开始时间&nbsp;</label>
 
 						<div class="input-group date form_date col-md-7" data-date=""
 							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" id="startTime" placeholder="点击选择"
-								class="form-control" size="16" type="text" value="" readonly>
-							<span class="input-group-addon"><span
+							<input style="background-color: #ffffff" id="startTime"
+								placeholder="点击选择" class="form-control" size="16" type="text"
+								value="" readonly> <span class="input-group-addon"><span
 								class="glyphicon glyphicon-calendar"></span></span>
 						</div>
 						<input type="hidden" id="dtp_input1" value="" /><br />
@@ -245,9 +278,9 @@
 
 						<div class="input-group date form_date col-md-7" data-date=""
 							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" id="endTime" placeholder="点击选择"
-								class="form-control" size="16" type="text" value="" readonly>
-							<span class="input-group-addon"><span
+							<input style="background-color: #ffffff" id="endTime"
+								placeholder="点击选择" class="form-control" size="16" type="text"
+								value="" readonly> <span class="input-group-addon"><span
 								class="glyphicon glyphicon-calendar"></span></span>
 						</div>
 						<input type="hidden" id="dtp_input2" value="" /><br />
@@ -276,13 +309,12 @@
 		</div>
 	</div>
 
-	<div class="col-md-12">
-		<div class="panel panel-default" >
-			<div class="panel-heading" style="width:100%">
-				<b><i class="glyphicon glyphicon glyphicon-edit">历史运行状态数据</i></b>
-			</div>
+	<div style="margin-left: 3%; margin-right: 3%; width: 97%">
+		<div class="easyui-panel" title="历史运行状态数据"
+			style="width: 96%; height:auto;">
 			<div>
-				<table class="table" id="historyTable">
+				<table class="table" id="historyTable" border="1"
+					style="text-align: left; width: 100%; height:auto;">
 					<thead>
 						<tr>
 							<th class="col-md-1">故障ID</th>
@@ -300,32 +332,30 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="ipad" style="height: 30px"></div>
 
-	<div id="div1">
-		<div class="tab3">
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<b><i class="glyphicon glyphicon glyphicon-edit">故障趋势图</i></b>
-						<!--故障图1放在 “id=container1”里面-->
+	<div style="margin-left: 3%; margin-right: 3%; width: 97%">
+		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+			<div style="width: 100%; height: auto; float: left; display: inline">
+				<div class="easyui-panel" title="故障趋势图"
+					style="width: 100%; height: 400px;">
+					<div id="container1" style="height: 100%">
+						<pre>    暂无结果</pre>
 					</div>
-					<div id="container1" style="width: 95%; height: 400px"></div>
 				</div>
 			</div>
 		</div>
-		<div class="tab3">
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<b><i class="glyphicon glyphicon glyphicon-edit">故障趋势图</i></b>
-						<!--故障图2放在 “id=container2”里面-->
-					</div>
-
-					<div id="container2" style="width: 95%; height: 400px"></div>
+		<div style="width: 47%; height: auto; float: left; display: inline">
+			<div class="easyui-panel" title="故障趋势图"
+				style="width: 100%; height: 400px;">
+				<div id="container2" style="height: 100%">
+					<pre>    暂无结果</pre>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript">
 		$('.form_date').datetimepicker({
 			language : 'fr',

@@ -72,13 +72,15 @@
 	function faultWarning() {
 		
 		table.destroy();
-		var system = $("#subSystem option:selected").text(); //把前端选择的子系统传给“system”
+		var system = $('#subSystem').combobox('getText'); //把前端选择的子系统传给“system”
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
 		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
 				
 		console.log(url1);
+				
+				
 		/* $.getJSON(url1, function(data) {
 			var rows = data.historyTable;
 			loadData('historyTable', rows);
@@ -87,8 +89,8 @@
 		
 		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
 		table = $('#historyTable').DataTable({             /* json数组 */
-			"iDisplayLength": 5,
-	        "lengthMenu": [[5, 15, 25, -1], [5, 15, 25, "所有"]],
+			"iDisplayLength": 3,
+	        "lengthMenu": [[3, 6, 9, -1], [3, 6, 9, "所有"]],
 			"bAutoWidth":true,
 	        ajax : {url : url1},
 			columns : [ 
@@ -152,17 +154,12 @@
 					+ "//" + para; //重新定义了传入地址url
 					console.log(url);
 					var chart1 = Highcharts.chart;
-					var chart2 = Highcharts.chart;
 					$.getJSON(url,
 							function(result) { //调用url地址json数据，加载成功执行回调函数result
 									options1.series[0].data = result.data1.value;
 									options1.series[0].name = titleChart[0];
 									chart1 = new Highcharts.Chart(options1);
-											options2.series[0].name = titleChart[1];
-											options2.series[0].data = result.data2.value;
-											chart2 = new Highcharts.Chart(options2);
-											chart1.series[0]
-												.update(options1.series[0].data);
+									chart1.series[0].update(options1.series[0].data);
 													});
 
 									var options1 = {
@@ -239,7 +236,7 @@
 			data-options="iconCls:'icon-ok'">开始查询</a>
 	</div>
 
-	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
+	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
 		<div style="width:47%;height: auto; float:left; display:inline;margin-right: 2%">
 		<div class="easyui-panel" title="历史运行状态数据"
 			style="width: 100%; height: 400px;">
@@ -271,7 +268,7 @@
 	<div class="ipad" style="height: 30px"></div>
 
 	
-	<div style="margin-left: 2%; margin-right: 2%; width: 96%;height: 450px">
+	<div style="margin-left: 2%; margin-right: 2%; width: 100%;height: 450px">
 		<div class="easyui-panel" title="预警结果分析图"
 			style="width: 94%; height:450px">
 			<div class=“easyui-layout” data-option="fit:true">
@@ -328,7 +325,8 @@
 		</div>
 
 	</div>
-	<script type="text/javascript">
+	
+<script type="text/javascript">
 	var dom = document.getElementById("container3");
 	var myChart = echarts.init(dom);
 	var app = {};

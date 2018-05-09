@@ -9,8 +9,14 @@
 	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
@@ -41,7 +47,7 @@
 }
 </style>
 <script type="text/javascript">
-
+	
 </script>
 <body>
 	<div align="center">
@@ -50,7 +56,6 @@
 				<form action="" class="form-inline" role="form">
 					<div class="col-sm-2 form-group" style="margin-right: -50px">
 						<label class="control-label" for="unitNo"> 机组选择 &nbsp;</label>
-
 						<div class="col-sm-5 input-group" id="unitNo">
 							<select class="form-control">
 								<option>1#</option>
@@ -112,83 +117,89 @@
 		</div>
 	</div>
 
-	<div class="col-md-5">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-edit">关联分析参数设置</i></b>
-			</div>
-			<div style="height: 230px">
-				<div class="col-lg-8">
-					<form class="form-horizontal">
-						<div class="form-group"></div>
-						<div class="form-group" style="margin-left: -80px">
-							<div class="col-sm-1"></div>
-							<label class="col-sm-4 control-label" for="minSupport">频繁项集数</label>
+	<div style="margin-left: 2%; margin-right: 2%; width: 99%">
+		<div style="width: 47%; height: ; float: left; display: inline; margin-right: 2%">
+			<div style="width: 100%; height: 270px; float: left; display: inline">
+				<div class="easyui-panel" title="关联分析参数设置"
+					style="width: 100%; height: 270px;">
+					<div style="height: 230px">
+						<div class="col-lg-8">
+							<form class="form-horizontal">
+								<div class="form-group"></div>
+								<div class="form-group" style="margin-left: -80px">
+									<div class="col-sm-1"></div>
+									<label class="col-sm-4 control-label" for="minSupport">频繁项集数</label>
 
-							<div class="col-sm-5 input-group">
-								<input type='text' id='minSupport' class="form-control"
-									placeholder="5"> <span class="input-group-addon">1</span>
-							</div>
-						</div>
-						<div class="form-group" style="margin-left: -80px">
-							<div class="col-sm-1"></div>
-							<label class="col-sm-4 control-label" for="minConfidence">最小置信度</label>
+									<div class="col-sm-5 input-group">
+										<input type='text' id='minSupport' class="form-control"
+											placeholder="5"> <span class="input-group-addon">1</span>
+									</div>
+								</div>
+								<div class="form-group" style="margin-left: -80px">
+									<div class="col-sm-1"></div>
+									<label class="col-sm-4 control-label" for="minConfidence">最小置信度</label>
 
-							<div class="col-sm-5 input-group">
-								<input type='text' id='minConfidence' class="form-control"
-									placeholder="60"> <span class="input-group-addon">%</span>
+									<div class="col-sm-5 input-group">
+										<input type='text' id='minConfidence' class="form-control"
+											placeholder="60"> <span class="input-group-addon">%</span>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-md-4" style="padding-top: 3%;">
+							<span class="introduce">&nbsp;&nbsp;&nbsp;&nbsp;支持度是对频繁项出现次数的设置；置信度是对挖掘的关联关系的可信度的设置。</span>
+						</div>
+						<div class="col-lg-10">
+							<div style="padding-top: 8%">
+								<div class="col-md-4">
+									<button type="button" class="btn btn-primary"
+										id="btn_beginMine">开始挖掘</button>
+								</div>
+								<div class="col-md-5">
+									<button type="button" class="btn btn-primary"
+										id="btn_viewFrequent">查看频繁N项集</button>
+								</div>
+								<div class="col-md-3">
+									<button type="button" class="btn btn-primary" ui-sref="">保存</button>
+								</div>
 							</div>
-						</div>
-					</form>
-				</div>
-				<div class="col-md-4" style="padding-top: 3%;">
-					<span class="introduce">&nbsp;&nbsp;&nbsp;&nbsp;支持度是对频繁项出现次数的设置；置信度是对挖掘的关联关系的可信度的设置。</span>
-				</div>
-				<div class="col-lg-10">
-					<div style="padding-top: 8%">
-						<div class="col-md-4">
-							<button type="button" class="btn btn-primary" id="btn_beginMine">开始挖掘</button>
-						</div>
-						<div class="col-md-5">
-							<button type="button" class="btn btn-primary"
-								id="btn_viewFrequent">查看频繁N项集</button>
-						</div>
-						<div class="col-md-3">
-							<button type="button" class="btn btn-primary" ui-sref="">保存</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<div class="col-md-7">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-edit">频繁项集</i></b>
-			</div>
-			<div style="width: 95%; height: 230px;">
-				<table class="table" id="historyTable">
-					<thead>
-						<tr>
-							<th>频繁项集</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
+
+	<div style="width: 47%; height: 270px; float: left; display: inline">
+			<div class="easyui-panel" title="频繁项集"
+				style="width: 100%; height: 270px;">
+
+
+				<div style="width: 95%; height: 230px;">
+					<table class="table" id="historyTable" border="1">
+						<thead>
+							<tr>
+								<th>频繁项集</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-5">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-edit">关联分析结果</i></b>
-			</div>
-			<div style="height: 550px">
-				<table class="table" id="relationTable">
-					<thead>
+	<div class="ipad" style="height: 290px"></div>
+
+	<div style="margin-left: 2%; margin-right: 2%; width: 99%">
+		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+			<div style="width: 100%; float: left; display: inline">
+				<div class="easyui-panel" title="关联分析结果"
+					style="width: 100%; height: 470px;">
+					<table class="table" id="relationTable" border="1">
+					<thead >
 						<tr>
 							<th>设备类型</th>
 							<th>设备状态</th>
@@ -196,30 +207,34 @@
 					</thead>
 					<tbody></tbody>
 				</table>
+				</div>
 			</div>
 		</div>
+		
+		<div style="width: 47%; height: auto; float: left; display: inline">
+			<div class="easyui-panel" title="频繁项集"
+				style="width: 100%;  height: 470px;">
+				<div id="equipment"  style="width: 95%; height: 100%;">
+				<pre>    暂无结果</pre>
+				</div>
+			</div>
+		</div>
+	
 	</div>
 
-	<div class="col-md-7">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-edit">设备关联分析</i></b>
-			</div>
-			<div id="equipment" style="width: 95%; height: 550px;"></div>
-		</div>
-	</div>
+	
 	<script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language: 'fr',
-        weekStart: 1,
-        todayBtn: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0,
-        format: 'yyyy-mm-dd'
-    });
-</script>
+		$('.form_date').datetimepicker({
+			language : 'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			todayHighlight : 1,
+			startView : 2,
+			minView : 2,
+			forceParse : 0,
+			format : 'yyyy-mm-dd'
+		});
+	</script>
 
 	<!--解析数据
 	<!--
@@ -243,178 +258,207 @@ var graph = {
 };
 -->
 	<script type="text/javascript">
-	//开始挖掘方法
-	var relationTable = $('#relationTable').DataTable({
-		"sPaginationType": "simple_numbers",
-        "oLanguage": {
-        "sZeroRecords": "抱歉， 没有找到",
-        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-        "sInfoEmpty": "没有数据",
-		"sLengthMenu": "每页显示 _MENU_ 条记录",
-		"sSearch": "模糊查询:  ",
-        "oPaginate": {
-            "sPrevious": "前一页",
-            "sNext": "后一页",
-        	}
-        },
-	});
-	function beginDateMine(){
-		relationTable.destroy();
-		var minConfidence=$("#minConfidence").val();
-		var minSupport =$("#minSupport").val();
-		var subSystem=$("#subSystem").val();
-		console.log(subSystem);
-		console.log(minSupport);
-		var urlAction="/BLHPumTurEvaDia/datamine/relation/relation";
-		var url =urlAction+"?inputStr="+subSystem+"//"+minConfidence;
-		console.log(url);
-		$.getJSON(url,function(data){
-			var graph=null;
-			graph={"nodes":data.nodes,"links":data.links};
-			var myChart = echarts.init(document.getElementById('equipment'));
-			myChart.hideLoading();
-			relationTable=$('#relationTable').DataTable({
-				data:data.relationTables,
-				columns:[
-					{ "data": "deviceType" },
-					{ "data": "deviceState" }
-				],
-				"sPaginationType": "simple_numbers",
-		        "oLanguage": {
-		        "sZeroRecords": "抱歉， 没有找到",
-		        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-		        "sInfoEmpty": "没有数据",
-				"sLengthMenu": "每页显示 _MENU_ 条记录",
-				"sSearch": "模糊查询:  ",
-		        "oPaginate": {
-		            "sPrevious": "前一页",
-		            "sNext": "后一页",
-		        	}
-		        },
-			});
-			var categories = [];
-			var cats=["全场数据","1号机组","2号机组","3号机组","4号机组"]
-			for (var i = 0; i < cats.length; i++) {
-	    		categories[i] = {
-	        	name: cats[i]
-	    	};
-		}
-		graph.nodes.forEach(function (node) {
-	    node.itemStyle = null;//
-	    node.symbolSize = node.size;//强制指定节点的大小
-	    // Use random x, y
-	    node.x = node.y = null;
-	    node.draggable = true;
-
-	});
-	option = {
-	    title: {
-	        text: '关联分析',//文本标题
-	        subtext: 'Default layout',//副标题
-	        top: 'bottom',//上下位置
-	        left: 'right'//左右位置
-	    },
-	    tooltip: {
-	        formatter: function (params, ticket, callback) {//回调函数
-	            var str = appendPath(graph.nodes[params.dataIndex].id);
-	        	document.getElementById("div1").innerHTML = str;
-	            return str;//
-	        }
-	    },
-	    legend: [
-	        {
-	            // selectedMode: 'single',
-	            data: categories.map(function (a) {//显示策略
-	                return a.name;
-	            })
-	        }
-	    ],
-	    animation: false,//是否开启动画
-	    series: [
-	        {
-	            name: '',
-	            type: 'graph',
-	            layout: 'force',
-	            data: graph.nodes,//节点数据
-	            links: graph.links,//节点边数据
-	            categories: categories,//策略
-	            roam: true,//是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
-	            label: {
-	                normal: {
-	                    show: 'false',
-	                    position: 'right'
-	                }
-	            },
-	            slient: false,//是否响应点击事件，为false的时候就是响应
-	            force: {
-	                repulsion: 100
-	            }
-	        }
-	    ]
-	};
-
-	myChart.setOption(option);
-	/**
-	 拼接路径
-	 */
-	function appendPath(id) {
-	    var str = id;
-	    var links = graph.links;
-	    var i = 0;
-	    var map = {};
-	    for (i = 0; i < links.length; i++) {
-	        map[links[i].target] = links[i].source;
-	    }
-	    while (true) {
-	        if (map[id] == undefined) {
-	            break;
-	        }
-	        str = map[id] + "->" + str;
-	        id = map[id];
-	    }
-	    return str;
-	}
-	});
-}
-var table = $('#historyTable').DataTable({
-	"sPaginationType": "simple_numbers",
-    "oLanguage": {
-    "sZeroRecords": "抱歉， 没有找到",
-    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-    "sInfoEmpty": "没有数据",
-	"sLengthMenu": "每页显示 _MENU_ 条记录",
-	"sSearch": "模糊查询:  ",
-    "oPaginate": {
-        "sPrevious": "前一页",
-        "sNext": "后一页",
-    	}
-    },
-});	
-function viewFrequentItem(){
-	table.destroy();
-	var minSupport =$("#minSupport").val();
-	var subSystem=$("#subSystem").val();
-	console.log(subSystem);
-	console.log(minSupport);
-	var urlAction="/BLHPumTurEvaDia/datamine/relation/view-frequent";
-	var url =urlAction+"?inputStr="+subSystem+"//"+minSupport;
-	console.log(url);
-	
-	$.getJSON(url,function(data){
-		var result=[];
-		console.log(data.result);
-		result[0]=[data.result]	;
-		console.log(result);
-		table=$('#historyTable').DataTable({
-			data:result
+		//开始挖掘方法
+		var relationTable = $('#relationTable').DataTable({
+			"sPaginationType" : "simple_numbers",
+			searching : false, //去掉搜索框
+			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+			
+			bLengthChange : false,//去掉每页多少条框体
+			"oLanguage" : {
+				"sZeroRecords" : "抱歉， 没有找到",
+				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+				"sInfoEmpty" : "没有数据",
+				"sLengthMenu" : "每页显示 _MENU_ 条记录",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
 		});
-	});
-	
-}
-$(function(){
-	$("#btn_beginMine").click(beginDateMine);
-	$("#btn_viewFrequent").click(viewFrequentItem);
-});
-</script>
+		function beginDateMine() {
+			relationTable.destroy();
+			var minConfidence = $("#minConfidence").val();
+			var minSupport = $("#minSupport").val();
+			var subSystem = $("#subSystem").val();
+			console.log(subSystem);
+			console.log(minSupport);
+			var urlAction = "/BLHPumTurEvaDia/datamine/relation/relation";
+			var url = urlAction + "?inputStr=" + subSystem + "//"
+					+ minConfidence;
+			console.log(url);
+			$.getJSON(url,function(data) {
+								var graph = null;
+								graph = {
+									"nodes" : data.nodes,
+									"links" : data.links
+								};
+								var myChart = echarts.init(document
+										.getElementById('equipment'));
+								myChart.hideLoading();
+								relationTable = $('#relationTable')
+										.DataTable(
+												{
+													data : data.relationTables,
+													columns : [ {
+														"data" : "deviceType"
+													}, {
+														"data" : "deviceState"
+													} ],
+													"sPaginationType" : "simple_numbers",
+													"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+													searching : false, //去掉搜索框
+													bLengthChange : false,//去掉每页多少条框体
+													"oLanguage" : {
+														"sZeroRecords" : "抱歉， 没有找到",
+														"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+														"sInfoEmpty" : "没有数据",
+														"sLengthMenu" : "每页显示 _MENU_ 条记录",
+														"sSearch" : "模糊查询:  ",
+														"oPaginate" : {
+															"sPrevious" : "前一页",
+															"sNext" : "后一页",
+														}
+													},
+												});
+								var categories = [];
+								var cats = [ "全场数据", "1号机组", "2号机组", "3号机组",
+										"4号机组" ]
+								for (var i = 0; i < cats.length; i++) {
+									categories[i] = {
+										name : cats[i]
+									};
+								}
+								graph.nodes.forEach(function(node) {
+									node.itemStyle = null;//
+									node.symbolSize = node.size;//强制指定节点的大小
+									// Use random x, y
+									node.x = node.y = null;
+									node.draggable = true;
+
+								});
+								option = {
+									title : {
+										text : '关联分析',//文本标题
+										subtext : 'Default layout',//副标题
+										top : 'bottom',//上下位置
+										left : 'right'//左右位置
+									},
+									tooltip : {
+										formatter : function(params, ticket,
+												callback) {//回调函数
+											var str = appendPath(graph.nodes[params.dataIndex].id);
+											/* document.getElementById("div1").innerHTML = str;
+											return str;// */
+										}
+									},
+									legend : [ {
+										// selectedMode: 'single',
+										data : categories.map(function(a) {//显示策略
+											return a.name;
+										})
+									} ],
+									animation : false,//是否开启动画
+									series : [ {
+										name : '',
+										type : 'graph',
+										layout : 'force',
+										data : graph.nodes,//节点数据
+										links : graph.links,//节点边数据
+										categories : categories,//策略
+										roam : true,//是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
+										label : {
+											normal : {
+												show : 'false',
+												position : 'right'
+											}
+										},
+										slient : false,//是否响应点击事件，为false的时候就是响应
+										force : {
+											repulsion : 100
+										}
+									} ]
+								};
+
+								myChart.setOption(option);
+								/**
+								 拼接路径
+								 */
+								function appendPath(id) {
+									var str = id;
+									var links = graph.links;
+									var i = 0;
+									var map = {};
+									for (i = 0; i < links.length; i++) {
+										map[links[i].target] = links[i].source;
+									}
+									while (true) {
+										if (map[id] == undefined) {
+											break;
+										}
+										str = map[id] + "->" + str;
+										id = map[id];
+									}
+									return str;
+								}
+							});
+		}
+		var table = $('#historyTable').DataTable({
+			"sPaginationType" : "simple_numbers",
+			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+			searching : false, //去掉搜索框
+			bLengthChange : false,//去掉每页多少条框体
+			"oLanguage" : {
+				"sZeroRecords" : "抱歉， 没有找到",
+				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+				"sInfoEmpty" : "没有数据",
+				"sLengthMenu" : "每页显示 _MENU_ 条记录",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
+		});
+		function viewFrequentItem() {
+			table.destroy();
+			var minSupport = $("#minSupport").val();
+			var subSystem = $("#subSystem").val();
+			console.log(subSystem);
+			console.log(minSupport);
+			var urlAction = "/BLHPumTurEvaDia/datamine/relation/view-frequent";
+			var url = urlAction + "?inputStr=" + subSystem + "//" + minSupport;
+			console.log(url);
+
+			$.getJSON(url, function(data) {
+				var result = [];
+				console.log(data.result);
+				result[0] = [ data.result ];
+				console.log(result);
+				table = $('#historyTable').DataTable({
+					searching : false, //去掉搜索框
+					bLengthChange : false,//去掉每页多少条框体
+					"oLanguage" : {
+						"sZeroRecords" : "抱歉， 没有找到",
+						"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+						"sInfoEmpty" : "没有数据",
+						"sLengthMenu" : "每页显示 _MENU_ 条记录",
+						"sSearch" : "模糊查询:  ",
+						"oPaginate" : {
+							"sPrevious" : "前一页",
+							"sNext" : "后一页",
+						}
+					},
+					data : result
+				});
+			});
+
+		}
+		$(function() {
+			$("#btn_beginMine").click(beginDateMine);
+			$("#btn_viewFrequent").click(viewFrequentItem);
+		});
+	</script>
 </body>
 </html>
