@@ -4,8 +4,10 @@ public class PieChartData {
 	private String faultName;
 	private Double faultChance;
 
-	public PieChartData(String string, double d) {
-		
+	public PieChartData(String faultName, Double faultChance) {
+		super();
+		this.faultName = faultName;
+		this.faultChance = faultChance;
 	}
 
 	public String getFaultName() {
@@ -24,8 +26,4 @@ public class PieChartData {
 		this.faultChance = faultChance;
 	}
 
-	@Override
-	public String toString() {
-		return "[" + faultName + ", " + faultChance + "]";
-	}
 }

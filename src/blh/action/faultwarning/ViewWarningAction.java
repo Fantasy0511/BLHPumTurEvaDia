@@ -38,13 +38,15 @@ public class ViewWarningAction extends AbstractActionSupport {
 	// 继承AbstractActionSupport类，重写execute()方法
 	@Override
 	public String execute() throws Exception {
-		startTime = TimeUtils.DatetoString(TimeUtils.AddUnits(TimeUtils.StringtoDate(getFirstInput()), "day", -1));
+		startTime = TimeUtils.DatetoString(TimeUtils
+				.AddUnits(TimeUtils.StringtoDate(getFirstInput()), "day", -1));
 		endTime = getSecondInput();
 		paramter = getThirdInput();
-		typeid = paramter.substring(paramter.indexOf("(") + 1, paramter.indexOf(")"));
+		typeid = paramter.substring(paramter.indexOf("(") + 1,
+				paramter.indexOf(")"));
 		WarnViewService chartService = new WarnViewService();
 		pieChartDatas = chartService.getData(typeid, startTime, endTime);
-
+		System.out.println(pieChartDatas.size());
 		return super.execute();
 	}
 

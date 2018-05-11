@@ -40,53 +40,20 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
 
-<!-- <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-3d.js"></script> -->
-
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script>
 
-
 </head>
-<script type="text/javascript">
-	function myformatter(date) {
-		var y = date.getFullYear();
-		var m = date.getMonth() + 1;
-		var d = date.getDate();
-		return y + '-' + (m < 10 ? ('0' + m) : m) + '-'
-				+ (d < 10 ? ('0' + d) : d);
-	}
-	function myparser(s) {
-		if (!s)
-			return new Date();
-		var ss = (s.split('-'));
-		var y = parseInt(ss[0], 10);
-		var m = parseInt(ss[1], 10);
-		var d = parseInt(ss[2], 10);
-		if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
-			return new Date(y, m - 1, d);
-		} else {
-			return new Date();
-		}
-	}
-</script>
 <script type="text/javascript">
 	var table = $('#historyTable').DataTable();
 	function faultWarning() {
 
 		table.destroy();
-		var system = $('#subSystem').combobox('getText'); //把前端选择的子系统传给“system”
+		var system = $('#subSystem').val(); //把前端选择的子系统传给“system”
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
-
-		console.log(url1);
-
-		/* $.getJSON(url1, function(data) {
-			var rows = data.historyTable;
-			loadData('historyTable', rows);
-		}); */
 
 		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
 		table = $('#historyTable').DataTable({ /* json数组 */
@@ -111,16 +78,6 @@
 				"data" : "paramters",
 				orderable : false
 			} ],
-			/* "columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
-			// "visible": false,
-			//"targets": 0
-			}, 
-			{
-				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
-					return '<a>' + row.paramters + '</a>';
-				},
-				"targets" : 3//targets参数设置一个列或者多列
-			} ], */
 			searching : false, //去掉搜索框
 			bLengthChange : false,//去掉每页多少条框体
 			"language" : {
@@ -171,8 +128,11 @@
 													+ "//" + para; //重新定义了传入地址url
 											console.log(url);
 											var chart1 = Highcharts.chart;
-											$.getJSON(url,
+											$
+													.getJSON(
+															url,
 															function(result) { //调用url地址json数据，加载成功执行回调函数result
+
 																options1.series[0].data = result.data1.value;
 																options1.series[0].name = titleChart[0];
 																chart1 = new Highcharts.Chart(
@@ -217,66 +177,72 @@
 													enabled : false
 												}
 											};
-
+											/**
+											 * 显示预警结果分析图
+											 */
 											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
 											url1 = url1 + start + "//" + end
 													+ "//" + para;
-											console.log(url1);
+											$.getJSON(
+															url1,
+															function(data) {
+																var jsonArr = [];
+																tem_Arry = [];
+																for (i = 0; i < data.pieChartDatas.length; i++) {
+																	jsonArr = [
+																			data.pieChartDatas[i].faultName,
+																			data.pieChartDatas[i].faultChance ];
+																	tem_Arry.push(jsonArr)
+																}
+																var chart = {
+																	type : 'pie',
+																	options3d : {
+																		enabled : true,
+																		alpha : 45,
+																		beta : 0
+																	}
 
-											$(document).ready(function() {  
-												   var chart = {      
-												      type: 'pie',     
-												      options3d: {
-												         enabled: true,
-												         alpha: 45,
-												         beta: 0
-												      }
-												   	
-												   };
-												 var credits= {  
-												          enabled:false  
-												};  
+																};
+																var credits = {
+																	enabled : false
+																};
 
-												   var title = {
-												      text: '2014 年特定网站各浏览器占有率'   
-												   };   
-												   var tooltip = {
-												      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-												   };
+																var title = {
+																	text : '预警概率结果分析图'
+																};
+																var tooltip = {
+																	pointFormat : '<b>{point.percentage:.1f}%</b>'
+																};
 
-												   var plotOptions = {
-												      pie: {
-												          allowPointSelect: true,
-												          cursor: 'pointer',
-												          depth: 35,
-												          dataLabels: {
-												             enabled: true,
-												             format: '{point.name}'
-												          },
-												          
-												      }
-												   };   
-												   var series= [{
-												         type: 'pie',
-												            name: 'Browser share',
-												            data: [
-												                ['Firefox',   45.0],
-												                ['IE',       26.8],
-												                ['Safari',    8.5],
-												                ['Opera',     6.2],
-												                ['Others',   0.7]
-												            ]
-												   }];     
-												      
-												   var json = {};   
-												   json.chart = chart; 
-												   json.title = title;
-												   json.credits=credits;
-												   json.tooltip = tooltip; 
-												   json.plotOptions = plotOptions; 
-												   json.series = series;   
-												   $('#container3').highcharts(json);
-												});
+																var plotOptions = {
+																	pie : {
+																		allowPointSelect : true,
+																		cursor : 'pointer',
+																		depth : 35,
+																		dataLabels : {
+																			enabled : true,
+																			format : '{point.name}'
+																		},
+
+																	}
+																};
+
+																var series = [ {
+																	type : 'pie',
+																	data : tem_Arry
+																} ];
+
+																var json = {};
+																json.chart = chart;
+																json.title = title;
+																json.credits = credits;
+																json.tooltip = tooltip;
+																json.plotOptions = plotOptions;
+																json.series = series;
+																$('#container3')
+																		.highcharts(
+																				json);
+															});
 
 										});
 					});

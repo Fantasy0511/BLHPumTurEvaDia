@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 
+import blh.action.datamine.history.SystemConvert;
 import blh.action.support.AbstractActionSupport;
 import service.FaultInfoService;
 import util.FaultUtils;
@@ -17,7 +18,7 @@ import util.TimeUtils;
  *
  */
 @Result(type = "json")
-@Action("/faultwarning/fault-warning-result")  
+@Action("/faultwarning/fault-warning-result")
 public class FaultWarningResultAction extends AbstractActionSupport {
 
 	private static final long serialVersionUID = 1L;
@@ -29,13 +30,11 @@ public class FaultWarningResultAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 		system = getFirstInput();
-		System.out.println(getFirstInput());
-		startTime=TimeUtils.StringtoLong(getSecondInput()+" 00:00:00");
-		endTime=TimeUtils.StringtoLong(getThirdInput()+" 00:00:00");
-		System.out.println(system+","+startTime);
-		
+		startTime = TimeUtils.StringtoLong(getSecondInput() + " 00:00:00");
+		endTime = TimeUtils.StringtoLong(getThirdInput() + " 00:00:00");
 		FaultInfoService faultInfoService = new FaultInfoService();
-		data = faultInfoService.getFaultInfos(system,startTime,endTime);
+		data = faultInfoService.getFaultInfos(
+				SystemConvert.valueOf(system).getSystem(), startTime, endTime);
 		return SUCCESS;
 	}
 
