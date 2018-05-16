@@ -48,7 +48,8 @@
 	function faultWarning() {
 
 		table.destroy();
-		var system = $('#subSystem').combobox("getValue"); //把前端选择的子系统传给“system”
+		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
+		
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="

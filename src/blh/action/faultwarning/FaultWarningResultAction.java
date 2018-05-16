@@ -30,6 +30,7 @@ public class FaultWarningResultAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 		system = SystemConvert.valueOf(getFirstInput()).getSystem();
+		System.out.println(system);
 		startTime = TimeUtils.StringtoLong(getSecondInput() + " 00:00:00");
 		endTime = TimeUtils.StringtoLong(getThirdInput() + " 00:00:00");
 		FaultInfoService faultInfoService = new FaultInfoService();
