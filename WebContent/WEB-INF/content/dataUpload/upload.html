@@ -38,22 +38,23 @@
 	})
 </script>
 <body>
-<div style="margin-left: auto; margin-right: auto; margin-top:30px;width: 1150px">
-	<div class="easyui-panel"
-		style="width: 340px; height: 410px; padding: 10px 10px;"
-		data-options="style:{display:'inline-block',float:'left',marginRight:'10px'}">
-		<div title="上传文件" class="easyui-panel"
-			style=" width: 320px; padding: 20px 20px; text-align: center"
-			data-options="border:true">
-			<div></div>
-			<form method="post" enctype="multipart/form-data">
-				<input type="file" id="excelId" name="excel"
-					accept="application/vnd.ms-excel"><br>
-			<input type="submit" id="uploadBtn" style="display:block"
-					value="上传"><br>
-			</form>
-			
-					
+	<div
+		style="margin-left: auto; margin-right: auto; margin-top: 30px; width: 1150px">
+		<div class="easyui-panel"
+			style="width: 340px; height: 410px; padding: 10px 10px;"
+			data-options="style:{display:'inline-block',float:'left',marginRight:'10px'}">
+			<div title="上传文件" class="easyui-panel"
+				style="width: 320px; padding: 20px 20px; text-align: center"
+				data-options="border:true">
+				<div></div>
+				<form method="post" enctype="multipart/form-data">
+					<input type="file" id="excelId" name="excel"
+						accept="application/vnd.ms-excel"><br> <input
+						type="submit" id="uploadBtn" style="display: block" value="上传"><br>
+				</form>
+
+
+			</div>
 		</div>
 		<div class="ipad" style="height: 30px"></div>
 
@@ -83,19 +84,19 @@
 			<a id="bt_query" class="easyui-linkbutton"
 				data-options="iconCls:'icon-search'">查询</a>
 		</div>
-		</div>
-		<table id="report_table" title="提交记录" class="easyui-datagrid"
-			style="width: 793px; height: 410px" data-options="singleSelect:true">
-			<thead>
-				<tr>
-					<th data-options="field:'reportId',align:'center',width:150">报表序号</th>
-					<th data-options="field:'reportType',align:'center',width:150">报表类型</th>
-					<th data-options="field:'reportName',align:'center',width:150">报表名称</th>
-					<th data-options="field:'createdTime',align:'center',width:160">生成时间</th>
-					<th data-options="field:'operation',align:'center',width:180">操作</th>
-				</tr>
-			</thead>
-		</table>
+	</div>
+	<table id="report_table" title="提交记录" class="easyui-datagrid"
+		style="width: 793px; height: 410px" data-options="singleSelect:true">
+		<thead>
+			<tr>
+				<th data-options="field:'reportId',align:'center',width:150">报表序号</th>
+				<th data-options="field:'reportType',align:'center',width:150">报表类型</th>
+				<th data-options="field:'reportName',align:'center',width:150">报表名称</th>
+				<th data-options="field:'createdTime',align:'center',width:160">生成时间</th>
+				<th data-options="field:'operation',align:'center',width:180">操作</th>
+			</tr>
+		</thead>
+	</table>
 
 	<div class="panel panel-primary">
 		<!-- 插入panel -->
@@ -106,8 +107,7 @@
 			<div class="col-md-2" align="center">
 				<form method="post" enctype="multipart/form-data">
 					<input type="file" id="excelId" name="excel"
-						accept="application/vnd.ms-excel"> 
-					<input type="submit"
+						accept="application/vnd.ms-excel"> <input type="submit"
 						id="uploadBtn" value="上传">
 				</form>
 			</div>
