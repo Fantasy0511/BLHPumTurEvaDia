@@ -28,7 +28,6 @@ public class ExcelToDbAction extends AbstractActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		System.out.println(fileName);
 		System.out.println(excel.getName());
 		System.out.println(excel.getPath());
 		excel2DbService.upLoadExcelToDb(
