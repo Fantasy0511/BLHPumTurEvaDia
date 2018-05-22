@@ -5,11 +5,10 @@ import service.assess.Ballvalve.one.second.histroy;
 import service.assess.Ballvalve.one.third.performance;
 
 
-public class output {
+public class BallAssSumOut {
 
-	
 		// 球阀系统总得分
-		public double output(long time) {
+		public BallAssessResult getBallAssSum(long time) {
 			//球阀油系统性能状态
 			Oilsystem guideVane = new Oilsystem();
 			double U1 = guideVane.Oilsystem(time);
@@ -22,7 +21,7 @@ public class output {
 			//球阀系统总得分
 			
 			double U6 = 0.55 * U1 + 0.1* U2 + 0.35 * U3 ;
-			
-			return U6;
+			BallAssessResult ballAssessResult=new BallAssessResult(U1, U2, U3, U6); 
+			return ballAssessResult;
 }
 }

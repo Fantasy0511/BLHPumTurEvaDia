@@ -34,8 +34,8 @@ public class FaultWarningResultAction extends AbstractActionSupport {
 		startTime = TimeUtils.StringtoLong(getSecondInput() + " 00:00:00");
 		endTime = TimeUtils.StringtoLong(getThirdInput() + " 00:00:00");
 		FaultInfoService faultInfoService = new FaultInfoService();
-		data = faultInfoService.getFaultInfos(
-				SystemConvert.valueOf(system).getSystem(), startTime, endTime);
+		data = faultInfoService.getFaultInfos(system, startTime, endTime);
+		
 		return SUCCESS;
 	}
 

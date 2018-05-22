@@ -27,6 +27,7 @@
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/exporting.js"></script>
 <script type="text/javascript"
@@ -61,19 +62,36 @@
 //开始评估  
 				
 	function assess() {
-		showMask();   // 显示与隐藏
+		
 		url += makeInput(getComboboxValue("unitNo"));
 		var begin =getDate("beginDate");
-		var system=$("#subSystem").val()
+		var system=$('#subSystem').combobox('getValue');
+		
 		$("#label1").html("油系统性能");
-			$("#label2").html("工况性能");
+		$("#label2").html("工况性能");
 		if (system=="pum"){
 			$("#label1").html("主轴密封");
 			$("#label2").html("振动信号性能");
-			}
+			};
+		
+		if (system=="exc"){
+			$("#label1").html("发电及励磁故障");
+			$("#label2").html("系统温度状态");
+			};
+			
+		if (system=="ball"){
+			$("#label1").html("球阀油系统");
+			$("#label2").html("球阀性能状态");
+			};
+			
+		if (system=="transfer"){
+			$("#label1").html("系统温度状态");
+			$("#label2").html("主变故障信号");
+			};
 		var url = "/BLHPumTurEvaDia/asscss/"+system+"-assess";
 		url+=makeInput(begin);
 		console.log(url);
+		
 		var success = function(data) {
 			var view = data.assessView;
 			drawGuage('assement-container', view.topScore);
@@ -83,19 +101,21 @@
 		}
 		getJSON(url, success);
 	}
-
+	
 	$(function() {
 		clearText(".easyui-textbox");
 		drawGuage('assement-container', 0);
 		$("#bt_assess").click(assess);     // “开始评估”按钮
 		
 	});
+	showMask();   // 显示与隐藏
 </script>
 
 </head>
 <body>
 	<div class="input_div" style="margin-bottom: 5px;">
 		<span class="input_title">条件输入：</span> 
+		
 		<label for="model">机组：</label> 
 		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
 			<option value="1">1#</option>
@@ -103,15 +123,17 @@
 			<option value="3">3#</option>
 			<option value="4">4#</option>
 		</select> 
-		<label for="model">子系统： </label> 
+		
+		<label for="model">子系统选择： </label> 
 		
 		<select id="subSystem"
-			class="easyui-combobox" style="width: 120px;">
-			<option value="gov">球阀系统</option>
-			<option value="pum">发电机及励磁系统</option>
-			<option value="ball">调速器系统</option>
-			<option value="exc">主变系统</option>
-			<option value="transfer">水泵水轮机</option>
+			class="easyui-combobox" style="width: 140px;">
+			<option value="pum">水泵水轮机</option>
+			<option value="gov">调速器系统</option>
+			<option value="exc">发电机及励磁系统</option>
+			<option value="ball">球阀系统</option>
+			<option value="transfer">主变系统</option>
+			
 		</select> 
 		
 		<label style="margin-bottom: 5px">时间：</label>
@@ -119,39 +141,39 @@
 			class="easyui-datebox"
 			data-options="formatter:myformatter,parser:myparser" required
 			style="width: 150px; height: 26px">
-		<div class="control" style="padding-left: 50px">
+		
 			<a id="bt_assess" href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-ok'">开始评估</a> 
 			<a id="bt_history"
 				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/history">历史数据</a>
 			<a id="bt_ahp"
 				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/ahp/main">层次分析</a>
-		</div>
+		
 	</div>
 
 	<!--分项评估结果 共 3 项 -->
 
-	<div style="margin-left: auto; margin-right: auto; width: 1110px">
+	<div style="margin-left: auto; margin-right: auto; width: 1000px">
 		<div class="assesment-container">
 			<div id="assement-container"></div>
 			<div class="midDiv-container">
-				<div class="midDiv">
+				<div class="midDiv" style="top:60px;width:600px;margin-left:100px">
 					<div>
 						<pre class="tt">分项评估结果 共 3 项</pre>
 					</div>
 					<hr />
 					<div class="middle">
 						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/ad_oil.png" />
+							src="/BLHPumTurEvaDia/images/pages/assessment/油系统.png" />
 						<div>
-							<label id="label1" style="margin-bottom: 5px">油系统性能：</label><input
+							<label id="label1" style="margin-bottom: 6px">油系统性能：</label><input
 								id="text_oil_remark" class="easyui-textbox"
 								data-options="readonly:true,editable:false" style="width: 40px" />
 						</div>
 					</div>
-					<div class="middle">
+					<div class="middle" style="width:216px">
 						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/ad_gov1.png" />
+							src="/BLHPumTurEvaDia/images/pages/assessment/性能.png" />
 						<div>
 							<label id="label2" style="margin-bottom: 5px">工况性能：</label> <input
 								id="text_condition_remark" class="easyui-textbox"
@@ -161,7 +183,7 @@
 					</div>
 					<div class="middle">
 						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/ad_his.png" />
+							src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
 						<div>
 							<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
 								id="text_history_remark" class="easyui-textbox"
@@ -171,10 +193,13 @@
 				</div>
 			</div>
 		</div>
-
+	
+	</div>
+	<div style="margin-left: auto; margin-right: auto; width: 1000px">
+		<div style="width:440px">
 		<table id="result_table" title="详细评估信息" class="easyui-datagrid"
-			style="width: 550px; height: 450px"
-			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'2px'}">
+			style="width: 100%; height: 450px"
+			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'10px'}">
 			<thead>
 				<tr>
 					<th data-options="field:'name',width:100">计算指标</th>
@@ -182,12 +207,15 @@
 				</tr>
 			</thead>
 		</table>
-
+		</div>
+		<div style="width:550px;float:right"> 
 		<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
-			style="width: 550px; height: 450px" style="display:inline;float:left">
+			style="width: 540px; height: 450px;display:inline;float:left">
 			<div id="chart_middle_bar"></div>
 		</div>
+		</div>
 	</div>
+
 	<div style="height: 50px"></div>
 </body>
 </html>
