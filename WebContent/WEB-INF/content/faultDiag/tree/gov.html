@@ -22,7 +22,7 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/tree/faulttree.js"></script>
+	src="/BLHPumTurEvaDia/js/tree/govfaulttree.js"></script>
 </head>
 <script type="text/javascript">
 	var id;
@@ -81,6 +81,20 @@
 			}
 			tree.fromJSON(graphJSON);
 		}
+		
+		function changecolor4(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+			for (i in result) {
+				for (j = 0; j < cell4.cells.length; j++) {
+					if (cell3.cells[j].id == result[i]) {
+						var stylename = cell4.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+			}
+			tree.fromJSON(graphJSON);
+		}
 
 		$("#b1").click(function() {
 			tree.fromJSON(cell1);
@@ -95,6 +109,10 @@
 			changecolor3(id);
 		});
 
+		$("#b4").click(function() {
+			tree.fromJSON(cell4);
+			changecolor4(id);
+		});
 		$("#b0").click(function() {
 			diagnose();
 			tree.fromJSON(cell1);
@@ -134,6 +152,9 @@
 				</div>
 				<div class="col-md-2">
 					<button type="button" class="btn btn-primary" id="b3">油压装置</button>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-primary" id="b4">调速器总图</button>
 				</div>
 				<div class="col-md-2">
 					<button type="button" class="btn btn-primary" id="b0">诊断</button>

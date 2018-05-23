@@ -21,8 +21,7 @@
 	src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/tree/pumTur.js"></script>
+<script type="text/javascript" src="/BLHPumTurEvaDia/js/tree/pumTur.js"></script>
 </head>
 <script type="text/javascript">
 	var id;
@@ -30,19 +29,17 @@
 		var tree = new TreeEditor({
 			container : 'container',
 			enabled : false,
-			connectable : false,    
+			connectable : false,
 			movable : false,
 			resizable : false
 		});
-		tree.fromJSON(cell);
+		tree.fromJSON(cell1);
 		tree.graph.refresh();
 
 		function changecolor1(result) {
 			var graphJSON = tree.toJSON();
 			var cells = graphJSON.cells;
-
 			for (i in result) {
-
 				for (j = 0; j < cell1.cells.length; j++) {
 					if (cell1.cells[j].id == result[i]) {
 						var stylename = cell1.cells[j].style;
@@ -82,6 +79,61 @@
 			tree.fromJSON(graphJSON);
 		}
 
+		function changecolor4(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+			for (i in result) {
+				for (j = 0; j < cell4.cells.length; j++) {
+					if (cell3.cells[j].id == result[i]) {
+						var stylename = cell4.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+			}
+			tree.fromJSON(graphJSON);
+		}
+
+		function changecolor5(result) {
+			var graphJSON = tree.toJSON();
+			var cells = graphJSON.cells;
+			for (i in result) {
+				for (j = 0; j < cell5.cells.length; j++) {
+					if (cell3.cells[j].id == result[i]) {
+						var stylename = cell5.cells[j].style;
+						cells[j].style = stylename + '_selected';
+					}
+				}
+			}
+			tree.fromJSON(graphJSON);
+		}
+		$("#b1").click(function() {
+			tree.fromJSON(cell1);
+			changecolor1(id);
+		});
+		$("#b2").click(function() {
+			tree.fromJSON(cell2);
+			changecolor2(id);
+		});
+		$("#b3").click(function() {
+			tree.fromJSON(cell3);
+			changecolor3(id);
+		});
+
+		$("#b4").click(function() {
+			tree.fromJSON(cell4);
+			changecolor4(id);
+		});
+		
+		$("#b5").click(function() {
+			tree.fromJSON(cell5);
+			changecolor5(id);
+		});
+		$("#b0").click(function() {
+			diagnose();
+			tree.fromJSON(cell1);
+			changecolor1(id);
+		});
+
 	});
 
 	function diagnose() {//从后台得到故障id
@@ -102,7 +154,33 @@
 </style>
 </head>
 <body>
-	
+	<div>
+		<div id="p" class="panel panel-default">
+			<div class="panel-heading">
+				<b><i class="glyphicon glyphicon glyphicon-edit">诊断控制 </i></b>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b1">水导装置</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b2">过流部件</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b3">轴系装置</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b4">推力轴承装置</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b5">水泵水轮机总图</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" id="b0">诊断</button>
+			</div>
+
+		</div>
+	</div>
+
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -128,7 +206,7 @@
 							<th>故障名称</th>
 							<th>发生概率</th>
 							<th>建议描述</th>
-						      </tr>
+						</tr>
 					</thead>
 				</table>
 			</div>
