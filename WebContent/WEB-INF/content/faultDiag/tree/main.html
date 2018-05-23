@@ -3,16 +3,21 @@
 <head>
 <meta charset="UTF-8">
 
-<title>assessment main</title>
+<title>故障树诊断</title>
 
-<link rel="icon" href="/BLHPumTurEvaDia/images/ico.ico" type="image/x-icon" />
+<link rel="icon" href="/BLHPumTurEvaDia/images/ico.ico"
+	type="image/x-icon" />
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/icon.css">
-
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
-
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
 <script type="text/javascript"
@@ -23,12 +28,27 @@
 			0 : {
 				init : false,
 				id : "item0",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/action"
+				url : "/BLHPumTurEvaDia/faultDiag/tree/gov"
 			},
 			1 : {
 				init : false,
 				id : "item1",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/test"
+				url : "/BLHPumTurEvaDia/faultDiag/tree/pum"
+			},
+			2 : {
+				init : false,
+				id : "item2",
+				url : "/BLHPumTurEvaDia/assess/ahp/exc"
+			},
+			3 : {
+				init : false,
+				id : "item3",
+				url : "/BLHPumTurEvaDia/assess/ahp/ball"
+			},
+			4 : {
+				init : false,
+				id : "item4",
+				url : "/BLHPumTurEvaDia/assess/ahp/transfer"
 			}
 		};
 		$("#tabs").tabs({
@@ -46,20 +66,69 @@
 </script>
 </head>
 <body>
+	
+	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left: 4px;margin-right: 4px;">
+		<span class="input_title">条件输入：</span> <label
+			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<script>
+			$.extend($.fn.validatebox.defaults.rules, {
+				md : {
+					validator : function(value, param) {
+						var d1 = $.fn.datebox.defaults.parser(param[0]);
+						var d2 = $.fn.datebox.defaults.parser(value);
+						return d2 >= d1;
+					},
+					message : '结束时间必须大于或等于开始时间。'
+				}
+			})
+		</script>
+		<label for="model">系统选择：</label> <select id="subSystem"
+			class="easyui-combobox" style="width: 140px;">
+			<option value="ball">球阀系统</option>
+			<option value="Exc">发电机及励磁系统</option>
+			<option value="Gov">调速器系统</option>
+			<option value="Transfer">主变系统</option>
+			<option value="Pum">水泵水轮机</option>
+		</select> <a id="Startwarning" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">开始诊断</a>
+	</div>
+
 	<div id="tabs" class="easyui-tabs"
 		data-options="fit:true,tabPosition:'left',tabWidth:146,tabHeight:60">
 		<div
 			title="<table><tr><td align='center' valign='middle'> <img src='/BLHPumTurEvaDia/images/modem.png'/></td><td align='center' valign='middle'>调速系统</td></tr></table>"
 			style="padding: 10px">
-			<iframe id="item0" src="/BLHPumTurEvaDia/faultDiag/tree/action"
+			<iframe id="item0" src="/BLHPumTurEvaDia/faultDiag/tree/gov"
 				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
 		<div
 			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>水泵水轮机系统</td></tr></table>"
 			style="padding: 10px">
-			<iframe id="item1" src="/BLHPumTurEvaDia/faultDiag/tree/test"
-			style="width: 100%; height: 99%; border: none"></iframe>
+			<iframe id="item1" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
+				style="width: 100%; height: 99%; border: none"></iframe>
+		</div>
+		<div
+			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>球阀系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item2" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
+				style="width: 100%; height: 99%; border: none"></iframe>
+		</div>
+		<div
+			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>励磁发电系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item3" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
+				style="width: 100%; height: 99%; border: none"></iframe>
+		</div>
+		<div
+			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>主变系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item4" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
+				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
 	</div>
+
 </body>
 </html>
