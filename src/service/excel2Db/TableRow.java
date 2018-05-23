@@ -31,8 +31,7 @@ public class TableRow {
 
 	}
 
-	public TableRow(String id, String pos, String state, String time,
-			String value) {
+	public TableRow(String id, String pos, String state, String time, String value) {
 		super();
 		this.id = id;
 		this.pos = pos;
