@@ -49,7 +49,7 @@
 
 		table.destroy();
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
-		
+
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
@@ -184,7 +184,8 @@
 											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
 											url1 = url1 + start + "//" + end
 													+ "//" + para;
-											$.getJSON(
+											$
+													.getJSON(
 															url1,
 															function(data) {
 																var jsonArr = [];
@@ -193,7 +194,8 @@
 																	jsonArr = [
 																			data.pieChartDatas[i].faultName,
 																			data.pieChartDatas[i].faultChance ];
-																	tem_Arry.push(jsonArr)
+																	tem_Arry
+																			.push(jsonArr)
 																}
 																var chart = {
 																	type : 'pie',
@@ -279,8 +281,8 @@
 			<option value="Gov">调速器系统</option>
 			<option value="Transfer">主变系统</option>
 			<option value="Pum">水泵水轮机</option>
-		</select> <a id="Startwarning"
-			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">开始预警</a>
+		</select> <a id="Startwarning" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">开始预警</a>
 	</div>
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
@@ -289,8 +291,8 @@
 			<div class="easyui-panel" title="历史运行状态数据"
 				style="width: 100%; height: 400px;">
 				<div>
-					<table class="table" id="historyTable" style="text-align: left;margin-top:1%;margin-left:1%;
-					margin-right:1%">
+					<table class="table" id="historyTable"
+						style="text-align: left; margin-top: 1%; margin-left: 1%; margin-right: 1%">
 						<thead>
 							<tr>
 								<th>故障名称</th>
@@ -325,62 +327,27 @@
 			style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
 			<div class="easyui-panel" title="预警结果分析图"
 				style="width: 100%; height: auto">
-				<div id="container3" style="width: 96%; height: auto;"></div>
+				<div id="container3" style="width: 96%; height:  460px;"></div>
 			</div>
 		</div>
 		<div style="width: 45%; height: 470px; float: left; display: inline">
-			<div class="easyui-panel" title="评价与建议"
-				style="width: 100%; height: 460px">
-				<table border="1"
-					style="height: 300px; width: 50%; float: left; margin-right: 4%">
-					<tr>
-						<th>故障名称</th>
-						<th>概率</th>
-					</tr>
-					<tr>
-						<td>油路压力</td>
-						<td>10.2%</td>
-					</tr>
-					<tr>
-						<td>冷却水流量</td>
-						<td>9.44%</td>
-					</tr>
-					<tr>
-						<td>水温</td>
-						<td>7.13%</td>
-					</tr>
-					<tr>
-						<td>油位</td>
-						<td>4.11%</td>
-					</tr>
-					<tr>
-						<td>磨损情况</td>
-						<td>30.45%</td>
-					</tr>
-					<tr>
-						<td>水导X轴振动</td>
-						<td>4.11%</td>
-					</tr>
-					<tr>
-						<td>水导Y轴振动</td>
-						<td>30.45%</td>
-					</tr>
-					<tr>
-						<td>水导Z轴振动</td>
-						<td>4.11%</td>
-					</tr>
-
+			
+				<table class="easyui-datagrid" title="评价与建议" style="width: 100%; height: 460px"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
+					<thead>
+						<tr>
+							<th data-options="field:'time',align:'center',width:170">故障名称</th>
+							<th data-options="field:'original',align:'center',width:170">发生概率</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				
 				</table>
-				<table border="1" style="height: 300px; width: 35%">
-					<tr>
-						<td>评价与建议</td>
-					</tr>
-				</table>
-			</div>
-
-		</div>
+		
 	</div>
-
+</div>
 
 </body>
 </html>
