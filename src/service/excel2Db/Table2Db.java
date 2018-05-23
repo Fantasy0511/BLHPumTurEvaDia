@@ -21,6 +21,7 @@ public class Table2Db extends JdbcDaoUtil {
 	public void saveTableToDb(Table table) {
 		String tableName = table.getTableName();
 		creatNewTableByName(tableName);
+		
 		String sql = "insert into " + tableName
 				+ "(ID,pos,state,time,value) values(?,?,?,?,?);";
 		getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {

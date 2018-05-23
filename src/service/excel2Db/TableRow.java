@@ -23,12 +23,19 @@ public class TableRow {
 		this.value = list.get(4);
 	}
 
-	public TableRow(String id, String pos, String state, String time,
-			String value) {
+	public TableRow(String id, String pos, String state, String time, String value) {
 		super();
 		this.id = id;
 		this.pos = pos;
 		this.state = state;
+		this.time = time;
+		this.value = value;
+	}
+
+	public TableRow(String id, String pos, String time, String value) {
+		super();
+		this.id = id;
+		this.pos = pos;
 		this.time = time;
 		this.value = value;
 	}

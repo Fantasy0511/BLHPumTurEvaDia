@@ -91,7 +91,7 @@
 		var url = "/BLHPumTurEvaDia/asscss/"+system+"-assess";
 		url+=makeInput(begin);
 		console.log(url);
-		
+		showMask();   // 显示与隐藏
 		var success = function(data) {
 			var view = data.assessView;
 			drawGuage('assement-container', view.topScore);
@@ -108,7 +108,7 @@
 		$("#bt_assess").click(assess);     // “开始评估”按钮
 		
 	});
-	showMask();   // 显示与隐藏
+	
 </script>
 
 </head>
