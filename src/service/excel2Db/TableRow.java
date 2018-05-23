@@ -16,11 +16,19 @@ public class TableRow {
 
 	public TableRow(List<String> list) {
 		super();
-		this.id = list.get(0);
-		this.pos = list.get(1);
-		this.state = list.get(2);
-		this.time = list.get(3);
-		this.value = list.get(4);
+		if (list.size() == 5) {
+			this.id = list.get(0);
+			this.pos = list.get(1);
+			this.state = list.get(2);
+			this.time = list.get(3);
+			this.value = list.get(4);
+		} else if (list.size() == 4) {
+			this.id = list.get(0);
+			this.pos = list.get(1);
+			this.time = list.get(2);
+			this.value = list.get(3);
+		}
+
 	}
 
 	public TableRow(String id, String pos, String state, String time,
@@ -29,6 +37,14 @@ public class TableRow {
 		this.id = id;
 		this.pos = pos;
 		this.state = state;
+		this.time = time;
+		this.value = value;
+	}
+
+	public TableRow(String id, String pos, String time, String value) {
+		super();
+		this.id = id;
+		this.pos = pos;
 		this.time = time;
 		this.value = value;
 	}
