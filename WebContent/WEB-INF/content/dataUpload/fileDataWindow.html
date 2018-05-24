@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文件上传</title>
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+</head>
+<script>
+	function viewRecord(url) {
+		getJSON(url, function(data) {
+			loadData(test - window, data.table)
+		});
+	}
+	$(function() {
+		viewRecord();
+	})
+</script>
+
+<body>
+	<div id="test-window" class="easyui-window" title="Login"
+		style="width: 300px; height: 180px;">
+
+		<table id="file_record_table" title="提交记录" class="easyui-datagrid"
+			style="width: 793px; height: 410px" data-options="singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'id',align:'center',width:150">序号</th>
+					<th data-options="field:'pos',align:'center',width:150">位置</th>
+					<th data-options="field:'state',align:'center',width:160">状态</th>
+					<th data-options="field:'time',align:'center',width:'200'">时间</th>
+					<th data-options="field:'value',align:'center',width:'200'">数值</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>
