@@ -22,7 +22,7 @@ public class CaculateMinCutset {
 	private int unitNo;
 
 	/**
-	 * 构造CaculateMinCutset类
+	 *  构造CaculateMinCutset类
 	 * 
 	 * @param nodeList
 	 *            节点列表
