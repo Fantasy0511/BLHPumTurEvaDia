@@ -9,7 +9,7 @@
 		value="default" />
 	<package name="default" extends="convention-default,json-default">
 		<action name="excelToDb" class="blh.action.dataUpload.ExcelToDbAction">
-			<result name="SUCCESS">/success.jsp</result>
+			<result name="SUCCESS" type="redirect">/dataUpload/upload</result>
 		</action>
 		<action name="record" class="blh.action.dataUpload.RecordAction">
 			<result type="json"></result>
