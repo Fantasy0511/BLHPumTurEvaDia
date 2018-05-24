@@ -7,14 +7,20 @@
 	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
-
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
-
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
 <script type="text/javascript"
@@ -30,7 +36,7 @@
 		var tree = new TreeEditor({
 			container : 'container',
 			enabled : false,
-			connectable : false,    
+			connectable : false,
 			movable : false,
 			resizable : false
 		});
@@ -81,7 +87,7 @@
 			}
 			tree.fromJSON(graphJSON);
 		}
-		
+
 		function changecolor4(result) {
 			var graphJSON = tree.toJSON();
 			var cells = graphJSON.cells;
@@ -138,62 +144,77 @@
 </style>
 </head>
 <body>
-	<div class="col-md-12">
-		<div>
-			<div id="p" class="panel panel-default">
-				<div class="panel-heading">
-					<b><i class="glyphicon glyphicon glyphicon-edit">诊断控制 </i></b>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="b1">调速器本体</button>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="b2">调速器性能</button>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="b3">油压装置</button>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="b4">调速器总图</button>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary" id="b0">诊断</button>
-				</div>
-				
-			</div>
+	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
+		<span class="input_title">条件输入：</span> <label
+			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<script>
+			$.extend($.fn.validatebox.defaults.rules, {
+				md : {
+					validator : function(value, param) {
+						var d1 = $.fn.datebox.defaults.parser(param[0]);
+						var d2 = $.fn.datebox.defaults.parser(value);
+						return d2 >= d1;
+					},
+					message : '结束时间必须大于或等于开始时间。'
+				}
+			})
+		</script>
+		<a id="Startwarning" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">开始诊断</a>
+	</div>
+
+	<div style="height: 10px"></div>
+
+	<div style="width:auto">
+		<div class="easyui-panel" title="诊断控制"></div>
+		<div style="margin-top: 10px">
+			<a style="margin-left: 10px">
+				<button type="button" class="btn btn-primary" id="b1">调速器本体</button>
+			</a> <a style="margin-left: 20px">
+				<button type="button" class="btn btn-primary" id="b2">调速器性能</button>
+			</a> <a style="margin-left: 20px">
+				<button type="button" class="btn btn-primary" id="b3">油压装置</button>
+			</a> <a style="margin-left: 20px">
+				<button type="button" class="btn btn-primary" id="b4">调速器总图</button>
+			</a> <a style="margin-left: 20px">
+				<button type="button" class="btn btn-primary" id="b0">诊断</button>
+			</a>
 		</div>
 	</div>
-	
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-edit">故障树展示</i></b>
-			</div>
-		</div>
-		<div id="drag" title="故障树">
-			<div style="cursor: pointer;">
-				<span id="container" style="float: left"></span>
+
+	<div style="height: 10px"></div>
+
+	<div style="width:auto">
+		<div>
+			<div class="easyui-panel" title="故障树展示" ></div>
+			<div id="drag" title="故障树">
+				<div style="cursor: pointer;">
+					<span id="container" style="float: center"></span>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b><i class="glyphicon glyphicon glyphicon-deit">诊断结果分析</i></b>
-			</div>
-			<div style="height: 350px">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>故障名称</th>
-							<th>发生概率</th>
-							<th>建议描述</th>
-						      </tr>
-					</thead>
-				</table>
-			</div>
-		</div>
+	<div style="height: 10px"></div>
+
+	<div style="width:auto">
+		<table class="easyui-datagrid" id="faultInfo" title="诊断结果分析"
+			style="height: 350px; word-break: break-all; word-wrap: break-all"
+			data-options="rownumbers:true,fitColumns:false, singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'faultId',align:'center',width:300">故障名称</th>
+					<th data-options="field:'faultRate',align:'center',width:300">发生概率</th>
+					<th data-options="field:'suggesstion',align:'center',width:300">建议描述</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
+
+	<div style="height: 20px"></div>
+
 </body>
 </html>

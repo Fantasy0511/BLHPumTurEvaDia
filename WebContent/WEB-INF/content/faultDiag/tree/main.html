@@ -12,20 +12,20 @@
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/icon.css">
 <link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
-
-<link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
-
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
 	$(function() {
 		var map = {
@@ -70,35 +70,6 @@
 </script>
 </head>
 <body>
-	
-	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left: 4px;margin-right: 4px;">
-		<span class="input_title">条件输入：</span> <label
-			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<script>
-			$.extend($.fn.validatebox.defaults.rules, {
-				md : {
-					validator : function(value, param) {
-						var d1 = $.fn.datebox.defaults.parser(param[0]);
-						var d2 = $.fn.datebox.defaults.parser(value);
-						return d2 >= d1;
-					},
-					message : '结束时间必须大于或等于开始时间。'
-				}
-			})
-		</script>
-		<label for="model">系统选择：</label> <select id="subSystem"
-			class="easyui-combobox" style="width: 140px;">
-			<option value="ball">球阀系统</option>
-			<option value="Exc">发电机及励磁系统</option>
-			<option value="Gov">调速器系统</option>
-			<option value="Transfer">主变系统</option>
-			<option value="Pum">水泵水轮机</option>
-		</select> <a id="Startwarning" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">开始诊断</a>
-	</div>
 
 	<div id="tabs" class="easyui-tabs"
 		data-options="fit:true,tabPosition:'left',tabWidth:146,tabHeight:60">
