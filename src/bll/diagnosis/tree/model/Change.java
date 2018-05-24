@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Change {
+	private Long time;
+	private int unitNo;
+
 	public static void write(ArrayList<Node> input) {
 		StringBuffer sb = new StringBuffer();
 		try {
@@ -44,11 +47,11 @@ public class Change {
 
 	}
 
-	public static void xiugainodes(ArrayList<Node> anodes) {
+	public void xiugainodes(ArrayList<Node> anodes) {
 
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes);
+		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
 
 		for (int p = 0; p < testnodes.size(); p++) {
 			if (testnodes.get(p).getName().equals(anodes.get(0).getFather())) {
@@ -57,8 +60,7 @@ public class Change {
 
 				for (int k = 0; k < testnodes.size(); k++) {
 					for (int j = 0; j < testnodes.get(k).getChildren().size(); j++) {
-						if (testnodes.get(k).getChildren().get(j)
-								.equals(anodes.get(0).getFather())) {
+						if (testnodes.get(k).getChildren().get(j).equals(anodes.get(0).getFather())) {
 							testnodes.get(k).getChildren().set(j, nstrn);
 						}
 					}
@@ -71,10 +73,11 @@ public class Change {
 		Change.write(testnodes);
 	}
 
-	public static void delnodes(String in) {
+	public void delnodes(String in) {
+
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes);
+		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
 		for (int k = 0; k < testnodes.size(); k++) {
 			for (int j = 0; j < testnodes.get(k).getChildren().size(); j++) {
 				if (testnodes.get(k).getChildren().get(j).equals(in)) {
@@ -83,14 +86,11 @@ public class Change {
 			}
 		}
 
-		// String strs1;
-		// strs1=JOptionPane.showInputDialog("输入删除的节点的名称:");
-		// System.out.println(strs1);
 		for (int p = 0; p < testnodes.size(); p++) {
 			if (testnodes.get(p).getName().equals(in)) {
 				if (testnodes.get(p).getChildren().size() != 0) {
 					for (int i = 0; i < testnodes.get(p).getChildren().size(); i++) {
-						Change.delnodes(testnodes.get(p).getChildren().get(i));
+						delnodes(testnodes.get(p).getChildren().get(i));
 
 					}
 
@@ -103,10 +103,10 @@ public class Change {
 		Change.write(testnodes);
 	}
 
-	public static void addnode(ArrayList<Node> anodes) {
+	public void addnode(ArrayList<Node> anodes) {
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes);
+		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
 
 		Node addnode = new Node();
 		String str = anodes.get(0).getName();
@@ -134,6 +134,22 @@ public class Change {
 
 		}
 		Change.write(testnodes);
+	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public int getUnitNo() {
+		return unitNo;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public void setUnitNo(int unitNo) {
+		this.unitNo = unitNo;
 	}
 
 }

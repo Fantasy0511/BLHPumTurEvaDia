@@ -18,6 +18,8 @@ public class CaculateMinCutset {
 	private DefaultTreeModel faultTree;
 	private DefaultMutableTreeNode root;
 	private ArrayList<Node> nodes;
+	private Long time;
+	private int unitNo;
 
 	/**
 	 * 构造CaculateMinCutset类
@@ -31,6 +33,10 @@ public class CaculateMinCutset {
 		nodes = nodeList;
 		faultTree = model;
 		root = (DefaultMutableTreeNode) faultTree.getRoot();
+	}
+
+	public CaculateMinCutset() {
+		super();
 	}
 
 	/**
@@ -62,15 +68,12 @@ public class CaculateMinCutset {
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<ArrayList<DefaultMutableTreeNode>> deepMultiply(
-			ArrayList<ArrayList<DefaultMutableTreeNode>> array1,
-			ArrayList<ArrayList<DefaultMutableTreeNode>> array2) {
+			ArrayList<ArrayList<DefaultMutableTreeNode>> array1, ArrayList<ArrayList<DefaultMutableTreeNode>> array2) {
 		ArrayList<ArrayList<DefaultMutableTreeNode>> newArray = new ArrayList<ArrayList<DefaultMutableTreeNode>>();
 		for (int i = 0; i < array2.size(); i++) {
-			ArrayList<DefaultMutableTreeNode> nodes2 = (ArrayList<DefaultMutableTreeNode>) array2
-					.get(i).clone();
+			ArrayList<DefaultMutableTreeNode> nodes2 = (ArrayList<DefaultMutableTreeNode>) array2.get(i).clone();
 			for (int j = 0; j < array1.size(); j++) {
-				ArrayList<DefaultMutableTreeNode> nodes1 = (ArrayList<DefaultMutableTreeNode>) array1
-						.get(j).clone();
+				ArrayList<DefaultMutableTreeNode> nodes1 = (ArrayList<DefaultMutableTreeNode>) array1.get(j).clone();
 				nodes1.addAll(nodes1.size(), nodes2);
 				newArray.add(nodes1);
 			}
@@ -87,8 +90,7 @@ public class CaculateMinCutset {
 	 * @param array2节点序列2
 	 * @return 合并后的节点序列
 	 */
-	public ArrayList<DefaultMutableTreeNode> multiply(
-			ArrayList<DefaultMutableTreeNode> nodes1,
+	public ArrayList<DefaultMutableTreeNode> multiply(ArrayList<DefaultMutableTreeNode> nodes1,
 			ArrayList<DefaultMutableTreeNode> nodes2) {
 		ArrayList<DefaultMutableTreeNode> newNode = nodes1;
 		newNode.addAll(nodes1.size(), nodes2);
@@ -104,8 +106,7 @@ public class CaculateMinCutset {
 	 *            节点矩阵2
 	 * @return 合并后的节点矩阵
 	 */
-	public ArrayList<ArrayList<DefaultMutableTreeNode>> plus(
-			ArrayList<ArrayList<DefaultMutableTreeNode>> array1,
+	public ArrayList<ArrayList<DefaultMutableTreeNode>> plus(ArrayList<ArrayList<DefaultMutableTreeNode>> array1,
 			ArrayList<ArrayList<DefaultMutableTreeNode>> array2) {
 		ArrayList<ArrayList<DefaultMutableTreeNode>> newArray = array1;
 		newArray.addAll(array1.size(), array2);
@@ -119,16 +120,15 @@ public class CaculateMinCutset {
 	 *            树节点
 	 * @return 最小割集节点矩阵
 	 */
-	public ArrayList<ArrayList<DefaultMutableTreeNode>> caculate(
-			DefaultMutableTreeNode node) {
+	public ArrayList<ArrayList<DefaultMutableTreeNode>> caculate(DefaultMutableTreeNode node) {
 		int childcount = node.getChildCount();
 		String gate = getGate(node);
 		ArrayList<ArrayList<DefaultMutableTreeNode>> newArray = new ArrayList<ArrayList<DefaultMutableTreeNode>>();
 		if (childcount > 0) {
 			newArray = caculate((DefaultMutableTreeNode) node.getChildAt(0));
 			for (int i = 1; i < childcount; i++) {
-				ArrayList<ArrayList<DefaultMutableTreeNode>> array = caculate((DefaultMutableTreeNode) node
-						.getChildAt(i));
+				ArrayList<ArrayList<DefaultMutableTreeNode>> array = caculate(
+						(DefaultMutableTreeNode) node.getChildAt(i));
 				if (gate.equals("+"))
 					newArray = plus(newArray, array);
 				else
@@ -276,8 +276,7 @@ public class CaculateMinCutset {
 			}
 			// System.out.println(nodes.get(i).freq);
 		}
-		calp = CalculateP(IPnodes1.get(0), IPnodes1)
-				- CalculateP(IPnodes0.get(0), IPnodes0);
+		calp = CalculateP(IPnodes1.get(0), IPnodes1) - CalculateP(IPnodes0.get(0), IPnodes0);
 		return calp;
 	}
 
@@ -326,8 +325,7 @@ public class CaculateMinCutset {
 			}
 			// System.out.println(nodes.get(i).freq);
 		}
-		calp = CalculateP(IPnodes1.get(0), IPnodes1)
-				- CalculateP(IPnodes0.get(0), IPnodes0);
+		calp = CalculateP(IPnodes1.get(0), IPnodes1) - CalculateP(IPnodes0.get(0), IPnodes0);
 		;
 		return calp;
 	}
@@ -345,8 +343,7 @@ public class CaculateMinCutset {
 		int i = 0;
 		for (i = 0; i < nodes.size(); i++) {
 			if (name.equals(nodes.get(i).name)) {
-				calp = nodes.get(i).freq * CalculateIP(name)
-						/ CalculateP(nodes.get(0).name);
+				calp = nodes.get(i).freq * CalculateIP(name) / CalculateP(nodes.get(0).name);
 			}
 		}
 		return calp;
@@ -425,9 +422,9 @@ public class CaculateMinCutset {
 	 * 
 	 * @return 底事件名称列表
 	 */
-	public static List<String> getBottomEvent() {
+	public List<String> getBottomEvent() {
 		ArrayList<Node> testnodes = new ArrayList<Node>();
-		MakeFaultTree.InitialNodes(testnodes);
+		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
 		List<String> result = new ArrayList<String>();
 		for (int i = 0; i < testnodes.size(); i++) {
 			// if(nodes.get(i).gate == null)
@@ -447,8 +444,7 @@ public class CaculateMinCutset {
 	 *            节点矩阵
 	 * @return 概率
 	 */
-	public double EstimateP(
-			ArrayList<ArrayList<DefaultMutableTreeNode>> MinCutset) {
+	public double EstimateP(ArrayList<ArrayList<DefaultMutableTreeNode>> MinCutset) {
 		double EstimateP = 0;
 		double temp = 1;
 		double esptemp[] = new double[MinCutset.size()];
@@ -457,8 +453,7 @@ public class CaculateMinCutset {
 			esptemp[i] = 1;
 			for (j = 0; j < MinCutset.get(i).size(); j++) {
 				int k = 0;
-				while (!nodes.get(k).name.equals((String) (MinCutset.get(i)
-						.get(j).getUserObject()))) {
+				while (!nodes.get(k).name.equals((String) (MinCutset.get(i).get(j).getUserObject()))) {
 					k++;
 				}
 				esptemp[i] *= nodes.get(k).freq;
@@ -472,9 +467,26 @@ public class CaculateMinCutset {
 	}
 
 	public static void main(String[] args) {
-		List<String> result = CaculateMinCutset.getBottomEvent();
+		List<String> result = new CaculateMinCutset().getBottomEvent();
 		for (int i = 0; i < result.size(); i++) {
 			System.out.println(result.get(i));
 		}
 	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public int getUnitNo() {
+		return unitNo;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public void setUnitNo(int unitNo) {
+		this.unitNo = unitNo;
+	}
+
 }

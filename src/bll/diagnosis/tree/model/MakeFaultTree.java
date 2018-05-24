@@ -19,12 +19,10 @@ import org.dom4j.io.XMLWriter;
 import bll.diagnosis.tree.GovXMLUtils;
 import service.faulttree.pumptur.PumpturBFault;
 import service.faulttree.pumptur.PumpturFFault;
-import util.TimeUtils;
-
-
 
 /**
  * 构造树的逻辑实现
+ * 
  * @author 肖汉、付文龙
  *
  */
@@ -33,18 +31,31 @@ public class MakeFaultTree {
 	private DefaultTreeModel faultTree;
 	private DefaultMutableTreeNode root;
 	private ArrayList<Node> nodes;
+	private Long time;
+	private int unitNo;
+	private ArrayList<Node> equations;
 
 	/**
-	 * 构造树
-	 * @param equations 处理后的等式集
+	 * 
+	 * @param equations
+	 *            处理后的等式集
 	 */
 	public MakeFaultTree(ArrayList<Node> equations) {
 		nodes = equations;
 	}
 
+	public MakeFaultTree(Long time, int unitNo, ArrayList<Node> equations) {
+		super();
+		this.time = time;
+		this.unitNo = unitNo;
+		this.equations = equations;
+	}
+
 	/**
 	 * 递归实现树的构建
-	 * @param treeNode 树根节点
+	 * 
+	 * @param treeNode
+	 *            树根节点
 	 */
 	public void makeTree(DefaultMutableTreeNode treeNode) {
 
@@ -53,8 +64,7 @@ public class MakeFaultTree {
 
 		if (node != null) {
 			for (int i = 0; i < node.children.size(); i++) {
- 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(
-						node.children.get(i));
+				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.children.get(i));
 				;
 				treeNode.add(newNode);
 				makeTree(newNode);
@@ -69,7 +79,9 @@ public class MakeFaultTree {
 
 	/**
 	 * 找出指定名称的子节点
-	 * @param name 节点名称
+	 * 
+	 * @param name
+	 *            节点名称
 	 * @return 结点的子结点
 	 */
 	public Node searchChildren(String name) {
@@ -85,6 +97,7 @@ public class MakeFaultTree {
 
 	/**
 	 * 故障树获取
+	 * 
 	 * @return 故障树
 	 */
 	public DefaultTreeModel getFaultTree() {
@@ -112,17 +125,19 @@ public class MakeFaultTree {
 
 	/**
 	 * 节点信息初始化
-	 * @param Inodes 节点信息列表
+	 * 
+	 * @param Inodes
+	 *            节点信息列表
 	 */
 	@SuppressWarnings("rawtypes")
-	public static void InitialNodes(ArrayList<Node> Inodes) {
+	public static void InitialNodes(ArrayList<Node> Inodes, Long time, Integer unitNo) {
 
-		//String result = System.getProperty("java.class.path");
-		//URL result2 = MakeFaultTree.class.getResource("/");
-		//String test = XMLUtils.GetXMLPath("tree");
-		//		String test = MakeFaultTree.class.getClassLoader().getResource("").getPath();
-		//		String result = test.substring(1,test.length()-16)+"XMLDataBase/tree.xml";
-		//		System.out.println(result);
+		// String result = System.getProperty("java.class.path");
+		// URL result2 = MakeFaultTree.class.getResource("/");
+		// String test = XMLUtils.GetXMLPath("tree");
+		// String test = MakeFaultTree.class.getClassLoader().getResource("").getPath();
+		// String result = test.substring(1,test.length()-16)+"XMLDataBase/tree.xml";
+		// System.out.println(result);
 		String result = GovXMLUtils.GetXMLPath("PumpturSystemFaultTree");
 		if (new File(result).exists()) {
 			System.out.println("123");
@@ -134,19 +149,18 @@ public class MakeFaultTree {
 
 				/**
 				 * 得到第一层节点
-				 * */
+				 */
 				List list = rootElement.elements("WorkNode");
 				Iterator iter = list.iterator();
-				
-				PumpturBFault pb=new PumpturBFault();
-				PumpturFFault fb=new PumpturFFault();
+
+				PumpturBFault pb = new PumpturBFault();
+				PumpturFFault fb = new PumpturFFault();
 				while (iter.hasNext()) {
 					Element ele = (Element) iter.next();
 
-
 					Node temp = new Node();
 					temp.name = ele.attribute("Name").getValue();
-					
+
 					String[] childs = ele.attribute("children").getValue().split(",");
 					for (int i = 0; i < childs.length; i++) {
 						if (!childs[i].equals("null")) {
@@ -154,44 +168,44 @@ public class MakeFaultTree {
 						}
 					}
 					temp.gate = ele.attribute("gate").getValue();
-					
-					/*if(temp.name=="大轴摆度异常") {					
-						temp.freq =pb.getAxleViFault();
-					}else if(temp.name=="冷却水异常") {					
-						temp.freq =pb.getCWaterFault();
-					}else if(temp.name=="油系统异常") {					
-						temp.freq =pb.getOilFault();
-					}else if(temp.name=="动不平衡") {					
-						temp.freq =pb.getUnbalance();
-					}else if(temp.name=="励磁电流不平衡") {					
-						temp.freq =pb.getExCurrentFault( );
-					}else if(temp.name=="剪断销故障") {					
-						temp.freq =pb.getBreakpinFault( );
-					}else if(temp.name=="上导摆度异常") {					
-						temp.freq =pb.getUpguideFault( );
-					}else if(temp.name=="下导摆度异常") {					
-						temp.freq =pb.getLoguideFault( );
-					}else if(temp.name=="水导摆度异常") {					
-						temp.freq =pb.getWguideFault( );
-					}else if(temp.name=="尾水管水位过高") {					
-						temp.freq =pb.getExWPipeFault( );
-					}else if(temp.name=="冷却水流量低") {					
-						temp.freq =pb.getCoolWLow( );
-					}else if(temp.name=="轴瓦温度") {					
-						temp.freq =pb.getBearingBushHot( );
-					}else if(temp.name=="主轴密封") {					
-						temp.freq =pb.getAxleSealFault( );
-					}else if(temp.name=="蜗壳故障") {					
-						temp.freq =pb.getVoluteFault( );
-					}else if(temp.name=="迷宫环温度异常") {					
-						temp.freq =fb.getMgTFault();
-					}else if(temp.name=="轴承振摆异常") {					
-						temp.freq =fb.getBearingVFault();
-					}else {					
-						temp.freq =0;
-					}*/
-				
-//					temp.freq = Double.parseDouble(ele.attribute("NodeType").getValue());
+
+					if (temp.name == "大轴摆度异常") {
+						temp.freq = pb.getAxleViFault(time, unitNo);
+					} else if (temp.name == "冷却水异常") {
+						temp.freq = pb.getCWaterFault(time, unitNo);
+					} else if (temp.name == "油系统异常") {
+						temp.freq = pb.getOilFault(time, unitNo);
+					} else if (temp.name == "动不平衡") {
+						temp.freq = pb.getUnbalance(time, unitNo);
+					} else if (temp.name == "励磁电流不平衡") {
+						temp.freq = pb.getExCurrentFault(time, unitNo);
+					} else if (temp.name == "剪断销故障") {
+						temp.freq = pb.getBreakpinFault(time, unitNo);
+					} else if (temp.name == "上导摆度异常") {
+						temp.freq = pb.getUpguideFault(time, unitNo);
+					} else if (temp.name == "下导摆度异常") {
+						temp.freq = pb.getLoguideFault(time, unitNo);
+					} else if (temp.name == "水导摆度异常") {
+						temp.freq = pb.getWguideFault(time, unitNo);
+					} else if (temp.name == "尾水管水位过高") {
+						temp.freq = pb.getExWPipeFault(time, unitNo);
+					} else if (temp.name == "冷却水流量低") {
+						temp.freq = pb.getCoolWLow(time, unitNo);
+					} else if (temp.name == "轴瓦温度") {
+						temp.freq = pb.getBearingBushHot(time, unitNo);
+					} else if (temp.name == "主轴密封") {
+						temp.freq = pb.getAxleSealFault(time, unitNo);
+					} else if (temp.name == "蜗壳故障") {
+						temp.freq = pb.getVoluteFault(time, unitNo);
+					} else if (temp.name == "迷宫环温度异常") {
+						temp.freq = fb.getMgTFault(time, unitNo);
+					} else if (temp.name == "轴承振摆异常") {
+						temp.freq = fb.getBearingVFault(time, unitNo);
+					} else {
+						temp.freq = 0;
+					}
+
+					// temp.freq = Double.parseDouble(ele.attribute("NodeType").getValue());
 					if (!ele.attribute("father").getValue().equals("null")) {
 						temp.father = ele.attribute("father").getValue();
 					}
@@ -207,10 +221,8 @@ public class MakeFaultTree {
 		Node temp = Inodes.get(0);
 		Inodes.set(0, Inodes.get(1));
 		Inodes.set(1, temp);
-		for(int i=0; i<Inodes.size(); i++)
-		{
-			if(Inodes.get(i).father == null)
-			{
+		for (int i = 0; i < Inodes.size(); i++) {
+			if (Inodes.get(i).father == null) {
 				Node tempn = Inodes.get(0);
 				Inodes.set(0, Inodes.get(i));
 				Inodes.set(i, tempn);
@@ -218,36 +230,54 @@ public class MakeFaultTree {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	/**
-	 * 将Document对象保存为一个xml文件到本地 
-	 * @param document 需要保存的document对象 
-	 * @param filename 保存的文件名 
-	 * @return true:保存成功  flase:失败 
+	 * 将Document对象保存为一个xml文件到本地
+	 * 
+	 * @param document
+	 *            需要保存的document对象
+	 * @param filename
+	 *            保存的文件名
+	 * @return true:保存成功 flase:失败
 	 */
-	public static boolean doc2XmlFile(Document document,String filename) 
-	{ 
-		boolean flag = true; 
-		try 
-		{ 
-			/* 将document中的内容写入文件中 */ 
-			//默认为UTF-8格式，指定为"UTF-8" 
-			OutputFormat format = OutputFormat.createPrettyPrint(); 
-			format.setEncoding("UTF-8"); 
-			XMLWriter writer = new XMLWriter(new FileWriter(new File(filename)),format); 
-			writer.write(document); 
-			writer.close();             
-		}catch(Exception ex) 
-		{ 
-			flag = false; 
-			ex.printStackTrace(); 
-		} 
-		return flag;       
+	public static boolean doc2XmlFile(Document document, String filename) {
+		boolean flag = true;
+		try {
+			/* 将document中的内容写入文件中 */
+			// 默认为UTF-8格式，指定为"UTF-8"
+			OutputFormat format = OutputFormat.createPrettyPrint();
+			format.setEncoding("UTF-8");
+			XMLWriter writer = new XMLWriter(new FileWriter(new File(filename)), format);
+			writer.write(document);
+			writer.close();
+		} catch (Exception ex) {
+			flag = false;
+			ex.printStackTrace();
+		}
+		return flag;
+	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public int getUnitNo() {
+		return unitNo;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public void setUnitNo(int unitNo) {
+		this.unitNo = unitNo;
+	}
+
+	public ArrayList<Node> getEquations() {
+		return equations;
+	}
+
+	public void setEquations(ArrayList<Node> equations) {
+		this.equations = equations;
 	}
 
 }
