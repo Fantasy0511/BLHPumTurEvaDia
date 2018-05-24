@@ -68,16 +68,14 @@ public class PathUtil {
 	}
 
 	public static String getPageRequestRealPath() {
-		return getWebRealBasePath()
-				+ RESOURCE_FOLDER
+		return getWebRealBasePath() + RESOURCE_FOLDER
 				+ ServletActionContext.getRequest().getRequestURI()
 						.replaceFirst("/" + PROJECT_NAME, "");
 	}
 
 	public static String getPageRequestRelativePath(String suffix) {
-		return RESOURCE_FOLDER
-				+ ServletActionContext.getRequest().getRequestURI()
-						.replaceFirst("/" + PROJECT_NAME, "") + suffix;
+		return RESOURCE_FOLDER + ServletActionContext.getRequest()
+				.getRequestURI().replaceFirst("/" + PROJECT_NAME, "") + suffix;
 	}
 
 	public static void main(String[] args) {
