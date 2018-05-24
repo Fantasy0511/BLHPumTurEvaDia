@@ -17,5 +17,6 @@ public class Excel2DbService {
 	public void upLoadExcelToDb(String filePath)
 			throws BiffException, IOException {
 		table2Db.saveTableToDb(excel2Table.readExcel2Table(filePath));
+		table2Db.saveFileToRecordTable(filePath);
 	}
 }

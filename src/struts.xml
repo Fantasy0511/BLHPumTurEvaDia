@@ -11,5 +11,16 @@
 		<action name="excelToDb" class="blh.action.dataUpload.ExcelToDbAction">
 			<result name="SUCCESS">/success.jsp</result>
 		</action>
+		<action name="record" class="blh.action.dataUpload.RecordAction">
+			<result type="json"></result>
+		</action>
+
+		<action name="delete-record" class="blh.action.dataUpload.DeleteRecordAction">
+			<result type="json"></result>
+		</action>
+
+		<action name="view-record" class="blh.action.dataUpload.ViewRecordAction">
+			<result type="json"></result>
+		</action>
 	</package>
 </struts>

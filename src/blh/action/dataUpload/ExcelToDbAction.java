@@ -35,9 +35,6 @@ public class ExcelToDbAction extends AbstractActionSupport {
 		return "SUCCESS";
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
@@ -49,10 +46,6 @@ public class ExcelToDbAction extends AbstractActionSupport {
 
 	public void setExcelFilename(String excelFilename) {
 		this.excelFilename = excelFilename;
-	}
-
-	public File getExcel() {
-		return excel;
 	}
 
 	public String getExcelFilename() {

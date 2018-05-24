@@ -2,10 +2,12 @@ package service.excel2Db;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 
+import util.TimeUtils;
 import util.dao.JdbcDaoUtil;
 
 /**
@@ -88,4 +90,19 @@ public class Table2Db extends JdbcDaoUtil {
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
 	}
+
+	/**
+	 * 存储上传文件信息保存到数据库表 upload_file_record
+	 */
+
+	public void saveFileToRecordTable(String filePath) {
+		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
+				filePath.lastIndexOf("."));
+		String date = String.valueOf(TimeUtils.DatetoLong(new Date()));
+		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('"
+				+ tableName + "','" + date + "')";
+		System.out.println(insertRecordSql);
+		getJdbcTemplate().execute(insertRecordSql);
+	}
+
 }
