@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文件上传</title>
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+</head>
+<script type="text/javascript">
+	function upLoad() {
+		var file = $("#excelId").val();
+		if (file == "") {
+			alert("请选择上传文件！");
+			return false;
+		} else {
+			var fileName = document.getElementById("excelId").files[0].name;
+			var url = "/BLHPumTurEvaDia/dataUpload/excelToDb?fileName="
+					+ fileName;
+			console.log(url);
+			$('form').attr('action', url);
+			alert('上传成功');
+		}
+
+	}
+	function showHistoryFileRecord() {
+		var url = "/BLHPumTurEvaDia/dataUpload/record";
+		url += makeInput(getDate("beginDate"), getDate("endDate"));
+		console.log(url);
+		_makeReportTable(url);
+
+	}
+	function showLastHistoryFileRecord() {
+		var begin = getTodayDate();
+		var end = getLastTodayDate();
+		var url = "/BLHPumTurEvaDia/dataUpload/record";
+		url += makeInput(end, begin);
+		console.log(url);
+		_makeReportTable(url);
+	}
+
+	function _makeReportTable(url) {
+		var success = function(data) {
+			var table = data.table;
+			var rows = _convert(table).rows;
+			for ( var i in rows) {
+				var row = rows[i];
+				var id = row.ID;
+				row['operation'] = '<button class="operation_view" '
+						+ 'style="margin-right:10px" value="' + id + '">查看 </button>'
+						+ '<button class="operation_delete" '
+						+ 'style="margin-right:10px" value="' + id + '">删除  </button>'
+			}
+
+			$("#report_table").datagrid("loadData", rows);
+			$(".operation_view").click(function() {
+				var id = $(this).val();
+				_viewRecord(id);
+			});
+
+			$(".operation_delete").click(function() {
+				var id = $(this).val();
+				_deleteRecord(id);
+			});
+		};
+		getJSON(url, success);
+	}
+
+	function _deleteRecord(id) {
+		showMask();
+		var url = "/BLHPumTurEvaDia/dataUpload/delete-record";
+		url += makeInput(id);
+		getJSON(url, function(data) {
+			deleteRow("#report_table", "ID", id)
+		});
+		hideMask();
+	}
+
+	function _viewRecord(id) {
+		var url = "/BLHPumTurEvaDia/dataUpload/view-record";
+		url += makeInput(id);
+		getJSON(url, function(data) {
+			loadData("file_record_table", data.table);
+			$('#test-window').window('open');
+		});
+	}
+
+	$(function() {
+		$('#test-window').window('close');
+		showLastHistoryFileRecord();
+		$("#uploadBtn").click(upLoad);
+		$("#bt_query").click(showHistoryFileRecord);
+	})
+</script>
+<body>
+	<div
+		style="margin-left: auto; margin-right: auto; margin-top: 30px; width: 1150px">
+		<div class="easyui-panel"
+			style="width: 340px; height: 410px; padding: 10px 10px;"
+			data-options="style:{display:'inline-block',float:'left',marginRight:'10px'}">
+			<div title="上传文件" class="easyui-panel"
+				style="width: 320px; padding: 20px 20px; text-align: center"
+				data-options="border:true">
+				<div></div>
+				<form method="post" enctype="multipart/form-data">
+					<input type="file" id="excelId" name="excel"
+						accept="application/vnd.ms-excel" style="display: block">
+					<pre></pre> 
+					<input
+						type="submit" id="uploadBtn" style="display: block" value="上传"><br>
+				</form>
+
+
+			</div>
+			<div class="ipad" style="height: 30px"></div>
+
+			<div title="查询条件" class="easyui-panel"
+				style="width: 320px; padding: 20px 20px; text-align: center"
+				data-options="border:true">
+				<div style="margin-bottom: 20px">
+					<label style="margin-bottom: 5px">开始时间：</label><input
+						id="beginDate" class="easyui-datebox" required
+						style="width: 150px; height: 26px">
+				</div>
+				<div style="margin-bottom: 20px">
+					<label style="margin-bottom: 5px">结束时间：</label><input id="endDate"
+						class="easyui-datebox" required style="width: 150px; height: 26px">
+				</div>
+				<script>
+					$.extend($.fn.validatebox.defaults.rules,
+							{
+								md : {
+									validator : function(value, param) {
+										var d1 = $.fn.datebox.defaults
+												.parser(param[0]);
+										var d2 = $.fn.datebox.defaults
+												.parser(value);
+										return d2 >= d1;
+									},
+									message : '结束时间必须大于或等于开始时间。'
+								}
+							})
+				</script>
+				<a id="bt_query" class="easyui-linkbutton"
+					data-options="iconCls:'icon-search'">查询</a>
+			</div>
+		</div>
+		<table id="report_table" title="提交记录" class="easyui-datagrid"
+			style="width: 800px; height: 410px" data-options="singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'ID',align:'center',width:150">报表序号</th>
+					<th data-options="field:'fileName',align:'center',width:160">报表名称</th>
+					<th data-options="field:'recordTime',align:'center',width:220">生成时间</th>
+					<th data-options="field:'operation',align:'center',width:'210'">操作</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+
+	<div id="test-window" class="easyui-window" title="文件查看"
+		style="width: 65%; height: 70%;">
+
+		<table id="file_record_table" title="提交记录" class="easyui-datagrid"
+			style="width: 98%; height: auto" data-options="singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'id',align:'center',width:150">序号</th>
+					<th data-options="field:'pos',align:'center',width:150">位置</th>
+					<th data-options="field:'state',align:'center',width:160">状态</th>
+					<th data-options="field:'time',align:'center',width:'200'">时间</th>
+					<th data-options="field:'value',align:'center',width:'200'">数值</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>
