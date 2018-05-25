@@ -145,7 +145,16 @@
 </head>
 <body>
 	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
-		<span class="input_title">条件输入：</span> <label
+		<span class="input_title">条件输入：</span> 
+		<label for="model">系统选择：</label> <select id="subSystem"
+			class="easyui-combobox" style="width: 140px;">
+			<option value="ball">球阀系统</option>
+			<option value="Exc">发电机及励磁系统</option>
+			<option value="Gov">调速器系统</option>
+			<option value="Transfer">主变系统</option>
+			<option value="Pum">水泵水轮机</option>
+		</select> 
+		<label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
 		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
