@@ -16,7 +16,7 @@ public class Excel2DbService {
 
 	public void upLoadExcelToDb(String filePath)
 			throws BiffException, IOException {
-		table2Db.saveTableToDb(excel2Table.readExcel2Table(filePath));
-		table2Db.saveFileToRecordTable(filePath);
+		table2Db.saveTableToDb(excel2Table.readExcel2Table(filePath)); // 在数据库上建一个“Table对象”，每个table实例代表一张表
+		table2Db.saveFileToRecordTable(filePath);    // 执行sql语句，存储上传文件信息保存到数据库表 "upload_file_record"
 	}
 }

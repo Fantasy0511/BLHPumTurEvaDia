@@ -29,7 +29,7 @@
 			var url = "/BLHPumTurEvaDia/dataUpload/excelToDb?fileName="
 					+ fileName;
 			console.log(url);
-			$('form').attr('action', url);
+			$('form').attr('action', url);  //在点击提交按钮之前修改action的地址并且提交相应的表单，通过jquery为action属性赋值
 			alert('上传成功');
 		}
 
@@ -76,7 +76,7 @@
 		};
 		getJSON(url, success);
 	}
-
+	/* 删除按钮操作 */
 	function _deleteRecord(id) {
 		showMask();
 		var url = "/BLHPumTurEvaDia/dataUpload/delete-record";
@@ -86,7 +86,7 @@
 		});
 		hideMask();
 	}
-
+    /* 查看按钮操作 */
 	function _viewRecord(id) {
 		var url = "/BLHPumTurEvaDia/dataUpload/view-record";
 		url += makeInput(id);
@@ -169,7 +169,8 @@
 		</table>
 
 	</div>
-
+	
+    <!--小窗口显示查询内容 -->
 	<div id="test-window" class="easyui-window" title="文件查看"
 		style="width: 65%; height: 70%;">
 
