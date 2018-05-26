@@ -44,7 +44,8 @@ public class FaultTreeMain {
 
 	public static void main(String[] args) {
 		String nowtime = "";
-		java.text.Format format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		java.text.Format format = new java.text.SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		nowtime = format.format(new java.util.Date());
 		FaultTreeDiagnosis(1, "1", "1", nowtime);// 需要把nowtime改成由前端获取的诊断时间
 	}
@@ -61,7 +62,8 @@ public class FaultTreeMain {
 	 * @return 故障信息列表
 	 */
 
-	public static List<FaultResult> FaultTreeDiagnosis(int write, String condtionName, String unitNo, String datetime)
+	public static List<FaultResult> FaultTreeDiagnosis(int write,
+			String condtionName, String unitNo, String datetime)
 	// public static List<FaultResult> FaultTreeDiagnosis()
 	{
 		initail();
@@ -73,7 +75,8 @@ public class FaultTreeMain {
 		// double FaultSymptom[] = new double[19];
 
 		// 创建故障树节点数组（可修改InitialNodes()函数，从文件中读取）
-		MakeFaultTree.InitialNodes(testnodes, Long.valueOf(datetime), Integer.valueOf(unitNo));
+		MakeFaultTree.InitialNodes(testnodes, datetime,
+				Integer.valueOf(unitNo));
 		// 写txt
 		// Change.write(testnodes);
 		// 建立故障树
@@ -104,7 +107,8 @@ public class FaultTreeMain {
 
 		faultDiagnosis.InitialFaultFeature();// 生成故障表（读取表）
 		FaultSymptom = new double[19];
-		FaultSymptom = faultDiagnosis.InitialFaultSymptom(FaultSymptom, datetime, unitNo, condtionName);// 随机生成故障征兆向量（读取征兆）
+		FaultSymptom = faultDiagnosis.InitialFaultSymptom(FaultSymptom,
+				datetime, unitNo, condtionName);// 随机生成故障征兆向量（读取征兆）
 		// double
 		// FaultSymptom[]={1.00,1.00,0.00,0.40,0.50,0.00,0.080,0.00,0.00,0.00,0.60,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 		// ---定义变量---//
@@ -114,17 +118,20 @@ public class FaultTreeMain {
 		ArrayList<FaultFeature> FaultMatrix = new ArrayList<FaultFeature>();// 针对故障树的征兆模糊矩阵
 
 		// ---故障计算---//
-		BottomEventsNum = caculateMinCutset.BottomEventSort(BottomEvents, BottomIPK);// 底事件按关键重要度从大到小排序
+		BottomEventsNum = caculateMinCutset.BottomEventSort(BottomEvents,
+				BottomIPK);// 底事件按关键重要度从大到小排序
 		faultDiagnosis.getFaultMatrix(FaultMatrix, BottomEvents);// 获得征兆特征模糊矩阵
 		double FaultAttribution[] = new double[BottomEventsNum];// 定义故障隶属度向量
-		faultDiagnosis.getFaultAttribution(FaultSymptom, FaultMatrix, FaultAttribution);// 计算故障隶属度
+		faultDiagnosis.getFaultAttribution(FaultSymptom, FaultMatrix,
+				FaultAttribution);// 计算故障隶属度
 
 		faultDiagnosis.Diagnosis(FaultSymptom, Faultsname);// 根据故障征兆按照故障树诊断出可能故障集
 		double FaultsIPK[] = new double[Faultsname.size()];// 定义故障集中故障的关键度数组
 		caculateMinCutset.FaultsSort(Faultsname, FaultsIPK);// 故障集中故障按照故障关键度大小排列
 		int Faultsnum = 0;// 故障数量
 		double FaultsFreq[] = new double[Faultsname.size()];// 故障概率数组
-		Faultsnum = faultDiagnosis.DiagnosisResult(Faultsname, FaultsIPK, FaultsFreq);// 故障结果处理
+		Faultsnum = faultDiagnosis.DiagnosisResult(Faultsname, FaultsIPK,
+				FaultsFreq);// 故障结果处理
 		faultname = new String[Faultsnum];
 		faultvalue = new String[Faultsnum];
 
@@ -150,7 +157,8 @@ public class FaultTreeMain {
 
 			System.out.println("/*-----检测出" + Faultsname.size() + "故障-----*/");
 			for (i = 0; i < Faultsnum; i++) {
-				System.out.println("FTree:" + Faultsname.get(i) + "	" + FaultsFreq[i]);
+				System.out.println(
+						"FTree:" + Faultsname.get(i) + "	" + FaultsFreq[i]);
 				String[] symptom = new String[3];
 				int temp = 0;
 				int node = 0;
@@ -168,7 +176,8 @@ public class FaultTreeMain {
 					tempFault.setNode(node);
 					tempFault.setProbability(FaultsFreq[i]);
 
-					tempFault.setRecommendation(faults.get(temp - 1).getRecommendation());
+					tempFault.setRecommendation(
+							faults.get(temp - 1).getRecommendation());
 					// recommendation[i]=faults.get(temp -
 					// 1).getRecommendation();
 					tempFault.setConditionName(condtionName);
@@ -214,7 +223,8 @@ public class FaultTreeMain {
 	 * @param datetime
 	 *            诊断时间
 	 */
-	public static List<Fault> writeresult(String unitNo, String datetime, String wcstatus) {
+	public static List<Fault> writeresult(String unitNo, String datetime,
+			String wcstatus) {
 
 		List<Fault> faults = FaultDiagnosis.TSFaultsRead();
 		int temp = 0;
@@ -241,7 +251,8 @@ public class FaultTreeMain {
 						tsre.setSymptom(faultfeature);
 						tsre.setUnitNo(unitNo);
 						tsre.setTime(datetime);
-						tsre.setRecommendation(faults.get(temp - 1).getRecommendation());
+						tsre.setRecommendation(
+								faults.get(temp - 1).getRecommendation());
 						tsre.save();
 						System.out.println("诊断结果保存成功");
 						System.out.println(resultID[i] + ":  " + faultname[i]);
@@ -257,7 +268,8 @@ public class FaultTreeMain {
 		return faultTreeResultMap;
 	}
 
-	public static void setFaultTreeResultMap(Map<String, String> faultTreeResultMap) {
+	public static void setFaultTreeResultMap(
+			Map<String, String> faultTreeResultMap) {
 		FaultTreeMain.faultTreeResultMap = faultTreeResultMap;
 	}
 

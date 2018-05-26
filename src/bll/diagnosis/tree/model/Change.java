@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Change {
-	private Long time;
+	private String time;
 	private int unitNo;
 
 	public static void write(ArrayList<Node> input) {
@@ -59,8 +59,10 @@ public class Change {
 				String nstrn = anodes.get(0).getName();
 
 				for (int k = 0; k < testnodes.size(); k++) {
-					for (int j = 0; j < testnodes.get(k).getChildren().size(); j++) {
-						if (testnodes.get(k).getChildren().get(j).equals(anodes.get(0).getFather())) {
+					for (int j = 0; j < testnodes.get(k).getChildren()
+							.size(); j++) {
+						if (testnodes.get(k).getChildren().get(j)
+								.equals(anodes.get(0).getFather())) {
 							testnodes.get(k).getChildren().set(j, nstrn);
 						}
 					}
@@ -89,7 +91,8 @@ public class Change {
 		for (int p = 0; p < testnodes.size(); p++) {
 			if (testnodes.get(p).getName().equals(in)) {
 				if (testnodes.get(p).getChildren().size() != 0) {
-					for (int i = 0; i < testnodes.get(p).getChildren().size(); i++) {
+					for (int i = 0; i < testnodes.get(p).getChildren()
+							.size(); i++) {
 						delnodes(testnodes.get(p).getChildren().get(i));
 
 					}
@@ -136,16 +139,16 @@ public class Change {
 		Change.write(testnodes);
 	}
 
-	public Long getTime() {
+	public String getTime() {
 		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public int getUnitNo() {
 		return unitNo;
-	}
-
-	public void setTime(Long time) {
-		this.time = time;
 	}
 
 	public void setUnitNo(int unitNo) {

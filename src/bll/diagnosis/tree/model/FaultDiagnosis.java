@@ -34,6 +34,10 @@ public class FaultDiagnosis {
 		Faults = new ArrayList<FaultFeature>();
 	}
 
+	public FaultDiagnosis() {
+		super();
+	}
+
 	/**
 	 * 故障特征向量初始化
 	 * 
