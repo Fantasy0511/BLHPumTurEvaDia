@@ -11,7 +11,9 @@ import util.TimeUtils;
 import util.dao.JdbcDaoUtil;
 
 /**
- * 保存table到数据库 1、新建 2、保存
+ * 保存table到数据库 
+ * 1、新建
+ * 2、保存
  * 
  * @author wuyue
  *
@@ -73,7 +75,7 @@ public class Table2Db extends JdbcDaoUtil {
 	}
 
 	/**
-	 * 根据文件名新建表
+	 * 根据文件名新建表，文件名如果有"bool"或者"double"
 	 */
 	public void creatNewStateTableByName(String tableName) {
 		String sql = "if not exists(select * from sysobjects where id = object_id('"
@@ -82,7 +84,9 @@ public class Table2Db extends JdbcDaoUtil {
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
 	}
-
+	/**
+	 * 根据文件名新建表，文件名如果有"float"
+	 */
 	public void creatNewFloatTableByName(String tableName) {
 		String sql = "if not exists(select * from sysobjects where id = object_id('"
 				+ tableName + "')) " + "begin create table " + tableName
@@ -98,11 +102,12 @@ public class Table2Db extends JdbcDaoUtil {
 	public void saveFileToRecordTable(String filePath) {
 		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
 				filePath.lastIndexOf("."));
-		String date = String.valueOf(TimeUtils.DatetoLong(new Date()));
+		String date = String.valueOf(TimeUtils.DatetoLong(new Date())); //获取当前时间,录入表中的时候还是long型
 		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('"
 				+ tableName + "','" + date + "')";
 		System.out.println(insertRecordSql);
 		getJdbcTemplate().execute(insertRecordSql);
 	}
+	
 
 }
