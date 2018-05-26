@@ -22,5 +22,9 @@
 		<action name="view-record" class="blh.action.dataUpload.ViewRecordAction">
 			<result type="json"></result>
 		</action>
+		<action name="fault-tree" class="blh.action.faulttree.FaultTreeAction">
+			<result type="json"></result>
+		</action>
+
 	</package>
 </struts>

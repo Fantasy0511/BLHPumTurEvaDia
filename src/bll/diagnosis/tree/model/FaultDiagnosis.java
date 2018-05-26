@@ -48,9 +48,11 @@ public class FaultDiagnosis {
 	 * @return 故障特征向量
 	 */
 
-	public double[] InitialFaultSymptom(double FaultSymptom[], String datetime, String UnitNo, String condtionName) {
+	public double[] InitialFaultSymptom(double FaultSymptom[], String datetime,
+			String UnitNo, String condtionName) {
 
-		GovFaultTreeInputModel datas = new GovFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
+		GovFaultTreeInputModel datas = new GovFaultTreeInputModel()
+				.tstreeanalysis(datetime, UnitNo, condtionName);
 
 		if (null == datas) {
 			FaultSymptom = null;
@@ -176,7 +178,8 @@ public class FaultDiagnosis {
 				String[] str = rs1.getString("Feature").split("/");
 				for (int i = 0; i < str.length; i++)
 					temp.Feature[i] = Double.parseDouble(str[i]);
-				String[] relationstr = rs1.getString("Thresholdrelation").split("/");
+				String[] relationstr = rs1.getString("Thresholdrelation")
+						.split("/");
 				temp.Threshold = Double.parseDouble(relationstr[0]);
 				temp.relation = Integer.parseInt(relationstr[1]);
 				Faults.add(temp);
@@ -197,13 +200,16 @@ public class FaultDiagnosis {
 	 * @param BottomEvents
 	 *            底事件名称列表
 	 */
-	public void getFaultMatrix(ArrayList<FaultFeature> FaultMatrix, String BottomEvents[]) {
-		for (int i = 0; (i < BottomEvents.length) && (BottomEvents[i] != null); i++) {
+	public void getFaultMatrix(ArrayList<FaultFeature> FaultMatrix,
+			String BottomEvents[]) {
+		for (int i = 0; (i < BottomEvents.length)
+				&& (BottomEvents[i] != null); i++) {
 			FaultFeature temp = new FaultFeature();
 			temp.name = BottomEvents[i];
 			for (int j = 0; j < Faults.size(); j++) {
 				if (temp.name.equals(Faults.get(j).name)) {
-					System.arraycopy(Faults.get(j).Feature, 0, temp.Feature, 0, Faults.get(j).Feature.length);
+					System.arraycopy(Faults.get(j).Feature, 0, temp.Feature, 0,
+							Faults.get(j).Feature.length);
 					break;
 				}
 			}
@@ -221,12 +227,13 @@ public class FaultDiagnosis {
 	 * @param FaultAttribution
 	 *            隶属度
 	 */
-	public void getFaultAttribution(double FaultSymptom[], ArrayList<FaultFeature> FaultMatrix,
-			double FaultAttribution[]) {
+	public void getFaultAttribution(double FaultSymptom[],
+			ArrayList<FaultFeature> FaultMatrix, double FaultAttribution[]) {
 		for (int i = 0; i < FaultAttribution.length; i++) {
 			FaultAttribution[i] = 0;
 			for (int j = 0; j < FaultMatrix.get(i).Feature.length; j++) {
-				FaultAttribution[i] += FaultSymptom[j] * FaultMatrix.get(i).Feature[j];
+				FaultAttribution[i] += FaultSymptom[j]
+						* FaultMatrix.get(i).Feature[j];
 			}
 
 		}
@@ -263,7 +270,8 @@ public class FaultDiagnosis {
 	 * @param Faultnames
 	 *            故障名称列表
 	 */
-	private void handle(Node tasknode, double FaultSymptom[], ArrayList<String> Faultnames) {
+	private void handle(Node tasknode, double FaultSymptom[],
+			ArrayList<String> Faultnames) {
 		FaultFeature taskfeature = new FaultFeature();
 		for (int i = 0; i < Faults.size(); i++) {
 			if (Faults.get(i).name.equals(tasknode.name))
@@ -299,7 +307,8 @@ public class FaultDiagnosis {
 				break;
 			case 5:
 				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+					if (FaultSymptom[i] <= taskfeature.Feature[i]
+							&& taskfeature.Feature[i] != 0)
 						flag = 0;
 				}
 				break;
@@ -323,21 +332,24 @@ public class FaultDiagnosis {
 				int tempCre = tempm % 10;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -352,21 +364,24 @@ public class FaultDiagnosis {
 				int tempCre = (tempm % 100) / 10;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -382,21 +397,24 @@ public class FaultDiagnosis {
 				int tempCre = (tempm % 1000) / 100;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -412,21 +430,24 @@ public class FaultDiagnosis {
 				int tempCre = (tempm % 10000) / 1000;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -442,21 +463,24 @@ public class FaultDiagnosis {
 				int tempCre = tempm / 10000;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8
+							|| tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -473,7 +497,8 @@ public class FaultDiagnosis {
 					for (int i = 0; i < tasknode.children.size(); i++) {
 						Node child = new Node();
 						for (int j = 0; j < nodes.size(); j++)
-							if (nodes.get(j).name.equals(tasknode.children.get(i)))
+							if (nodes.get(j).name
+									.equals(tasknode.children.get(i)))
 								child = nodes.get(j);
 						handle(child, FaultSymptom, Faultnames);
 					}
@@ -495,7 +520,8 @@ public class FaultDiagnosis {
 	 *            故障概率
 	 * @return 故障数量
 	 */
-	public int DiagnosisResult(ArrayList<String> Faultsname, double FaultsIPK[], double FaultsFreq[]) {
+	public int DiagnosisResult(ArrayList<String> Faultsname, double FaultsIPK[],
+			double FaultsFreq[]) {
 		double totalIPK = 0;
 		int num = Faultsname.size() > 5 ? 5 : Faultsname.size();
 		for (int i = 0; i < num; i++) {
@@ -527,7 +553,8 @@ public class FaultDiagnosis {
 
 			System.out.println("读取数据");
 
-			rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
+			rs0 = stmt.executeQuery(
+					"SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
 			while (rs0.next()) {
 				Fault temp = new Fault();
 
@@ -547,44 +574,3 @@ public class FaultDiagnosis {
 		return faults;
 	}
 }
-/*
- * // 返回诊断结果正确与否的矩阵 // 正确返回1 // 错误返回-1 // 不操作返回0 public void
- * getFaultIsCorrect(int FaultIsCorrect[]) { for (int i = 0; i <
- * FaultIsCorrect.length; i++) { double temp = Math.random(); if (temp > 0.4)
- * FaultIsCorrect[i] = (temp > 0.7) ? 1 : (-1); } }
- */
-/**
- * 修改底事件概率
- * 
- * @param Faultsname
- *            故障名称列表
- * @param FaultIsCorrect
- *            故障正确列表
- */
-/*
- * public void modifyBottumP(ArrayList<String> Faultsname, int FaultIsCorrect[])
- * { // System.out.println("************************************"); for (int i =
- * 0; i < FaultIsCorrect.length; i++) { if (FaultIsCorrect[i] == 1) { for (int j
- * = 0; j < nodes.size(); j++) { if
- * (Faultsname.get(i).equals(nodes.get(j).name)) { Node temp = nodes.get(j); //
- * System.out.print(temp.freq + " ———— "); double y = temp.freq; double x =
- * myReverseFunction(y); x += dert; y = (double) ((int) (myFunction(x) * 100)) /
- * 100; temp.freq = y < 0.01 ? 0.01 : y; // System.out.print(temp.freq +
- * " ———— \n"); nodes.set(j, temp); } } } else if (FaultIsCorrect[i] == -1) {
- * for (int j = 0; j < nodes.size(); j++) { if
- * (Faultsname.get(i).equals(nodes.get(j).name)) { Node temp = nodes.get(j); //
- * System.out.print(temp.freq + " ———— "); double y = temp.freq; double x =
- * myReverseFunction(y); x -= dert; y = (double) ((int) (myFunction(x) * 100)) /
- * 100; temp.freq = y < 0.01 ? 0.01 : y; // System.out.print(temp.freq + "\n");
- * nodes.set(j, temp); } } } } //
- * System.out.println("************************************");
- * Change.write(nodes); }
- * 
- * public double myFunction(double x) { double y; y = 1 - Math.exp(-x); return
- * y; }
- * 
- * public double myReverseFunction(double y) { double x; x = -Math.log(1 - y);
- * return x; }
- * 
- * }
- */

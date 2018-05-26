@@ -24,40 +24,6 @@ public class GovXMLUtils {
 		}
 	}
 
-	public static String GetipFD() {
-		return parse("GovAppconfig", "/Station/ipFD");
-	}
-
-	public static String GetDBNameFD() {
-		return parse("GovAppconfig", "/Station/DBNameFD");
-	}
-
-	public static String GetuserFD() {
-		return parse("GovAppconfig", "/Station/userFD");
-	}
-
-	public static String GetpwdFD() {
-		return parse("GovAppconfig", "/Station/pwdFD");
-	}
-
-	private static String parse(String file, String xpath) {
-		String result = "";
-		String path = GetXMLPath(file);
-		try {
-			SAXReader saxReader = new SAXReader();
-			Document document = saxReader.read(new File(path));
-			@SuppressWarnings("unchecked")
-			List<Element> list = document.selectNodes(xpath);
-			Iterator<Element> iter = list.iterator();
-			if (iter.hasNext()) {
-				Element ownerElement = (Element) iter.next();
-				result = ownerElement.getText();
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return result;
-	}
 
 	public static String GetXMLPath(String filename) {
 		String result = folder + "/config/" + filename + ".xml";

@@ -17,16 +17,19 @@ public class FaultTreeService {
 	List<FaultResult> result = new ArrayList<>();
 	private String Date;
 
-	public List<FaultResult> findfault() {
+	public List<FaultResult> findfault(String date) {
 		FaultTreeMain faulttree = new FaultTreeMain();
-		result = faulttree.FaultTreeDiagnosis(1, "1", "1",
-				"2015-05-26 09:48:16");
+		result = faulttree.FaultTreeDiagnosis(1, "1", "1", date);
 		ArrayList<Fault> faults = new FaultDiagnosis().TSFaultsRead();
+		System.out.println(faults);
 		return result;
 	}
+	
+
 
 	public static void main(String[] args) {
+		String date = "2015-05-26 09:48:16";
 		System.out.println(
-				"故障列表" + new FaultTreeService().findfault().toString());
+				"故障列表" + new FaultTreeService().findfault(date).toString());
 	}
 }

@@ -135,14 +135,6 @@ public class MakeFaultTree {
 	public static void InitialNodes(ArrayList<Node> Inodes, String date,
 			Integer unitNo) {
 
-		// String result = System.getProperty("java.class.path");
-		// URL result2 = MakeFaultTree.class.getResource("/");
-		// String test = XMLUtils.GetXMLPath("tree");
-		// String test =
-		// MakeFaultTree.class.getClassLoader().getResource("").getPath();
-		// String result =
-		// test.substring(1,test.length()-16)+"XMLDataBase/tree.xml";
-		// System.out.println(result);
 		String result = GovXMLUtils.GetXMLPath("PumpturSystemFaultTree");
 		if (new File(result).exists()) {
 			System.out.println("123");

@@ -32,7 +32,8 @@ public class Fault {
 
 			System.out.println("读取数据");
 
-			ResultSet rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
+			ResultSet rs0 = stmt.executeQuery(
+					"SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
 			while (rs0.next()) {
 				Fault temp = new Fault();
 
@@ -87,6 +88,12 @@ public class Fault {
 
 	public void setNode(int node) {
 		this.node = node;
+	}
+
+	@Override
+	public String toString() {
+		return "Fault [ID=" + ID + ", name=" + name + ", location=" + location
+				+ ", Recommendation=" + Recommendation + ", node=" + node + "]";
 	}
 
 }
