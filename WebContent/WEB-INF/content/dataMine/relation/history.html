@@ -3,30 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <title>历史查询</title>
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dateTimePicker/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/assesment.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css"> 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/bootstrap/dateTimePicker/bootstrap-datetimepicker.min.js"
-	charset="UTF-8"></script>
-<script type="text/javascript" src="/BLHPumTurEvaDia/js/echarts.js"></script>
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
@@ -58,9 +63,9 @@
 	var table = $('#historyTable').DataTable();//jQuery dataTable（表格解决方案）的初始化
 	function queryHistory() { //queryHistory()查询方法
 		table.destroy(); //表格销毁
-		var system = $("#subSystem option:selected").val(); //把前端选择的子系统传给“system”
-		var starTime = $("#startTime").val();
-		var endTime = $("#endTime").val();
+		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
+		var starTime = getDate("startTime");
+		var endTime = getDate("endTime");
 
 		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
@@ -124,9 +129,83 @@
 					"sPrevious" : "前一页",
 					"sNext" : "后一页",
 				}
-			}
+			},
+			"bDestroy": true
 		});
 	}
+	
+	//** 点击历史状态查询模块按钮，调一次历史数据表
+	function showHistoryTable() {
+		
+		var table = $('#historyTable').DataTable();
+		var system = "Transfer";
+		var starTime = "2015-01-1";
+		var endTime = "2018-01-01";
+		var url2 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
+				+ system + "//" + starTime + "//" + endTime;
+		console.log(url2);
+		table = $('#historyTable').DataTable({ /* json数组 */
+			"iDisplayLength" : 3,
+			"lengthMenu" : [ [ 3, 6, 18, -1 ], [ 3, 6, 18, "所有" ] ],
+			"bAutoWidth" : true,
+			ajax : {
+				url : url2
+			},
+			columns : [ {
+				"data" : "faultID",
+				orderable : false
+			},//JSON语句+数组               columns:纵列
+			{
+				"data" : "system",
+				orderable : false
+			}, {
+				"data" : "faultName",
+				orderable : false
+			}, {
+				"data" : "faultReason",
+				orderable : false
+			}, {
+				"data" : "startTimeString",
+				orderable : false
+			}, {
+				"data" : "endTimeString",
+				orderable : false
+			}, {
+				"data" : "workConditon",
+				orderable : false
+			}, {
+				"data" : "paramters",
+				orderable : false
+			} ],
+			"columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
+			// "visible": false,
+			//"targets": 0
+			}, {
+				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
+					return '<a>' + row.paramters + '</a>';
+				},
+				"targets" : 7
+			//targets参数设置一个列或者多列
+			} ],
+			"sPaginationType" : "simple_numbers",
+			searching : false, //去掉搜索框
+			bLengthChange : false,//去掉每页多少条框体
+			"language" : {
+				"lengthMenu" : "每页 _MENU_ 条记录",
+				"zeroRecords" : "抱歉，没有找到",
+				"info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty" : "无记录",
+				"infoFiltered" : "(从 _MAX_ 条记录过滤)",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
+			"bDestroy": true
+		});
+	};
+	
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
 	$(document)
@@ -147,7 +226,8 @@
 										function() {
 											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
 											// $(this).toggleClass('selected');
-											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
+											var data = table.row('.selected')
+													.data(); //将前端点击的行的选择传给参数“data”
 											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
 											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
 											var para = data.paramters; //将选中那行的元素--参数传给“para”
@@ -159,7 +239,8 @@
 											console.log(url);
 											var chart1 = Highcharts.chart;
 											var chart2 = Highcharts.chart;
-											$.getJSON(
+											$
+													.getJSON(
 															url,
 															function(result) { //调用url地址json数据，加载成功执行回调函数result
 																options1.series[0].data = result.data1.value;
@@ -251,80 +332,61 @@
 
 										});
 					});
+	
+	
 	$(function() {
+		showHistoryTable();
 		$("#btn_query").click(queryHistory);
+		 
 	});
 </script>
 
 <body>
-	<div align="center">
-		<div class="page_operation_bar">
-			<div align="left" id="showDiv">
-				<form action="" class="form-inline" role="form">
-					<div class="col-sm-3 form-group" style="margin-right: -60px">
-						<label for="dtp_input2" class="control-label">开始时间&nbsp;</label>
-
-						<div class="input-group date form_date col-md-7" data-date=""
-							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" id="startTime"
-								placeholder="点击选择" class="form-control" size="16" type="text"
-								value="" readonly> <span class="input-group-addon"><span
-								class="glyphicon glyphicon-calendar"></span></span>
-						</div>
-						<input type="hidden" id="dtp_input1" value="" /><br />
-					</div>
-					<div class="col-sm-3 form-group" style="margin-right: -60px">
-						<label for="dtp_input2" class="control-label">结束时间&nbsp;</label>
-
-						<div class="input-group date form_date col-md-7" data-date=""
-							data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-							<input style="background-color: #ffffff" id="endTime"
-								placeholder="点击选择" class="form-control" size="16" type="text"
-								value="" readonly> <span class="input-group-addon"><span
-								class="glyphicon glyphicon-calendar"></span></span>
-						</div>
-						<input type="hidden" id="dtp_input2" value="" /><br />
-					</div>
-
-					<div class="col-sm-3 form-group" style="margin-right: -20px">
-						<label class="control-label" for="method">子系统选择 &nbsp;</label>
-
-						<div class="col-sm-6 input-group">
-							<select class="form-control" id="subSystem">
-								<option>球阀系统</option>
-								<option>发电机及励磁系统</option>
-								<option>调速器系统</option>
-								<option>主变系统</option>
-								<option>水泵水轮机</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="col-md-3 form-group">
-						<button type="button" class="btn btn-primary" id="btn_query">查询</button>
-						<!--查询按键的id=btn_query-->
-					</div>
-				</form>
-			</div>
-		</div>
+	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:auto;margin-right:auto;width:94%">
+	<!-- 	<span class="input_title">条件输入：</span> --> <label
+			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
+			class="easyui-datebox" required style="width: 150px; height: 26px">
+		<script>
+			$.extend($.fn.validatebox.defaults.rules, {
+				md : {
+					validator : function(value, param) {
+						var d1 = $.fn.datebox.defaults.parser(param[0]);
+						var d2 = $.fn.datebox.defaults.parser(value);
+						return d2 >= d1;
+					},
+					message : '结束时间必须大于或等于开始时间。'
+				}
+			})
+		</script>
+		<label for="model">子系统选择：</label> <select id="subSystem"
+			class="easyui-combobox" style="width: 140px;">
+			<option value="Pum">水泵水轮机</option>
+			<option value="ball">球阀系统</option>
+			<option value="Exc">发电机及励磁系统</option>
+			<option value="Gov">调速器系统</option>
+			<option value="Transfer">主变系统</option>
+		</select> <a id="btn_query" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'"> 查询 </a>
 	</div>
 
-	<div style="margin-left: 3%; margin-right: 3%; width: 97%">
+	<div style="margin-left: auto; margin-right: auto; width: 94%">
 		<div class="easyui-panel" title="历史运行状态数据"
-			style="width: 96%; height:auto;">
+			style="width: 100%; height: auto;">
 			<div>
-				<table class="table" id="historyTable" 
-					style="text-align: left; width: 98%; height:auto;margin-left: 1%; margin-right: 1% ">
+				<table class="table" id="historyTable"
+					style="text-align: left; width: 100%; height: auto; margin-left: auto; margin-right: auto">
 					<thead>
 						<tr>
-							<th style="width:7%">故障ID</th>
-							<th style="width:9%">子系统</th>
-							<th style="width:9%">故障名称</th>
-							<th style="width:34%">故障原因</th>
-							<th style="width:8%">开始时间</th>
-							<th style="width:8%">结束时间</th>
-							<th style="width:8%">工况</th>
-							<th style="width:17%">关联参数</th>
+							<th style="width: 7%">故障ID</th>
+							<th style="width: 9%">子系统</th>
+							<th style="width: 9%">故障名称</th>
+							<th style="width: 34%">故障原因</th>
+							<th style="width: 8%">开始时间</th>
+							<th style="width: 8%">结束时间</th>
+							<th style="width: 8%">工况</th>
+							<th style="width: 17%">关联参数</th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -332,11 +394,12 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="ipad" style="height: 30px"></div>
 
-	<div style="margin-left: 3%; margin-right: 3%; width: 97%">
-		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+	<div class="ipad" style="height: 20px"></div>
+
+	<div style="margin-left: auto; margin-right: auto; width: 94%">
+		<div
+			style="width: 49%; height: auto; float: left; display: inline; margin-right: 2%">
 			<div style="width: 100%; height: auto; float: left; display: inline">
 				<div class="easyui-panel" title="故障趋势图"
 					style="width: 100%; height: 400px;">
@@ -346,7 +409,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="width: 47%; height: auto; float: left; display: inline">
+		<div style="width: 49%; height: auto; float: left; display: inline">
 			<div class="easyui-panel" title="故障趋势图"
 				style="width: 100%; height: 400px;">
 				<div id="container2" style="height: 100%">
