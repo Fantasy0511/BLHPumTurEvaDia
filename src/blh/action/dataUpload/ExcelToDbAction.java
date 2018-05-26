@@ -31,7 +31,8 @@ public class ExcelToDbAction extends AbstractActionSupport {
 		System.out.println(excel.getName());
 		System.out.println(excel.getPath());
 		excel2DbService.upLoadExcelToDb(
-				FileUtils.copyFile(fileName, excel).getAbsolutePath());
+				FileUtils.copyFile(fileName, excel).getAbsolutePath()); 
+		// 从本地的输入文件拷贝到输出文件，再获取这个输出文件的绝对路径，再把这个绝对路径返回给upLoadExcelToDb（）方法执行
 		return "SUCCESS";
 	}
 

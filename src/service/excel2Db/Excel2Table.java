@@ -13,6 +13,7 @@ import jxl.read.biff.BiffException;
 public class Excel2Table {
 	/**
 	 * 根据路径读取excel返回Table 注意pathName的excel的后缀 应该为xls；
+	 * 读取excel，将excel每个单元格的内容都赋给Table这个对象
 	 * 
 	 * @param pathName
 	 * @return
