@@ -15,16 +15,18 @@ import bll.diagnosis.tree.model.FaultTreeMain;
  */
 public class FaultTreeService {
 	List<FaultResult> result = new ArrayList<>();
-	private static FaultDiagnosis faultDiagnosis;
+	private String Date;
 
 	public List<FaultResult> findfault() {
-		String nowtime = "";
-		java.text.Format format = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		nowtime = format.format(new java.util.Date());
 		FaultTreeMain faulttree = new FaultTreeMain();
-		result = faulttree.FaultTreeDiagnosis(1, "1", "1", nowtime);
-		ArrayList<Fault> faults = faultDiagnosis.TSFaultsRead();
+		result = faulttree.FaultTreeDiagnosis(1, "1", "1",
+				"2015-05-26 09:48:16");
+		ArrayList<Fault> faults = new FaultDiagnosis().TSFaultsRead();
 		return result;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(
+				"故障列表" + new FaultTreeService().findfault().toString());
 	}
 }

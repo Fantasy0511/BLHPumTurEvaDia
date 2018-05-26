@@ -24,7 +24,7 @@ public class PathUtil {
 	 * @return 当前项目的根目录的绝对路径。
 	 */
 	public static String getWebRealBasePath() {
-		boolean webOn = true;
+		boolean webOn = false;
 		if (webOn) {
 			return getClassPath(PathUtil.class).replace("WEB-INF/classes/", "");
 		} else {

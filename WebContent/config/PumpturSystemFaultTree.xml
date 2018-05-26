@@ -1,85 +1,116 @@
-﻿<WorkFlow>
-  <Route ID="70" Name="" FromElementID="1" ToElementID="120"/>
-  <Route ID="71" Name="" FromElementID="120" ToElementID="21"/>
-  <Route ID="72" Name="" FromElementID="120" ToElementID="22"/>
-  <Route ID="73" Name="" FromElementID="120" ToElementID="23"/>
-  <Route ID="74" Name="" FromElementID="120" ToElementID="24"/>
-  <Route ID="75" Name="" FromElementID="21" ToElementID="230"/>
-  <Route ID="76" Name="" FromElementID="22" ToElementID="231"/>
-  <Route ID="77" Name="" FromElementID="23" ToElementID="232"/>
-  <Route ID="78" Name="" FromElementID="24" ToElementID="233"/>
-  <Route ID="79" Name="" FromElementID="230" ToElementID="311"/>
-  <Route ID="710" Name="" FromElementID="230" ToElementID="312"/>
-  <Route ID="711" Name="" FromElementID="231" ToElementID="321"/>
-  <Route ID="712" Name="" FromElementID="231" ToElementID="322"/>
-  <Route ID="713" Name="" FromElementID="232" ToElementID="331"/>
-  <Route ID="714" Name="" FromElementID="232" ToElementID="332"/>
-  <Route ID="715" Name="" FromElementID="232" ToElementID="333"/>
-  <Route ID="716" Name="" FromElementID="234" ToElementID="341"/>
-  <Route ID="718" Name="" FromElementID="234" ToElementID="342"/>
-  <Route ID="719" Name="" FromElementID="311" ToElementID="350"/>
-  <Route ID="720" Name="" FromElementID="312" ToElementID="351"/>
-  <Route ID="721" Name="" FromElementID="331" ToElementID="354"/>
-  <Route ID="722" Name="" FromElementID="333" ToElementID="356"/>
-  <Route ID="723" Name="" FromElementID="341" ToElementID="357"/>
-  <Route ID="728" Name="" FromElementID="342" ToElementID="358"/> 
-  <Route ID="729" Name="" FromElementID="350" ToElementID="4111"/>
-  <Route ID="730" Name="" FromElementID="350" ToElementID="4112"/>
-  <Route ID="731" Name="" FromElementID="350" ToElementID="4113"/>
-  <Route ID="732" Name="" FromElementID="351" ToElementID="4121"/>
-  <Route ID="733" Name="" FromElementID="351" ToElementID="4122"/>
-  <Route ID="734" Name="" FromElementID="351" ToElementID="4123"/>
-  <Route ID="735" Name="" FromElementID="351" ToElementID="4124"/>
-  <Route ID="736" Name="" FromElementID="351" ToElementID="4125"/>
-  <Route ID="737" Name="" FromElementID="354" ToElementID="4311"/>
-  <Route ID="738" Name="" FromElementID="354" ToElementID="4312"/>
-  <Route ID="739" Name="" FromElementID="356" ToElementID="4331"/>
-  <Route ID="740" Name="" FromElementID="356" ToElementID="4332"/>
-  <Route ID="741" Name="" FromElementID="357" ToElementID="4411"/>
-  <Route ID="742" Name="" FromElementID="357" ToElementID="4412"/>
-  <Route ID="743" Name="" FromElementID="358" ToElementID="4421"/>
-  <Route ID="744" Name="" FromElementID="358" ToElementID="4422"/>
-  <WorkNode ID="1" Name="水泵水轮机故障" NodeType="0" father="null" children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
-  <WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机故障" children="轴瓦温度异常,机组振动异常" gate="+" x="333" y="75" Width="100" Height="30"/>
-  <WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机故障" children="尾水管过高,蜗壳故障" gate="+" x="666" y="75" Width="100" Height="30"/>
-  <WorkNode ID="23" Name="轴系故障" NodeType="0" father="水泵水轮机故障" children="转动部件故障,主轴密封异常,迷宫环故障" gate="+" x="1333" y="75" Width="100" Height="30"/>
-  <WorkNode ID="24" Name="推力轴承故障" NodeType="0" father="水泵水轮机故障" children="轴承磨损,油膜厚度故障" gate="+" x="1666" y="75" Width="100" Height="30"/>
-  <WorkNode ID="311" Name="轴瓦温度异常" NodeType="0" father="水导故障" children="冷却水异常,油系统异常,大轴摆度异常" gate="+" x="50" y="350" Width="100" Height="30"/>
-  <WorkNode ID="312" Name="机组振动异常" NodeType="0" father="水导故障" children="励磁电流不平衡,剪断销故障,上导摆度异常,下导摆度异常,水导摆度异常" gate="+" x="300" y="350" Width="100" Height="30"/>
-  <WorkNode ID="321" Name="尾水管水位过高" NodeType="0.04" father="过流部件故障" children="null" gate="0" x="550" y="350" Width="100" Height="30"/>
-  <WorkNode ID="322" Name="蜗壳故障" NodeType="0.04" father="过流部件故障" children="null" gate="0" x="800" y="350" Width="100" Height="30"/>
-  <WorkNode ID="331" Name="转动部件故障" NodeType="0" father="轴系故障" children="动不平衡,主轴弯曲" gate="+" x="1050" y="350" Width="100" Height="30"/>
-  <WorkNode ID="332" Name="主轴密封异常" NodeType="0" father="轴系故障" children="null" gate="0" x="1300" y="350" Width="100" Height="30"/>
-  <WorkNode ID="333" Name="迷宫环故障" NodeType="0" father="轴系故障" children="迷宫环温度异常,冷却水流量低" gate="+" x="1550" y="350" Width="100" Height="30"/>
-  <WorkNode ID="341" Name="轴承磨损" NodeType="0" father="推力轴承故障" children="轴瓦温度异常,轴承振摆异常" gate="+" x="1800" y="350" Width="100" Height="30"/>
-  <WorkNode ID="342" Name="油膜厚度异常" NodeType="0" father="推力轴承故障" children="灭磁开关故障,电源故障" gate="+" x="2050" y="350" Width="100" Height="30"/>
-  <WorkNode ID="4111" Name="冷却水异常" NodeType="0" father="轴瓦温度异常" children="null" gate="0" x="50" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4112" Name="油系统异常" NodeType="0" father="轴瓦温度异常" children="null" gate="0" x="200" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4113" Name="大轴摆度异常" NodeType="0" father="轴瓦温度异常" children="null" gate="0" x="350" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4121" Name="励磁电流不平衡" NodeType="0" father="机组振动异常" children="null" gate="0" x="500" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4122" Name="剪断销故障" NodeType="0" father="机组振动异常" children="null" gate="0" x="650" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4123" Name="上导摆度异常" NodeType="0" father="机组振动异常" children="null" gate="0" x="800" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4124" Name="下导摆度异常" NodeType="0" father="机组振动异常" children="null" gate="0" x="950" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4125" Name="水导摆度异常" NodeType="0" father="机组振动异常" children="null" gate="0" x="1100" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4311" Name="动不平衡" NodeType="0" father="转动部件故障" children="null" gate="0" x="1250" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4312" Name="主轴弯曲" NodeType="0" father="转动部件故障" children="null" gate="0" x="1400" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4331" Name="迷宫环温度异常" NodeType="0" father="迷宫环故障" children="null" gate="0" x="1550" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4332" Name="冷却水流量低" NodeType="0" father="迷宫环故障" children="null" gate="0" x="1700" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4411" Name="轴瓦温度异常" NodeType="0" father="轴承磨损" children="null" gate="0" x="1850" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4412" Name="轴瓦振摆异常" NodeType="0" father="轴承磨损" children="null" gate="0" x="2000" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4421" Name="灭磁开关故障" NodeType="0" father="油膜厚度异常" children="null" gate="0" x="2150" y="600" Width="100" Height="30"/>
-  <WorkNode ID="4422" Name="电源故障" NodeType="0" father="油膜厚度异常" children="null" gate="0" x="2300" y="600" Width="100" Height="30"/>
-  <AndGateNode ID="120" Name="" x="1000" y="40" Radio="20"/>
-  <AndGateNode ID="230" Name="" x="333" y="150" Radio="20"/>
-  <AndGateNode ID="231" Name="" x="666" y="150" Radio="20"/>
-  <AndGateNode ID="232" Name="" x="1333" y="150" Radio="20"/>
-  <AndGateNode ID="233" Name="" x="1666" y="150" Radio="20"/>  
-  <AndGateNode ID="350" Name="" x="50" y="450" Radio="20"/>
-  <AndGateNode ID="351" Name="" x="300" y="450" Radio="20"/>
-  <AndGateNode ID="354" Name="" x="1050" y="450" Radio="20"/>
-  <AndGateNode ID="356" Name="" x="1550" y="450" Radio="20"/>
-  <AndGateNode ID="357" Name="" x="1800" y="450" Radio="20"/>
-  <AndGateNode ID="358" Name="" x="2050" y="450" Radio="20"/> 
-  
-  
+<WorkFlow>
+	<Route ID="70" Name="" FromElementID="1" ToElementID="120" />
+	<Route ID="71" Name="" FromElementID="120" ToElementID="21" />
+	<Route ID="72" Name="" FromElementID="120" ToElementID="22" />
+	<Route ID="73" Name="" FromElementID="120" ToElementID="23" />
+	<Route ID="74" Name="" FromElementID="120" ToElementID="24" />
+	<Route ID="75" Name="" FromElementID="21" ToElementID="230" />
+	<Route ID="76" Name="" FromElementID="22" ToElementID="231" />
+	<Route ID="77" Name="" FromElementID="23" ToElementID="232" />
+	<Route ID="78" Name="" FromElementID="24" ToElementID="233" />
+	<Route ID="79" Name="" FromElementID="230" ToElementID="311" />
+	<Route ID="710" Name="" FromElementID="230" ToElementID="312" />
+	<Route ID="711" Name="" FromElementID="231" ToElementID="321" />
+	<Route ID="712" Name="" FromElementID="231" ToElementID="322" />
+	<Route ID="713" Name="" FromElementID="232" ToElementID="331" />
+	<Route ID="714" Name="" FromElementID="232" ToElementID="332" />
+	<Route ID="715" Name="" FromElementID="232" ToElementID="333" />
+	<Route ID="716" Name="" FromElementID="234" ToElementID="341" />
+	<Route ID="718" Name="" FromElementID="234" ToElementID="342" />
+	<Route ID="719" Name="" FromElementID="311" ToElementID="350" />
+	<Route ID="720" Name="" FromElementID="312" ToElementID="351" />
+	<Route ID="721" Name="" FromElementID="331" ToElementID="354" />
+	<Route ID="722" Name="" FromElementID="333" ToElementID="356" />
+	<Route ID="723" Name="" FromElementID="341" ToElementID="357" />
+	<Route ID="728" Name="" FromElementID="342" ToElementID="358" />
+	<Route ID="729" Name="" FromElementID="350" ToElementID="4111" />
+	<Route ID="730" Name="" FromElementID="350" ToElementID="4112" />
+	<Route ID="731" Name="" FromElementID="350" ToElementID="4113" />
+	<Route ID="732" Name="" FromElementID="351" ToElementID="4121" />
+	<Route ID="733" Name="" FromElementID="351" ToElementID="4122" />
+	<Route ID="734" Name="" FromElementID="351" ToElementID="4123" />
+	<Route ID="735" Name="" FromElementID="351" ToElementID="4124" />
+	<Route ID="736" Name="" FromElementID="351" ToElementID="4125" />
+	<Route ID="737" Name="" FromElementID="354" ToElementID="4311" />
+	<Route ID="738" Name="" FromElementID="354" ToElementID="4312" />
+	<Route ID="739" Name="" FromElementID="356" ToElementID="4331" />
+	<Route ID="740" Name="" FromElementID="356" ToElementID="4332" />
+	<Route ID="741" Name="" FromElementID="357" ToElementID="4411" />
+	<Route ID="742" Name="" FromElementID="357" ToElementID="4412" />
+	<Route ID="743" Name="" FromElementID="358" ToElementID="4421" />
+	<Route ID="744" Name="" FromElementID="358" ToElementID="4422" />
+	<WorkNode ID="1" Name="水泵水轮机故障" NodeType="0" father="null" children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
+	<WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机故障"
+		children="轴瓦温度异常,机组振动异常" gate="+" x="333" y="75" Width="100" Height="30" />
+	<WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机故障"
+		children="尾水管过高,蜗壳故障" gate="+" x="666" y="75" Width="100" Height="30" />
+	<WorkNode ID="23" Name="轴系故障" NodeType="0" father="水泵水轮机故障"
+		children="转动部件故障,主轴密封异常,迷宫环故障" gate="+" x="1333" y="75" Width="100"
+		Height="30" />
+	<WorkNode ID="24" Name="推力轴承故障" NodeType="0" father="水泵水轮机故障"
+		children="轴承磨损,油膜厚度故障" gate="+" x="1666" y="75" Width="100" Height="30" />
+	<WorkNode ID="311" Name="轴瓦温度异常" NodeType="0" father="水导故障"
+		children="冷却水异常,油系统异常,大轴摆度异常" gate="+" x="50" y="350" Width="100"
+		Height="30" />
+	<WorkNode ID="312" Name="机组振动异常" NodeType="0" father="水导故障"
+		children="励磁电流不平衡,剪断销故障,上导摆度异常,下导摆度异常,水导摆度异常" gate="+" x="300" y="350"
+		Width="100" Height="30" />
+	<WorkNode ID="321" Name="尾水管水位过高" NodeType="0.04" father="过流部件故障"
+		children="null" gate="0" x="550" y="350" Width="100" Height="30" />
+	<WorkNode ID="322" Name="蜗壳故障" NodeType="0.04" father="过流部件故障"
+		children="null" gate="0" x="800" y="350" Width="100" Height="30" />
+	<WorkNode ID="331" Name="转动部件故障" NodeType="0" father="轴系故障"
+		children="动不平衡,主轴弯曲" gate="+" x="1050" y="350" Width="100" Height="30" />
+	<WorkNode ID="332" Name="主轴密封异常" NodeType="0" father="轴系故障"
+		children="null" gate="0" x="1300" y="350" Width="100" Height="30" />
+	<WorkNode ID="333" Name="迷宫环故障" NodeType="0" father="轴系故障"
+		children="迷宫环温度异常,冷却水流量低" gate="+" x="1550" y="350" Width="100"
+		Height="30" />
+	<WorkNode ID="341" Name="轴承磨损" NodeType="0" father="推力轴承故障"
+		children="轴瓦温度异常,轴承振摆异常" gate="+" x="1800" y="350" Width="100" Height="30" />
+	<WorkNode ID="342" Name="油膜厚度异常" NodeType="0" father="推力轴承故障"
+		children="灭磁开关故障,电源故障" gate="+" x="2050" y="350" Width="100" Height="30" />
+	<WorkNode ID="4111" Name="冷却水异常" NodeType="0" father="轴瓦温度异常"
+		children="null" gate="0" x="50" y="600" Width="100" Height="30" />
+	<WorkNode ID="4112" Name="油系统异常" NodeType="0" father="轴瓦温度异常"
+		children="null" gate="0" x="200" y="600" Width="100" Height="30" />
+	<WorkNode ID="4113" Name="大轴摆度异常" NodeType="0" father="轴瓦温度异常"
+		children="null" gate="0" x="350" y="600" Width="100" Height="30" />
+	<WorkNode ID="4121" Name="励磁电流不平衡" NodeType="0" father="机组振动异常"
+		children="null" gate="0" x="500" y="600" Width="100" Height="30" />
+	<WorkNode ID="4122" Name="剪断销故障" NodeType="0" father="机组振动异常"
+		children="null" gate="0" x="650" y="600" Width="100" Height="30" />
+	<WorkNode ID="4123" Name="上导摆度异常" NodeType="0" father="机组振动异常"
+		children="null" gate="0" x="800" y="600" Width="100" Height="30" />
+	<WorkNode ID="4124" Name="下导摆度异常" NodeType="0" father="机组振动异常"
+		children="null" gate="0" x="950" y="600" Width="100" Height="30" />
+	<WorkNode ID="4125" Name="水导摆度异常" NodeType="0" father="机组振动异常"
+		children="null" gate="0" x="1100" y="600" Width="100" Height="30" />
+	<WorkNode ID="4311" Name="动不平衡" NodeType="0" father="转动部件故障"
+		children="null" gate="0" x="1250" y="600" Width="100" Height="30" />
+	<WorkNode ID="4312" Name="主轴弯曲" NodeType="0" father="转动部件故障"
+		children="null" gate="0" x="1400" y="600" Width="100" Height="30" />
+	<WorkNode ID="4331" Name="迷宫环温度异常" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="1550" y="600" Width="100" Height="30" />
+	<WorkNode ID="4332" Name="冷却水流量低" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="1700" y="600" Width="100" Height="30" />
+	<WorkNode ID="4411" Name="轴瓦温度异常" NodeType="0" father="轴承磨损"
+		children="null" gate="0" x="1850" y="600" Width="100" Height="30" />
+	<WorkNode ID="4412" Name="轴瓦振摆异常" NodeType="0" father="轴承磨损"
+		children="null" gate="0" x="2000" y="600" Width="100" Height="30" />
+	<WorkNode ID="4421" Name="灭磁开关故障" NodeType="0" father="油膜厚度异常"
+		children="null" gate="0" x="2150" y="600" Width="100" Height="30" />
+	<WorkNode ID="4422" Name="电源故障" NodeType="0" father="油膜厚度异常"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<AndGateNode ID="120" Name="" x="1000" y="40" Radio="20" />
+	<AndGateNode ID="230" Name="" x="333" y="150" Radio="20" />
+	<AndGateNode ID="231" Name="" x="666" y="150" Radio="20" />
+	<AndGateNode ID="232" Name="" x="1333" y="150" Radio="20" />
+	<AndGateNode ID="233" Name="" x="1666" y="150" Radio="20" />
+	<AndGateNode ID="350" Name="" x="50" y="450" Radio="20" />
+	<AndGateNode ID="351" Name="" x="300" y="450" Radio="20" />
+	<AndGateNode ID="354" Name="" x="1050" y="450" Radio="20" />
+	<AndGateNode ID="356" Name="" x="1550" y="450" Radio="20" />
+	<AndGateNode ID="357" Name="" x="1800" y="450" Radio="20" />
+	<AndGateNode ID="358" Name="" x="2050" y="450" Radio="20" />
 </WorkFlow>

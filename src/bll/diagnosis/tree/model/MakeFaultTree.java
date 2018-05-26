@@ -19,6 +19,7 @@ import org.dom4j.io.XMLWriter;
 import bll.diagnosis.tree.GovXMLUtils;
 import service.faulttree.pumptur.PumpturBFault;
 import service.faulttree.pumptur.PumpturFFault;
+import util.TimeUtils;
 
 /**
  * 构造树的逻辑实现
@@ -64,7 +65,8 @@ public class MakeFaultTree {
 
 		if (node != null) {
 			for (int i = 0; i < node.children.size(); i++) {
-				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.children.get(i));
+				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(
+						node.children.get(i));
 				;
 				treeNode.add(newNode);
 				makeTree(newNode);
@@ -130,13 +132,16 @@ public class MakeFaultTree {
 	 *            节点信息列表
 	 */
 	@SuppressWarnings("rawtypes")
-	public static void InitialNodes(ArrayList<Node> Inodes, Long time, Integer unitNo) {
+	public static void InitialNodes(ArrayList<Node> Inodes, String date,
+			Integer unitNo) {
 
 		// String result = System.getProperty("java.class.path");
 		// URL result2 = MakeFaultTree.class.getResource("/");
 		// String test = XMLUtils.GetXMLPath("tree");
-		// String test = MakeFaultTree.class.getClassLoader().getResource("").getPath();
-		// String result = test.substring(1,test.length()-16)+"XMLDataBase/tree.xml";
+		// String test =
+		// MakeFaultTree.class.getClassLoader().getResource("").getPath();
+		// String result =
+		// test.substring(1,test.length()-16)+"XMLDataBase/tree.xml";
 		// System.out.println(result);
 		String result = GovXMLUtils.GetXMLPath("PumpturSystemFaultTree");
 		if (new File(result).exists()) {
@@ -161,14 +166,15 @@ public class MakeFaultTree {
 					Node temp = new Node();
 					temp.name = ele.attribute("Name").getValue();
 
-					String[] childs = ele.attribute("children").getValue().split(",");
+					String[] childs = ele.attribute("children").getValue()
+							.split(",");
 					for (int i = 0; i < childs.length; i++) {
 						if (!childs[i].equals("null")) {
 							temp.children.add(childs[i]);
 						}
 					}
 					temp.gate = ele.attribute("gate").getValue();
-
+					Long time = TimeUtils.StringtoLong(date);
 					if (temp.name == "大轴摆度异常") {
 						temp.freq = pb.getAxleViFault(time, unitNo);
 					} else if (temp.name == "冷却水异常") {
@@ -205,7 +211,8 @@ public class MakeFaultTree {
 						temp.freq = 0;
 					}
 
-					// temp.freq = Double.parseDouble(ele.attribute("NodeType").getValue());
+					// temp.freq =
+					// Double.parseDouble(ele.attribute("NodeType").getValue());
 					if (!ele.attribute("father").getValue().equals("null")) {
 						temp.father = ele.attribute("father").getValue();
 					}
@@ -246,7 +253,8 @@ public class MakeFaultTree {
 			// 默认为UTF-8格式，指定为"UTF-8"
 			OutputFormat format = OutputFormat.createPrettyPrint();
 			format.setEncoding("UTF-8");
-			XMLWriter writer = new XMLWriter(new FileWriter(new File(filename)), format);
+			XMLWriter writer = new XMLWriter(new FileWriter(new File(filename)),
+					format);
 			writer.write(document);
 			writer.close();
 		} catch (Exception ex) {
