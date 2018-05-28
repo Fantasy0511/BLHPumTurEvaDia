@@ -128,7 +128,9 @@
 
 	function diagnose() {//从后台得到故障id
 		showMask();
-		var url = "/HPPumTurReg/faulttree/fault-tree";
+		var url = "/BLHPumTurEvaDia/faulttree/fault-tree?inputStr="+
+				+startTime;
+		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
 			loadData("faultInfo", data.faultInfo);
@@ -146,13 +148,12 @@
 <body>
 	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
 		<span class="input_title">条件输入：</span> 
-		<label for="model">系统选择：</label> <select id="subSystem"
+		<label for="model">机组型号：</label> <select id="untiNo"
 			class="easyui-combobox" style="width: 140px;">
-			<option value="ball">球阀系统</option>
-			<option value="Exc">发电机及励磁系统</option>
-			<option value="Gov">调速器系统</option>
-			<option value="Transfer">主变系统</option>
-			<option value="Pum">水泵水轮机</option>
+			<option>一号机组</option>
+			<option>二号机组</option>
+			<option>三号机组</option>
+			<option>四号机组</option>
 		</select> 
 		<label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"

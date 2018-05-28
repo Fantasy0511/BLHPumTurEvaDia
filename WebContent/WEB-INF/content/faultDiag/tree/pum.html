@@ -1,30 +1,30 @@
 <head>
 <meta charset="UTF-8">
 <title>故障树</title>
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/tree.css">
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.min.js"></script>
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
+	<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/lodash.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
+<script type="text/javascript" src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
+<script type="text/javascript"  src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/tree/pumTur.js"></script>
 </head>
@@ -143,10 +143,12 @@
 
 	function diagnose() {//从后台得到故障id
 		showMask();
-		var url = "/HPPumTurReg/faulttree/fault-tree";
+		var startTime=$('#startTime').datebox('getValue');
+		var url = "/BLHPumTurEvaDia/faulttree/fault-tree?inputStr="+startTime;
+		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
-			loadData("faultInfo", data.faultInfo);
+			loadData("faultInfo", data.faultInfoTable);
 		});
 	}
 </script>
@@ -162,31 +164,16 @@
 	
 	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
 		<span class="input_title">条件输入：</span> 
-		<label for="model">系统选择：</label> <select id="subSystem"
-			class="easyui-combobox" style="width: 140px;">
-			<option value="ball">球阀系统</option>
-			<option value="Exc">发电机及励磁系统</option>
-			<option value="Gov">调速器系统</option>
-			<option value="Transfer">主变系统</option>
-			<option value="Pum">水泵水轮机</option>
-		</select> 
+		<label for="model">机组型号：</label> <select id="untiNo"
+			class="easyui-combobox" style="width: 100px;">
+			<option>一号机组</option>
+			<option>二号机组</option>
+			<option>三号机组</option>
+			<option>四号机组</option>
+		</select>
 		<label
-			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
+			style="margin-bottom: 5px">选择时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<script>
-			$.extend($.fn.validatebox.defaults.rules, {
-				md : {
-					validator : function(value, param) {
-						var d1 = $.fn.datebox.defaults.parser(param[0]);
-						var d2 = $.fn.datebox.defaults.parser(value);
-						return d2 >= d1;
-					},
-					message : '结束时间必须大于或等于开始时间。'
-				}
-			})
-		</script>
 		<a id="Startwarning" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始诊断</a>
 	</div>
@@ -197,17 +184,17 @@
 		<div class="easyui-panel" title="诊断控制"></div>
 		<div style="margin-top: 10px">
 			<a style="margin-left: 10px">
-				<button type="button" class="btn btn-primary" id="b1">水导装置</button>
+				<button type="button" class="easyui-linkbutton" id="b1">水导装置</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b2">过流部件</button>
+				<button type="button" class="easyui-linkbutton" id="b2">过流部件</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b3">轴系装置</button>
+				<button type="button" class="easyui-linkbutton" id="b3">轴系装置</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b4">推力轴承装置</button>
+				<button type="button" class="easyui-linkbutton" id="b4">推力轴承装置</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b5">水泵水轮机总图</button>
+				<button type="button" class="easyui-linkbutton" id="b5">水泵水轮机总图</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b0">诊断</button>
+				<button type="button" class="easyui-linkbutton" id="b0">诊断</button>
 			</a>
 		</div>
 	</div>
@@ -216,26 +203,28 @@
 
 	<div style="height: 10px"></div>
 
-	<div style="width: auto">
+	<div style="width: auto;height:700px">
 		<div>
 			<div class="easyui-panel" title="故障树展示"></div>
-			<div id="drag" title="故障树" style="width:1300px">
+			<div id="drag" title="故障树" style="height:auto">
 				<div style="cursor: pointer;">
-					<span id="container" style="float: center"></span>
+					<span id="container" style="float: center;height:500px"></span>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	
+	<div style="height: 20px"></div>
+	
 	<div style="width: auto">
 		<table class="easyui-datagrid" id="faultInfo" title="诊断结果分析"
 			style="height: 350px; word-break: break-all; word-wrap: break-all"
 			data-options="rownumbers:true,fitColumns:false, singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultId',align:'center',width:300">故障名称</th>
-					<th data-options="field:'faultRate',align:'center',width:300">发生概率</th>
-					<th data-options="field:'suggesstion',align:'center',width:300">建议描述</th>
+					<th data-options="field:'faultName',align:'center',width:300">故障名称</th>
+					<th data-options="field:'probality',align:'center',width:300">发生概率</th>
+					<th data-options="field:'describe',align:'center',width:300">建议描述</th>
 				</tr>
 			</thead>
 		</table>
