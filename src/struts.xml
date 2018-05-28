@@ -22,7 +22,7 @@
 		<action name="view-record" class="blh.action.dataUpload.ViewRecordAction">
 			<result type="json"></result>
 		</action>
-		<action name="fault-tree" class="blh.action.faulttree.FaultTreeAction">
+		<action name="fault-pum-tree" class="blh.action.faulttree.FaultPumTreeAction">
 			<result type="json"></result>
 		</action>
 

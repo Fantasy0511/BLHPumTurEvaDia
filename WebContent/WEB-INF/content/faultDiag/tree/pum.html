@@ -133,7 +133,7 @@
 			tree.fromJSON(cell5);
 			changecolor5(id);
 		});
-		$("#b0").click(function() {
+		$("#StartDiagno").click(function() {
 			diagnose();
 			tree.fromJSON(cell1);
 			changecolor1(id);
@@ -144,7 +144,7 @@
 	function diagnose() {//从后台得到故障id
 		showMask();
 		var startTime=$('#startTime').datebox('getValue');
-		var url = "/BLHPumTurEvaDia/faulttree/fault-tree?inputStr="+startTime;
+		var url = "/BLHPumTurEvaDia/faulttree/fault-pum-tree?inputStr="+startTime;
 		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
@@ -174,7 +174,7 @@
 		<label
 			style="margin-bottom: 5px">选择时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<a id="Startwarning" href="#" class="easyui-linkbutton"
+		<a id="StartDiagno" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始诊断</a>
 	</div>
 
@@ -193,8 +193,6 @@
 				<button type="button" class="easyui-linkbutton" id="b4">推力轴承装置</button>
 			</a> <a style="margin-left: 20px">
 				<button type="button" class="easyui-linkbutton" id="b5">水泵水轮机总图</button>
-			</a> <a style="margin-left: 20px">
-				<button type="button" class="easyui-linkbutton" id="b0">诊断</button>
 			</a>
 		</div>
 	</div>
@@ -203,7 +201,7 @@
 
 	<div style="height: 10px"></div>
 
-	<div style="width: auto;height:700px">
+	<div style="width: auto;height:690px">
 		<div>
 			<div class="easyui-panel" title="故障树展示"></div>
 			<div id="drag" title="故障树" style="height:auto">

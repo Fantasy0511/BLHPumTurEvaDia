@@ -14,7 +14,7 @@ import tool.ui.easyui.Table;
  *
  */
 @Result(type = "json")
-public class FaultTreeAction extends AbstractActionSupport {
+public class FaultPumTreeAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private List<FaultResult> results;
 	private int[] resultNode;
