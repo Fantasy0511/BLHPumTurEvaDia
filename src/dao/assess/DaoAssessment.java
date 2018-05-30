@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import util.DataUtils;
 import util.TimeUtils;
 
 public class DaoAssessment {
@@ -15,30 +15,11 @@ public class DaoAssessment {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 
-	//
-	// private void getConnection() throws ClassNotFoundException{//建立数据库连接
-	// String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	// //加载JDBC驱动
-	// String url =
-	// "jdbc:sqlserver://218.197.228.63:1433;DatabaseName=lianxuDB;";
-	// try {
-	// // 连接数据库
-	// Class.forName(driverName); //后加的一句
-	// conn = DriverManager.getConnection(url, "sa", "123456");
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// System.out.println("数据库连接失败");
-	// }
-	// }
-
-	/*
-	 * 使用c3p0数据库连接池 建立数据库连接 减少数据库连接开销
-	 */
 	private void getConnection() throws ClassNotFoundException {
 		conn = ConnectionManager.getInstance().getConnection();
 	}
 
-	private void closeAll() {// 关闭数据库连接
+	public void closeAll() {// 关闭数据库连接
 		try {
 			if (rs != null) {
 				rs.close();
@@ -60,7 +41,7 @@ public class DaoAssessment {
 	}
 
 	// 查询boolean型数据
-	public DataUtils queBool(String table, int id, long endtime) {
+	public List<Double> queBool(String table, int id, long endtime) {
 		try {
 			getConnection();
 		} catch (ClassNotFoundException e1) {
@@ -71,27 +52,25 @@ public class DaoAssessment {
 		long starttime = endtime - 604800;
 		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
 
-		DataUtils data = new DataUtils(table, id);
+		List<Double> data = new ArrayList<>();
 		try {
 			stmt = conn.createStatement();
 			// 执行数据库查询语句
 			for (String sql : sqls) {
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					data.addTime(rs.getLong("time"));
-					data.addValue(rs.getDouble("value"));
+					data.add(rs.getDouble("value"));
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("数据库连接失败");
 		}
-		closeAll();
 		return data;
 	}
 
 	// 查询float型数据
-	public DataUtils queFloat(String table, int id, long endtime) {
+	public List<Double> queFloat(String table, int id, long endtime) {
 		try {
 			getConnection();
 		} catch (ClassNotFoundException e1) {
@@ -102,22 +81,20 @@ public class DaoAssessment {
 		long starttime = endtime - 300;
 		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
 
-		DataUtils data = new DataUtils(table, id);
+		List<Double> data = new ArrayList<>();
 		try {
 			stmt = conn.createStatement();
 			// 执行数据库查询语句
 			for (String sql : sqls) {
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					data.addTime(rs.getLong("time"));
-					data.addValue(rs.getDouble("value"));
+					data.add(rs.getDouble("value"));
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("数据库连接失败");
 		}
-		closeAll();
 		return data;
 	}
 
@@ -140,9 +117,9 @@ public class DaoAssessment {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear
-					+ startMounth + " where id=" + id + " AND time<" + endtime
-					+ " AND time>" + starttime + " ORDER BY time ASC";
+			String sql = "select value from " + table + "_" + startYear
+					+ startMounth + " where id=" + id + " AND time between "
+					+ starttime + " AND " + endtime;
 			System.out.println(sql);
 			sqls.add(sql);
 
@@ -150,10 +127,9 @@ public class DaoAssessment {
 			while (!(startYear.equals(endYear)
 					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear
-						+ startMounth + " where id=" + id + " AND time<"
-						+ endtime + " AND time>" + starttime
-						+ " ORDER BY time ASC";
+				String sql = "select value from " + table + "_" + startYear
+						+ startMounth + " where id=" + id + " AND time between "
+						+ starttime + " AND " + endtime;
 				System.out.println(sql);
 				sqls.add(sql);
 
@@ -164,7 +140,6 @@ public class DaoAssessment {
 				startMounth = startStr.substring(5, 7);
 			}
 		}
-
 		return sqls;
 	}
 
