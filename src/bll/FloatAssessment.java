@@ -1,19 +1,22 @@
 package bll;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.assess.DaoAssessment;
-import util.DataUtils;
 
 public class FloatAssessment {
+	private DaoAssessment assessment;
+
+	public FloatAssessment() {
+		super();
+		this.assessment = new DaoAssessment();
+	}
+
 	// float型数据专用方法
 	public int FloatAssess(int id, long time, double Hlimite, double Llimite) {
 		double li = 0.0;
-		DaoAssessment as = new DaoAssessment();
 
-		DataUtils data = as.queFloat("float", id, time);
-		ArrayList<Double> value = data.getValue();
-		int num = 0;
+		List<Double> value = assessment.queFloat("float", id, time);
 		for (Double d : value) {
 			System.out.println(d);
 			double C2 = Hlimite;
@@ -40,4 +43,9 @@ public class FloatAssessment {
 
 		return a;
 	}
+
+	public DaoAssessment getAssessment() {
+		return assessment;
+	}
+	
 }

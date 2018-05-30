@@ -8,8 +8,6 @@ import org.apache.struts2.convention.annotation.Result;
 import blh.action.support.AbstractActionSupport;
 import service.assess.Governor.one.output.GovAssResult;
 import service.assess.Governor.one.output.Output;
-import service.assess.pumptur.four.output.PumpAssResult;
-import service.assess.pumptur.four.output.PumpAssSum;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import util.TimeUtils;
@@ -31,9 +29,7 @@ public class GovAssessAction extends AbstractActionSupport {
 		System.out.println(timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
 		Output output = new Output();
-		PumpAssSum pumpAssSum = new PumpAssSum();
 		GovAssResult govAssResult = output.getGovAssessResult(time);
-		PumpAssResult pumpAssResult = pumpAssSum.getPumpAssSum(time);
 		String[] names = { "油泵油压", "油槽油位", "油槽油温", "压力油油位", "压油槽油压" };
 		Table bottomDetail = new Table(new String[] { "name", "value" });
 		for (int i = 0; i < names.length; i++) {
