@@ -24,6 +24,7 @@ public class DaoAssessment {
 			if (rs != null) {
 				rs.close();
 				rs = null;
+				System.out.println("数据库连接关闭");
 			}
 			if (stmt != null) {
 				stmt.close();

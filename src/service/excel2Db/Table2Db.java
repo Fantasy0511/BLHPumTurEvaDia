@@ -11,9 +11,7 @@ import util.TimeUtils;
 import util.dao.JdbcDaoUtil;
 
 /**
- * 保存table到数据库 
- * 1、新建
- * 2、保存
+ * 保存table到数据库 1、新建 2、保存
  * 
  * @author wuyue
  *
@@ -69,6 +67,7 @@ public class Table2Db extends JdbcDaoUtil {
 						public int getBatchSize() {
 							return table.getTableRows().size();
 						}
+
 					});
 		}
 
@@ -77,6 +76,7 @@ public class Table2Db extends JdbcDaoUtil {
 	/**
 	 * 根据文件名新建表，文件名如果有"bool"或者"double"
 	 */
+
 	public void creatNewStateTableByName(String tableName) {
 		String sql = "if not exists(select * from sysobjects where id = object_id('"
 				+ tableName + "')) " + "begin create table " + tableName
@@ -84,6 +84,7 @@ public class Table2Db extends JdbcDaoUtil {
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
 	}
+
 	/**
 	 * 根据文件名新建表，文件名如果有"float"
 	 */
@@ -102,12 +103,48 @@ public class Table2Db extends JdbcDaoUtil {
 	public void saveFileToRecordTable(String filePath) {
 		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
 				filePath.lastIndexOf("."));
-		String date = String.valueOf(TimeUtils.DatetoLong(new Date())); //获取当前时间,录入表中的时候还是long型
+		String date = String.valueOf(TimeUtils.DatetoLong(new Date())); // 获取当前时间,录入表中的时候还是long型
 		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('"
 				+ tableName + "','" + date + "')";
 		System.out.println(insertRecordSql);
 		getJdbcTemplate().execute(insertRecordSql);
 	}
-	
+
+	/**
+	 * 存储上传文件信息保存到数据库表 table_test 用作评估
+	 */
+	public void saveTable2TestTable(String tableName) {
+		String testTableName = tableName + "_test";
+		int[] ids = { 223, 245, 250 };
+		String sql = "";
+		for (int id : ids) {
+			sql = sql + createSqlString(tableName, id);
+		}
+		if (tableName.contains("bool")) {
+
+			creatNewStateTableByName(testTableName);
+
+			System.out.println(sql);
+			getJdbcTemplate().batchUpdate(sql);
+		} else {
+			creatNewFloatTableByName(testTableName);
+			getJdbcTemplate().batchUpdate(sql);
+		}
+	}
+
+	// 拼接数据库语句
+	public String createSqlString(String tableName, int id) {
+		String testTableName = tableName + "_test";
+		if (tableName.contains("bool")) {
+			return "insert into " + testTableName
+					+ "(ID,pos,state,time,value) select * from " + tableName
+					+ " WHERE ID=" + id + ";";
+		} else {
+			return "insert into " + testTableName
+					+ "(ID,pos,time,value) select * from " + tableName
+					+ " WHERE ID=" + id + ";";
+		}
+
+	}
 
 }

@@ -14,6 +14,7 @@ public class Temperature {
 		// 冷却器出口水温
 		int U3 = floatAssessment.FloatAssess(1092, time, 80, 0);
 		double a = (U1 + U2 + U3) / 3;
+		floatAssessment.getAssessment().closeAll();
 		return a;
 	}
 }

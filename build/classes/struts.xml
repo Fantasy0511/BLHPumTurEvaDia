@@ -9,7 +9,22 @@
 		value="default" />
 	<package name="default" extends="convention-default,json-default">
 		<action name="excelToDb" class="blh.action.dataUpload.ExcelToDbAction">
-			<result name="SUCCESS">/success.jsp</result>
+			<result name="SUCCESS" type="redirect">/dataUpload/upload</result>
 		</action>
+		<action name="record" class="blh.action.dataUpload.RecordAction">
+			<result type="json"></result>
+		</action>
+
+		<action name="delete-record" class="blh.action.dataUpload.DeleteRecordAction">
+			<result type="json"></result>
+		</action>
+
+		<action name="view-record" class="blh.action.dataUpload.ViewRecordAction">
+			<result type="json"></result>
+		</action>
+		<action name="fault-pum-tree" class="blh.action.faulttree.FaultPumTreeAction">
+			<result type="json"></result>
+		</action>
+
 	</package>
 </struts>

@@ -14,6 +14,7 @@ public class Malfunction {
 		// 机组电气停机报警
 		int U3 = boolAssess.BooleanAssess(1412, time);
 		double a = (U1 + U2 + U3) / 3;
+		boolAssess.getAs().closeAll();
 		return a;
 	}
 }
