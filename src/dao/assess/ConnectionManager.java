@@ -20,9 +20,9 @@ public final class ConnectionManager {
 				"jdbc:sqlserver://218.197.228.127:1433;DatabaseName=lianxuDB;");// 数据库地址
 		dataSource
 				.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setInitialPoolSize(8); // 初始化连接数
+		dataSource.setInitialPoolSize(6); // 初始化连接数
 		dataSource.setMinPoolSize(1);// 最小连接数
-		dataSource.setMaxPoolSize(20);// 最大连接数
+		dataSource.setMaxPoolSize(10);// 最大连接数
 		dataSource.setMaxStatements(500);// 最长等待时间
 		dataSource.setMaxIdleTime(160);// 最大空闲时间，单位毫秒
 	}

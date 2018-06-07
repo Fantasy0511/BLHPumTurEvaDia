@@ -39,15 +39,15 @@
 	<Route ID="742" Name="" FromElementID="357" ToElementID="4412" />
 	<Route ID="743" Name="" FromElementID="358" ToElementID="4421" />
 	<Route ID="744" Name="" FromElementID="358" ToElementID="4422" />
-	<WorkNode ID="1" Name="水泵水轮机故障" NodeType="0" father="null" children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
-	<WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机故障"
+	<WorkNode ID="1" Name="水泵水轮机" NodeType="0" father="null" children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
+	<WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机"
 		children="轴瓦温度异常,机组振动异常" gate="+" x="333" y="75" Width="100" Height="30" />
-	<WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机故障"
+	<WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机"
 		children="尾水管过高,蜗壳故障" gate="+" x="666" y="75" Width="100" Height="30" />
-	<WorkNode ID="23" Name="轴系故障" NodeType="0" father="水泵水轮机故障"
-		children="转动部件故障,主轴密封异常,迷宫环故障" gate="+" x="1333" y="75" Width="100"
+	<WorkNode ID="23" Name="轴系故障" NodeType="0" father="水泵水轮机"
+		children="转动部件故障,主轴密封故障,迷宫环故障" gate="+" x="1333" y="75" Width="100"
 		Height="30" />
-	<WorkNode ID="24" Name="推力轴承故障" NodeType="0" father="水泵水轮机故障"
+	<WorkNode ID="24" Name="推力轴承故障" NodeType="0" father="水泵水轮机"
 		children="轴承磨损,油膜厚度故障" gate="+" x="1666" y="75" Width="100" Height="30" />
 	<WorkNode ID="311" Name="轴瓦温度异常" NodeType="0" father="水导故障"
 		children="冷却水异常,油系统异常,大轴摆度异常" gate="+" x="50" y="350" Width="100"
@@ -61,7 +61,7 @@
 		children="null" gate="0" x="800" y="350" Width="100" Height="30" />
 	<WorkNode ID="331" Name="转动部件故障" NodeType="0" father="轴系故障"
 		children="动不平衡,主轴弯曲" gate="+" x="1050" y="350" Width="100" Height="30" />
-	<WorkNode ID="332" Name="主轴密封异常" NodeType="0" father="轴系故障"
+	<WorkNode ID="332" Name="主轴密封故障" NodeType="0" father="轴系故障"
 		children="null" gate="0" x="1300" y="350" Width="100" Height="30" />
 	<WorkNode ID="333" Name="迷宫环故障" NodeType="0" father="轴系故障"
 		children="迷宫环温度异常,冷却水流量低" gate="+" x="1550" y="350" Width="100"
@@ -96,7 +96,7 @@
 		children="null" gate="0" x="1700" y="600" Width="100" Height="30" />
 	<WorkNode ID="4411" Name="轴瓦温度异常" NodeType="0" father="轴承磨损"
 		children="null" gate="0" x="1850" y="600" Width="100" Height="30" />
-	<WorkNode ID="4412" Name="轴瓦振摆异常" NodeType="0" father="轴承磨损"
+	<WorkNode ID="4412" Name="轴承振摆异常" NodeType="0" father="轴承磨损"
 		children="null" gate="0" x="2000" y="600" Width="100" Height="30" />
 	<WorkNode ID="4421" Name="灭磁开关故障" NodeType="0" father="油膜厚度异常"
 		children="null" gate="0" x="2150" y="600" Width="100" Height="30" />

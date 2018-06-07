@@ -167,37 +167,47 @@ public class MakeFaultTree {
 					}
 					temp.gate = ele.attribute("gate").getValue();
 					Long time = TimeUtils.StringtoLong(date);
-					if (temp.name == "大轴摆度异常") {
+					
+				
+					
+					if (temp.name.equals("大轴摆度异常")) {
 						temp.freq = pb.getAxleViFault(time, unitNo);
-					} else if (temp.name == "冷却水异常") {
+					
+					} else if (temp.name.equals("冷却水异常")) {
 						temp.freq = pb.getCWaterFault(time, unitNo);
-					} else if (temp.name == "油系统异常") {
+						
+					} else if (temp.name.equals("油系统异常")) {
 						temp.freq = pb.getOilFault(time, unitNo);
-					} else if (temp.name == "动不平衡") {
+						
+					} else if (temp.name.equals("动不平衡")) {
 						temp.freq = pb.getUnbalance(time, unitNo);
-					} else if (temp.name == "励磁电流不平衡") {
+						
+					} else if (temp.name.equals("励磁电流不平衡")) {
 						temp.freq = pb.getExCurrentFault(time, unitNo);
-					} else if (temp.name == "剪断销故障") {
+						
+					} else if (temp.name.equals("剪断销故障")) {
 						temp.freq = pb.getBreakpinFault(time, unitNo);
-					} else if (temp.name == "上导摆度异常") {
+					
+					} else if (temp.name.equals("上导摆度异常")) {
 						temp.freq = pb.getUpguideFault(time, unitNo);
-					} else if (temp.name == "下导摆度异常") {
+						
+					} else if (temp.name.equals("下导摆度异常")) {
 						temp.freq = pb.getLoguideFault(time, unitNo);
-					} else if (temp.name == "水导摆度异常") {
+					} else if (temp.name.equals("水导摆度异常")) {
 						temp.freq = pb.getWguideFault(time, unitNo);
-					} else if (temp.name == "尾水管水位过高") {
+					} else if (temp.name.equals("尾水管水位过高")) {
 						temp.freq = pb.getExWPipeFault(time, unitNo);
-					} else if (temp.name == "冷却水流量低") {
+					} else if (temp.name.equals("冷却水流量低")) {
 						temp.freq = pb.getCoolWLow(time, unitNo);
-					} else if (temp.name == "轴瓦温度") {
+					} else if (temp.name.equals("轴瓦温度")) {
 						temp.freq = pb.getBearingBushHot(time, unitNo);
-					} else if (temp.name == "主轴密封") {
+					} else if (temp.name.equals("主轴密封")) {
 						temp.freq = pb.getAxleSealFault(time, unitNo);
-					} else if (temp.name == "蜗壳故障") {
+					} else if (temp.name.equals("蜗壳故障")) {
 						temp.freq = pb.getVoluteFault(time, unitNo);
-					} else if (temp.name == "迷宫环温度异常") {
+					} else if (temp.name.equals("迷宫环温度异常")) {
 						temp.freq = fb.getMgTFault(time, unitNo);
-					} else if (temp.name == "轴承振摆异常") {
+					} else if (temp.name.equals("轴承振摆异常")) {
 						temp.freq = fb.getBearingVFault(time, unitNo);
 					} else {
 						temp.freq = 0;
@@ -208,7 +218,7 @@ public class MakeFaultTree {
 					if (!ele.attribute("father").getValue().equals("null")) {
 						temp.father = ele.attribute("father").getValue();
 					}
-
+					
 					Inodes.add(temp);
 				}
 

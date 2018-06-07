@@ -31,8 +31,9 @@ public class FaultPumTreeAction extends AbstractActionSupport {
 			faultInfoTable.withRow(results.get(i).getName(), results.get(i).getProbability(),
 					results.get(i).getRecommendation());
 			resultNode[i] = results.get(i).getNode();
+			System.out.println(resultNode[i]);
 		}
-		System.out.println("" + resultNode);
+		System.out.println("" + results);
 		System.out.println("故障列表：" + faultInfoTable);
 
 		return SUCCESS;

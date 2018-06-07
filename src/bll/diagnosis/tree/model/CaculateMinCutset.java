@@ -219,12 +219,15 @@ public class CaculateMinCutset {
 		double tempcalp[] = new double[Node.children.size()];
 		double temp = 1;
 		int i, j;
+		
 		if (Node.children.size() != 0) {
 			for (i = 0; i < Node.children.size(); i++) {
 				j = 0;
 				while (!Pnodes.get(j).name.equals(Node.children.get(i)))
 					j++;
+				
 				tempcalp[i] = CalculateP(Pnodes.get(j), Pnodes);
+				
 			}
 
 			if (Node.gate.equals("+")) {
@@ -236,13 +239,13 @@ public class CaculateMinCutset {
 				for (j = 0; j < Node.children.size(); j++) {
 					temp *= tempcalp[j];
 				}
-				calp = temp;
-			}
-			// Node.freq = calp;
+			calp = temp;
+		}
+			Node.freq = calp;
 		} else {
 			calp = Node.freq;
 		}
-
+		
 		return calp;
 	}
 
@@ -256,12 +259,12 @@ public class CaculateMinCutset {
 	 */
 	public double CalculateIP(String name) {
 		double calp = 0;
-		ArrayList<Node> IPnodes1 = new ArrayList<Node>();
-		ArrayList<Node> IPnodes0 = new ArrayList<Node>();
-		Node IPnode1 = new Node();
-		Node IPnode0 = new Node();
-		int i;
-		for (i = 0; i < nodes.size(); i++) {
+//		ArrayList<Node> IPnodes1 = new ArrayList<Node>();
+	//	ArrayList<Node> IPnodes0 = new ArrayList<Node>();
+	//	Node IPnode1 = new Node();
+	//	Node IPnode0 = new Node();
+	//	int i;
+	/*	for (i = 0; i < nodes.size(); i++) {
 			if (name.equals(nodes.get(i).name)) {
 				IPnode1.children = nodes.get(i).children;
 				IPnode0.children = nodes.get(i).children;
@@ -281,9 +284,10 @@ public class CaculateMinCutset {
 				IPnodes0.add(nodes.get(i));
 			}
 			// System.out.println(nodes.get(i).freq);
-		}
-		calp = CalculateP(IPnodes1.get(0), IPnodes1)
-				- CalculateP(IPnodes0.get(0), IPnodes0);
+		}*/
+		//calp = CalculateP(IPnodes1.get(0), IPnodes1)
+		//		- CalculateP(IPnodes0.get(0), IPnodes0);
+		calp =1;
 		return calp;
 	}
 
@@ -351,8 +355,8 @@ public class CaculateMinCutset {
 		int i = 0;
 		for (i = 0; i < nodes.size(); i++) {
 			if (name.equals(nodes.get(i).name)) {
-				calp = nodes.get(i).freq * CalculateIP(name)
-						/ CalculateP(nodes.get(0).name);
+				calp = nodes.get(i).freq * CalculateIP(name);
+			
 			}
 		}
 		return calp;
@@ -406,7 +410,7 @@ public class CaculateMinCutset {
 		int num = 0, i, j;
 		for (i = 0; i < Faultsname.size(); i++) {
 			FaultsIPK[i] = CalculateIPKey(Faultsname.get(i));
-			// System.out.println(Faultnames.get(i)+":"+BottomIPK[i]);
+			 //System.out.println(Faultsname.get(i)+":"+FaultsIPK[i]);
 		}
 		for (i = 0; i < Faultsname.size(); i++) {
 			for (j = i + 1; j < Faultsname.size(); j++) {

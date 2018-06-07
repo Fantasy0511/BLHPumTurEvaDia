@@ -1,21 +1,18 @@
 package bll;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import dao.assess.DaoAssessment;
+import util.DataUtils;
 
 public class BoolAssess {
-	private DaoAssessment as;
-
-	public BoolAssess() {
-		super();
-		this.as = new DaoAssessment();
-	}
+	int num = 0;
 
 	// bool型专用方法
 	public int BooleanAssess(int id, long time) {
-		int num = 0;
-		List<Double> value = as.queBool("bool", id, time);
+		DaoAssessment as = new DaoAssessment();
+		DataUtils data = as.queBool("bool", id, time);
+		ArrayList<Double> value = data.getValue();
 
 		for (Double h : value) {
 			if (h == 1.0) {
@@ -28,10 +25,6 @@ public class BoolAssess {
 			score = 0;
 		}
 		return score;
-	}
-
-	public DaoAssessment getAs() {
-		return as;
 	}
 
 }

@@ -22,4 +22,8 @@ public class Output {
 		return govAssResult;
 	}
 
+	public static void main(String[] args) {
+		Output a = new Output();
+		System.out.println(a.getGovAssessResult(1441400000));
+	}
 }

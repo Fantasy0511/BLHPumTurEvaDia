@@ -20,16 +20,12 @@ public class FaultTreeService {
 	public List<FaultResult> findfault(String date) {
 		FaultTreeMain faulttree = new FaultTreeMain();
 		result = faulttree.FaultTreeDiagnosis(1, "1", "1", date);
-		ArrayList<Fault> faults = new FaultDiagnosis().TSFaultsRead();
-		System.out.println(faults);
+		System.out.println(result);
 		return result;
 	}
-	
-
 
 	public static void main(String[] args) {
 		String date = "2015-05-26 09:48:16";
-		System.out.println(
-				"故障列表" + new FaultTreeService().findfault(date).toString());
+		System.out.println("故障列表" + new FaultTreeService().findfault(date).toString());
 	}
 }

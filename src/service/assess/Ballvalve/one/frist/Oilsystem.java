@@ -17,7 +17,6 @@ public double Oilsystem(long time){
 		BoolAssess bool250=new BoolAssess();
 		int U3=bool250.BooleanAssess(250,time);
 		double a=(U1+U2+U3)/3;
-		
 		return a;
 }
 }

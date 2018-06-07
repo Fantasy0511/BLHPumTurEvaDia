@@ -51,7 +51,7 @@ public class FaultDiagnosis {
 	public double[] InitialFaultSymptom(double FaultSymptom[], String datetime,
 			String UnitNo, String condtionName) {
 
-		GovFaultTreeInputModel datas = new GovFaultTreeInputModel()
+		PumFaultTreeInputModel datas = new PumFaultTreeInputModel()
 				.tstreeanalysis(datetime, UnitNo, condtionName);
 
 		if (null == datas) {
@@ -236,7 +236,7 @@ public class FaultDiagnosis {
 						* FaultMatrix.get(i).Feature[j];
 			}
 
-		}
+			}
 	}
 
 	// ---------故障诊断函数---------//
@@ -321,14 +321,13 @@ public class FaultDiagnosis {
 			default:
 			}
 
-		} else {
-			flag = 0;
-			int tempm = 0;
-			for (int i = 1; i < taskfeature.Feature.length; i++) {
-				tempm += FaultSymptom[i] * taskfeature.Feature[i];
-			}
-
-			if (taskfeature.Threshold == 1) {
+		} else if (taskfeature.Threshold == 1) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+				
 				int tempCre = tempm % 10;
 				switch (taskfeature.relation) {
 				case 1:
@@ -358,9 +357,14 @@ public class FaultDiagnosis {
 				default:
 					;
 				}
-			}
-
-			if (taskfeature.Threshold == 10) {
+			} else if(taskfeature.Threshold == 10) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+					}
+				
+				
 				int tempCre = (tempm % 100) / 10;
 				switch (taskfeature.relation) {
 				case 1:
@@ -393,7 +397,13 @@ public class FaultDiagnosis {
 				}
 			}
 
-			if (taskfeature.Threshold == 100) {
+			else if (taskfeature.Threshold == 100) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+					}
+				
 				int tempCre = (tempm % 1000) / 100;
 				switch (taskfeature.relation) {
 				case 1:
@@ -426,7 +436,13 @@ public class FaultDiagnosis {
 				}
 			}
 
-			if (taskfeature.Threshold == 1000) {
+			else if (taskfeature.Threshold == 1000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+					}
+				
 				int tempCre = (tempm % 10000) / 1000;
 				switch (taskfeature.relation) {
 				case 1:
@@ -459,7 +475,13 @@ public class FaultDiagnosis {
 				}
 			}
 
-			if (taskfeature.Threshold == 10000) {
+			else if (taskfeature.Threshold == 10000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+					}
+				
 				int tempCre = tempm / 10000;
 				switch (taskfeature.relation) {
 				case 1:
@@ -507,7 +529,7 @@ public class FaultDiagnosis {
 				}
 			}
 		}
-	}
+	
 
 	/**
 	 * 故障诊断结果处理
