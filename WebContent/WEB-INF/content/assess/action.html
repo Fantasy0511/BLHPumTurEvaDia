@@ -62,9 +62,8 @@
 //开始评估  
 				
 	function assess() {
-		
-		url += makeInput(getComboboxValue("unitNo"));
 		var begin =getDate("beginDate");
+		var unitNo =$('#unitNo').combobox('getValue');
 		var system=$('#subSystem').combobox('getValue');
 		
 		$("#label1").html("油系统性能");
@@ -88,7 +87,7 @@
 			$("#label1").html("系统温度状态");
 			$("#label2").html("主变故障信号");
 			};
-		var url = "/BLHPumTurEvaDia/asscss/"+"first/"+system+"-assess";
+		var url = "/BLHPumTurEvaDia/asscss/"+unitNo+"/"+system+"-assess";
 		url+=makeInput(begin);
 		console.log(url);
 		showMask();   // 显示与隐藏
@@ -118,10 +117,10 @@
 		
 		<label for="model">机组：</label> 
 		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
-			<option value="1">1#</option>
-			<option value="2">2#</option>
-			<option value="3">3#</option>
-			<option value="4">4#</option>
+			<option value="first">1#</option>
+			<option value="second">2#</option>
+			<option value="third">3#</option>
+			<option value="four">4#</option>
 		</select> 
 		
 		<label for="model">子系统选择： </label> 
