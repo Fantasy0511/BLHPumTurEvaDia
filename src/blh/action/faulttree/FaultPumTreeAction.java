@@ -4,7 +4,7 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Result;
 import blh.action.support.AbstractActionSupport;
 import bll.diagnosis.tree.model.FaultResult;
-import service.faulttree.FaultTreeService;
+import service.faulttree.PumFaultTreeService;
 import tool.ui.easyui.Table;
 
 /**
@@ -17,6 +17,7 @@ import tool.ui.easyui.Table;
 public class FaultPumTreeAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private List<FaultResult> results;
+	private String untiNo;
 	private int[] resultNode;
 	private String[] columnHeaders = { "faultName", "probality", "describe" };// 故障描述表
 	Table faultInfoTable = new Table(columnHeaders);
@@ -24,8 +25,10 @@ public class FaultPumTreeAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 		String time = getFirstInput() + " 00:00:00";
-		System.out.println(time);
-		results = new FaultTreeService().findfault(time);
+		untiNo=getSecondInput();
+		System.out.println("输出时间和机组号："+time+"   "+untiNo);
+		
+		results = new PumFaultTreeService().findfault(time,untiNo);
 		resultNode = new int[results.size()];
 		for (int i = 0; i < results.size(); i++) {
 			faultInfoTable.withRow(results.get(i).getName(), results.get(i).getProbability(),

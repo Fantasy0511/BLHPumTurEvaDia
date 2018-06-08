@@ -4,7 +4,7 @@ package bll.diagnosis.tree.dao;
 /** 
 * @author xyh 
 * @version 创建时间：2016年6月21日 下午3:37:55 
-* 故障树所需监控系统数据类 
+* 故障树-（水泵水轮机）所需监控系统数据类 
 */
 public class JKPData {
 

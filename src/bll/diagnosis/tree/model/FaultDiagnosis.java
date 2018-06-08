@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.derby.impl.sql.catalog.SYSCONGLOMERATESRowFactory;
+
 import bll.diagnosis.tree.GovDBConfig;
 
 /**
@@ -48,107 +50,173 @@ public class FaultDiagnosis {
 	 * @return 故障特征向量
 	 */
 
-	public double[] InitialFaultSymptom(double FaultSymptom[], String datetime,
-			String UnitNo, String condtionName) {
+	public double[] InitialFaultSymptom(String system, double FaultSymptom[], String datetime, String UnitNo,
+			String condtionName) {
+		// 水泵水轮机征兆矩阵获取
+		if (system.equals("pum")) {
+			PumFaultTreeInputModel datas = new PumFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
 
-		PumFaultTreeInputModel datas = new PumFaultTreeInputModel()
-				.tstreeanalysis(datetime, UnitNo, condtionName);
+			if (null == datas) {
+				FaultSymptom = null;
+			} else {
 
-		if (null == datas) {
-			FaultSymptom = null;
-		} else {
+				if (datas.getLqsyc() == 1)
+					FaultSymptom[0] = 1;
+				else {
+					FaultSymptom[0] = 0;
+				}
 
-			if (datas.getLqsyc() == 1)
-				FaultSymptom[0] = 1;
-			else {
-				FaultSymptom[0] = 0;
+				if (datas.getYxtyc() == 1)
+					FaultSymptom[1] = 3;
+				else {
+					FaultSymptom[1] = 0;
+				}
+
+				if (datas.getDzbdyc() == 1)
+					FaultSymptom[2] = 5;
+				else {
+					FaultSymptom[2] = 0;
+				}
+
+				if (datas.getDbph() == 1)
+					FaultSymptom[3] = 10;
+				else {
+					FaultSymptom[3] = 0;
+				}
+
+				if (datas.getLcdlbph() == 1)
+					FaultSymptom[4] = 30;
+				else {
+					FaultSymptom[4] = 0;
+				}
+
+				if (datas.getJdxgz() == 1)
+					FaultSymptom[5] = 50;
+				else {
+					FaultSymptom[5] = 0;
+				}
+
+				if (datas.getShdbdyc() == 1)
+					FaultSymptom[6] = 100;
+				else {
+					FaultSymptom[6] = 0;
+				}
+
+				if (datas.getXdbdyc() == 1)
+					FaultSymptom[7] = 300;
+				else {
+					FaultSymptom[7] = 0;
+				}
+
+				if (datas.getSdbdyc() == 1)
+					FaultSymptom[8] = 500;
+				else {
+					FaultSymptom[8] = 0;
+				}
+
+				if (datas.getWsgswg() == 1)
+					FaultSymptom[9] = 1000;
+				else {
+					FaultSymptom[9] = 0;
+				}
+
+				if (datas.getLqslld() == 1)
+					FaultSymptom[10] = 3000;
+				else {
+					FaultSymptom[10] = 0;
+				}
+
+				if (datas.getZwwdyc() == 1)
+					FaultSymptom[11] = 5000;
+				else {
+					FaultSymptom[11] = 0;
+				}
+
+				if (datas.getZzmfyc() == 1)
+					FaultSymptom[12] = 10000;
+				else {
+					FaultSymptom[12] = 0;
+				}
+
+				if (datas.getWkgz() == 1)
+					FaultSymptom[13] = 30000;
+				else {
+					FaultSymptom[13] = 0;
+				}
+
+				FaultSymptom[14] = 0;
+				FaultSymptom[15] = 0;
+				FaultSymptom[16] = 0;
+				FaultSymptom[17] = 0;
+				FaultSymptom[18] = 0;
 			}
+		}
+		// 调速器征兆矩阵获取
+		else if (system.equals("gov")) {
+			System.out.println("11212555");
+			GovFaultTreeInputModel datas = new GovFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
+			System.out.println("输出datas: " + datas);
+			if (null == datas) {
+				FaultSymptom = null;
+			} else {
+				if (datas.getJdxzt() == 1) {
+					FaultSymptom[0] = 1;
+				} else {
+					FaultSymptom[0] = 0;
+				}
 
-			if (datas.getYxtyc() == 1)
-				FaultSymptom[1] = 3;
-			else {
-				FaultSymptom[1] = 0;
-			}
+				if (datas.getFtHAlarm() == 1) {
+					FaultSymptom[1] = 3;
+				} else {
+					FaultSymptom[1] = 0;
+				}
+				if (datas.getFtLAlarm() == 1) {
+					FaultSymptom[2] = 5;
+				} else {
+					FaultSymptom[2] = 0;
+				}
 
-			if (datas.getDzbdyc() == 1)
-				FaultSymptom[2] = 5;
-			else {
-				FaultSymptom[2] = 0;
-			}
+				if (datas.getPtHAlarm() == 1) {
+					FaultSymptom[3] = 10;
+				} else {
+					FaultSymptom[3] = 0;
+				}
+				if (datas.getPtLAlarm() == 1) {
+					FaultSymptom[4] = 30;
+				} else {
+					FaultSymptom[4] = 0;
+				}
 
-			if (datas.getDbph() == 1)
-				FaultSymptom[3] = 10;
-			else {
-				FaultSymptom[3] = 0;
-			}
-
-			if (datas.getLcdlbph() == 1)
-				FaultSymptom[4] = 30;
-			else {
-				FaultSymptom[4] = 0;
-			}
-
-			if (datas.getJdxgz() == 1)
-				FaultSymptom[5] = 50;
-			else {
-				FaultSymptom[5] = 0;
-			}
-
-			if (datas.getShdbdyc() == 1)
-				FaultSymptom[6] = 100;
-			else {
-				FaultSymptom[6] = 0;
-			}
-
-			if (datas.getXdbdyc() == 1)
-				FaultSymptom[7] = 300;
-			else {
+				if (datas.getQiptHAlarm() == 1) {
+					FaultSymptom[5] = 50;
+				} else {
+					FaultSymptom[5] = 0;
+				}
+				if (datas.getPtLAlarm() == 1) {
+					FaultSymptom[6] = 100;
+				} else {
+					FaultSymptom[6] = 0;
+				}
 				FaultSymptom[7] = 0;
-			}
-
-			if (datas.getSdbdyc() == 1)
-				FaultSymptom[8] = 500;
-			else {
 				FaultSymptom[8] = 0;
-			}
-
-			if (datas.getWsgswg() == 1)
-				FaultSymptom[9] = 1000;
-			else {
 				FaultSymptom[9] = 0;
-			}
-
-			if (datas.getLqslld() == 1)
-				FaultSymptom[10] = 3000;
-			else {
 				FaultSymptom[10] = 0;
-			}
-
-			if (datas.getZwwdyc() == 1)
-				FaultSymptom[11] = 5000;
-			else {
 				FaultSymptom[11] = 0;
-			}
-
-			if (datas.getZzmfyc() == 1)
-				FaultSymptom[12] = 10000;
-			else {
 				FaultSymptom[12] = 0;
-			}
-
-			if (datas.getWkgz() == 1)
-				FaultSymptom[13] = 30000;
-			else {
 				FaultSymptom[13] = 0;
+				FaultSymptom[14] = 0;
+				FaultSymptom[15] = 0;
+				FaultSymptom[16] = 0;
+				FaultSymptom[17] = 0;
+				FaultSymptom[18] = 0;
 			}
+		}
 
-			FaultSymptom[14] = 0;
-			FaultSymptom[15] = 0;
-			FaultSymptom[16] = 0;
-			FaultSymptom[17] = 0;
-			FaultSymptom[18] = 0;
+		for (int i = 0; i < FaultSymptom.length; i++) {
+			System.out.println("征兆矩阵：" + FaultSymptom[i]);
 		}
 		return FaultSymptom;
+
 	}
 
 	/**
@@ -156,7 +224,7 @@ public class FaultDiagnosis {
 	 * 
 	 * @return
 	 */
-	public void InitialFaultFeature() {
+	public void InitialFaultFeature(String system) {
 
 		Connection dbConn = null;
 		Statement stmt = null;
@@ -170,16 +238,18 @@ public class FaultDiagnosis {
 			stmt = dbConn.createStatement();
 
 			System.out.println("读取数据");
-
-			rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_RULE");
+			if (system.equals("pum")) {
+				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_PumRule");
+			} else if (system.equals("gov")) {
+				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GovRule");
+			}
 			while (rs1.next()) {
 				FaultFeature temp = new FaultFeature();
 				temp.name = rs1.getString("Name");
 				String[] str = rs1.getString("Feature").split("/");
 				for (int i = 0; i < str.length; i++)
 					temp.Feature[i] = Double.parseDouble(str[i]);
-				String[] relationstr = rs1.getString("Thresholdrelation")
-						.split("/");
+				String[] relationstr = rs1.getString("Thresholdrelation").split("/");
 				temp.Threshold = Double.parseDouble(relationstr[0]);
 				temp.relation = Integer.parseInt(relationstr[1]);
 				Faults.add(temp);
@@ -200,16 +270,13 @@ public class FaultDiagnosis {
 	 * @param BottomEvents
 	 *            底事件名称列表
 	 */
-	public void getFaultMatrix(ArrayList<FaultFeature> FaultMatrix,
-			String BottomEvents[]) {
-		for (int i = 0; (i < BottomEvents.length)
-				&& (BottomEvents[i] != null); i++) {
+	public void getFaultMatrix(ArrayList<FaultFeature> FaultMatrix, String BottomEvents[]) {
+		for (int i = 0; (i < BottomEvents.length) && (BottomEvents[i] != null); i++) {
 			FaultFeature temp = new FaultFeature();
 			temp.name = BottomEvents[i];
 			for (int j = 0; j < Faults.size(); j++) {
 				if (temp.name.equals(Faults.get(j).name)) {
-					System.arraycopy(Faults.get(j).Feature, 0, temp.Feature, 0,
-							Faults.get(j).Feature.length);
+					System.arraycopy(Faults.get(j).Feature, 0, temp.Feature, 0, Faults.get(j).Feature.length);
 					break;
 				}
 			}
@@ -227,16 +294,15 @@ public class FaultDiagnosis {
 	 * @param FaultAttribution
 	 *            隶属度
 	 */
-	public void getFaultAttribution(double FaultSymptom[],
-			ArrayList<FaultFeature> FaultMatrix, double FaultAttribution[]) {
+	public void getFaultAttribution(double FaultSymptom[], ArrayList<FaultFeature> FaultMatrix,
+			double FaultAttribution[]) {
 		for (int i = 0; i < FaultAttribution.length; i++) {
 			FaultAttribution[i] = 0;
 			for (int j = 0; j < FaultMatrix.get(i).Feature.length; j++) {
-				FaultAttribution[i] += FaultSymptom[j]
-						* FaultMatrix.get(i).Feature[j];
+				FaultAttribution[i] += FaultSymptom[j] * FaultMatrix.get(i).Feature[j];
 			}
 
-			}
+		}
 	}
 
 	// ---------故障诊断函数---------//
@@ -249,14 +315,15 @@ public class FaultDiagnosis {
 	 * @param Faultnames
 	 *            故障名称列表
 	 */
-	public void Diagnosis(double FaultSymptom[], ArrayList<String> Faultnames) {
+	public void Diagnosis(String system, double FaultSymptom[], ArrayList<String> Faultnames) {
 		Node root = nodes.get(0);
 		for (int i = 0; i < root.children.size(); i++) {
 			Node child = new Node();
+
 			for (int j = 0; j < nodes.size(); j++)
 				if (nodes.get(j).name.equals(root.children.get(i)))
 					child = nodes.get(j);
-			handle(child, FaultSymptom, Faultnames);
+			handle(system, child, FaultSymptom, Faultnames);
 		}
 	}
 
@@ -270,85 +337,83 @@ public class FaultDiagnosis {
 	 * @param Faultnames
 	 *            故障名称列表
 	 */
-	private void handle(Node tasknode, double FaultSymptom[],
-			ArrayList<String> Faultnames) {
-		FaultFeature taskfeature = new FaultFeature();
-		for (int i = 0; i < Faults.size(); i++) {
-			if (Faults.get(i).name.equals(tasknode.name))
-				taskfeature = Faults.get(i);
-		}
-		int flag = 0;
-		if (taskfeature.Threshold == -1) {
-			flag = 1;
-			switch (taskfeature.relation) {
-			case 1:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] >= taskfeature.Feature[i])
-						flag = 0;
-				}
-				break;
-			case 2:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] > taskfeature.Feature[i])
-						flag = 0;
-				}
-				break;
-			case 3:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] != taskfeature.Feature[i])
-						flag = 0;
-				}
-				break;
-			case 4:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] < taskfeature.Feature[i])
-						flag = 0;
-				}
-				break;
-			case 5:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] <= taskfeature.Feature[i]
-							&& taskfeature.Feature[i] != 0)
-						flag = 0;
-				}
-				break;
-			case 6:
-				for (int i = 0; i < taskfeature.Feature.length; i++) {
-					if (FaultSymptom[i] == taskfeature.Feature[i])
-						flag = 0;
-				}
-				break;
-			default:
-			}
+	private void handle(String system, Node tasknode, double FaultSymptom[], ArrayList<String> Faultnames) {
+		// 水泵水轮机
 
-		} else if (taskfeature.Threshold == 1) {
+		if (system.equals("pum")) {
+			FaultFeature taskfeature = new FaultFeature();
+			for (int i = 0; i < Faults.size(); i++) {
+				if (Faults.get(i).name.equals(tasknode.name))
+					taskfeature = Faults.get(i);
+			}
+			int flag = 0;
+			if (taskfeature.Threshold == -1) {
+				flag = 1;
+				switch (taskfeature.relation) {
+				case 1:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] >= taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 2:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] > taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 3:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] != taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 4:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] < taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 5:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+							flag = 0;
+					}
+					break;
+				case 6:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] == taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				default:
+				}
+
+			} else if (taskfeature.Threshold == 1) {
 				flag = 0;
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
 				}
-				
+
 				int tempCre = tempm % 10;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6
-							|| tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -357,35 +422,31 @@ public class FaultDiagnosis {
 				default:
 					;
 				}
-			} else if(taskfeature.Threshold == 10) {
+			} else if (taskfeature.Threshold == 10) {
 				flag = 0;
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-				
-				
+				}
+
 				int tempCre = (tempm % 100) / 10;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6
-							|| tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -402,29 +463,26 @@ public class FaultDiagnosis {
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-				
+				}
+
 				int tempCre = (tempm % 1000) / 100;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6
-							|| tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -441,29 +499,26 @@ public class FaultDiagnosis {
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-				
+				}
+
 				int tempCre = (tempm % 10000) / 1000;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6
-							|| tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -480,29 +535,26 @@ public class FaultDiagnosis {
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-				
+				}
+
 				int tempCre = tempm / 10000;
 				switch (taskfeature.relation) {
 				case 1:
-					if (tempCre == 1 || tempCre == 4 || tempCre == 6
-							|| tempCre == 9) {
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 3:
-					if (tempCre == 3 || tempCre == 4 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
 					}
 					break;
 				case 5:
-					if (tempCre == 5 || tempCre == 6 || tempCre == 8
-							|| tempCre == 9) {
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
 						flag = 1;
 					} else {
 						flag = 0;
@@ -519,17 +571,194 @@ public class FaultDiagnosis {
 					for (int i = 0; i < tasknode.children.size(); i++) {
 						Node child = new Node();
 						for (int j = 0; j < nodes.size(); j++)
-							if (nodes.get(j).name
-									.equals(tasknode.children.get(i)))
+							if (nodes.get(j).name.equals(tasknode.children.get(i)))
 								child = nodes.get(j);
-						handle(child, FaultSymptom, Faultnames);
+						handle(system, child, FaultSymptom, Faultnames);
+					}
+				} else {
+					Faultnames.add(tasknode.name);
+					
+				}
+			}
+		}
+
+		// 调速器
+
+		else if (system.equals("gov")) {
+
+			System.out.println("gov读取成功：+");
+			FaultFeature taskfeature = new FaultFeature();
+			for (int i = 0; i < Faults.size(); i++) {
+				if (Faults.get(i).name.equals(tasknode.name))
+					taskfeature = Faults.get(i);
+			}
+			int flag = 0;
+			if (taskfeature.Threshold == -1) {
+				flag = 1;
+				switch (taskfeature.relation) {
+				case 1:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] >= taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 2:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] > taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 3:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] != taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 4:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] < taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 5:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+							flag = 0;
+					}
+					break;
+				case 6:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] == taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				default:
+				}
+
+			}
+
+			else if (taskfeature.Threshold == 1) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
+				}
+
+				int tempCre = tempm % 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+				}
+			}
+
+			else if (taskfeature.Threshold == 10) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 100) / 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+
+			else if (taskfeature.Threshold == 100) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 1000) / 100;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			if (flag == 1) {
+				if (!tasknode.gate.equals("0")) {
+					for (int i = 0; i < tasknode.children.size(); i++) {
+						Node child = new Node();
+						for (int j = 0; j < nodes.size(); j++)
+							if (nodes.get(j).name.equals(tasknode.children.get(i)))
+								child = nodes.get(j);
+						handle(system, child, FaultSymptom, Faultnames);
 					}
 				} else {
 					Faultnames.add(tasknode.name);
 				}
+				System.out.println("故障类名：+"+Faultnames+"hishsi ");
 			}
 		}
-	
+	}
 
 	/**
 	 * 故障诊断结果处理
@@ -542,8 +771,7 @@ public class FaultDiagnosis {
 	 *            故障概率
 	 * @return 故障数量
 	 */
-	public int DiagnosisResult(ArrayList<String> Faultsname, double FaultsIPK[],
-			double FaultsFreq[]) {
+	public int DiagnosisResult(ArrayList<String> Faultsname, double FaultsIPK[], double FaultsFreq[]) {
 		double totalIPK = 0;
 		int num = Faultsname.size() > 5 ? 5 : Faultsname.size();
 		for (int i = 0; i < num; i++) {
@@ -561,7 +789,7 @@ public class FaultDiagnosis {
 	 * 
 	 * @return 故障列表
 	 */
-	public static ArrayList<Fault> TSFaultsRead() {
+	public static ArrayList<Fault> TSFaultsRead(String system) {
 		ArrayList<Fault> faults = new ArrayList<Fault>();
 		Connection dbConn = null;
 		Statement stmt = null;
@@ -575,8 +803,11 @@ public class FaultDiagnosis {
 
 			System.out.println("读取数据");
 
-			rs0 = stmt.executeQuery(
-					"SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
+			if (system.equals("pum")) {
+				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_PumFaultInfor order by ID");
+			} else if (system.equals("gov")) {
+				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GovFaultInfor order by ID");
+			}
 			while (rs0.next()) {
 				Fault temp = new Fault();
 

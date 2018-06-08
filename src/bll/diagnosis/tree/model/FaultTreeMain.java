@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import bll.diagnosis.tree.pumParmeter;
+
 //import bll.diagnosis.tree.dao.TSFaultTreeResultSave;
 
 /**
@@ -42,13 +44,19 @@ public class FaultTreeMain {
 		Faultsname = new ArrayList<String>();
 		FaultSymptom = null;
 	}
-
-	public static void main(String[] args) {
+	
+	
+	/**
+	 * 测试类
+	 * @param args
+	 */
+	/*public static void main(String[] args) {
 		String nowtime = "";
+		String  pum;
 		java.text.Format format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		nowtime = format.format(new java.util.Date());
-		FaultTreeDiagnosis(1, "1", "1", nowtime);// 需要把nowtime改成由前端获取的诊断时间
-	}
+		FaultTreeDiagnosis("pum",1, "1", "1", nowtime);// 需要把nowtime改成由前端获取的诊断时间
+	}*/
 
 	/**
 	 * 故障树诊断主函数
@@ -62,7 +70,7 @@ public class FaultTreeMain {
 	 * @return 故障信息列表
 	 */
 
-	public static List<FaultResult> FaultTreeDiagnosis(int write, String condtionName, String unitNo, String datetime)
+	public static List<FaultResult> FaultTreeDiagnosis(String system,int write, String condtionName, String unitNo, String datetime)
 	// public static List<FaultResult> FaultTreeDiagnosis()
 	{
 		initail();
@@ -74,7 +82,7 @@ public class FaultTreeMain {
 		// double FaultSymptom[] = new double[19];
 
 		// 创建故障树节点数组（可修改InitialNodes()函数，从文件中读取）
-		MakeFaultTree.InitialNodes(testnodes, datetime, Integer.valueOf(unitNo));
+		MakeFaultTree.InitialNodes(system,testnodes, datetime, Integer.valueOf(unitNo));
 		// 写txt
 		// Change.write(testnodes);
 		// 建立故障树
@@ -103,9 +111,9 @@ public class FaultTreeMain {
 		faultDiagnosis = new FaultDiagnosis(testnodes);
 		// faultDiagnosis.initialSymptomkind(station,unitNo,datetime);
 
-		faultDiagnosis.InitialFaultFeature();// 生成故障表（读取表）
+		faultDiagnosis.InitialFaultFeature(system);// 生成故障表（读取表）
 		FaultSymptom = new double[19];
-		FaultSymptom = faultDiagnosis.InitialFaultSymptom(FaultSymptom, datetime, unitNo, condtionName);// 随机生成故障征兆向量（读取征兆）
+		FaultSymptom = faultDiagnosis.InitialFaultSymptom(system,FaultSymptom, datetime, unitNo, condtionName);// 随机生成故障征兆向量（读取征兆）
 		// for(int aaa=0;aaa<18;aaa++)
 		// {System.out.println(FaultSymptom[aaa]);};
 		// double
@@ -122,7 +130,7 @@ public class FaultTreeMain {
 		double FaultAttribution[] = new double[BottomEventsNum];// 定义故障隶属度向量
 		faultDiagnosis.getFaultAttribution(FaultSymptom, FaultMatrix, FaultAttribution);// 计算故障隶属度
 
-		faultDiagnosis.Diagnosis(FaultSymptom, Faultsname);// 根据故障征兆按照故障树诊断出可能故障集
+		faultDiagnosis.Diagnosis(system,FaultSymptom, Faultsname);// 根据故障征兆按照故障树诊断出可能故障集
 		double FaultsIPK[] = new double[Faultsname.size()];// 定义故障集中故障的关键度数组
 		caculateMinCutset.FaultsSort(Faultsname, FaultsIPK);// 故障集中故障按照故障关键度大小排列
 		int Faultsnum = 0;// 故障数量
@@ -150,7 +158,7 @@ public class FaultTreeMain {
 
 		List<FaultResult> faultResultList = new ArrayList<FaultResult>();
 		// List<Fault> faults = Readtable.Fault();
-		List<Fault> faults = FaultDiagnosis.TSFaultsRead();
+		List<Fault> faults = FaultDiagnosis.TSFaultsRead(system);
 
 		if (Faultsname.size() != 0) {
 

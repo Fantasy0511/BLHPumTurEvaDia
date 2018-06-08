@@ -20,7 +20,7 @@ public class Fault {
 	String Recommendation;
 	int node;
 
-	public static ArrayList<Fault> TSFaultsRead() {
+	public static ArrayList<Fault> TSFaultsRead(String system) {
 		ArrayList<Fault> faults = new ArrayList<Fault>();
 		Connection dbConn;
 		try {
@@ -31,19 +31,36 @@ public class Fault {
 			Statement stmt = dbConn.createStatement();
 
 			System.out.println("读取数据");
+			ResultSet rs0=null;
+			if (system.equals("pum")) {
+				rs0 = stmt.executeQuery(
+						"SELECT * FROM BLH_FaultTree_PumFaultInfor order by ID");
+				while (rs0.next()) {
+					Fault temp = new Fault();
 
-			ResultSet rs0 = stmt.executeQuery(
-					"SELECT * FROM BLH_FaultTree_FaultInfor order by ID");
-			while (rs0.next()) {
-				Fault temp = new Fault();
-
-				temp.ID = rs0.getInt("ID");
-				temp.name = rs0.getString("name");
-				temp.location = rs0.getString("location");
-				temp.Recommendation = rs0.getString("Recommendation");
-				faults.add(temp);
-
+					temp.ID = rs0.getInt("ID");
+					temp.name = rs0.getString("name");
+					temp.location = rs0.getString("location");
+					temp.Recommendation = rs0.getString("Recommendation");
+					faults.add(temp);
+				}
 			}
+
+			else if (system.equals("gov")) {
+				rs0 = stmt.executeQuery(
+						"SELECT * FROM BLH_FaultTree_GovFaultInfor order by ID");
+				while (rs0.next()) {
+					Fault temp = new Fault();
+
+					temp.ID = rs0.getInt("ID");
+					temp.name = rs0.getString("name");
+					temp.location = rs0.getString("location");
+					temp.Recommendation = rs0.getString("Recommendation");
+					faults.add(temp);
+
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

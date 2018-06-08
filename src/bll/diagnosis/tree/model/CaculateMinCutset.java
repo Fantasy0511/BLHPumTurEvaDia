@@ -20,6 +20,7 @@ public class CaculateMinCutset {
 	private ArrayList<Node> nodes;
 	private String time;
 	private int unitNo;
+	private String system;
 
 	/**
 	 * 构造CaculateMinCutset类，，，
@@ -437,7 +438,7 @@ public class CaculateMinCutset {
 	 */
 	public List<String> getBottomEvent() {
 		ArrayList<Node> testnodes = new ArrayList<Node>();
-		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
+		MakeFaultTree.InitialNodes(system,testnodes, time, unitNo);
 		List<String> result = new ArrayList<String>();
 		for (int i = 0; i < testnodes.size(); i++) {
 			// if(nodes.get(i).gate == null)

@@ -145,8 +145,9 @@
 	function diagnose() {//从后台得到故障id
 		showMask();
 		var startTime = $('#startTime').datebox('getValue');
+		var untiNo = $("#untiNo").combobox("getValue");
 		var url = "/BLHPumTurEvaDia/faulttree/fault-pum-tree?inputStr="
-				+ startTime;
+				+ startTime + "//" + untiNo;
 		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
@@ -168,10 +169,10 @@
 	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
 		<span class="input_title">条件输入：</span> <label for="model">机组型号：</label>
 		<select id="untiNo" class="easyui-combobox" style="width: 100px;">
-			<option>一号机组</option>
-			<option>二号机组</option>
-			<option>三号机组</option>
-			<option>四号机组</option>
+			<option value="1">一号机组</option>
+			<option value="2">二号机组</option>
+			<option value="3">三号机组</option>
+			<option value="4">四号机组</option>
 		</select> <label style="margin-bottom: 5px">选择时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
 		<a id="StartDiagno" href="#" class="easyui-linkbutton"

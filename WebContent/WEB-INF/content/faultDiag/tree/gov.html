@@ -15,15 +15,17 @@
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
-	<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/lodash.min.js"></script>
+<script type="text/javascript" src="/BLHPumTurEvaDia/js/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
-<script type="text/javascript" src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
-<script type="text/javascript"  src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jmgraph/jmgraph.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jmgraph/images.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/tree/editor_util.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 <script type="text/javascript"
@@ -127,11 +129,14 @@
 
 	function diagnose() {//从后台得到故障id
 		showMask();
-		var url = "/BLHPumTurEvaDia/faulttree/fault-gov-tree?inputStr="+
-				+startTime;
+		var startTime = $('#startTime').datebox('getValue');
+		var untiNo = $("#untiNo").combobox("getValue");
+		var url = "/BLHPumTurEvaDia/faulttree/fault-gov-tree?inputStr="
+				+startTime + "//" + untiNo;
 		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
+			console.log(id);
 			loadData("faultInfo", data.faultInfoTable);
 		});
 	}
@@ -146,16 +151,13 @@
 </head>
 <body>
 	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
-		<span class="input_title">条件输入：</span> 
-		<label for="model">机组型号：</label> <select id="untiNo"
-			class="easyui-combobox" style="width: 100px;">
-			<option>一号机组</option>
-			<option>二号机组</option>
-			<option>三号机组</option>
-			<option>四号机组</option>
-		</select>
-		<label
-			style="margin-bottom: 5px">选择时间：</label><input id="startTime"
+		<span class="input_title">条件输入：</span> <label for="model">机组型号：</label>
+		<select id="untiNo" class="easyui-combobox" style="width: 100px;">
+			<option value="1">一号机组</option>
+			<option value="2">二号机组</option>
+			<option value="3">三号机组</option>
+			<option value="4">四号机组</option>
+		</select> <label style="margin-bottom: 5px">选择时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
 		<a id="StartDiagno" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始诊断</a>
@@ -163,7 +165,7 @@
 
 	<div style="height: 10px"></div>
 
-	<div style="width:auto">
+	<div style="width: auto">
 		<div class="easyui-panel" title="诊断控制"></div>
 		<div style="margin-top: 10px">
 			<a style="margin-left: 10px">
@@ -180,9 +182,9 @@
 
 	<div style="height: 10px"></div>
 
-	<div style="width:auto">
+	<div style="width: auto">
 		<div>
-			<div class="easyui-panel" title="故障树展示" ></div>
+			<div class="easyui-panel" title="故障树展示"></div>
 			<div id="drag" title="故障树">
 				<div style="cursor: pointer;">
 					<span id="container" style="float: center"></span>
@@ -193,15 +195,15 @@
 
 	<div style="height: 10px"></div>
 
-	<div style="width:auto">
+	<div style="width: auto">
 		<table class="easyui-datagrid" id="faultInfo" title="诊断结果分析"
 			style="height: 350px; word-break: break-all; word-wrap: break-all"
 			data-options="rownumbers:true,fitColumns:false, singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultId',align:'center',width:300">故障名称</th>
-					<th data-options="field:'faultRate',align:'center',width:300">发生概率</th>
-					<th data-options="field:'suggesstion',align:'center',width:300">建议描述</th>
+					<th data-options="field:'faultName',align:'center',width:300">故障名称</th>
+					<th data-options="field:'probality',align:'center',width:300">发生概率</th>
+					<th data-options="field:'describe',align:'center',width:300">建议描述</th>
 				</tr>
 			</thead>
 		</table>

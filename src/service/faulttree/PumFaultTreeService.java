@@ -13,19 +13,18 @@ import bll.diagnosis.tree.model.FaultTreeMain;
  * 
  * @author wuyue
  */
-public class FaultTreeService {
+public class PumFaultTreeService {
 	List<FaultResult> result = new ArrayList<>();
-	private String Date;
-
-	public List<FaultResult> findfault(String date) {
+	private String  system="pum";
+	public List<FaultResult> findfault(String date,String untiNo) {
 		FaultTreeMain faulttree = new FaultTreeMain();
-		result = faulttree.FaultTreeDiagnosis(1, "1", "1", date);
+		result = faulttree.FaultTreeDiagnosis(system,1, "1", untiNo, date);
 		System.out.println(result);
 		return result;
 	}
 
 	public static void main(String[] args) {
 		String date = "2015-05-26 09:48:16";
-		System.out.println("故障列表" + new FaultTreeService().findfault(date).toString());
+		System.out.println("故障列表" + new PumFaultTreeService().findfault(date,"1").toString());
 	}
 }

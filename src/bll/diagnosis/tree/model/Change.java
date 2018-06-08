@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Change {
 	private String time;
 	private int unitNo;
+	private String system;
 
 	public static void write(ArrayList<Node> input) {
 		StringBuffer sb = new StringBuffer();
@@ -51,7 +52,7 @@ public class Change {
 
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
+		MakeFaultTree.InitialNodes(system,testnodes, time, unitNo);
 
 		for (int p = 0; p < testnodes.size(); p++) {
 			if (testnodes.get(p).getName().equals(anodes.get(0).getFather())) {
@@ -79,7 +80,7 @@ public class Change {
 
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
+		MakeFaultTree.InitialNodes(system,testnodes, time, unitNo);
 		for (int k = 0; k < testnodes.size(); k++) {
 			for (int j = 0; j < testnodes.get(k).getChildren().size(); j++) {
 				if (testnodes.get(k).getChildren().get(j).equals(in)) {
@@ -109,7 +110,7 @@ public class Change {
 	public void addnode(ArrayList<Node> anodes) {
 		ArrayList<Node> testnodes = new ArrayList<Node>();
 
-		MakeFaultTree.InitialNodes(testnodes, time, unitNo);
+		MakeFaultTree.InitialNodes(system,testnodes, time, unitNo);
 
 		Node addnode = new Node();
 		String str = anodes.get(0).getName();
