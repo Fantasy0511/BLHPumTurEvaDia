@@ -140,7 +140,7 @@ public class DaoAssessment {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear
+			String sql = "select value,time from " + table + "_" + startYear
 					+ startMounth + "_test" +" where id=" + id + " AND time<" + endtime
 					+ " AND time>" + starttime + " ORDER BY time ASC";
 			System.out.println(sql);
@@ -150,7 +150,7 @@ public class DaoAssessment {
 			while (!(startYear.equals(endYear)
 					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear
+				String sql = "select value,time from " + table + "_" + startYear
 						+ startMounth + "_test" + " where id=" + id + " AND time<"
 						+ endtime + " AND time>" + starttime
 						+ " ORDER BY time ASC";

@@ -1,5 +1,6 @@
 package service.assess.Governor.one.output;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import service.assess.Governor.one.History;
@@ -8,6 +9,8 @@ import service.assess.Governor.one.state.StateSum;
 
 public class Output {
 	public GovAssResult getGovAssessResult(long time) {
+		
+		DecimalFormat df=new DecimalFormat("#.0");
 		SignalSum SS = new SignalSum();
 		List<Number> U1 = SS.getSignalSum(time);
 
@@ -18,6 +21,10 @@ public class Output {
 		double U3 = history.getHistory(time);
 		double score = (double) U1.get(U1.size() - 1) * 0.6483
 				+ (double) U2.get(U2.size() - 1) * 0.2296 + U3 * 0.1220;
+		//控制小数点位数
+		U3 =Double.parseDouble(df.format(U3));
+		score=Double.parseDouble(df.format(score));
+		
 		GovAssResult govAssResult = new GovAssResult(U2, U1, U3, score);
 		return govAssResult;
 	}
