@@ -1,41 +1,42 @@
 package service.assess.transformer.one;
 
 public class TransferAssResult {
-	private double transTemper;
-	private double transHistory;
-	private double transFault;
-	private double transAssSum;
+	private double Temper1;
+	private double History1;
+	private double Fault1;
+	private double AssSum1;
+	public double getTemper1() {
+		return Temper1;
+	}
+	public double getHistory1() {
+		return History1;
+	}
+	public double getFault1() {
+		return Fault1;
+	}
+	public double getAssSum1() {
+		return AssSum1;
+	}
+	public void setTemper1(double temper1) {
+		Temper1 = temper1;
+	}
+	public void setHistory1(double history1) {
+		History1 = history1;
+	}
+	public void setFault1(double fault1) {
+		Fault1 = fault1;
+	}
+	public void setAssSum1(double assSum1) {
+		AssSum1 = assSum1;
+	}
 	
-	public TransferAssResult(double transTemper, double transHistory, double transFault, double transAssSum) {
+	public TransferAssResult(double temper1, double history1, double fault1, double assSum1) {
 		super();
-		this.transTemper = transTemper;
-		this.transHistory = transHistory;
-		this.transFault = transFault;
-		this.transAssSum = transAssSum;
+		Temper1 = temper1;
+		History1 = history1;
+		Fault1 = fault1;
+		AssSum1 = assSum1;
 	}
-	public double getTransTemper() {
-		return transTemper;
-	}
-	public double getTransHistory() {
-		return transHistory;
-	}
-	public double getTransFault() {
-		return transFault;
-	}
-	public double getTransAssSum() {
-		return transAssSum;
-	}
-	public void setTransTemper(double transTemper) {
-		this.transTemper = transTemper;
-	}
-	public void setTransHistory(double transHistory) {
-		this.transHistory = transHistory;
-	}
-	public void setTransFault(double transFault) {
-		this.transFault = transFault;
-	}
-	public void setTransAssSum(double transAssSum) {
-		this.transAssSum = transAssSum;
-	}
+	
 
 }

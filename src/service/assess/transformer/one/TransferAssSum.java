@@ -18,9 +18,9 @@ public class TransferAssSum {
 		malfunction mainShaftSeal = new malfunction();
 		double U3 = mainShaftSeal.malfunction(time);
 		//主变系统总得分
-		double U6 = 0.5 * U1 + 0.1* U2 + 0.4 * U3 ;
+		double U4 = 0.5 * U1 + 0.1* U2 + 0.4 * U3 ;
 		
-		TransferAssResult transferAssResult=new TransferAssResult(U1, U2, U3, U6);
+		TransferAssResult transferAssResult=new TransferAssResult(U1, U2, U3, U4);
 		
 		return transferAssResult;
 }

@@ -30,8 +30,8 @@ public class TransferAssessAction extends AbstractActionSupport {
 		transferAssessResult = transferAssSum.output(time);
 
 		String[] names = { "主变压器温度", "历史和巡检状态", "主变压器故障信号得分" };
-		double[] values = { transferAssessResult.getTransTemper(), transferAssessResult.getTransHistory(),
-				transferAssessResult.getTransFault() };
+		double[] values = { transferAssessResult.getTemper1(), transferAssessResult.getHistory1(),
+				transferAssessResult.getFault1() };
 
 		Table bottomDetail = new Table(new String[] { "name", "value" });
 		for (int i = 0; i < names.length; i++) {
@@ -39,16 +39,16 @@ public class TransferAssessAction extends AbstractActionSupport {
 		}
 
 		List<String> barName = Arrays.asList("主变压器温度", "历史和巡检状态", "主变压器故障信号");
-		List<Double> barValue = Arrays.asList((double) transferAssessResult.getTransTemper(),
-				(double) transferAssessResult.getTransHistory(), (double) transferAssessResult.getTransFault());
+		List<Double> barValue = Arrays.asList((double) transferAssessResult.getTemper1(),
+				(double) transferAssessResult.getHistory1(), (double) transferAssessResult.getFault1());
 		BarData middleBar = BarData.create("主变系统状态评估结果", "", "性能状态", "得分", barName, barValue);
-		double transAss = transferAssessResult.getTransAssSum();
+		double transAss = transferAssessResult.getAssSum1();
 		String topRemark = (transAss > 60) ? ((transAss >= 80) ? "优秀" : "合格") : "严重";
 
 		assessView = new AssessView(transAss, topRemark, 
-				transferAssessResult.getTransTemper()+"", 
-				transferAssessResult.getTransHistory()+"", 
-				transferAssessResult.getTransFault()+"", 
+				transferAssessResult.getTemper1()+"", 
+				transferAssessResult.getHistory1()+"", 
+				transferAssessResult.getFault1()+"", 
 				bottomDetail,
 				middleBar);
 

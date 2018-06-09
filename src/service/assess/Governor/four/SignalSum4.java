@@ -16,7 +16,7 @@ public class SignalSum4 {
 		BoolAssess bool2191=new BoolAssess();
 		int U3=bool2191.BooleanAssess(2191,time);
 		
-		double score=0.15*U3+0.45*U1+0.4*U2;
-		return score;
+		double SignalSum=0.15*U3+0.45*U1+0.4*U2;
+		return SignalSum;
 	}
 }

@@ -25,7 +25,7 @@ public class State4 {
 			int U5=bool1181.BooleanAssess(1181,time);
 			
 			 
-			double score=0.25*U1+0.25*U2+0.2*U3+0.15*U4+0.15*U5;
-			return score;
+			double State4=0.25*U1+0.25*U2+0.2*U3+0.15*U4+0.15*U5;
+			return State4;
 		}
 }
