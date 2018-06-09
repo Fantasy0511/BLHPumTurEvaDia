@@ -1,12 +1,12 @@
 package service.assess.pumptur.two;
 
 
-
+/*没用*/
 public class output2 {
 	//2号机组水泵水轮机总得分
 
 	public double output3(long time) {
-		//3号机组水泵水轮机振动得分
+		//3号机组水泵水轮机导叶得分
 		Vibration2 guideVane = new Vibration2();
 		double U1 = guideVane.Vibration2(time);
 		//3号机组水泵水轮机温度总得分
@@ -15,7 +15,7 @@ public class output2 {
 		//3号机组主轴密封得分
 		MainShaftSeal2 mainShaftSeal = new MainShaftSeal2();
 		double U3 = mainShaftSeal.MainShaftSeal2(time);
-		//3号机组水泵水轮机导叶得分
+		//3号机组水泵水轮机振动得分
 		GuideVane2 swingAss = new GuideVane2();
 		double U4 = swingAss.GuideVane2(time);
 		//3号机历史和巡检状态

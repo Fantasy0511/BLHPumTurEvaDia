@@ -6,7 +6,7 @@ import bll.FloatAssessment;
 public class MainShaftSeal3 {
 
 	//3号机组水泵水轮机主轴密封得分
-	public double MainShaftSeal3(long time){
+	public double getMainShaftSeal3(long time){
 		//供水流量
 		FloatAssessment float752=new FloatAssessment();
 		int U1=float752.FloatAssess(752,time, 452, 0);

@@ -1,4 +1,4 @@
-package blh.action.asscss.four;
+package blh.action.asscss.second;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.asscss.AssessView;
 import blh.action.support.AbstractActionSupport;
-import service.assess.pumptur.four.output.PumpAssResult;
-import service.assess.pumptur.four.output.PumpAssSum;
+import service.assess.pumptur.two.output.PumpAssResult;
+import service.assess.pumptur.two.output.PumpAssSum;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import util.TimeUtils;

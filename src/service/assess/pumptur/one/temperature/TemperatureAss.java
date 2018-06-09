@@ -3,8 +3,8 @@ package service.assess.pumptur.one.temperature;
 
 
 //温度总得分
-public class test21 {
-	public int test2(long time){
+public class TemperatureAss {
+	public int getTemperatureAss(long time){
 	GeneratorRotor1 GR=new GeneratorRotor1();
 	int U1=GR.GeneratorRotor(time);
 	

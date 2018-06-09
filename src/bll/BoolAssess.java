@@ -16,7 +16,7 @@ public class BoolAssess {
 
 		for (Double h : value) {
 			if (h == 1.0) {
-				num++;
+				num++;           /*bool类型的故障value值每出现一次，num就加一*/
 			}
 		}
 		int score = 96 - num * 20;

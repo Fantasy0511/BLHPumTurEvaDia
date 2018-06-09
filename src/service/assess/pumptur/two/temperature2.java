@@ -5,7 +5,7 @@ import bll.FloatAssessment;
 public class temperature2 {
 	//2号机组水泵水轮机温度总得分
 	
-		public double temperature2(long time){
+		public double gettemperature2(long time){
 			//上导冷却水出水温度
 			FloatAssessment float390=new FloatAssessment();
 			int U1=float390.FloatAssess(390,time, 190, 20);

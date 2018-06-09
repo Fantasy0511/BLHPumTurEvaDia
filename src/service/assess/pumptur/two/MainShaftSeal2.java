@@ -7,7 +7,7 @@ public class MainShaftSeal2 {
 
 	//2号机组水泵水轮机主轴密封得分
 
-		public double MainShaftSeal2(long time){
+		public double getMainShaftSeal2(long time){
 			//供水流量
 			FloatAssessment float522=new FloatAssessment();
 			int U1=float522.FloatAssess(522,time, 452, 0);
