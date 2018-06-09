@@ -6,7 +6,7 @@ public class electricity3 {
 
 	//3号机组励磁故障信号总得分
 
-			public double electricity3(long time){
+			public double getElectricity3(long time){
 				
 				//励磁电源故障 
 				BoolAssess bool1924=new BoolAssess();

@@ -7,7 +7,7 @@ public class monitor2 {
 	//2号机组机组监测电气量总得分
 
 
-	public double monitor2(long time){
+	public double getMonitor2(long time){
 			
 	
 			//励磁电压

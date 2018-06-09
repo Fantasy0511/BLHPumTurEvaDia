@@ -1,4 +1,4 @@
-package blh.action.asscss.first;
+package blh.action.asscss.second;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.asscss.AssessView;
 import blh.action.support.AbstractActionSupport;
-import service.assess.generator.one.output.GenerAssSum;
-import service.assess.generator.one.output.GeneratorAssessResult;
+import service.assess.generator.two.output.GenerAssSum;
+import service.assess.generator.two.output.GeneratorAssessResult;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import util.TimeUtils;
@@ -29,7 +29,6 @@ public class ExcAssessAction extends AbstractActionSupport {
 		GenerAssSum generAssSum=new GenerAssSum();
 		excAssResult=generAssSum.getGenerAssSum(time);
 		
-		//详细评估信息
 		String[] names= {"励磁故障信号状态得分","机组监测电气量状态得分","发电机故障信号状态得分",
 				"励磁发电系统温度状态得分","灭磁开关动作状态得分"};
 		double[] values= {excAssResult.getExcFaultSum(),excAssResult.getExcParameter(),

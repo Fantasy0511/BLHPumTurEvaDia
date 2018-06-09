@@ -7,7 +7,7 @@ public class temperature2 {
 	//2号机组温度总得分
 	
 
-	public double temperature2(long time){
+	public double getTemperature2(long time){
 			
 		//发电机热风温度 
 				BoolAssess bool2308=new BoolAssess();

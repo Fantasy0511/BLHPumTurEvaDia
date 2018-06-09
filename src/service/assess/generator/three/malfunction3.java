@@ -7,7 +7,7 @@ public class malfunction3 {
 	//3号发电机故障信号总得分
 	
 
-		public double malfunction3(long time){
+		public double getMalfunction3(long time){
 				
 				//转子绝缘报警 
 				BoolAssess bool725=new BoolAssess();

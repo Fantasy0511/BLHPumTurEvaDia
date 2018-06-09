@@ -7,7 +7,7 @@ public class Degauss3 {
 	//3号机组灭磁开关动作总得分
 	
 
-		public double Degauss3(long time){
+		public double getDegauss3(long time){
 				
 				//励磁电流
 				FloatAssessment float583=new FloatAssessment();
