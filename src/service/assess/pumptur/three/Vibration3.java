@@ -6,7 +6,7 @@ import bll.FloatAssessment;
 public class Vibration3 {
 	//3号机组水泵水轮机振动得分
 	
-	public double Vibration3(long time){
+	public double getVibration3(long time){
 		
         //主轴X轴摆动跳闸 
 

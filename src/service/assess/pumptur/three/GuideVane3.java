@@ -5,7 +5,7 @@ import bll.BoolAssess;
 public class GuideVane3 {
 	//3号机组水泵水轮机导叶得分
 	
-	public double GuideVane3(long time) {
+	public double getGuideVane3(long time) {
 		//剪断销状态信号
 		BoolAssess bool775 = new BoolAssess();
 		double U1 = bool775.BooleanAssess(775, time);

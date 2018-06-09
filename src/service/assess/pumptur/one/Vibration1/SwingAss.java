@@ -1,8 +1,8 @@
 package service.assess.pumptur.one.Vibration1;
 //振动总得分
-public class test11 {
+public class SwingAss {
 
-	public int test1(long time){
+	public int getSwingAssResult(long time){
 		
 		
 		LowerBracket1 LB=new LowerBracket1();
@@ -19,10 +19,7 @@ public class test11 {
 		UpperGuideBearing1 UGB=new UpperGuideBearing1();
 		int U4=UGB.UpperGuideBearing(time);
 		
-		
-		
-		
-		
+
 		WaterGuideBearing1   WGB=new WaterGuideBearing1();
 		int U5=WGB.WaterGuideBearing(time);
 		
@@ -33,10 +30,6 @@ public class test11 {
 		int a=(U1+U2+U3+U4+U5+U6)/6;
 		return a;
 	}
-	public static void main(String[] args) {
-		
-		test11 a=new test11();
-		System.out.println(a.test1(1441400000));
-	}
+	
 	
 }
