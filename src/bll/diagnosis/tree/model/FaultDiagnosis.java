@@ -60,85 +60,85 @@ public class FaultDiagnosis {
 				FaultSymptom = null;
 			} else {
 
-				if (datas.getLqsyc() == 1)
+				if (datas.getLqsyc() == 1)  // 冷却水异常
 					FaultSymptom[0] = 1;
 				else {
 					FaultSymptom[0] = 0;
 				}
-
-				if (datas.getYxtyc() == 1)
+ 
+				if (datas.getYxtyc() == 1)  // 油系统异常
 					FaultSymptom[1] = 3;
 				else {
 					FaultSymptom[1] = 0;
 				}
 
-				if (datas.getDzbdyc() == 1)
+				if (datas.getDzbdyc() == 1) // 大轴摆度异常
 					FaultSymptom[2] = 5;
 				else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getDbph() == 1)
+				if (datas.getDbph() == 1)  // 动不平衡
 					FaultSymptom[3] = 10;
 				else {
 					FaultSymptom[3] = 0;
 				}
 
-				if (datas.getLcdlbph() == 1)
+				if (datas.getLcdlbph() == 1)  // 励磁电流不平衡
 					FaultSymptom[4] = 30;
 				else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getJdxgz() == 1)
+				if (datas.getJdxgz() == 1)  // 剪断销故障
 					FaultSymptom[5] = 50;
 				else {
 					FaultSymptom[5] = 0;
 				}
 
-				if (datas.getShdbdyc() == 1)
+				if (datas.getShdbdyc() == 1)  // 上导摆度异常
 					FaultSymptom[6] = 100;
 				else {
 					FaultSymptom[6] = 0;
 				}
 
-				if (datas.getXdbdyc() == 1)
+				if (datas.getXdbdyc() == 1)  // 下导摆度异常
 					FaultSymptom[7] = 300;
 				else {
 					FaultSymptom[7] = 0;
 				}
 
-				if (datas.getSdbdyc() == 1)
+				if (datas.getSdbdyc() == 1)  // 水导摆度异常
 					FaultSymptom[8] = 500;
 				else {
 					FaultSymptom[8] = 0;
 				}
 
-				if (datas.getWsgswg() == 1)
+				if (datas.getWsgswg() == 1)  // 尾水管水位过高
 					FaultSymptom[9] = 1000;
 				else {
 					FaultSymptom[9] = 0;
 				}
 
-				if (datas.getLqslld() == 1)
+				if (datas.getLqslld() == 1)  // 冷却水流量低
 					FaultSymptom[10] = 3000;
 				else {
 					FaultSymptom[10] = 0;
 				}
 
-				if (datas.getZwwdyc() == 1)
+				if (datas.getZwwdyc() == 1) // 轴瓦温度异常
 					FaultSymptom[11] = 5000;
 				else {
 					FaultSymptom[11] = 0;
 				}
 
-				if (datas.getZzmfyc() == 1)
+				if (datas.getZzmfyc() == 1)  // 主轴密封异常
 					FaultSymptom[12] = 10000;
 				else {
 					FaultSymptom[12] = 0;
 				}
-
-				if (datas.getWkgz() == 1)
+ 
+				if (datas.getWkgz() == 1)     // 蜗壳故障
 					FaultSymptom[13] = 30000;
 				else {
 					FaultSymptom[13] = 0;
@@ -159,40 +159,40 @@ public class FaultDiagnosis {
 			if (null == datas) {
 				FaultSymptom = null;
 			} else {
-				if (datas.getJdxzt() == 1) {
+				if (datas.getJdxzt() == 1) {   //剪断销
 					FaultSymptom[0] = 1;
 				} else {
 					FaultSymptom[0] = 0;
 				}
 
-				if (datas.getFtHAlarm() == 1) {
+				if (datas.getFtHAlarm() == 1) {  //集油箱高
 					FaultSymptom[1] = 3;
 				} else {
 					FaultSymptom[1] = 0;
 				}
-				if (datas.getFtLAlarm() == 1) {
+				if (datas.getFtLAlarm() == 1) {   //集油箱低
 					FaultSymptom[2] = 5;
 				} else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getPtHAlarm() == 1) {
+				if (datas.getPtHAlarm() == 1) {  //压力油罐油位高
 					FaultSymptom[3] = 10;
 				} else {
 					FaultSymptom[3] = 0;
 				}
-				if (datas.getPtLAlarm() == 1) {
+				if (datas.getPtLAlarm() == 1) { //压力油罐油位低
 					FaultSymptom[4] = 30;
 				} else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getQiptHAlarm() == 1) {
+				if (datas.getQiptHAlarm() == 1) { //补气系统压力罐压力高报警
 					FaultSymptom[5] = 50;
 				} else {
 					FaultSymptom[5] = 0;
 				}
-				if (datas.getPtLAlarm() == 1) {
+				if (datas.getPtLAlarm() == 1) { //补气系统压力罐压力低报警
 					FaultSymptom[6] = 100;
 				} else {
 					FaultSymptom[6] = 0;
@@ -253,6 +253,10 @@ public class FaultDiagnosis {
 				temp.Threshold = Double.parseDouble(relationstr[0]);
 				temp.relation = Integer.parseInt(relationstr[1]);
 				Faults.add(temp);
+				for (int i = 0; i < Faults.size(); i++) {
+					System.out.println("输出relation   "+Faults.get(i).relation+"  Threshold值：  "+Faults.get(i).Threshold);
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -339,17 +343,20 @@ public class FaultDiagnosis {
 	 */
 	private void handle(String system, Node tasknode, double FaultSymptom[], ArrayList<String> Faultnames) {
 		// 水泵水轮机
-
+		FaultFeature taskfeature = new FaultFeature();
+		/*System.out.println("输出tasknode.name:  "+tasknode.name);*/
+		for (int i = 0; i < Faults.size(); i++) {
+			/*System.out.println("输出Faults：  "+Faults.get(i));*/
+			
+			if (Faults.get(i).name.equals(tasknode.name))
+				taskfeature = Faults.get(i);
+		}
 		if (system.equals("pum")) {
-			FaultFeature taskfeature = new FaultFeature();
-			for (int i = 0; i < Faults.size(); i++) {
-				if (Faults.get(i).name.equals(tasknode.name))
-					taskfeature = Faults.get(i);
-			}
+			/*System.out.println(" 阈值是：    "+taskfeature.Threshold);*/
 			int flag = 0;
-			if (taskfeature.Threshold == -1) {
+			if (taskfeature.Threshold == -1) {   // Threshold阈值
 				flag = 1;
-				switch (taskfeature.relation) {
+				switch (taskfeature.relation) {  // relation:比较关系
 				case 1:
 					for (int i = 0; i < taskfeature.Feature.length; i++) {
 						if (FaultSymptom[i] >= taskfeature.Feature[i])
@@ -422,7 +429,8 @@ public class FaultDiagnosis {
 				default:
 					;
 				}
-			} else if (taskfeature.Threshold == 10) {
+			} 
+			else if (taskfeature.Threshold ==10) {
 				flag = 0;
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
@@ -585,13 +593,7 @@ public class FaultDiagnosis {
 		// 调速器
 
 		else if (system.equals("gov")) {
-
-			System.out.println("gov读取成功：+");
-			FaultFeature taskfeature = new FaultFeature();
-			for (int i = 0; i < Faults.size(); i++) {
-				if (Faults.get(i).name.equals(tasknode.name))
-					taskfeature = Faults.get(i);
-			}
+			System.out.println(" 阈值是：    "+taskfeature.Threshold);
 			int flag = 0;
 			if (taskfeature.Threshold == -1) {
 				flag = 1;
@@ -633,6 +635,7 @@ public class FaultDiagnosis {
 					}
 					break;
 				default:
+					;
 				}
 
 			}
@@ -755,7 +758,6 @@ public class FaultDiagnosis {
 				} else {
 					Faultnames.add(tasknode.name);
 				}
-				System.out.println("故障类名：+"+Faultnames+"hishsi ");
 			}
 		}
 	}

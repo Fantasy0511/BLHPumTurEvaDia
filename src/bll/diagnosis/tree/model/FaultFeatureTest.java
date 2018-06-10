@@ -4,7 +4,15 @@ public class FaultFeatureTest {
 	String name;
 	double Feature[] = new double[19];
 	double Threshold;
-	int relation;
+	double relation;
+
+	public FaultFeatureTest(String name, double[] feature, double threshold, int relation) {
+		super();
+		this.name = name;
+		Feature = feature;
+		Threshold = threshold;
+		this.relation = relation;
+	}
 
 	public String getName() {
 		return name;
@@ -22,7 +30,7 @@ public class FaultFeatureTest {
 		Threshold = threshold;
 	}
 
-	public int getRelation() {
+	public double getRelation() {
 		return relation;
 	}
 

@@ -1,12 +1,12 @@
 package service.assess.Ballvalve.four;
 
-
+import service.assess.Ballvalve.one.BallAssessResult;
 
 public class output4 {
 
 
 	// 4号球阀系统总得分
-	public double output4(long time) {
+	public BallAssessResult output4(long time) {
 		//球阀油系统性能状态
 		Oilsystem4 guideVane = new Oilsystem4();
 		double U1 = guideVane.Oilsystem4(time);
@@ -18,8 +18,9 @@ public class output4 {
 		double U3 = mainShaftSeal.performance4(time);
 		//球阀系统总得分
 		
-		double U6 = 0.55 * U1 + 0.1* U2 + 0.35 * U3 ;
+		double U4 = 0.55 * U1 + 0.1* U2 + 0.35 * U3 ;
+		BallAssessResult ballAssessResult=new BallAssessResult(U1, U2, U3, U4);
 		
-		return U6;
+		return ballAssessResult;
 }
 }

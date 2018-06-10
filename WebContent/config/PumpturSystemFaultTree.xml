@@ -39,7 +39,9 @@
 	<Route ID="742" Name="" FromElementID="357" ToElementID="4412" />
 	<Route ID="743" Name="" FromElementID="358" ToElementID="4421" />
 	<Route ID="744" Name="" FromElementID="358" ToElementID="4422" />
-	<WorkNode ID="1" Name="水泵水轮机" NodeType="0" father="null" children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
+	<WorkNode ID="1" Name="水泵水轮机" NodeType="0" father="null"
+		children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100"
+		Height="30" />
 	<WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机"
 		children="轴瓦温度异常,机组振动异常" gate="+" x="333" y="75" Width="100" Height="30" />
 	<WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机"

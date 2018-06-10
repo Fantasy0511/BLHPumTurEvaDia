@@ -29,20 +29,20 @@ public class PumFaultTreeInputModel {
 	private int zwwdyc; // 轴瓦温度异常
 	private int zzmfyc; // 主轴密封异常
 	private int wkgz; // 蜗壳故障
-	private List<Double> mgt;// 迷宫环温度
+	/*private List<Double> mgt;// 迷宫环温度
 	private List<Double> zczb;// 轴承振摆
-
+*/
 	public PumFaultTreeInputModel tstreeanalysis() {
 		PumFaultTreeInputModel datas = new PumFaultTreeInputModel();
 
-		datas.mgt = new ArrayList<Double>();
-		datas.zczb = new ArrayList<Double>();
+		/*datas.mgt = new ArrayList<Double>();
+		datas.zczb = new ArrayList<Double>();*/
 
 		for (int i = 0; i < 70; i++) {
 
-			datas.mgt.add((double) 1);
+			/*datas.mgt.add((double) 1);
 			datas.zczb.add((double) 0.5); //
-		}
+*/		}
 		datas.lqsyc = 1;
 		datas.yxtyc = 1; //
 		datas.dzbdyc = 0;
@@ -120,6 +120,118 @@ public class PumFaultTreeInputModel {
 		return datas;
 	}
 
+	public int getLqsyc() {
+		return lqsyc;
+	}
+
+	public int getYxtyc() {
+		return yxtyc;
+	}
+
+	public int getDzbdyc() {
+		return dzbdyc;
+	}
+
+	public int getDbph() {
+		return dbph;
+	}
+
+	public int getLcdlbph() {
+		return lcdlbph;
+	}
+
+	public int getJdxgz() {
+		return jdxgz;
+	}
+
+	public int getShdbdyc() {
+		return shdbdyc;
+	}
+
+	public int getXdbdyc() {
+		return xdbdyc;
+	}
+
+	public int getSdbdyc() {
+		return sdbdyc;
+	}
+
+	public int getWsgswg() {
+		return wsgswg;
+	}
+
+	public int getLqslld() {
+		return lqslld;
+	}
+
+	public int getZwwdyc() {
+		return zwwdyc;
+	}
+
+	public int getZzmfyc() {
+		return zzmfyc;
+	}
+
+	public int getWkgz() {
+		return wkgz;
+	}
+
+	public void setLqsyc(int lqsyc) {
+		this.lqsyc = lqsyc;
+	}
+
+	public void setYxtyc(int yxtyc) {
+		this.yxtyc = yxtyc;
+	}
+
+	public void setDzbdyc(int dzbdyc) {
+		this.dzbdyc = dzbdyc;
+	}
+
+	public void setDbph(int dbph) {
+		this.dbph = dbph;
+	}
+
+	public void setLcdlbph(int lcdlbph) {
+		this.lcdlbph = lcdlbph;
+	}
+
+	public void setJdxgz(int jdxgz) {
+		this.jdxgz = jdxgz;
+	}
+
+	public void setShdbdyc(int shdbdyc) {
+		this.shdbdyc = shdbdyc;
+	}
+
+	public void setXdbdyc(int xdbdyc) {
+		this.xdbdyc = xdbdyc;
+	}
+
+	public void setSdbdyc(int sdbdyc) {
+		this.sdbdyc = sdbdyc;
+	}
+
+	public void setWsgswg(int wsgswg) {
+		this.wsgswg = wsgswg;
+	}
+
+	public void setLqslld(int lqslld) {
+		this.lqslld = lqslld;
+	}
+
+	public void setZwwdyc(int zwwdyc) {
+		this.zwwdyc = zwwdyc;
+	}
+
+	public void setZzmfyc(int zzmfyc) {
+		this.zzmfyc = zzmfyc;
+	}
+
+	public void setWkgz(int wkgz) {
+		this.wkgz = wkgz;
+	}
+
 	/*
 	 * public static void main(String[] args) {
 	 * 
@@ -133,132 +245,5 @@ public class PumFaultTreeInputModel {
 	 * System.out.println(datas.T.size()); }
 	 */
 
-	public int getLqsyc() {
-		return lqsyc;
-	}
-
-	public void setLqsyc(int lqsyc) {
-		this.lqsyc = lqsyc;
-	}
-
-	public int getYxtyc() {
-		return yxtyc;
-	}
-
-	public void setYxtyc(int yxtyc) {
-		this.yxtyc = yxtyc;
-	}
-
-	public List<Double> getMgt() {
-		return mgt;
-	}
-
-	public void setMgt(List<Double> mgt) {
-		this.mgt = mgt;
-	}
-
-	public int getDzbdyc() {
-		return dzbdyc;
-	}
-
-	public void setDzbdyc(int dzbdyc) {
-		this.dzbdyc = dzbdyc;
-	}
-
-	public int getDbph() {
-		return dbph;
-	}
-
-	public void setDbph(int dbph) {
-		this.dbph = dbph;
-	}
-
-	public int getLcdlbph() {
-		return lcdlbph;
-	}
-
-	public void setLcdlbph(int lcdlbph) {
-		this.lcdlbph = lcdlbph;
-	}
-
-	public List<Double> getZczb() {
-		return zczb;
-	}
-
-	public void setZczb(List<Double> zczb) {
-		this.zczb = zczb;
-	}
-
-	public int getJdxgz() {
-		return jdxgz;
-	}
-
-	public void setJdxgz(int jdxgz) {
-		this.jdxgz = jdxgz;
-	}
-
-	public int getShdbdyc() {
-		return shdbdyc;
-	}
-
-	public void setShdbdyc(int shdbdyc) {
-		this.shdbdyc = shdbdyc;
-	}
-
-	public int getXdbdyc() {
-		return xdbdyc;
-	}
-
-	public void setXdbdyc(int xdbdyc) {
-		this.xdbdyc = xdbdyc;
-	}
-
-	public int getSdbdyc() {
-		return sdbdyc;
-	}
-
-	public void setSdbdyc(int sdbdyc) {
-		this.sdbdyc = sdbdyc;
-	}
-
-	public int getWsgswg() {
-		return wsgswg;
-	}
-
-	public void setWsgswg(int wsgswg) {
-		this.wsgswg = wsgswg;
-	}
-
-	public int getLqslld() {
-		return lqslld;
-	}
-
-	public void setLqslld(int lqslld) {
-		this.lqslld = lqslld;
-	}
-
-	public int getZwwdyc() {
-		return zwwdyc;
-	}
-
-	public void setZwwdyc(int zwwdyc) {
-		this.zwwdyc = zwwdyc;
-	}
-
-	public int getZzmfyc() {
-		return zzmfyc;
-	}
-
-	public void setZzmfyc(int zzmfyc) {
-		this.zzmfyc = zzmfyc;
-	}
-
-	public int getWkgz() {
-		return wkgz;
-	}
-
-	public void setWkgz(int wkgz) {
-		this.wkgz = wkgz;
-	}
 
 }

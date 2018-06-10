@@ -54,7 +54,7 @@ public class Fault {
 
 					temp.ID = rs0.getInt("ID");
 					temp.name = rs0.getString("name");
-					temp.location = rs0.getString("location");
+					temp.location = rs0.getString("Location");
 					temp.Recommendation = rs0.getString("Recommendation");
 					faults.add(temp);
 

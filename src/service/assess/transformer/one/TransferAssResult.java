@@ -1,41 +1,40 @@
 package service.assess.transformer.one;
 
 public class TransferAssResult {
-	private double Temper1;
-	private double History1;
-	private double Fault1;
-	private double AssSum1;
-	public double getTemper1() {
-		return Temper1;
+	private double Temper;
+	private double History;
+	private double Fault;
+	private double AssSum;
+	public double getTemper() {
+		return Temper;
 	}
-	public double getHistory1() {
-		return History1;
+	public double getHistory() {
+		return History;
 	}
-	public double getFault1() {
-		return Fault1;
+	public double getFault() {
+		return Fault;
 	}
-	public double getAssSum1() {
-		return AssSum1;
+	public double getAssSum() {
+		return AssSum;
 	}
-	public void setTemper1(double temper1) {
-		Temper1 = temper1;
+	public void setTemper(double temper) {
+		Temper = temper;
 	}
-	public void setHistory1(double history1) {
-		History1 = history1;
+	public void setHistory(double history) {
+		History = history;
 	}
-	public void setFault1(double fault1) {
-		Fault1 = fault1;
+	public void setFault(double fault) {
+		Fault = fault;
 	}
-	public void setAssSum1(double assSum1) {
-		AssSum1 = assSum1;
+	public void setAssSum(double assSum) {
+		AssSum = assSum;
 	}
-	
-	public TransferAssResult(double temper1, double history1, double fault1, double assSum1) {
+	public TransferAssResult(double temper, double history, double fault, double assSum) {
 		super();
-		Temper1 = temper1;
-		History1 = history1;
-		Fault1 = fault1;
-		AssSum1 = assSum1;
+		Temper = temper;
+		History = history;
+		Fault = fault;
+		AssSum = assSum;
 	}
 	
 

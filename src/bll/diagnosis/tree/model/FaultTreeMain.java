@@ -199,7 +199,7 @@ public class FaultTreeMain {
 			}
 		}
 
-		if (faultResultList.size() == 0) {
+		if (Faultsname.size() == 0) {
 			String[] symptom = new String[3];
 			FaultResult tempFault = new FaultResult();
 			tempFault.setID(-1);

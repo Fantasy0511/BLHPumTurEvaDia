@@ -153,8 +153,8 @@ public class MakeFaultTree {
 					Iterator iter = list.iterator();
 
 					PumpturBFault pb = new PumpturBFault();//查询bool型数据
-					PumpturFFault fb = new PumpturFFault();//查询float 型数据
-				
+					/*PumpturFFault fb = new PumpturFFault();//查询float 型数据
+*/				
 					
 					while (iter.hasNext()) {
 						Element ele = (Element) iter.next();
@@ -206,11 +206,11 @@ public class MakeFaultTree {
 							temp.freq = pb.getAxleSealFault(time, unitNo);
 						} else if (temp.name.equals("蜗壳故障")) {
 							temp.freq = pb.getVoluteFault(time, unitNo);
-						} else if (temp.name.equals("迷宫环温度异常")) {
+						} /*else if (temp.name.equals("迷宫环温度异常")) {
 							temp.freq = fb.getMgTFault(time, unitNo);
 						} else if (temp.name.equals("轴承振摆异常")) {
 							temp.freq = fb.getBearingVFault(time, unitNo);
-						} else {
+						} */else {
 							temp.freq = 0;
 						}
 
@@ -219,7 +219,6 @@ public class MakeFaultTree {
 						}
 
 						Inodes.add(temp);
-						System.out.println("：："+Inodes);
 					}
 				} catch (DocumentException e) {
 					e.printStackTrace();
