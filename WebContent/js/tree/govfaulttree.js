@@ -4,15 +4,15 @@ var cell1 = { // 调速器本体故障
 	"cells" : [ {
 		"outs" : [ {
 			"id" : 5,
-			"to" : 3,
+			"to" : 23,
 			"from" : 1
 		}, {
 			"id" : 20,
-			"to" : 2,
+			"to" : 21,
 			"from" : 1
 		}, {
 			"id" : 21,
-			"to" : 4,
+			"to" : 22,
 			"from" : 1
 		} ],
 		"id" : 1,
@@ -27,18 +27,18 @@ var cell1 = { // 调速器本体故障
 	}, {
 		"outs" : [ {
 			"id" : 23,
-			"to" : 6,
-			"from" : 2
+			"to" : 311,
+			"from" : 21
 		}, {
 			"id" : 30,
-			"to" : 7,
-			"from" : 2
+			"to" : 312,
+			"from" : 21
 		}, {
 			"id" : 31,
-			"to" : 8,
-			"from" : 2
+			"to" : 313,
+			"from" : 21
 		} ],
-		"id" : 2,
+		"id" : 21,
 		"position" : {
 			"x" : 102,
 			"y" : 121
@@ -49,7 +49,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "调速器本体故障"
 	}, {
 		"outs" : [],
-		"id" : 3,
+		"id" : 22,
 		"position" : {
 			"x" : 344,
 			"y" : 121
@@ -60,7 +60,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "调速器性能异常"
 	}, {
 		"outs" : [],
-		"id" : 4,
+		"id" : 23,
 		"position" : {
 			"x" : 581,
 			"y" : 121
@@ -72,14 +72,14 @@ var cell1 = { // 调速器本体故障
 	}, {
 		"outs" : [ {
 			"id" : 28,
-			"to" : 9,
-			"from" : 6
+			"to" : 4112,
+			"from" : 311
 		}, {
 			"id" : 33,
-			"to" : 32,
-			"from" : 6
+			"to" : 4111,
+			"from" : 311
 		} ],
-		"id" : 6,
+		"id" :311,
 		"position" : {
 			"x" : 76,
 			"y" : 261
@@ -90,7 +90,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "导叶开度反馈故障"
 	}, {
 		"outs" : [],
-		"id" : 7,
+		"id" : 312,
 		"position" : {
 			"x" : 290,
 			"y" : 258
@@ -101,7 +101,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "配压阀跳动或抖动"
 	}, {
 		"outs" : [],
-		"id" : 8,
+		"id" : 313,
 		"position" : {
 			"x" : 485,
 			"y" : 257
@@ -112,7 +112,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "剪断销故障"
 	}, {
 		"outs" : [],
-		"id" : 9,
+		"id" : 4112,
 		"position" : {
 			"x" : 281,
 			"y" : 418
@@ -123,7 +123,7 @@ var cell1 = { // 调速器本体故障
 		"value" : "开度反馈信号为最大值"
 	}, {
 		"outs" : [],
-		"id" : 32,
+		"id" : 4111,
 		"position" : {
 			"x" : 21,
 			"y" : 418
@@ -135,19 +135,19 @@ var cell1 = { // 调速器本体故障
 	} ]
 }
 
-var cell2 = { // 调速器本体故障
+var cell2 = { // 调速器性能异常
 	"cells" : [ {
 		"outs" : [ {
 			"id" : 5,
-			"to" : 3,
+			"to" : 22,
 			"from" : 1
 		}, {
 			"id" : 20,
-			"to" : 2,
+			"to" : 21,
 			"from" : 1
 		}, {
 			"id" : 21,
-			"to" : 4,
+			"to" :23,
 			"from" : 1
 		} ],
 		"id" : 1,
@@ -161,7 +161,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "调速系统故障"
 	}, {
 		"outs" : [],
-		"id" : 2,
+		"id" : 21,
 		"position" : {
 			"x" : 102,
 			"y" : 121
@@ -173,22 +173,22 @@ var cell2 = { // 调速器本体故障
 	}, {
 		"outs" : [ {
 			"id" : 34,
-			"to" : 7,
-			"from" : 3
+			"to" : 322,
+			"from" : 22
 		}, {
 			"id" : 35,
-			"to" : 6,
-			"from" : 3
+			"to" : 321,
+			"from" : 22
 		}, {
 			"id" : 36,
-			"to" : 8,
-			"from" : 3
+			"to" : 323,
+			"from" : 22
 		}, {
 			"id" : 37,
-			"to" : 33,
-			"from" : 3
+			"to" : 324,
+			"from" : 22
 		} ],
-		"id" : 3,
+		"id" : 22,
 		"position" : {
 			"x" : 344,
 			"y" : 123
@@ -199,7 +199,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "调速器性能异常"
 	}, {
 		"outs" : [],
-		"id" : 4,
+		"id" : 23,
 		"position" : {
 			"x" : 581,
 			"y" : 121
@@ -210,7 +210,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "油压装置运行异常"
 	}, {
 		"outs" : [],
-		"id" : 6,
+		"id" : 321,
 		"position" : {
 			"x" : 76,
 			"y" : 261
@@ -222,22 +222,22 @@ var cell2 = { // 调速器本体故障
 	}, {
 		"outs" : [ {
 			"id" : 40,
-			"to" : 9,
-			"from" : 7
+			"to" : 4222,
+			"from" : 322
 		}, {
 			"id" : 41,
-			"to" : 32,
-			"from" : 7
+			"to" : 4221,
+			"from" : 322
 		}, {
 			"id" : 42,
-			"to" : 38,
-			"from" : 7
+			"to" : 4223,
+			"from" : 322
 		}, {
 			"id" : 43,
-			"to" : 39,
-			"from" : 7
+			"to" : 4224,
+			"from" : 322
 		} ],
-		"id" : 7,
+		"id" : 322,
 		"position" : {
 			"x" : 290,
 			"y" : 261
@@ -248,7 +248,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "开机异常"
 	}, {
 		"outs" : [],
-		"id" : 8,
+		"id" : 323,
 		"position" : {
 			"x" : 485,
 			"y" : 261
@@ -259,7 +259,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "增减负荷异常"
 	}, {
 		"outs" : [],
-		"id" : 9,
+		"id" : 4222,
 		"position" : {
 			"x" : 286,
 			"y" : 418
@@ -270,7 +270,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "转速达不到额定值"
 	}, {
 		"outs" : [],
-		"id" : 32,
+		"id" : 4221,
 		"position" : {
 			"x" : 65,
 			"y" : 418
@@ -281,7 +281,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "导叶响应缓慢"
 	}, {
 		"outs" : [],
-		"id" : 33,
+		"id" : 324,
 		"position" : {
 			"x" : 685,
 			"y" : 261
@@ -292,7 +292,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "并网运行溜负荷"
 	}, {
 		"outs" : [],
-		"id" : 38,
+		"id" : 4223,
 		"position" : {
 			"x" : 508,
 			"y" : 418
@@ -303,7 +303,7 @@ var cell2 = { // 调速器本体故障
 		"value" : "接力器不开启"
 	}, {
 		"outs" : [],
-		"id" : 39,
+		"id" : 4224,
 		"position" : {
 			"x" : 702,
 			"y" : 418
@@ -314,588 +314,589 @@ var cell2 = { // 调速器本体故障
 		"value" : "误开机或蠕动"
 	} ]
 }
+// 油压装置异常
 
-var cell3 = {     //油压装置异常
+var cell3 = {//油压装置运行异常
 	"cells" : [ {
 		"outs" : [ {
 			"id" : 5,
-			"to" : 3,
+			"to" : 22,
 			"from" : 1
 		}, {
-			"id" : 20,
-			"to" : 2,
+			"id" : 6,
+			"to" : 21,
 			"from" : 1
 		}, {
-			"id" : 21,
-			"to" : 4,
+			"id" : 7,
+			"to" : 23,
 			"from" : 1
 		} ],
 		"id" : 1,
 		"position" : {
-			"x" : 312,
-			"y" : 9
+			"x" : 292,
+			"y" : 21
 		},
-		"width" : 203,
-		"height" : 51,
+		"width" : 166,
+		"height" : 58,
 		"style" : "subflow",
 		"value" : "调速系统故障"
 	}, {
 		"outs" : [],
-		"id" : 2,
+		"id" : 21,
 		"position" : {
-			"x" : 102,
-			"y" : 121
+			"x" : 31,
+			"y" : 146
 		},
-		"width" : 145,
-		"height" : 51,
+		"width" : 158,
+		"height" : 52,
 		"style" : "subflow",
 		"value" : "调速器本体故障"
 	}, {
 		"outs" : [],
-		"id" : 3,
+		"id" : 22,
 		"position" : {
-			"x" : 344,
-			"y" : 123
+			"x" : 296,
+			"y" : 145
 		},
-		"width" : 139,
-		"height" : 47,
+		"width" : 158,
+		"height" : 53,
 		"style" : "subflow",
 		"value" : "调速器性能异常"
 	}, {
 		"outs" : [ {
-			"id" : 40,
-			"to" : 7,
-			"from" : 4
+			"id" : 11,
+			"to" :  333,
+			"from" : 23
 		}, {
-			"id" : 41,
-			"to" : 8,
-			"from" : 4
+			"id" : 12,
+			"to" :  332,
+			"from" : 23
 		}, {
-			"id" : 42,
-			"to" : 33,
-			"from" : 4
+			"id" : 13,
+			"to" : 331,
+			"from" : 23
 		} ],
-		"id" : 4,
+		"id" : 23,
 		"position" : {
-			"x" : 581,
-			"y" : 121
+			"x" : 595,
+			"y" : 146
 		},
-		"width" : 139,
-		"height" : 49,
+		"width" : 156,
+		"height" : 52,
 		"style" : "subflow",
 		"value" : "油压装置运行异常"
 	}, {
 		"outs" : [ {
-			"id" : 45,
-			"to" : 32,
-			"from" : 7
+			"id" : 16,
+			"to" : 4311,
+			"from" : 331
 		}, {
-			"id" : 46,
-			"to" : 9,
-			"from" : 7
+			"id" : 17,
+			"to" : 4312,
+			"from" : 331
 		} ],
-		"id" : 7,
+		"id" : 331,
 		"position" : {
-			"x" : 174,
-			"y" : 261
+			"x" : 146,
+			"y" : 262
 		},
-		"width" : 178,
-		"height" : 50,
+		"width" : 161,
+		"height" : 56,
 		"style" : "subflow",
 		"value" : "集油箱异常"
 	}, {
 		"outs" : [ {
-			"id" : 47,
-			"to" : 38,
-			"from" : 8
+			"id" : 22,
+			"to" :  4321,
+			"from" :  332
 		}, {
-			"id" : 48,
-			"to" : 39,
-			"from" : 8
+			"id" :  23,
+			"to" : 4322,
+			"from" :  332
 		} ],
-		"id" : 8,
+		"id" : 332,
 		"position" : {
-			"x" : 450,
-			"y" : 261
+			"x" : 371,
+			"y" : 262
 		},
-		"width" : 176,
-		"height" : 51,
+		"width" : 162,
+		"height" : 58,
 		"style" : "subflow",
 		"value" : "压力油罐异常"
 	}, {
-		"outs" : [],
-		"id" : 9,
-		"position" : {
-			"x" : 223,
-			"y" : 421
-		},
-		"width" : 138,
-		"height" : 60,
-		"style" : "process",
-		"value" : "油位偏低"
-	}, {
-		"outs" : [],
-		"id" : 32,
-		"position" : {
-			"x" : 80,
-			"y" : 421
-		},
-		"width" : 138,
-		"height" : 58,
-		"style" : "process",
-		"value" : "油位偏高"
-	}, {
 		"outs" : [ {
-			"id" : 49,
-			"to" : 43,
-			"from" : 33
+			"id" : 24,
+			"to" : 4331,
+			"from" :  333
 		}, {
-			"id" : 50,
-			"to" : 44,
-			"from" : 33
+			"id" : 25,
+			"to" : 4332,
+			"from" :  333
 		} ],
-		"id" : 33,
+		"id" :  333,
 		"position" : {
-			"x" : 729,
-			"y" : 261
+			"x" : 596,
+			"y" : 264
 		},
-		"width" : 169,
-		"height" : 48,
+		"width" : 154,
+		"height" : 55,
 		"style" : "subflow",
-		"value" : "补气系统压罐异常"
+		"value" : "气系统压力罐异常"
 	}, {
 		"outs" : [],
-		"id" : 38,
+		"id" : 4311,
 		"position" : {
-			"x" : 386,
-			"y" : 418
+			"x" : 235,
+			"y" : 357
 		},
-		"width" : 134,
-		"height" : 62,
-		"style" : "process",
-		"value" : "油位偏高"
-	}, {
-		"outs" : [],
-		"id" : 39,
-		"position" : {
-			"x" : 536,
-			"y" : 418
-		},
-		"width" : 127,
-		"height" : 60,
-		"style" : "process",
-		"value" : "油位偏低"
-	}, {
-		"outs" : [],
-		"id" : 43,
-		"position" : {
-			"x" : 670,
-			"y" : 418
-		},
-		"width" : 118,
-		"height" : 64,
-		"style" : "process",
-		"value" : "压力偏高"
-	}, {
-		"outs" : [],
-		"id" : 44,
-		"position" : {
-			"x" : 801,
-			"y" : 418
-		},
-		"width" : 121,
+		"width" : 129,
 		"height" : 67,
 		"style" : "process",
-		"value" : "压力偏低"
+		"value" : "集油箱油位偏高"
+	}, {
+		"outs" : [],
+		"id" : 4312,
+		"position" : {
+			"x" : 239,
+			"y" : 479
+		},
+		"width" : 125,
+		"height" : 65,
+		"style" : "process",
+		"value" : "集油箱油位偏低"
+	}, {
+		"outs" : [],
+		"id" : 4321,
+		"position" : {
+			"x" : 457,
+			"y" : 356
+		},
+		"width" : 127,
+		"height" : 67,
+		"style" : "process",
+		"value" : "压力油罐油位偏高"
+	}, {
+		"outs" : [],
+		"id" : 4331,
+		"position" : {
+			"x" : 677,
+			"y" : 359
+		},
+		"width" : 127,
+		"height" : 64,
+		"style" : "process",
+		"value" : "补气压罐压力偏高"
+	}, {
+		"outs" : [],
+		"id" :  4322,
+		"position" : {
+			"x" : 459,
+			"y" : 480
+		},
+		"width" : 127,
+		"height" : 65,
+		"style" : "process",
+		"value" : "压力油罐油位偏低"
+	}, {
+		"outs" : [],
+		"id" : 4332,
+		"position" : {
+			"x" : 675,
+			"y" : 478
+		},
+		"width" : 128,
+		"height" : 64,
+		"style" : "process",
+		"value" : "补气压罐压力偏低"
 	} ]
 }
-
-var cell4 = {     //调速器总图
+// 调速器总图
+var cell4 = {
 	"cells" : [ {
 		"outs" : [ {
-			"id" : 5,
-			"to" : 3,
+			"id" : 15,
+			"to" : 21,
 			"from" : 1
 		}, {
-			"id" : 20,
-			"to" : 2,
+			"id" : 16,
+			"to" : 22,
 			"from" : 1
 		}, {
-			"id" : 21,
-			"to" : 4,
+			"id" : 17,
+			"to" : 23,
 			"from" : 1
 		} ],
 		"id" : 1,
 		"position" : {
-			"x" : 312,
-			"y" : 9
+			"x" : 380,
+			"y" : 16
 		},
-		"width" : 203,
-		"height" : 51,
+		"width" : 157,
+		"height" : 54,
 		"style" : "subflow",
 		"value" : "调速系统故障"
 	}, {
 		"outs" : [ {
-			"id" : 22,
-			"to" : 7,
-			"from" : 2
+			"id" : 40,
+			"to" : 312,
+			"from" : 21
 		}, {
-			"id" : 23,
-			"to" : 6,
-			"from" : 2
+			"id" : 41,
+			"to" : 313,
+			"from" : 21
 		}, {
-			"id" : 24,
-			"to" : 8,
-			"from" : 2
+			"id" : 42,
+			"to" : 311,
+			"from" : 21
 		} ],
-		"id" : 2,
+		"id" : 21,
 		"position" : {
-			"x" : 136,
+			"x" : 4,
 			"y" : 121
 		},
-		"width" : 121,
-		"height" : 38,
+		"width" : 151,
+		"height" : 58,
 		"style" : "subflow",
 		"value" : "调速器本体故障"
 	}, {
 		"outs" : [ {
-			"id" : 40,
-			"to" : 37,
-			"from" : 3
+			"id" : 23,
+			"to" : 321,
+			"from" :22
 		}, {
-			"id" : 41,
-			"to" : 36,
-			"from" : 3
+			"id" : 24,
+			"to" : 323,
+			"from" : 22
 		}, {
-			"id" : 42,
-			"to" : 38,
-			"from" : 3
+			"id" : 25,
+			"to" : 322,
+			"from" : 22
 		}, {
-			"id" : 43,
-			"to" : 39,
-			"from" : 3
+			"id" : 26,
+			"to" : 324,
+			"from" : 22
 		} ],
-		"id" : 3,
+		"id" : 22,
 		"position" : {
-			"x" : 355,
-			"y" : 121
+			"x" : 385,
+			"y" : 126
 		},
-		"width" : 117,
-		"height" : 39,
+		"width" : 148,
+		"height" : 57,
 		"style" : "subflow",
 		"value" : "调速器性能异常"
 	}, {
 		"outs" : [ {
-			"id" : 25,
-			"to" : 12,
-			"from" : 4
+			"id" : 49,
+			"to" : 331,
+			"from" : 23
 		}, {
-			"id" : 26,
-			"to" : 11,
-			"from" : 4
+			"id" : 50,
+			"to" : 332,
+			"from" :23
 		}, {
-			"id" : 27,
-			"to" : 13,
-			"from" : 4
+			"id" : 51,
+			"to" : 333,
+			"from" : 23
 		} ],
-		"id" : 4,
+		"id" : 23,
 		"position" : {
-			"x" : 582,
+			"x" : 709,
 			"y" : 121
 		},
-		"width" : 130,
-		"height" : 41,
+		"width" : 150,
+		"height" : 57,
 		"style" : "subflow",
 		"value" : "油压装置运行异常"
 	}, {
 		"outs" : [ {
-			"id" : 28,
-			"to" : 9,
-			"from" : 6
+			"id" : 43,
+			"to" : 4112,
+			"from" : 311
 		}, {
-			"id" : 29,
-			"to" : 10,
-			"from" : 6
+			"id" : 44,
+			"to" : 4111,
+			"from" : 311
 		} ],
-		"id" : 6,
+		"id" : 311,
 		"position" : {
-			"x" : 3,
-			"y" : 201
+			"x" : 97,
+			"y" : 397
 		},
-		"width" : 128,
-		"height" : 46,
+		"width" : 130,
+		"height" : 49,
 		"style" : "subflow",
 		"value" : "导叶开度反馈故障"
 	}, {
 		"outs" : [],
-		"id" : 7,
+		"id" : 312,
 		"position" : {
-			"x" : 132,
-			"y" : 200
+			"x" : 97,
+			"y" : 232
 		},
 		"width" : 129,
-		"height" : 46,
+		"height" : 49,
 		"style" : "subflow",
 		"value" : "配压阀跳动或抖动"
 	}, {
 		"outs" : [],
-		"id" : 8,
+		"id" : 4112,
 		"position" : {
-			"x" : 263,
-			"y" : 201
+			"x" : 175,
+			"y" : 493
 		},
-		"width" : 99,
-		"height" : 44,
-		"style" : "subflow",
-		"value" : "剪断销故障"
+		"width" : 151,
+		"height" : 62,
+		"style" : "process",
+		"value" : "开度反馈为最大值"
 	}, {
 		"outs" : [],
-		"id" : 9,
+		"id" : 4111,
 		"position" : {
-			"x" : 73,
-			"y" : 299
+			"x" : 183,
+			"y" : 594
 		},
-		"width" : 127,
+		"width" : 145,
 		"height" : 62,
 		"style" : "process",
 		"value" : "开度反馈信号为零"
 	}, {
 		"outs" : [],
-		"id" : 10,
+		"id" : 313,
 		"position" : {
-			"x" : 66,
-			"y" : 394
+			"x" : 98,
+			"y" : 314
 		},
 		"width" : 130,
-		"height" : 59,
-		"style" : "process",
-		"value" : "开度反馈为最大值"
-	}, {
-		"outs" : [ {
-			"id" : 30,
-			"to" : 14,
-			"from" : 11
-		}, {
-			"id" : 31,
-			"to" : 15,
-			"from" : 11
-		} ],
-		"id" : 11,
-		"position" : {
-			"x" : 465,
-			"y" : 202
-		},
-		"width" : 112,
-		"height" : 43,
+		"height" : 49,
 		"style" : "subflow",
-		"value" : "集邮箱异常"
-	}, {
-		"outs" : [ {
-			"id" : 32,
-			"to" : 16,
-			"from" : 12
-		}, {
-			"id" : 33,
-			"to" : 17,
-			"from" : 12
-		} ],
-		"id" : 12,
-		"position" : {
-			"x" : 588,
-			"y" : 201
-		},
-		"width" : 118,
-		"height" : 45,
-		"style" : "subflow",
-		"value" : "压力油罐异常"
-	}, {
-		"outs" : [ {
-			"id" : 34,
-			"to" : 18,
-			"from" : 13
-		}, {
-			"id" : 35,
-			"to" : 19,
-			"from" : 13
-		} ],
-		"id" : 13,
-		"position" : {
-			"x" : 720,
-			"y" : 202
-		},
-		"width" : 140,
-		"height" : 48,
-		"style" : "subflow",
-		"value" : "气系统压力罐异常"
+		"value" : "剪断销故障"
 	}, {
 		"outs" : [],
-		"id" : 14,
+		"id" : 321,
 		"position" : {
-			"x" : 537,
-			"y" : 286
+			"x" : 300,
+			"y" : 231
 		},
-		"width" : 97,
-		"height" : 45,
-		"style" : "process",
-		"value" : "油位偏高"
-	}, {
-		"outs" : [],
-		"id" : 15,
-		"position" : {
-			"x" : 541,
-			"y" : 374
-		},
-		"width" : 97,
-		"height" : 46,
-		"style" : "process",
-		"value" : "油位偏低"
-	}, {
-		"outs" : [],
-		"id" : 16,
-		"position" : {
-			"x" : 662,
-			"y" : 287
-		},
-		"width" : 100,
-		"height" : 45,
-		"style" : "process",
-		"value" : "油位偏高"
-	}, {
-		"outs" : [],
-		"id" : 17,
-		"position" : {
-			"x" : 665,
-			"y" : 376
-		},
-		"width" : 99,
-		"height" : 50,
-		"style" : "process",
-		"value" : "油位偏低"
-	}, {
-		"outs" : [],
-		"id" : 18,
-		"position" : {
-			"x" : 795,
-			"y" : 285
-		},
-		"width" : 101,
-		"height" : 44,
-		"style" : "process",
-		"value" : "压力偏高"
-	}, {
-		"outs" : [],
-		"id" : 19,
-		"position" : {
-			"x" : 801,
-			"y" : 373
-		},
-		"width" : 101,
-		"height" : 48,
-		"style" : "process",
-		"value" : "压力偏低"
-	}, {
-		"outs" : [],
-		"id" : 36,
-		"position" : {
-			"x" : 159,
-			"y" : 470
-		},
-		"width" : 132,
-		"height" : 52,
+		"width" : 148,
+		"height" : 47,
 		"style" : "subflow",
 		"value" : "停机超时"
 	}, {
-		"outs" : [ {
-			"id" : 48,
-			"to" : 45,
-			"from" : 37
-		}, {
-			"id" : 49,
-			"to" : 44,
-			"from" : 37
-		}, {
-			"id" : 50,
-			"to" : 46,
-			"from" : 37
-		}, {
-			"id" : 51,
-			"to" : 47,
-			"from" : 37
-		} ],
-		"id" : 37,
+		"outs" : [],
+		"id" : 324,
 		"position" : {
-			"x" : 345,
-			"y" : 471
+			"x" : 479,
+			"y" : 349
 		},
-		"width" : 137,
-		"height" : 50,
+		"width" : 145,
+		"height" : 49,
+		"style" : "subflow",
+		"value" : "并网运行溜负荷"
+	}, {
+		"outs" : [ {
+			"id" : 58,
+			"to" : 4221,
+			"from" : 322
+		}, {
+			"id" : 59,
+			"to" : 4222,
+			"from" : 322
+		}, {
+			"id" : 60,
+			"to" : 4223,
+			"from" : 322
+		}, {
+			"id" : 61,
+			"to" : 4224,
+			"from" : 322
+		} ],
+		"id" : 322,
+		"position" : {
+			"x" : 303,
+			"y" : 349
+		},
+		"width" : 145,
+		"height" : 48,
 		"style" : "subflow",
 		"value" : "开机异常"
 	}, {
 		"outs" : [],
-		"id" : 38,
+		"id" : 323,
 		"position" : {
-			"x" : 511,
-			"y" : 470
+			"x" : 476,
+			"y" : 231
 		},
-		"width" : 130,
+		"width" : 142,
 		"height" : 50,
 		"style" : "subflow",
 		"value" : "增减负荷异常"
 	}, {
-		"outs" : [],
-		"id" : 39,
+		"outs" : [ {
+			"id" : 52,
+			"to" : 4311,
+			"from" : 331
+		}, {
+			"id" : 53,
+			"to" : 4312,
+			"from" : 331
+		} ],
+		"id" : 331,
 		"position" : {
-			"x" : 694,
-			"y" : 470
+			"x" : 815,
+			"y" : 219
 		},
-		"width" : 126,
-		"height" : 55,
+		"width" : 146,
+		"height" : 52,
 		"style" : "subflow",
-		"value" : "并网运行溜负荷"
+		"value" : "集油箱异常"
+	}, {
+		"outs" : [ {
+			"id" : 54,
+			"to" : 4321,
+			"from" : 332
+		}, {
+			"id" : 55,
+			"to" : 4322,
+			"from" : 332
+		} ],
+		"id" : 332,
+		"position" : {
+			"x" : 836,
+			"y" : 369
+		},
+		"width" : 143,
+		"height" : 51,
+		"style" : "subflow",
+		"value" : "压力油罐异常"
+	}, {
+		"outs" : [ {
+			"id" : 56,
+			"to" : 4331,
+			"from" : 333
+		}, {
+			"id" : 57,
+			"to" : 4332,
+			"from" : 333
+		} ],
+		"id" : 333,
+		"position" : {
+			"x" : 814,
+			"y" : 529
+		},
+		"width" : 158,
+		"height" : 58,
+		"style" : "subflow",
+		"value" : "气系统压力罐异常"
 	}, {
 		"outs" : [],
-		"id" : 44,
+		"id" : 4311,
 		"position" : {
-			"x" : 201,
-			"y" : 589
+			"x" : 1021,
+			"y" : 185
 		},
-		"width" : 120,
-		"height" : 68,
+		"width" : 149,
+		"height" : 56,
+		"style" : "process",
+		"value" : "集油箱油位偏高"
+	}, {
+		"outs" : [],
+		"id" : 4312,
+		"position" : {
+			"x" : 1021,
+			"y" : 251
+		},
+		"width" : 151,
+		"height" : 58,
+		"style" : "process",
+		"value" : "集油箱油位偏低"
+	}, {
+		"outs" : [],
+		"id" : 4321,
+		"position" : {
+			"x" : 1021,
+			"y" : 336
+		},
+		"width" : 154,
+		"height" : 56,
+		"style" : "process",
+		"value" : "压力油罐油位偏高"
+	}, {
+		"outs" : [],
+		"id" : 4322,
+		"position" : {
+			"x" : 1021,
+			"y" : 403
+		},
+		"width" : 156,
+		"height" : 54,
+		"style" : "process",
+		"value" : "压力油罐油位偏低"
+	}, {
+		"outs" : [],
+		"id" : 4331,
+		"position" : {
+			"x" : 1032,
+			"y" : 486
+		},
+		"width" : 143,
+		"height" : 61,
+		"style" : "process",
+		"value" : "补气压罐压力偏高"
+	}, {
+		"outs" : [],
+		"id" : 4332,
+		"position" : {
+			"x" : 1033,
+			"y" : 572
+		},
+		"width" : 144,
+		"height" : 59,
+		"style" : "process",
+		"value" : "补气压罐压力偏低"
+	}, {
+		"outs" : [],
+		"id" : 4221,
+		"position" : {
+			"x" : 394,
+			"y" : 490
+		},
+		"width" : 158,
+		"height" : 64,
 		"style" : "process",
 		"value" : "导叶响应缓慢"
 	}, {
 		"outs" : [],
-		"id" : 45,
+		"id" : 4222,
 		"position" : {
-			"x" : 335,
-			"y" : 587
+			"x" : 576,
+			"y" : 489
 		},
-		"width" : 157,
-		"height" : 66,
+		"width" : 164,
+		"height" : 67,
 		"style" : "process",
 		"value" : "转速达不到额定值"
 	}, {
 		"outs" : [],
-		"id" : 46,
+		"id" : 4223,
 		"position" : {
-			"x" : 524,
-			"y" : 589
+			"x" : 395,
+			"y" : 594
 		},
-		"width" : 143,
+		"width" : 161,
 		"height" : 64,
 		"style" : "process",
 		"value" : "接力器不开启"
 	}, {
 		"outs" : [],
-		"id" : 47,
+		"id" : 4224,
 		"position" : {
-			"x" : 681,
-			"y" : 589
+			"x" : 577,
+			"y" : 593
 		},
-		"width" : 146,
-		"height" : 63,
+		"width" : 164,
+		"height" : 66,
 		"style" : "process",
 		"value" : "机组误开机或蠕动"
 	} ]
-};
+}

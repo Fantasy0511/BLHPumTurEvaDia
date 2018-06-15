@@ -208,8 +208,7 @@
 	
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
-	$(document)
-			.ready(
+	$(document).ready(
 					function() {
 						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
 						function() {
@@ -343,7 +342,7 @@
 
 <body>
 	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:auto;margin-right:auto;width:94%">
-	<!-- 	<span class="input_title">条件输入：</span> --> <label
+		<span class="input_title">条件输入：</span> <label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
 		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"

@@ -17,11 +17,14 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 
@@ -195,10 +198,10 @@
 	
 	</div>
 	<div style="margin-left: auto; margin-right: auto; width: 75%">
-		<div style="width:39%">
+		<div style="width:38%;marging-right:2%">
 		<table id="result_table" title="详细评估信息" class="easyui-datagrid"
 			style="width: 100%; height: 450px"
-			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
+			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left'}">
 			<thead>
 				<tr>
 					<th data-options="field:'name',width:100">计算指标</th>
@@ -210,7 +213,9 @@
 		<div style="width:60%;float:right"> 
 		<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
 			style=" width:100%;height: 450px;display:inline;float:left">
-			<div id="chart_middle_bar"></div>
+			<div id="chart_middle_bar">
+			<pre>  暂无结果</pre>
+			</div>
 		</div>
 		</div>
 	</div>

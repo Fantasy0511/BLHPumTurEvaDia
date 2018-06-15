@@ -70,7 +70,7 @@
 </script>
 
 <body>
-	<div class="input_div" style="margin-bottom: 5px;">
+	<div class="input_div" style="margin-bottom: 5px;margin-left:auto;margin-right:auto;width:96%">
 		<span class="input_title">条件输入：</span> <label for="model">选择机组：</label>
 		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
 			<option value="1">1号机组</option>
@@ -99,23 +99,29 @@
 			data-options="iconCls:'icon-ok'">开始预测</a>
 	</div>
 
-	<div style="margin-left: 2%; margin-right: 2%; width: 96%">
-		<table id="table_comparison" title="预测结果对比表" class="easyui-datagrid"
-			style="width: 37%; height: 490px"
-			data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"
-			id="result-table">
-			<thead>
-				<tr>
-					<th data-options="field:'time',align:'center',width:178">时间</th>
-					<th data-options="field:'original',align:'center',width:150">实测值</th>
-					<th data-options="field:'predicted',align:'center',width:100">预测值</th>
-				</tr>
-			</thead>
-		</table>
-		<div class="easyui-panel" title="预测结果对比图"
-			style="width: 55%; height: 490px;">
-			<div id="chart_comparison">
-				<pre>    暂无结果</pre>
+	<div style="margin-left: auto; margin-right: auto; width: 96%">
+		<div
+			style="width: 40%; height: auto; float: left; display: inline; margin-right: 2%">
+			<table id="table_comparison" title="预测结果对比表" class="easyui-datagrid"
+				style="width: 100%; height: 490px"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"
+				id="result-table">
+				<thead>
+					<tr>
+						<th data-options="field:'time',align:'center',width:178">时间</th>
+						<th data-options="field:'original',align:'center',width:150">实测值</th>
+						<th data-options="field:'predicted',align:'center',width:100">预测值</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		
+		<div style="width: 58%; height: auto; float: left; display: inline">
+			<div class="easyui-panel" title="预测结果对比图"
+				style="width: 100%; height: 490px;">
+				<div id="chart_comparison">
+					<pre>    暂无结果</pre>
+				</div>
 			</div>
 		</div>
 	</div>

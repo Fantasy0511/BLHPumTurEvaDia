@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
 <link rel="stylesheet" href="/BLHPumTurEvaDia/css/index.css">
 <link rel="stylesheet"
@@ -9,15 +9,15 @@
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/Font-Awesome-3.2.1/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/easyui.css">
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/js/assess/icon.css">
 <link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/easyui-1.5.2/themes/default/tabs.css">
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/tabs.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/easyui-1.5.2/jquery.easyui.min.js"></script>
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
@@ -112,14 +112,27 @@
 		</div>
 	</div>
 
-
+	<div data-options="region:'center'" style="height: 97%;">
 	<div id="tabs" class="easyui-tabs"
-		style="width: 100%; height: 89.5%; position: absolute; top: 9.5%; width: 100%">
+		style="width: 100%; height: 90.5%; position: absolute; top: 9.5%; width: 100%">
 		<div title="首页" style="padding: 1px">
 			<iframe id="home" src="welcome"
 				style="width: 100%; height: 99%; border: none"></iframe>
 			<!--在固定页头下面 加载其他网页-->
 		</div>
+	</div>
+	</div>
+	
+	<div data-options="region:'south',border:false"
+		style="height: 3%; background: #DDDDDD; padding: 0px;">
+		<div style="display: inline-block; position: absolute; left: 1%">
+			<span id="span_shortcut_tips">快捷键：</span>
+			<div id="switch_short_cut" class="easyui-switchbutton"
+				style="height: 17px; width: 40px"
+				data-options="onText:'开',offText:'关',checked:true"></div>
+		</div>
+		<div style="display: inline-block; position: absolute; right: 2%;">Copyright
+			&copy;2018 华中科技大学水电学院 Powered by: HUST@HAE</div>
 	</div>
 
 </body>

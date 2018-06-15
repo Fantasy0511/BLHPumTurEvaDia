@@ -94,7 +94,7 @@
 			var cells = graphJSON.cells;
 			for (i in result) {
 				for (j = 0; j < cell4.cells.length; j++) {
-					if (cell3.cells[j].id == result[i]) {
+					if (cell4.cells[j].id == result[i]) {
 						var stylename = cell4.cells[j].style;
 						cells[j].style = stylename + '_selected';
 					}
@@ -186,7 +186,7 @@
 		<div>
 			<div class="easyui-panel" title="故障树展示"></div>
 			<div id="drag" title="故障树">
-				<div style="cursor: pointer;">
+				<div style="cursor: pointer; width:98%">
 					<span id="container" style="float: center"></span>
 				</div>
 			</div>
@@ -203,7 +203,7 @@
 				<tr>
 					<th data-options="field:'faultName',align:'center',width:300">故障名称</th>
 					<th data-options="field:'probality',align:'center',width:300">发生概率</th>
-					<th data-options="field:'describe',align:'center',width:300">建议描述</th>
+					<th data-options="field:'describe',align:'center',width:450">建议描述</th>
 				</tr>
 			</thead>
 		</table>

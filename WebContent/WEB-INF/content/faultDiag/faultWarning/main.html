@@ -99,26 +99,18 @@
 
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
 
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
-						function() {
-							$(this).toggleClass('selected');
+						function() {$(this).toggleClass('selected');
 						});
 						$('#historyTable tbody').on('mouseout', 'tr',
-								function() {
-									$(this).toggleClass('selected');
-								});
-						$('#historyTable tbody')
-								.on(
-										'click',
-										'tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
+						function() {$(this).toggleClass('selected');});
+						$('#historyTable tbody').on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
+								
 										function() {
 											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
 											// $(this).toggleClass('selected');
-											var data = table.row('.selected')
-													.data(); //将前端点击的行的选择传给参数“data”
+											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
 											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
 											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
 											var para = data.paramters; //将选中那行的元素--参数传给“para”
@@ -128,12 +120,9 @@
 											url = url + start + "//" + end
 													+ "//" + para; //重新定义了传入地址url
 											console.log(url);
+											
 											var chart1 = Highcharts.chart;
-											$
-													.getJSON(
-															url,
-															function(result) { //调用url地址json数据，加载成功执行回调函数result
-
+											$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
 																options1.series[0].data = result.data1.value;
 																options1.series[0].name = titleChart[0];
 																chart1 = new Highcharts.Chart(
@@ -184,18 +173,15 @@
 											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
 											url1 = url1 + start + "//" + end
 													+ "//" + para;
-											$
-													.getJSON(
-															url1,
-															function(data) {
-																var jsonArr = [];
-																tem_Arry = [];
-																for (i = 0; i < data.pieChartDatas.length; i++) {
-																	jsonArr = [
-																			data.pieChartDatas[i].faultName,
-																			data.pieChartDatas[i].faultChance ];
-																	tem_Arry
-																			.push(jsonArr)
+											$.getJSON(url1,
+													function(data) {
+													var jsonArr = [];
+													tem_Arry = [];
+													for (i = 0; i < data.pieChartDatas.length; i++) {
+													jsonArr = [
+																	data.pieChartDatas[i].faultName,
+																	data.pieChartDatas[i].faultChance ];
+																	tem_Arry.push(jsonArr)
 																}
 																var chart = {
 																	type : 'pie',
@@ -242,12 +228,11 @@
 																json.tooltip = tooltip;
 																json.plotOptions = plotOptions;
 																json.series = series;
-																$('#container3')
-																		.highcharts(
-																				json);
+																$('#container3').highcharts(json);
 															});
-
+											
 										});
+						
 					});
 
 	$(function() {
@@ -256,7 +241,7 @@
 </script>
 
 <body>
-	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px">
+	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:2%;width:94%">
 		<span class="input_title">条件输入：</span> <label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
@@ -286,8 +271,7 @@
 	</div>
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
-		<div
-			style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
 			<div class="easyui-panel" title="历史运行状态数据"
 				style="width: 100%; height: 400px;">
 				<div>
@@ -324,10 +308,10 @@
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 100%;">
 		<div
-			style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+			style="width: 47%; height: 430px; float: left; display: inline; margin-right: 2%">
 			<div class="easyui-panel" title="预警结果分析图"
 				style="width: 100%; height: auto">
-				<div id="container3" style="width: 96%; height:  460px;"></div>
+				<div id="container3" style="width: 96%; height:  390px;"></div>
 			</div>
 		</div>
 		<div style="width: 45%; height: 470px; float: left; display: inline">

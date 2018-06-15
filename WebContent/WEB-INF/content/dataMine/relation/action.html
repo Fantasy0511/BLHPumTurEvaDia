@@ -25,6 +25,276 @@
 <script type="text/javascript" src="/BLHPumTurEvaDia/js/echarts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+		//开始挖掘方法
+		var myChart;
+		var relationTable = $('#relationTable').DataTable({
+			"sPaginationType" : "simple_numbers",
+			searching : false, //去掉搜索框
+			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+			
+			bLengthChange : false,//去掉每页多少条框体
+			"oLanguage" : {
+				"sZeroRecords" : "抱歉， 没有找到",
+				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+				"sInfoEmpty" : "没有数据",
+				"sLengthMenu" : "每页显示 _MENU_ 条记录",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
+		});
+		function beginDateMine() {
+			relationTable.destroy();
+			var minConfidence = $("#minConfidence").val();
+			var minSupport = $("#minSupport").val();
+			var subSystem = $("#subSystem").val();
+			console.log(subSystem);
+			console.log(minSupport);
+			var urlAction = "/BLHPumTurEvaDia/datamine/relation/relation";
+			var url = urlAction + "?inputStr=" + subSystem + "//"
+					+ minConfidence;
+			console.log(url);
+			$.getJSON(url,function(data) {
+				relationTable = $('#relationTable').DataTable(
+						{
+							data : data.relationTables,
+							columns : [ {
+								"data" : "deviceType"
+							}, {
+								"data" : "deviceState"
+							} ],
+							"sPaginationType" : "simple_numbers",
+							"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+							searching : false, //去掉搜索框
+							bLengthChange : false,//去掉每页多少条框体
+							"oLanguage" : {
+								"sZeroRecords" : "抱歉， 没有找到",
+								"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+								"sInfoEmpty" : "没有数据",
+								"sLengthMenu" : "每页显示 _MENU_ 条记录",
+								"sSearch" : "模糊查询:  ",
+								"oPaginate" : {
+									"sPrevious" : "前一页",
+									"sNext" : "后一页",
+									"processing": "正在处理中。。。"
+								}
+							},
+						});
+								
+								var graph = null;
+								graph = {
+									"nodes" : data.nodes,
+									"links" : data.links
+								};
+								if (myChart != null && myChart != "" && myChart != undefined) { 
+							        myChart.dispose();}
+								myChart = echarts.init(document.getElementById('equipment'));
+								
+								myChart.hideLoading();
+								
+								
+								var categories = [];
+								var cats = [ "全场数据", "1号机组", "2号机组", "3号机组",
+										"4号机组" ]
+								for (var i = 0; i < cats.length; i++) {
+									categories[i] = {
+										name : cats[i]
+									};
+								}
+								graph.nodes.forEach(function(node) {
+									node.itemStyle = null;//
+									node.symbolSize = node.size;//强制指定节点的大小
+									// Use random x, y
+									node.x = node.y = null;
+									node.draggable = true;
+
+								});
+								
+								var option = {
+									title : {
+										text : '关联分析',//文本标题
+										subtext : 'Default layout',//副标题
+										top : 'bottom',//上下位置
+										left : 'right'//左右位置
+									},
+									tooltip : {
+										formatter : function(params, ticket,callback) {//回调函数
+											var str = appendPath(graph.nodes[params.dataIndex].id);
+											/* document.getElementById("div1").innerHTML = str;
+											return str;// */
+										}
+									},
+									toolbox: {
+								        show : true,
+								        feature : {
+								            restore : {show: true},
+								            magicType: {show: true, type: ['force', 'chord']},
+								            saveAsImage : {show: true}
+								        }
+								    },
+									legend : [ {
+										x: 'left',
+										// selectedMode: 'single',
+										data : categories.map(function(a) {return a.name;})//显示策略
+									} ],
+									animation : false,//是否开启动画
+									series : [ {
+										name : '',
+										type : 'graph',
+										layout : 'force',
+										ribbonType: false,
+										nodes : graph.nodes,//节点数据
+										links : graph.links,//节点边数据
+										categories : categories,//策略
+										roam : true,//是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
+										label : {
+											normal : {
+												show : 'false',
+												position : 'right'
+											}
+										},
+										itemStyle: {
+							                normal: {
+							                    label: {
+							                        show: true,
+							                        textStyle: {
+							                            color: '#333'
+							                        }
+							                    },
+							                    nodeStyle : {
+							                        brushType : 'both',
+							                        borderColor : 'rgba(255,215,0,0.4)',
+							                        borderWidth : 1
+							                    },
+							                    linkStyle: {
+							                        type: 'curve'
+							                    }
+							                },
+							                emphasis: {
+							                    label: {
+							                        show: false
+							                        // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+							                    },
+							                    nodeStyle : {
+							                        //r: 30
+							                    },
+							                    linkStyle : {}
+							                }
+							            },
+							            
+										slient : false,//是否响应点击事件，为false的时候就是响应
+										force : {
+											repulsion : 100
+										}
+									} ]
+								};
+
+								/* var ecConfig = require('echarts/config');
+								function focus(param) {
+								    var data = param.data;
+								    var links = option.series[0].links;
+								    var nodes = option.series[0].nodes;
+								    if (
+								        data.source !== undefined
+								        && data.target !== undefined
+								    ) { //点击的是边
+								        var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+								        var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+								        console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+								    } else { // 点击的是点
+								        console.log("选中了" + data.name + '(' + data.value + ')');
+								    }
+								}
+								myChart.on(ecConfig.EVENT.CLICK, focus)
+
+								myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+								    console.log(myChart.chart.force.getPosition());
+								}); */
+								
+								myChart.setOption(option); 
+								/**
+								 拼接路径
+								 */
+								function appendPath(id) {
+									var str = id;
+									var links = graph.links;
+									var i = 0;
+									var map = {};
+									for (i = 0; i < links.length; i++) {
+										map[links[i].target] = links[i].source;
+									}
+									while (true) {
+										if (map[id] == undefined) {
+											break;
+										}
+										str = map[id] + "->" + str;
+										id = map[id];
+									}
+									return str;
+								}
+							});
+		}
+		var table = $('#historyTable').DataTable({
+			"sPaginationType" : "simple_numbers",
+			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
+			searching : false, //去掉搜索框
+			bLengthChange : false,//去掉每页多少条框体
+			"oLanguage" : {
+				"sZeroRecords" : "抱歉， 没有找到",
+				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+				"sInfoEmpty" : "没有数据",
+				"sLengthMenu" : "每页显示 _MENU_ 条记录",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
+		});
+		function viewFrequentItem() {
+			table.destroy();
+			var minSupport = $("#minSupport").val();
+			var subSystem = $("#subSystem").val();
+			console.log(subSystem);
+			console.log(minSupport);
+			var urlAction = "/BLHPumTurEvaDia/datamine/relation/view-frequent";
+			var url = urlAction + "?inputStr=" + subSystem + "//" + minSupport;
+			console.log(url);
+
+			$.getJSON(url, function(data) {
+				var result = [];
+				console.log(data.result);
+				result[0] = [ data.result ];
+				console.log(result);
+				table = $('#historyTable').DataTable({
+					searching : false, //去掉搜索框
+					bLengthChange : false,//去掉每页多少条框体
+					"oLanguage" : {
+						"sZeroRecords" : "抱歉， 没有找到",
+						"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+						"sInfoEmpty" : "没有数据",
+						"sLengthMenu" : "每页显示 _MENU_ 条记录",
+						"sSearch" : "模糊查询:  ",
+						"oPaginate" : {
+							"sPrevious" : "前一页",
+							"sNext" : "后一页",
+							"processing": "正在处理中。。。"
+						}
+					},
+					data : result
+				});
+			});
+
+		}
+		$(function() {
+			$("#btn_beginMine").click(beginDateMine);
+			$("#btn_viewFrequent").click(viewFrequentItem);
+		});
+	</script>
+
 </head>
 <style>
 .page_operation_bar {
@@ -212,10 +482,10 @@
 		</div>
 		
 		<div style="width: 47%; height: auto; float: left; display: inline">
-			<div class="easyui-panel" title="频繁项集"
+			<div class="easyui-panel" title="关联分析图"
 				style="width: 100%;  height: 470px;">
-				<div id="equipment"  style="width: 95%; height: 100%;">
-				<pre>    暂无结果</pre>
+				<div id="equipment"  style="width: 100%; height: 98%;">
+				<pre style="width:96% ; margin-left:2%; margin-right:2%;margin-top:1%">    暂无结果</pre>
 				</div>
 			</div>
 		</div>
@@ -257,208 +527,5 @@ var graph = {
     ]
 };
 -->
-	<script type="text/javascript">
-		//开始挖掘方法
-		var relationTable = $('#relationTable').DataTable({
-			"sPaginationType" : "simple_numbers",
-			searching : false, //去掉搜索框
-			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
-			
-			bLengthChange : false,//去掉每页多少条框体
-			"oLanguage" : {
-				"sZeroRecords" : "抱歉， 没有找到",
-				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-				"sInfoEmpty" : "没有数据",
-				"sLengthMenu" : "每页显示 _MENU_ 条记录",
-				"sSearch" : "模糊查询:  ",
-				"oPaginate" : {
-					"sPrevious" : "前一页",
-					"sNext" : "后一页",
-				}
-			},
-		});
-		function beginDateMine() {
-			relationTable.destroy();
-			var minConfidence = $("#minConfidence").val();
-			var minSupport = $("#minSupport").val();
-			var subSystem = $("#subSystem").val();
-			console.log(subSystem);
-			console.log(minSupport);
-			var urlAction = "/BLHPumTurEvaDia/datamine/relation/relation";
-			var url = urlAction + "?inputStr=" + subSystem + "//"
-					+ minConfidence;
-			console.log(url);
-			$.getJSON(url,function(data) {
-								var graph = null;
-								graph = {
-									"nodes" : data.nodes,
-									"links" : data.links
-								};
-								var myChart = echarts.init(document
-										.getElementById('equipment'));
-								myChart.hideLoading();
-								relationTable = $('#relationTable')
-										.DataTable(
-												{
-													data : data.relationTables,
-													columns : [ {
-														"data" : "deviceType"
-													}, {
-														"data" : "deviceState"
-													} ],
-													"sPaginationType" : "simple_numbers",
-													"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
-													searching : false, //去掉搜索框
-													bLengthChange : false,//去掉每页多少条框体
-													"oLanguage" : {
-														"sZeroRecords" : "抱歉， 没有找到",
-														"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-														"sInfoEmpty" : "没有数据",
-														"sLengthMenu" : "每页显示 _MENU_ 条记录",
-														"sSearch" : "模糊查询:  ",
-														"oPaginate" : {
-															"sPrevious" : "前一页",
-															"sNext" : "后一页",
-														}
-													},
-												});
-								var categories = [];
-								var cats = [ "全场数据", "1号机组", "2号机组", "3号机组",
-										"4号机组" ]
-								for (var i = 0; i < cats.length; i++) {
-									categories[i] = {
-										name : cats[i]
-									};
-								}
-								graph.nodes.forEach(function(node) {
-									node.itemStyle = null;//
-									node.symbolSize = node.size;//强制指定节点的大小
-									// Use random x, y
-									node.x = node.y = null;
-									node.draggable = true;
-
-								});
-								option = {
-									title : {
-										text : '关联分析',//文本标题
-										subtext : 'Default layout',//副标题
-										top : 'bottom',//上下位置
-										left : 'right'//左右位置
-									},
-									tooltip : {
-										formatter : function(params, ticket,
-												callback) {//回调函数
-											var str = appendPath(graph.nodes[params.dataIndex].id);
-											/* document.getElementById("div1").innerHTML = str;
-											return str;// */
-										}
-									},
-									legend : [ {
-										// selectedMode: 'single',
-										data : categories.map(function(a) {//显示策略
-											return a.name;
-										})
-									} ],
-									animation : false,//是否开启动画
-									series : [ {
-										name : '',
-										type : 'graph',
-										layout : 'force',
-										data : graph.nodes,//节点数据
-										links : graph.links,//节点边数据
-										categories : categories,//策略
-										roam : true,//是否开启滚轮缩放和拖拽漫游，默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
-										label : {
-											normal : {
-												show : 'false',
-												position : 'right'
-											}
-										},
-										slient : false,//是否响应点击事件，为false的时候就是响应
-										force : {
-											repulsion : 100
-										}
-									} ]
-								};
-
-								myChart.setOption(option);
-								/**
-								 拼接路径
-								 */
-								function appendPath(id) {
-									var str = id;
-									var links = graph.links;
-									var i = 0;
-									var map = {};
-									for (i = 0; i < links.length; i++) {
-										map[links[i].target] = links[i].source;
-									}
-									while (true) {
-										if (map[id] == undefined) {
-											break;
-										}
-										str = map[id] + "->" + str;
-										id = map[id];
-									}
-									return str;
-								}
-							});
-		}
-		var table = $('#historyTable').DataTable({
-			"sPaginationType" : "simple_numbers",
-			"lengthMenu" : [ [ 8, 16, 24, -1 ], [ 8, 16, 24, "所有" ] ],
-			searching : false, //去掉搜索框
-			bLengthChange : false,//去掉每页多少条框体
-			"oLanguage" : {
-				"sZeroRecords" : "抱歉， 没有找到",
-				"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-				"sInfoEmpty" : "没有数据",
-				"sLengthMenu" : "每页显示 _MENU_ 条记录",
-				"sSearch" : "模糊查询:  ",
-				"oPaginate" : {
-					"sPrevious" : "前一页",
-					"sNext" : "后一页",
-				}
-			},
-		});
-		function viewFrequentItem() {
-			table.destroy();
-			var minSupport = $("#minSupport").val();
-			var subSystem = $("#subSystem").val();
-			console.log(subSystem);
-			console.log(minSupport);
-			var urlAction = "/BLHPumTurEvaDia/datamine/relation/view-frequent";
-			var url = urlAction + "?inputStr=" + subSystem + "//" + minSupport;
-			console.log(url);
-
-			$.getJSON(url, function(data) {
-				var result = [];
-				console.log(data.result);
-				result[0] = [ data.result ];
-				console.log(result);
-				table = $('#historyTable').DataTable({
-					searching : false, //去掉搜索框
-					bLengthChange : false,//去掉每页多少条框体
-					"oLanguage" : {
-						"sZeroRecords" : "抱歉， 没有找到",
-						"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-						"sInfoEmpty" : "没有数据",
-						"sLengthMenu" : "每页显示 _MENU_ 条记录",
-						"sSearch" : "模糊查询:  ",
-						"oPaginate" : {
-							"sPrevious" : "前一页",
-							"sNext" : "后一页",
-						}
-					},
-					data : result
-				});
-			});
-
-		}
-		$(function() {
-			$("#btn_beginMine").click(beginDateMine);
-			$("#btn_viewFrequent").click(viewFrequentItem);
-		});
-	</script>
 </body>
 </html>

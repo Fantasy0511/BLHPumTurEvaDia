@@ -37,5 +37,6 @@ public class TransferAssResult {
 		AssSum = assSum;
 	}
 	
+	
 
 }

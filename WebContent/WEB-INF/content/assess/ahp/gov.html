@@ -7,33 +7,61 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+<script>
+	function changeInput1() {
+		$('#dr_title').panel({
+			title : "调速系统典型故障关联耦合图1"
+		});
+		$('img')
+				.attr('src',
+						'/BLHPumTurEvaDia/images/AHP/FaultRelationChart/gov/govFaultRelation1.png');
+		$('img').attr('src');
+	}
+	function changeInput2() {
+		$('#dr_title').panel({title : "调速系统典型故障关联耦合图2"
+		});
+		$('img').attr('src',
+						'/BLHPumTurEvaDia/images/AHP/FaultRelationChart/gov/govFaultRelation2.png');
+		$('img').attr('src');
+	}
+
+	$(function() {
+		$("#input1").click(changeInput1);
+		$("#input2").click(changeInput2);
+	})
+</script>
 </head>
 <body>
-<div style="margin-left: 0; margin-right: 0; width: 100%">
-		 <div class="easyui-panel" title="调速系统典型故障关联耦合图1"
-			style="width: 100%; height:60%;">
+
+	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
+		<span class="input_title">层次结构图：</span> <label for="model">类型：</label>
+		<a id="input1" href="#" class="easyui-linkbutton" style="width: 250px"
+			data-options="iconCls:'icon-ok'">调速系统典型故障关联耦合图1</a> <a id="input2"
+			href="#" class="easyui-linkbutton" style="width: 250px"
+			data-options="iconCls:'icon-ok'">调速系统典型故障关联耦合图2</a>
+	</div>
+
+	<div style="margin-left: 0; margin-right: 0; width: 100%">
+		<div class="easyui-panel" title="调速系统典型故障关联耦合图1"
+			style="width: 100%; height: 1200px;" id="dr_title">
 			<p></p>
-			<div align="center" >
-				<img style=" height: 70%"
-				alt="govFaultRelation" src="/BLHPumTurEvaDia/images/AHP/FaultRelationChart/gov/govFaultRelation1.png" />
+			<div align="center">
+				<img style="height: 70%" alt="pumFaultRelation1"
+					src="/BLHPumTurEvaDia/images/AHP/FaultRelationChart/pum/pumFaultRelation1.png" />
 			</div>
+
 		</div>
 		<p></p>
-		<div class="easyui-panel" title="调速系统典型故障关联耦合图2"
-			style="width: 100%; height:50%;">
-			<p></p>
-			<div align="center" >
-				<img style=" height: 70%"
-				alt="govFaultRelation" src="/BLHPumTurEvaDia/images/AHP/FaultRelationChart/gov/govFaultRelation2.png" />
-			</div>
-		</div>
-</div>
+	</div>
+
 
 </body>
 </html>
