@@ -32,7 +32,9 @@ public class DataDiscrete {
 		this.maps = readDB.queInfo();
 	}
 	
-	
+	/**
+	 * 离散化开关量，返回是否出现报警
+	 * */
 	public int boolDiscrete(DataUtils data){
 		//bool表里读出的数据只有01,若data.value中含有1则离散化为1
 		int rs = 0;
@@ -40,6 +42,19 @@ public class DataDiscrete {
 			if (value==1.0){
 				rs = 1;
 				return rs;
+			}
+		}
+		return rs;
+	}
+	/**
+	 * 离散化开关量，返回报警出现次数
+	 * */
+	public int boolCounter(DataUtils data){
+		//bool表里读出的数据只有01,若data.value中含有1则离散化为1
+		int rs = 0;
+		for(Double value:data.getValue()) {
+			if (value==1.0){
+				rs = rs+1;
 			}
 		}
 		return rs;
@@ -84,7 +99,27 @@ public class DataDiscrete {
 		return Limiteflag;
 		
 	}
-	
+	/**
+	 * 返回模拟量 越限次数
+	 * */
+	public int LimiteCounter(DataUtils data){
+		int rs = 0;
+		//首先获得data的数据源信息
+		String typeid = data.getType()+data.getId();
+		DataInfo datainfo = this.maps.get(typeid);
+		int H = datainfo.getHLimite();//高报警
+		int L = datainfo.getLLimite();//低报警
+		for(Double value:data.getValue()){
+			if(value>H){
+				rs = rs+1;
+			}
+			if(value<L){
+				rs = rs+1;
+			}			
+		}
+		return rs;
+		
+	}
 	/**
 	 * 离散模拟量
 	 * 趋势分析

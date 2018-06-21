@@ -1,5 +1,15 @@
 package algorithms.DNN;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import blh.action.datamine.history.SystemConvert;
+import service.FaultInfoService;
+import util.DataUtils;
+import util.FaultUtils;
+import util.TimeUtils;
+
 
 /**
  * 多分类任务调用
@@ -43,7 +53,7 @@ public class MultiClass {
 		return pred;
 	}
 	
-	public static void main(String args[]){
+	public static void main(String args[]) throws NumberFormatException, ClassNotFoundException, SQLException{
         //input  
         double[][] inputArray = new double[][]  
         {  
@@ -52,8 +62,19 @@ public class MultiClass {
         { 1.0, 0.0 },  
         { 1.0, 1.0 } };  
         // desired output  
+        
+    	String system;
+    	Long startTime;
+    	Long endTime;
+		system = "aa";
+		startTime = 1323404214L;
+		endTime=1323404215L;
+		
+		FaultInfoService faultInfoService = new FaultInfoService();
+		List<FaultUtils> data = faultInfoService.getFaultInfos(system,startTime,endTime);
+        
         double[][] desiredOutputArray = new double[][]  
-        {  
+        {
         { 0.0,1.0},  
         { 0.0,1.0 },  
         { 1.0,0.0 },  
