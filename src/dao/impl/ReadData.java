@@ -83,6 +83,15 @@ public class ReadData implements IBaseDAO {
 		HashMap<String, DataInfo> maps = database.queInfo();
 		return maps;
 	}
+	
+	/**
+	 * 获取所有数据的代号list
+	 * */
+	public HashMap<String, Integer> queAlltype() throws ClassNotFoundException, SQLException{
+		BaseDAO database = new BaseDAO();
+		HashMap<String, Integer> StringMap = database.queAlltype();
+		return StringMap;
+	}
 
 	/**
 	 * 查询具体tableid的信息，结果为position.parameters.description

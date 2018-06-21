@@ -265,6 +265,29 @@ public class BaseDAO implements IBaseDAO {
 	}
 
 	/**
+	 * 获取所有数据的代号list
+	 * */
+	public HashMap<String, Integer> queAlltype(){
+		String sql = "select typeid from InfoTable";
+		System.out.println(sql);
+		HashMap<String, Integer> StringMap = new HashMap<String, Integer>();
+		int idx = 0;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				StringMap.put(rs.getString("typeid"),idx);
+				idx = idx+1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("数据库连接失败");
+		}
+		closeAll();
+		return StringMap;
+	}
+	
+	/**
 	 * 查询所有故障样本
 	 */
 	public ArrayList<FaultUtils> queFault() {
