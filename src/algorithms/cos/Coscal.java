@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +23,7 @@ import dao.impl.ReadData;
 import service.FaultInfoService;
 import util.DataUtils;
 import util.FaultUtils;
+import util.PathUtil;
 
 /**
  * 余弦相似度计算
@@ -69,10 +71,12 @@ public class Coscal {
 		} 
 	}
 	*/
+	
 	public Coscal(){
 		try {
 			String line = "";
-			InputStream is = new FileInputStream("src/vectors.txt");//加载文件
+			/*InputStream is = new FileInputStream("src/vectors.txt");*/
+			InputStream is = new FileInputStream(PathUtil.getWebRealBasePath()+"/config/" + "vectors.txt");//加载文件
 			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 			while ((line=bf.readLine()) != null) {//循环一次读取一行
 				String[] vectorStrings = line.split(" ");
@@ -128,7 +132,7 @@ public class Coscal {
 		
 	}
 	
-	private ArrayList<Double> getSimilarityDegree(String starttime,String endtime){
+	public  ArrayList<Double> getSimilarityDegree(String starttime,String endtime){
 		ArrayList<Double> rs = new ArrayList<Double>();
 		double total = 0.0,cos;
 		try {

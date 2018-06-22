@@ -306,8 +306,7 @@ public class BaseDAO implements IBaseDAO {
 				long endtime = rs.getLong("EndTime");
 				String workConditon = rs.getString("WorkCondition");
 				String parameters = rs.getString("Parameters");
-				faults.add(
-						new FaultUtils(faultID, system, faultName, faultReason,
+				faults.add(new FaultUtils(faultID, system, faultName, faultReason,
 								starttime, endtime, workConditon, parameters));
 			}
 		} catch (SQLException e) {

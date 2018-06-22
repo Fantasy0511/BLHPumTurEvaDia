@@ -55,6 +55,18 @@ public class FaultInfoService {
 		
 	}
 	
+	/**
+	 * 查询faultInfor表获取所有的故障信息
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<FaultUtils> getFaultInfos() throws ClassNotFoundException, SQLException{
+		ReadData rd = new ReadData();
+		List<FaultUtils> faultInfos= rd.queFault();
+		return faultInfos;
+	}
+	
 	public static void main(String[] args){
 //		FaultInfoService faultInfoService = new FaultInfoService();
 //		List<FaultUtils> faultUtils=faultInfoService.getFaultInfos("水泵水轮机");

@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>故障预警</title>
-
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/js/assess/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/assesment.css">
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
 <link rel="stylesheet"
@@ -26,8 +25,7 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
@@ -127,8 +125,7 @@
 																options1.series[0].name = titleChart[0];
 																chart1 = new Highcharts.Chart(
 																		options1);
-																chart1.series[0]
-																		.update(options1.series[0].data);
+																chart1.series[0].update(options1.series[0].data);
 															});
 
 											var options1 = {
@@ -167,76 +164,79 @@
 													enabled : false
 												}
 											};
-											/**
-											 * 显示预警结果分析图
-											 */
-											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
-											url1 = url1 + start + "//" + end
-													+ "//" + para;
-											$.getJSON(url1,
-													function(data) {
-													var jsonArr = [];
-													tem_Arry = [];
-													for (i = 0; i < data.pieChartDatas.length; i++) {
-													jsonArr = [
-																	data.pieChartDatas[i].faultName,
-																	data.pieChartDatas[i].faultChance ];
-																	tem_Arry.push(jsonArr)
-																}
-																var chart = {
-																	type : 'pie',
-																	options3d : {
-																		enabled : true,
-																		alpha : 45,
-																		beta : 0
-																	}
-
-																};
-																var credits = {
-																	enabled : false
-																};
-
-																var title = {
-																	text : '预警概率结果分析图'
-																};
-																var tooltip = {
-																	pointFormat : '<b>{point.percentage:.1f}%</b>'
-																};
-
-																var plotOptions = {
-																	pie : {
-																		allowPointSelect : true,
-																		cursor : 'pointer',
-																		depth : 35,
-																		dataLabels : {
-																			enabled : true,
-																			format : '{point.name}'
-																		},
-
-																	}
-																};
-
-																var series = [ {
-																	type : 'pie',
-																	data : tem_Arry
-																} ];
-
-																var json = {};
-																json.chart = chart;
-																json.title = title;
-																json.credits = credits;
-																json.tooltip = tooltip;
-																json.plotOptions = plotOptions;
-																json.series = series;
-																$('#container3').highcharts(json);
-															});
-											
 										});
 						
 					});
 
+	function WarningResult(){
+		showMask();
+		var starTime = getComboboxValue("startTime");
+		var endTime = getDate("endTime");
+		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
+				 + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
+		console.log(url1);
+		getJSON(url1, function(data) {
+			loadData("faultInfo", data.bottomDetail);
+			
+			/* var jsonArr = [];
+			tem_Arry = [];
+			for (i = 0; i < data.piedata.length; i++) {
+			jsonArr = [data.piedata[i].faultName,data.piedata[i].faultChance];
+							tem_Arry.push(jsonArr)
+						}
+						var chart = {
+							type : 'pie',
+							options3d : {
+								enabled : true,
+								alpha : 45,
+								beta : 0
+							}
+
+						};
+						var credits = {
+							enabled : false
+						};
+
+						var title = {
+							text : '预警概率结果分析图'
+						};
+						var tooltip = {
+							pointFormat : '<b>{point.percentage:.1f}%</b>'
+						};
+
+						var plotOptions = {
+							pie : {
+								allowPointSelect : true,
+								cursor : 'pointer',
+								depth : 35,
+								dataLabels : {
+									enabled : true,
+									format : '{point.name}'
+								},
+
+							}
+						};
+
+						var series = [ {
+							type : 'pie',
+							data : tem_Arry
+						} ];
+
+						var json = {};
+						json.chart = chart;
+						json.title = title;
+						json.credits = credits;
+						json.tooltip = tooltip;
+						json.plotOptions = plotOptions;
+						json.series = series;
+						$('#container3').highcharts(json); */
+		});
+		
+	}
+	
 	$(function() {
-		$("#Startwarning").click(faultWarning);
+		$("#StartFind").click(faultWarning);
+		$("#Startwarning").click(WarningResult);
 	});
 </script>
 
@@ -266,7 +266,9 @@
 			<option value="Gov">调速器系统</option>
 			<option value="Transfer">主变系统</option>
 			<option value="Pum">水泵水轮机</option>
-		</select> <a id="Startwarning" href="#" class="easyui-linkbutton"
+		</select> <a id="StartFind" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">开始查询</a>
+		<a id="Startwarning" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始预警</a>
 	</div>
 
@@ -316,13 +318,13 @@
 		</div>
 		<div style="width: 45%; height: 470px; float: left; display: inline">
 			
-				<table class="easyui-datagrid" title="评价与建议" style="width: 100%; height: 460px"
+				<table class="easyui-datagrid" title="评价与建议" id="faultInfo" style="width: 100%; height: 460px"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
 					<thead>
 						<tr>
-							<th data-options="field:'time',align:'center',width:170">故障名称</th>
-							<th data-options="field:'original',align:'center',width:170">发生概率</th>
-							
+							<th data-options="field:'system',align:'center',width:170">系统名称</th>
+							<th data-options="field:'faultName',align:'center',width:170">故障名称</th>
+							<th data-options="field:'detail',align:'center',width:170">发生概率</th>
 						</tr>
 					</thead>
 					<tbody>

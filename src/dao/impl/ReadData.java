@@ -133,6 +133,14 @@ public class ReadData implements IBaseDAO {
 		return faults;
 	}
 
+	
+	/**
+	 * 查询特定系统的故障信息
+	 * @param system
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ArrayList<FaultUtils> queFault(String system)
 			throws ClassNotFoundException, SQLException {
 		BaseDAO database = new BaseDAO();
