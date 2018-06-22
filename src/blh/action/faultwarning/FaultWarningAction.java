@@ -45,10 +45,12 @@ public class FaultWarningAction extends AbstractActionSupport {
 		piedata=new ArrayList<>();
 		for (int i = 0; i < detail.size(); i++) {
 			bottomDetail.withRow(system.get(i),faultName.get(i),detail.get(i));
+			
+		}
+		for (int i = 0; i < detail.size(); i++) {
 			PieChartData pieChartData=new PieChartData(faultName.get(i), detail.get(i));//饼图数据
 			piedata.add(pieChartData);
 		}
-		
 		resultFinal=new WarnningFinal(bottomDetail, piedata);
 		
 		return super.execute();

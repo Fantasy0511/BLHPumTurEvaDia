@@ -164,6 +164,70 @@
 													enabled : false
 												}
 											};
+											
+											/**
+											 * 显示预警结果分析图
+											 */
+											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
+											url1 = url1 + start + "//" + end
+													+ "//" + para;
+											$.getJSON(url1,
+													function(data) {
+													var jsonArr = [];
+													tem_Arry = [];
+													for (i = 0; i < data.pieChartDatas.length; i++) {
+													jsonArr = [
+																	data.pieChartDatas[i].faultName,
+																	data.pieChartDatas[i].faultChance ];
+																	tem_Arry.push(jsonArr)
+																}
+																var chart = {
+																	type : 'pie',
+																	options3d : {
+																		enabled : true,
+																		alpha : 45,
+																		beta : 0
+																	}
+
+																};
+																var credits = {
+																	enabled : false
+																};
+
+																var title = {
+																	text : '预警概率结果分析图'
+																};
+																var tooltip = {
+																	pointFormat : '<b>{point.percentage:.1f}%</b>'
+																};
+
+																var plotOptions = {
+																	pie : {
+																		allowPointSelect : true,
+																		cursor : 'pointer',
+																		depth : 35,
+																		dataLabels : {
+																			enabled : true,
+																			format : '{point.name}'
+																		},
+
+																	}
+																};
+
+																var series = [ {
+																	type : 'pie',
+																	data : tem_Arry
+																} ];
+
+																var json = {};
+																json.chart = chart;
+																json.title = title;
+																json.credits = credits;
+																json.tooltip = tooltip;
+																json.plotOptions = plotOptions;
+																json.series = series;
+																$('#container3').highcharts(json);
+															});
 										});
 						
 					});
@@ -176,12 +240,13 @@
 				 + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
 		getJSON(url1, function(data) {
-			loadData("faultInfo", data.bottomDetail);
+			var view=data.resultFinal;
+			loadData("faultInfo", view.tableWarn);
 			
-			/* var jsonArr = [];
+			var jsonArr = [];
 			tem_Arry = [];
-			for (i = 0; i < data.piedata.length; i++) {
-			jsonArr = [data.piedata[i].faultName,data.piedata[i].faultChance];
+			for (i = 0; i < view.pieWarn.length; i++) {
+			jsonArr = [view.pieWarn[i].faultName,view.pieWarn[i].faultChance ];
 							tem_Arry.push(jsonArr)
 						}
 						var chart = {
@@ -229,7 +294,7 @@
 						json.tooltip = tooltip;
 						json.plotOptions = plotOptions;
 						json.series = series;
-						$('#container3').highcharts(json); */
+						$('#container3').highcharts(json);
 		});
 		
 	}

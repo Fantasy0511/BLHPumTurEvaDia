@@ -12,6 +12,7 @@ import tool.easyui.Table;
 public class WarnningFinal {
 	private Table tableWarn;
 	private List<PieChartData> pieWarn;
+	
 	public WarnningFinal(Table tableWarn, List<PieChartData> pieWarn) {
 		super();
 		this.tableWarn = tableWarn;
