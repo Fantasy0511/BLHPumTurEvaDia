@@ -3,6 +3,10 @@
 <head lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
+
+<link rel="stylesheet" href="/BLHPumTurEvaDia/css/main/bootstrap.css">
+<link rel="stylesheet" href="/BLHPumTurEvaDia/css/main/application.css">
+
 <link rel="stylesheet" href="/BLHPumTurEvaDia/css/index.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
@@ -14,27 +18,70 @@
 	href="/BLHPumTurEvaDia/js/assess/icon.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/tabs.css">
+
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<!-- jtl加进来的 -->
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
-<style>
-.topNav>li>a:hover { /*顶部首页、数据挖掘等的样式*/
-	background-color: #6495ed;
-	height: 60px;
-	line-height: 35px;
-	margin-top: -10px;
-	border-bottom: 3px solid #7de4ff;
+ <style>
+.nav>li>a {      /*顶部首页、数据挖掘等的样式*/
+    position: relative;
+    display: block;
+    padding: 20px 22px; 
 }
-</style>
+
+ .main-header { /* 导航总背景色 */
+    background: #093d9a;
+}
+ .navbar-default .navbar-nav>li>a {  /* 导航栏文字 */
+    color: #ffffff;
+}
+
+ .navbar-nav li:hover{     /* 鼠标放上去的样式 */
+    display: block;
+    background: #ffffff;
+}  
+
+/* 鼠标点击上去的样式 */
+ .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #333;
+    background-color:#ffffff;
+}
+    
+.dropdown-menu{min-width: 100%;}
+.dropdown-menu>li>a {      /* 弹出选项样式 */
+    font-size: 20px;
+    padding: 5px 15px;
+    background-color: #093d9a; /* 弹出选项背景色 */
+    height: 60px;
+    line-height: 45px;
+	margin-top: -10px;
+	color: #ffffff;
+    border-bottom: 3px solid #ffffff;
+    
+}
+
+/* .nav> li:hover .dropdown-menu {  /* 鼠标悬停自动拉出菜单选项 */
+display: block;
+} */
+
+</style> 
+
 
 <script type="text/javascript">
-	function addPanel(path, title) { //鼠标放上去的动作设置  addPanel鼠标放上加上下滑选项
+	function addPanel(path, title) { //为panel里面填充正文内容，相当于页面跳转
 		if ($("#tabs").tabs("exists", title)) {
 			$("#tabs").tabs("select", title);
 			return;
@@ -66,7 +113,7 @@
 		var url = "/BLHPumTurEvaDia/exception/dbexception";
 		console.log(url);
 		var success = function(data) {
-			showMessage(data.exceptionString.message,3000);
+			showMessage(data.exceptionString.message, 3000);
 		}
 		getJSON(url, success);
 	}
@@ -77,7 +124,65 @@
 </script>
 </head>
 <body>
-	<div class="app_top">
+
+	<!-- 导航栏  start-->
+	<nav class="navbar navbar-default" role="navigation">
+		<header class="main-header">
+			<div class="logo-main pull-left">
+				<!--放在左边的类-->
+				<div class="logo">
+					<img src="images/logo/logo1.png" height=80% width="auto" />
+					<img src="images/logo/logo2.png" height=80% width="auto" />
+					 <span class="logoText"><b>&nbsp;&nbsp;莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
+				</div>
+			</div>
+			<div class="pull-right">
+				<ul
+					class="collapse navbar-collapse nav navbar-nav top-menu  pull-right"
+					style="font-size: 1.33em; padding: 5px 15px 0 0">
+					
+					<li class="current"><a href="">首页</a></li>
+					
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">&nbsp;&nbsp;数据挖掘&nbsp;&nbsp;<b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a class="jump"
+								data-path="/BLHPumTurEvaDia/dataMine/relation/history">状态历史查询</a></li>
+							<li><a class="jump"
+								data-path="/BLHPumTurEvaDia/dataMine/relation/action">关联分析</a></li>
+						</ul></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">故障诊断 <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/faultDiag/tree/main">故障树诊断</a></li>
+							<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/faultDiag/faultWarning/main">故障预警</a></li>
+							<li><a class="jump"
+							data-path="/BLHPumTurEvaDia/faultDiag/trendPrediction/main">趋势预测</a></li>
+						</ul>
+					</li>
+					
+				   <li><a class="jump" data-path="/BLHPumTurEvaDia/assess/action">状态评估</a></li>
+				   <li><a class="jump"
+					data-path="/BLHPumTurEvaDia/dataUpload/upload"> 文件导入</a></li>
+					<li><a class="jump"
+					data-path="/BLHPumTurEvaDia/"><span class="glyphicon glyphicon-user">&nbsp;注销</span> </a></li>
+				</ul>
+				
+			</div>
+		</header>
+	</nav>
+	<!-- 导航栏  end-->
+
+
+
+
+	<!-- 导航栏 start -->
+	<!-- <div class="app_top">
 		<div class="app_top_logo">
 			<img src="images/CCGClogo.jpg" height=90% width="auto" /> <span
 				class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
@@ -110,19 +215,23 @@
 				&nbsp;&nbsp; <a><span class="glyphicon glyphicon-question-sign"></span></a>
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<!-- 导航栏 end -->
 
+	<!-- 正文 start -->
 	<div data-options="region:'center'" style="height: 97%;">
-	<div id="tabs" class="easyui-tabs"
-		style="width: 100%; height: 90.5%; position: absolute; top: 9.5%; width: 100%">
-		<div title="首页" style="padding: 1px">
-			<iframe id="home" src="welcome"
-				style="width: 100%; height: 99%; border: none"></iframe>
-			<!--在固定页头下面 加载其他网页-->
+		<div id="tabs" class="easyui-tabs"
+			style="width: 100%; height: 90.5%; position: absolute; top: 9.5%; width: 100%">
+			<div title="首页" style="padding: 1px">
+				<iframe id="home" src="welcome"
+					style="width: 100%; height: 99%; border: none"></iframe>
+				<!--在固定页头下面 加载其他网页-->
+			</div>
 		</div>
 	</div>
-	</div>
-	
+	<!-- 正文 end -->
+
+	<!-- 下栏：华科标志 start -->
 	<div data-options="region:'south',border:false"
 		style="height: 3%; background: #DDDDDD; padding: 0px;">
 		<div style="display: inline-block; position: absolute; left: 1%">
@@ -134,6 +243,6 @@
 		<div style="display: inline-block; position: absolute; right: 2%;">Copyright
 			&copy;2018 华中科技大学水电学院 Powered by: HUST@HAE</div>
 	</div>
-
+	<!-- 下栏：华科标志 end -->
 </body>
 </html>

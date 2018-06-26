@@ -24,7 +24,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 	private String endtime;
 	private WarnningResult  results;
 	private WarnningFinal resultFinal;
-	private List<PieChartData> piedata;
+	/*private List<PieChartData> piedata;*/
 	
 	@Override
 	public String execute() throws Exception {
@@ -42,7 +42,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 		
 		
 		Table bottomDetail=new Table(new String[] {"system","faultName","detail"});
-		piedata=new ArrayList<>();
+		List<PieChartData> piedata=new ArrayList<>();
 		for (int i = 0; i < detail.size(); i++) {
 			bottomDetail.withRow(system.get(i),faultName.get(i),detail.get(i));
 			
