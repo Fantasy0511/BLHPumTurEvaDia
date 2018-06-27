@@ -9,7 +9,7 @@ body {
     margin-bottom: 60px;
 }
 .footer {
-    position: absolute;
+    position: absolute;      /* 绝对位置，让底栏位于最底下切固定不动 */
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
