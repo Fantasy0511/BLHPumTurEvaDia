@@ -42,18 +42,13 @@
     padding: 20px 22px; 
 }
 
- .main-header { /* 导航总背景色 */
-    background: #093d9a;
-}
  .navbar-default .navbar-nav>li>a {  /* 导航栏文字 */
     color: #ffffff;
 }
-
  .navbar-nav li:hover{     /* 鼠标放上去的样式 */
     display: block;
     background: #ffffff;
 }  
-
 /* 鼠标点击上去的样式 */
  .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     color: #333;
@@ -72,11 +67,6 @@
     border-bottom: 3px solid #ffffff;
     
 }
-
-/* .nav> li:hover .dropdown-menu {  /* 鼠标悬停自动拉出菜单选项 */
-display: block;
-} */
-
 
 </style> 
 
@@ -100,7 +90,6 @@ display: block;
 			$('#tabs').tabs('add', option);
 		}
 	}
-
 	function pageJump() { // 页面跳转
 		$(".jump").click(function() {
 			var path = $(this).attr("data-path");
@@ -109,7 +98,6 @@ display: block;
 			addPanel(path, title);
 		});
 	}
-
 	function testDbException() { //是否成功连接数据库
 		var url = "/BLHPumTurEvaDia/exception/dbexception";
 		console.log(url);
@@ -128,7 +116,7 @@ display: block;
 
 	<!-- 导航栏  start-->
 	<nav class="navbar navbar-default navbar-fixed-top">  
-       <div class="main-header"> 
+       <div class="main-header" style="background: #093d9a;"> 
 			<div class="logo-main pull-left">
 				<!-- 放在左边的类 -->
 				<div class="logo">
@@ -175,7 +163,6 @@ display: block;
 				
 			</div>
 		</div>
-		<!-- </div> -->
 	</nav> 
 	<!-- 导航栏  end-->
 	
