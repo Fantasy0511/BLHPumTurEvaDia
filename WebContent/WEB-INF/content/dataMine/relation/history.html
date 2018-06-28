@@ -62,6 +62,7 @@
 </style>
 <script type="text/javascript">
 	var table = $('#historyTable').DataTable();//jQuery dataTable（表格解决方案）的初始化
+	
 	function queryHistory() { //queryHistory()查询方法
 		table.destroy(); //表格销毁
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
@@ -72,7 +73,7 @@
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
 		console.log(url1);//传递成功显示“url1”
 
-		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
+		//***dataTable的基本设置   start***//
 		table = $('#historyTable').DataTable({ /* json数组 */
 			"iDisplayLength" : 3,
 			"lengthMenu" : [ [ 3, 6, 18, -1 ], [ 3, 6, 18, "所有" ] ],
@@ -133,6 +134,8 @@
 			},
 			"bDestroy": true
 		});
+		//***dataTable的基本设置   end***//
+		
 	}
 	
 	//** 点击历史状态查询模块按钮，调一次历史数据表
@@ -209,9 +212,9 @@
 	
 	
 	var myChart;
-	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
-	$(document).ready(
-					function() {
+	
+	//***某一故障，鼠标点上去，以调出相应的图表Chart***//
+	$(document).ready(function() {
 						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
 						function() {
 							$(this).toggleClass('selected');
