@@ -165,69 +165,6 @@
 												}
 											};
 											
-											/**
-											 * 显示预警结果分析图
-											 */
-											var url1 = "/BLHPumTurEvaDia/faultwarning/view-warning?inputStr=";
-											url1 = url1 + start + "//" + end
-													+ "//" + para;
-											$.getJSON(url1,
-													function(data) {
-													var jsonArr = [];
-													tem_Arry = [];
-													for (i = 0; i < data.pieChartDatas.length; i++) {
-													jsonArr = [
-																	data.pieChartDatas[i].faultName,
-																	data.pieChartDatas[i].faultChance ];
-																	tem_Arry.push(jsonArr)
-																}
-																var chart = {
-																	type : 'pie',
-																	options3d : {
-																		enabled : true,
-																		alpha : 45,
-																		beta : 0
-																	}
-
-																};
-																var credits = {
-																	enabled : false
-																};
-
-																var title = {
-																	text : '预警概率结果分析图'
-																};
-																var tooltip = {
-																	pointFormat : '<b>{point.percentage:.1f}%</b>'
-																};
-
-																var plotOptions = {
-																	pie : {
-																		allowPointSelect : true,
-																		cursor : 'pointer',
-																		depth : 35,
-																		dataLabels : {
-																			enabled : true,
-																			format : '{point.name}'
-																		},
-
-																	}
-																};
-
-																var series = [ {
-																	type : 'pie',
-																	data : tem_Arry
-																} ];
-
-																var json = {};
-																json.chart = chart;
-																json.title = title;
-																json.credits = credits;
-																json.tooltip = tooltip;
-																json.plotOptions = plotOptions;
-																json.series = series;
-																$('#container3').highcharts(json);
-															});
 										});
 						
 					});
@@ -235,9 +172,9 @@
 	function WarningResult(){
 		showMask();
 		var starTime = getComboboxValue("startTime");
-		var endTime = getDate("endTime");
+		/* var endTime = getDate("endTime"); */
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
-				 + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
+				 + starTime ; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
 		getJSON(url1, function(data) {
 			var view=data.resultFinal;

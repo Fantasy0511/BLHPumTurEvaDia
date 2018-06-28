@@ -1,0 +1,51 @@
+<WorkFlow>
+  <Route ID="70" Name="" FromElementID="1" ToElementID="120"/>
+  
+  <Route ID="71" Name="" FromElementID="120" ToElementID="21"/>
+  <Route ID="72" Name="" FromElementID="120" ToElementID="22"/>
+  <Route ID="73" Name="" FromElementID="120" ToElementID="23"/>
+  
+  <Route ID="74" Name="" FromElementID="21" ToElementID="230"/>
+  <Route ID="75" Name="" FromElementID="22" ToElementID="231"/>
+  <Route ID="76" Name="" FromElementID="23" ToElementID="232"/>
+  
+  <Route ID="77" Name="" FromElementID="230" ToElementID="311"/>
+  <Route ID="78" Name="" FromElementID="230" ToElementID="312"/>
+  
+
+  <Route ID="711" Name="" FromElementID="231" ToElementID="321"/>
+  <Route ID="712" Name="" FromElementID="231" ToElementID="322"/>
+  <Route ID="713" Name="" FromElementID="231" ToElementID="323"/>
+  <Route ID="714" Name="" FromElementID="231" ToElementID="324"/>
+  
+  <Route ID="715" Name="" FromElementID="232" ToElementID="331"/>
+  <Route ID="716" Name="" FromElementID="232" ToElementID="332"/>
+
+  <Route ID="718" Name="" FromElementID="322"  ToElementID="340"/>
+  <Route ID="719" Name="" FromElementID="340" ToElementID="4221"/>
+  <Route ID="720" Name="" FromElementID="340" ToElementID="4222"/>
+   <Route ID="721" Name="" FromElementID="340" ToElementID="4223"/>
+   <Route ID="722" Name="" FromElementID="340" ToElementID="4224"/>
+ 
+  <WorkNode ID="1" Name="球阀系统故障" NodeType="0" father="null" children="球阀本体故障,球阀油压部分故障,电气控制部分故障" gate="+" x="429" y="6" Width="100" Height="30"/>
+  <WorkNode ID="21" Name="球阀本体故障" NodeType="0" father="球阀系统故障" children="球阀开启时间,球阀关闭时间" gate="+" x="267" y="75" Width="100" Height="30"/>
+  <WorkNode ID="22" Name="球阀油压部分故障" NodeType="0" father="球阀系统故障" children="漏油箱油位异常,压力油罐故障,主油循环回路异常,集油箱油位异常" gate="+" x="621" y="75" Width="100" Height="30"/>
+  <WorkNode ID="23" Name="电气控制部分故障" NodeType="0" father="球阀系统故障" children="球阀未正常开启,球阀未正常关闭" gate="+" x="1000" y="75" Width="100" Height="30"/>
+  <WorkNode ID="311" Name="球阀开启时间" NodeType="0" father="球阀本体故障" children="null" gate="0" x="19" y="186" Width="100" Height="30"/>
+  <WorkNode ID="312" Name="球阀关闭时间" NodeType="0" father="球阀本体故障" children="null" gate="0" x="219" y="186" Width="100" Height="30"/>
+  <WorkNode ID="321" Name="漏油箱油位异常" NodeType="0" father="球阀油压部分故障" children="null" gate="0" x="1019" y="186" Width="100" Height="30"/>
+  <WorkNode ID="322" Name="压力油罐故障" NodeType="0" father="球阀油压部分故障" children="油压偏高,油压偏低,油位偏高,油位偏低" gate="+" x="619" y="186" Width="100" Height="30"/>
+  <WorkNode ID="323" Name="主油循环回路异常" NodeType="0" father="球阀油压部分故障" children="null" gate="0" x="819" y="186" Width="100" Height="30"/>
+  <WorkNode ID="324" Name="集油箱油位异常" NodeType="0" father="球阀油压部分故障" children="null" gate="0" x="1219" y="186" Width="100" Height="30"/>
+  <WorkNode ID="331" Name="球阀未正常开启" NodeType="0" father="电气控制部分故障" children="null" gate="0" x="1419" y="186" Width="100" Height="30"/>
+  <WorkNode ID="332" Name="球阀未正常关闭" NodeType="0" father="电气控制部分故障" children="null" gate="0" x="1619" y="186" Width="100" Height="30"/>
+  <WorkNode ID="4221" Name="油压偏高" NodeType="0" father="压力油罐故障" children="null" gate="0" x="819" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4222" Name="油压偏低" NodeType="0" father="压力油罐故障" children="null" gate="0" x="1019" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4223" Name="油位偏高" NodeType="0" father="压力油罐故障" children="null" gate="0" x="1219" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4224" Name="油位偏低" NodeType="0" father="压力油罐故障" children="null" gate="0" x="1419" y="320" Width="100" Height="30"/>
+  <AndGateNode ID="120" Name="" x="479" y="72" Radio="20"/>
+  <AndGateNode ID="230" Name="" x="267" y="140" Radio="20"/>
+  <AndGateNode ID="231" Name="" x="621" y="140" Radio="20"/>
+  <AndGateNode ID="232" Name="" x="1000" y="140" Radio="20"/>
+  <AndGateNode ID="340" Name="" x="19" y="250" Radio="20"/>
+</WorkFlow>

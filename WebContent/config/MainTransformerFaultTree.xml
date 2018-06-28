@@ -1,0 +1,71 @@
+<WorkFlow>
+  <Route ID="70" Name="" FromElementID="1" ToElementID="120"/>
+  <Route ID="71" Name="" FromElementID="120" ToElementID="20"/>
+  <Route ID="72" Name="" FromElementID="120" ToElementID="21"/>
+  <Route ID="73" Name="" FromElementID="120" ToElementID="22"/>
+  <Route ID="74" Name="" FromElementID="120" ToElementID="23"/>
+  <Route ID="75" Name="" FromElementID="20" ToElementID="230"/>
+  <Route ID="76" Name="" FromElementID="21" ToElementID="231"/>
+  <Route ID="77" Name="" FromElementID="22" ToElementID="232"/>
+  <Route ID="78" Name="" FromElementID="23" ToElementID="233"/>
+  <Route ID="79" Name="" FromElementID="230" ToElementID="311"/>
+  <Route ID="710" Name="" FromElementID="230" ToElementID="312"/>
+  <Route ID="711" Name="" FromElementID="231" ToElementID="321"/>
+  <Route ID="712" Name="" FromElementID="231" ToElementID="322"/>
+  <Route ID="713" Name="" FromElementID="232" ToElementID="331"/>
+  <Route ID="714" Name="" FromElementID="232" ToElementID="332"/>
+  <Route ID="715" Name="" FromElementID="232" ToElementID="333"/>
+  <Route ID="716" Name="" FromElementID="234" ToElementID="341"/>
+  <Route ID="718" Name="" FromElementID="234" ToElementID="342"/>
+  <Route ID="719" Name="" FromElementID="311" ToElementID="350"/>
+  <Route ID="720" Name="" FromElementID="312" ToElementID="351"/>
+  <Route ID="721" Name="" FromElementID="331" ToElementID="354"/>
+  <Route ID="722" Name="" FromElementID="333" ToElementID="356"/>
+  <Route ID="723" Name="" FromElementID="341" ToElementID="357"/>
+  <Route ID="728" Name="" FromElementID="342" ToElementID="358"/> 
+  <Route ID="729" Name="" FromElementID="350" ToElementID="4111"/>
+  <Route ID="730" Name="" FromElementID="350" ToElementID="4112"/>
+  <Route ID="731" Name="" FromElementID="350" ToElementID="4113"/>
+  <Route ID="732" Name="" FromElementID="351" ToElementID="4121"/>
+  <Route ID="733" Name="" FromElementID="351" ToElementID="4122"/>
+  <Route ID="734" Name="" FromElementID="351" ToElementID="4123"/>
+  <Route ID="735" Name="" FromElementID="351" ToElementID="4124"/>
+  <Route ID="736" Name="" FromElementID="351" ToElementID="4125"/>
+  <Route ID="737" Name="" FromElementID="354" ToElementID="4311"/>
+  <Route ID="738" Name="" FromElementID="354" ToElementID="4312"/>
+  <Route ID="739" Name="" FromElementID="356" ToElementID="4331"/>
+  <Route ID="740" Name="" FromElementID="356" ToElementID="4332"/>
+  <Route ID="741" Name="" FromElementID="357" ToElementID="4411"/>
+  <Route ID="742" Name="" FromElementID="357" ToElementID="4412"/>
+  <Route ID="743" Name="" FromElementID="358" ToElementID="4421"/>
+  <Route ID="744" Name="" FromElementID="358" ToElementID="4422"/>
+  <WorkNode ID="1" Name="主变压器故障" NodeType="0" father="null" children="本体故障,附件故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
+  <WorkNode ID="21" Name="本体故障" NodeType="0" father="主变压器故障" children="铁芯过热,绝缘油故障,绕组线圈过热" gate="+" x="666" y="75" Width="100" Height="30"/>
+  <WorkNode ID="22" Name="附件故障" NodeType="0" father="主变压器故障" children="继电器故障,温度计故障,冷却系统故障,套管过热" gate="+" x="1333" y="75" Width="100" Height="30"/>
+  <WorkNode ID="311" Name="铁芯过热" NodeType="0" father="本体故障" children="null" gate="0" x="50" y="350" Width="100" Height="30"/>
+  <WorkNode ID="312" Name="绝缘油故障" NodeType="0" father="本体故障" children="油中气体含量异常,油成分异常" gate="+" x="300" y="350" Width="100" Height="30"/>
+  <WorkNode ID="313" Name="绕组线圈过热" NodeType="0" father="本体故障" children="note" gate="0" x="300" y="350" Width="100" Height="30"/>
+  <WorkNode ID="321" Name="继电器故障" NodeType="0" father="附件故障" children="null" gate="0" x="550" y="350" Width="100" Height="30"/>
+  <WorkNode ID="322" Name="温度计故障" NodeType="0" father="附件故障" children="null" gate="0" x="800" y="350" Width="100" Height="30"/>
+  <WorkNode ID="323" Name="冷却系统故障" NodeType="0" father="附件故障" children="冷却器故障,油流中断,交流电源故障,冷却水泄漏报警" gate="+" x="800" y="350" Width="100" Height="30"/>
+  <WorkNode ID="324" Name="套管过热," NodeType="0" father="附件故障" children="null" gate="0" x="800" y="350" Width="100" Height="30"/>
+  <WorkNode ID="4121" Name="油中气体含量异常" NodeType="0" father="绝缘油故障" children="null" gate="0" x="50" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4122" Name="油成分异常" NodeType="0" father="绝缘油故障" children="null" gate="0" x="200" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4231" Name="冷却器故障" NodeType="0" father="冷却系统故障" children="null" gate="0" x="350" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4232" Name="油流中断" NodeType="0" father="冷却系统故障" children="null" gate="0" x="500" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4233" Name="交流电源故障" NodeType="0" father="冷却系统故障" children="null" gate="0" x="650" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4234" Name="冷却水泄漏报警" NodeType="0" father="冷却系统故障" children="null" gate="0" x="800" y="600" Width="100" Height="30"/>
+  <AndGateNode ID="120" Name="" x="1000" y="40" Radio="20"/>
+  <AndGateNode ID="230" Name="" x="333" y="150" Radio="20"/>
+  <AndGateNode ID="231" Name="" x="666" y="150" Radio="20"/>
+  <AndGateNode ID="232" Name="" x="1333" y="150" Radio="20"/>
+  <AndGateNode ID="233" Name="" x="1666" y="150" Radio="20"/>  
+  <AndGateNode ID="350" Name="" x="50" y="450" Radio="20"/>
+  <AndGateNode ID="351" Name="" x="300" y="450" Radio="20"/>
+  <AndGateNode ID="354" Name="" x="1050" y="450" Radio="20"/>
+  <AndGateNode ID="356" Name="" x="1550" y="450" Radio="20"/>
+  <AndGateNode ID="357" Name="" x="1800" y="450" Radio="20"/>
+  <AndGateNode ID="358" Name="" x="2050" y="450" Radio="20"/> 
+  
+  
+</WorkFlow>

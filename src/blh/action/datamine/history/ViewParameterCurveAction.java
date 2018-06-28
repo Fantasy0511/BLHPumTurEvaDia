@@ -1,5 +1,6 @@
 package blh.action.datamine.history;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Result;
@@ -23,12 +24,12 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 	private String endTime;
 	private String paramter;
 	private String typeid1, typeid2;
-	private DataUtils data1;
-	private DataUtils data2;
+	private Utils data1;
+	private Utils data2;
 	private String title;
 //	private List<String> categories1;
 //	private List<String> categories2;
-
+	
 	@Override
 	public String execute() throws Exception {
 
@@ -43,36 +44,48 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 				paramter.lastIndexOf(")"));
 		title = paramter.substring(0, paramter.indexOf("("));
 		System.out.println(startTime + "  " + typeid1);
+		
 		FaultInfoService service = new FaultInfoService();
-		data1 = service.getData(typeid1, startTime, endTime);
-		data2 = service.getData(typeid2, startTime, endTime);
-		List<Long> time = data1.getTime();
-//		categories1.add(TimeUtils.getTimeInteval(startTime, endTime));
+		DataUtils Data1 = service.getData(typeid1, startTime, endTime);
+	/*	DataUtils Data2 = service.getData(typeid2, startTime, endTime);*/
+		
+		ArrayList<String> timeString=new ArrayList<>();
+		for (int i = 0; i < Data1.getTime().size(); i++) {
+			String time=TimeUtils.LongtoString(Data1.getTime().get(i));
+			timeString.add(time);
+		}
+		
+		data1=new Utils(timeString, Data1.getValue(), Data1.getId(), typeid1);
+		System.out.println(typeid1);
 		return super.execute();
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-
-	public void setParamter(String paramter) {
-		this.paramter = paramter;
-	}
-
-	public DataUtils getData1() {
-		return data1;
-	}
-
-	public DataUtils getData2() {
-		return data2;
+	public String getTypeid1() {
+		return typeid1;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
+	public void setTypeid1(String typeid1) {
+		this.typeid1 = typeid1;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Utils getData1() {
+		return data1;
+	}
+
+	public void setData1(Utils data1) {
+		this.data1 = data1;
+	}
+
+	
+
+	
+	
 }

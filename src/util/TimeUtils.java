@@ -173,10 +173,15 @@ public class TimeUtils {
 	}
 
 	public static void main(String[] args) {
-		String test = "2012-05-30 01:00:03";
+	/*	String test = "2012-05-30 01:00:03";
 		String startMounth = test.substring(0, 4);
 		System.out.println(startMounth);
-
+		*/
+		Long test1=1456761600L;
+		String test11=TimeUtils.LongtoString(test1);
+		Long test2=1459429332L;
+		String test22=TimeUtils.LongtoString(test2);
+		System.out.println(test11+"     "+test22);
 	}
 
 }

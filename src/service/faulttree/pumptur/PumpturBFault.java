@@ -177,21 +177,29 @@ public class PumpturBFault {
 			BoolTree bool130 = new BoolTree();
 			double p1 = bool130.BooleanTree(130, time);
 			p1 = 1 - p1;
+			if (p1<0) {p1=0;}
+			if (p1>0.9) {p1=0.9;}
 			return p1;
 		} else if (No == 2) {
 			BoolTree bool450 = new BoolTree();
 			double p1 = bool450.BooleanTree(450, time);
 			p1 = 1 - p1;
+			if (p1<0) {p1=0;}
+			if (p1>0.9) {p1=0.9;}
 			return p1;
 		} else if (No == 3) {
 			BoolTree bool775 = new BoolTree();
 			double p1 = bool775.BooleanTree(775, time);
 			p1 = 1 - p1;
+			if (p1<0) {p1=0;}
+			if (p1>0.9) {p1=0.9;}
 			return p1;
 		} else if (No == 4) {
 			BoolTree bool1083 = new BoolTree();
 			double p1 = bool1083.BooleanTree(1083, time);
 			p1 = 1 - p1;
+			if (p1<0) {p1=0;}
+			if (p1>0.9) {p1=0.9;}
 			return p1;
 		} else {
 			double p1 = 0;

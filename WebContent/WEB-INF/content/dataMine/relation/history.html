@@ -31,7 +31,8 @@
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
-
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/echarts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
@@ -206,7 +207,8 @@
 		});
 	};
 	
-
+	
+	var myChart;
 	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
 	$(document).ready(
 					function() {
@@ -219,119 +221,149 @@
 									$(this).toggleClass('selected');
 								});
 						$('#historyTable tbody')
-								.on(
-										'click',
-										'tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
+								.on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
 										function() {
 											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
 											// $(this).toggleClass('selected');
-											var data = table.row('.selected')
-													.data(); //将前端点击的行的选择传给参数“data”
+											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
 											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
 											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
 											var para = data.paramters; //将选中那行的元素--参数传给“para”
 											console.log(para); //传递成功显示“para”
 											var titleChart = para.split(" ");
+											
 
 											url = url + start + "//" + end
 													+ "//" + para; //重新定义了传入地址url
 											console.log(url);
-											var chart1 = Highcharts.chart;
-											var chart2 = Highcharts.chart;
-											$
-													.getJSON(
-															url,
-															function(result) { //调用url地址json数据，加载成功执行回调函数result
-																options1.series[0].data = result.data1.value;
-																options1.series[0].name = titleChart[0];
-																chart1 = new Highcharts.Chart(
-																		options1);
-																options2.series[0].name = titleChart[1];
-																options2.series[0].data = result.data2.value;
-																chart2 = new Highcharts.Chart(
-																		options2);
-																chart1.series[0]
-																		.update(options1.series[0].data);
-															});
+											
+											$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
+														time= result.data1.time;
+														data=result.data1.value;
+														var legendTitle=result.data1.title;
+														legendTitle=[result.data1.title];
+														
+														
+														
+														/* options1.series[0].data = result.data1.value;
+														options1.series[0].name = titleChart[0];
+														chart1 = new Highcharts.Chart(options1);
+														options2.series[0].name = titleChart[1];
+														options2.series[0].data = result.data2.value;
+														chart2 = new Highcharts.Chart(options2);
+														chart1.series[0].update(options1.series[0].data); */
+															
+											if(myChart !=null && myChart !=""&& myChart !=undefined){
+												myChart.dispose();
+											}
+											myChart = echarts.init(document.getElementById('chartmain')); 
+											
+											var timeData =  time,
+											    timeData = timeData.map(function (str) {
+											        return str.substring(5, 19);
+											    });
 
-											var options1 = {
-												chart : {
-													renderTo : 'container1', //生成的故障图1扔进“container1”里
-													type : 'spline'
-												},
-												series : [ {} ],
-												title : null,
-												xAxis : {
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												yAxis : {
-													title : {
-														text : null
-													},
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												credits : {
-													enabled : false
-												}
-											};
+											    option = {
+											        title: {
+											            text:  titleChart[0],
+											            /* subtext: '数据来自西安兰特水电测控技术有限公司', */
+											            x: 'center'
+											        },
+											        tooltip: {
+											            trigger: 'axis',
+											            axisPointer: {
+											                animation: false
+											            }
+											        },
+											        legend: {
+											            data:['历史查询数据'],
+											            x: 'left',
+											            itemHeight:20
+											        },
+											        toolbox: {
+											            feature: {
+											                /* dataZoom: {
+											                    yAxisIndex: 'none'
+											                },
+											                restore: {}, */
+											                saveAsImage: {}
+											            },
+											            right:'8%'
+											        },
 
-											var options2 = {
-												chart : {
-													renderTo : 'container2', //生成的故障图2扔进“container2”里
-													type : 'spline'
-												},
-												series : [ {} ],
-												title : null,
-												xAxis : {
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												yAxis : {
-													title : {
-														text : null
-													},
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-
-												credits : {
-													enabled : false
-												}
-											};
-
+											        dataZoom: [
+											            {
+											                show: true,
+											                realtime: true,
+											                start: 0,
+											                end: 100,
+											                xAxisIndex: [0]
+											            },
+											            {
+											                type: 'inside',
+											                realtime: true,
+											                start: 0,
+											                end: 100,
+											                xAxisIndex: [0]
+											            }
+											        ],
+											        grid: [{
+											            left:'5%',
+											            right: '8%',
+											            height: '70%'
+											        }],
+											        xAxis : [
+											            {
+											                name : '时间',
+											                type : 'category',
+											                boundaryGap : false,
+											                axisLine: {onZero: true},
+											                data: timeData
+											            }
+											        ],
+											        yAxis : [
+											            {
+											                name : '压力',
+											                type : 'value',
+											                max :  function(value) {
+											                    return (value.max).toFixed(1) ;
+											                },
+											                min :  function(value) {
+											                    return (0.8*value.min).toFixed(1) ;
+											                }
+											            }
+											        ],
+											        series : [
+											            {
+											                name:'历史查询数据',
+											                type:'line',
+											                symbolSize: 8,
+											                hoverAnimation: false,
+											                data: data,
+											                itemStyle : {
+											                        normal : {
+											                            lineStyle:{
+											                                width:2,//折线宽度
+											                                color:"#1c73c1"//折线颜色
+											                            }
+											                        }
+											                    }
+											            }
+											        ]
+											    };
+											    myChart.clear();
+											    myChart.hideLoading();
+											    myChart.setOption(option);
+											/* }else{
+											    	alert("图标请求不成功，请重新请求！")
+											    }
+ */
+											});
 										});
 					});
 	
+	
+
 	
 	$(function() {
 		showHistoryTable();
@@ -398,27 +430,27 @@
 
 	<div style="margin-left: auto; margin-right: auto; width: 94%">
 		<div
-			style="width: 49%; height: auto; float: left; display: inline; margin-right: 2%">
+			style="width: 100%; height: auto; float: left; display: inline; margin-right: 2%">
 			<div style="width: 100%; height: auto; float: left; display: inline">
 				<div class="easyui-panel" title="故障趋势图"
-					style="width: 100%; height: 400px;">
-					<div id="container1" style="height: 100%">
+					style="width: 100%; height: 600px;">
+					<div id="chartmain" style="height: 100%">
 						<pre>    暂无结果</pre>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div style="width: 49%; height: auto; float: left; display: inline">
+		<!-- <div style="width: 49%; height: auto; float: left; display: inline">
 			<div class="easyui-panel" title="故障趋势图"
 				style="width: 100%; height: 400px;">
 				<div id="container2" style="height: 100%">
 					<pre>    暂无结果</pre>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		$('.form_date').datetimepicker({
 			language : 'fr',
 			weekStart : 1,
@@ -429,6 +461,6 @@
 			forceParse : 0,
 			format : 'yyyy-mm-dd'
 		});
-	</script>
+	</script> -->
 </body>
 </html>

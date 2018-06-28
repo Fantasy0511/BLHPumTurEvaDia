@@ -59,7 +59,47 @@ public class Fault {
 					faults.add(temp);
 
 				}
+			}else if (system.equals("blv")) {
+				rs0 = stmt.executeQuery(
+						"SELECT * FROM BLH_FaultTree_BlvFaultInfor order by ID");
+				while (rs0.next()) {
+					Fault temp = new Fault();
+
+					temp.ID = rs0.getInt("ID");
+					temp.name = rs0.getString("name");
+					temp.location = rs0.getString("Location");
+					temp.Recommendation = rs0.getString("Recommendation");
+					faults.add(temp);
+
+				}
+			}else if (system.equals("mt")) {
+				rs0 = stmt.executeQuery(
+						"SELECT * FROM BLH_FaultTree_MtFaultInfor order by ID");
+				while (rs0.next()) {
+					Fault temp = new Fault();
+
+					temp.ID = rs0.getInt("ID");
+					temp.name = rs0.getString("name");
+					temp.location = rs0.getString("Location");
+					temp.Recommendation = rs0.getString("Recommendation");
+					faults.add(temp);
+
+				}
+			}else if (system.equals("gen")) {
+				rs0 = stmt.executeQuery(
+						"SELECT * FROM BLH_FaultTree_GenFaultInfor order by ID");
+				while (rs0.next()) {
+					Fault temp = new Fault();
+
+					temp.ID = rs0.getInt("ID");
+					temp.name = rs0.getString("name");
+					temp.location = rs0.getString("Location");
+					temp.Recommendation = rs0.getString("Recommendation");
+					faults.add(temp);
+
+				}
 			}
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();

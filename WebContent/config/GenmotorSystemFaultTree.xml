@@ -1,0 +1,77 @@
+<WorkFlow>
+  <Route ID="70" Name="" FromElementID="1" ToElementID="120"/>
+  <Route ID="71" Name="" FromElementID="120" ToElementID="21"/>
+  <Route ID="72" Name="" FromElementID="120" ToElementID="22"/>
+  <Route ID="73" Name="" FromElementID="120" ToElementID="23"/>
+  <Route ID="74" Name="" FromElementID="120" ToElementID="24"/>
+  <Route ID="75" Name="" FromElementID="21" ToElementID="230"/>
+  <Route ID="76" Name="" FromElementID="22" ToElementID="231"/>
+  <Route ID="77" Name="" FromElementID="23" ToElementID="232"/>
+  <Route ID="78" Name="" FromElementID="24" ToElementID="233"/>
+  <Route ID="79" Name="" FromElementID="230" ToElementID="311"/>
+  <Route ID="710" Name="" FromElementID="230" ToElementID="312"/>
+  <Route ID="711" Name="" FromElementID="231" ToElementID="321"/>
+  <Route ID="712" Name="" FromElementID="231" ToElementID="322"/>
+  <Route ID="713" Name="" FromElementID="232" ToElementID="331"/>
+  <Route ID="714" Name="" FromElementID="232" ToElementID="332"/>
+  <Route ID="715" Name="" FromElementID="232" ToElementID="333"/>
+  <Route ID="716" Name="" FromElementID="234" ToElementID="341"/>
+  <Route ID="718" Name="" FromElementID="234" ToElementID="342"/>
+  <Route ID="719" Name="" FromElementID="311" ToElementID="350"/>
+  <Route ID="720" Name="" FromElementID="312" ToElementID="351"/>
+  <Route ID="721" Name="" FromElementID="331" ToElementID="354"/>
+  <Route ID="722" Name="" FromElementID="333" ToElementID="356"/>
+  <Route ID="723" Name="" FromElementID="341" ToElementID="357"/>
+  <Route ID="728" Name="" FromElementID="342" ToElementID="358"/> 
+  <Route ID="729" Name="" FromElementID="350" ToElementID="4111"/>
+  <Route ID="730" Name="" FromElementID="350" ToElementID="4112"/>
+  <Route ID="731" Name="" FromElementID="350" ToElementID="4113"/>
+  <Route ID="732" Name="" FromElementID="351" ToElementID="4121"/>
+  <Route ID="733" Name="" FromElementID="351" ToElementID="4122"/>
+  <Route ID="734" Name="" FromElementID="351" ToElementID="4123"/>
+  <Route ID="735" Name="" FromElementID="354" ToElementID="4311"/>
+  <Route ID="736" Name="" FromElementID="354" ToElementID="4312"/>
+  <Route ID="737" Name="" FromElementID="354" ToElementID="4313"/>  
+  <Route ID="738" Name="" FromElementID="354" ToElementID="4314"/> 
+  <Route ID="739" Name="" FromElementID="356" ToElementID="4331"/>
+  <Route ID="740" Name="" FromElementID="356" ToElementID="4332"/>
+  <Route ID="741" Name="" FromElementID="357" ToElementID="4411"/>
+  <Route ID="742" Name="" FromElementID="357" ToElementID="4412"/>
+  <Route ID="743" Name="" FromElementID="358" ToElementID="4421"/>
+  <Route ID="744" Name="" FromElementID="358" ToElementID="4422"/>
+  <WorkNode ID="1" Name="发电电动机故障" NodeType="0" father="null" children="机组故障,励磁系统故障" gate="+" x="1000" y="6" Width="100" Height="30"/>
+  <WorkNode ID="21" Name="机组故障" NodeType="0" father="发电电动机故障" children="发电机过热,动不平衡,电磁振动" gate="+" x="333" y="75" Width="100" Height="30"/>
+  <WorkNode ID="22" Name="励磁系统故障" NodeType="0" father="发电电动机故障" children="起励失败,功率柜故障" gate="+" x="1333" y="75" Width="100" Height="30"/>
+  <WorkNode ID="311" Name="发电机过热" NodeType="0" father="机组故障" children="发电机转频过高,空冷器故障,转子绝缘损坏,机端电流过大" gate="+" x="50" y="350" Width="100" Height="30"/>
+  <WorkNode ID="312" Name="动不平衡" NodeType="0" father="机组故障" children="电磁不平衡,转子质量不平衡" gate="+" x="300" y="350" Width="100" Height="30"/>
+  <WorkNode ID="313" Name="电磁振动" NodeType="0" father="机组故障" children="极频振动,转频振动" gate="+" x="550" y="350" Width="100" Height="30"/>
+  <WorkNode ID="321" Name="起励失败" NodeType="0" father="励磁系统故障" children="起励接触器不动,励磁电源故障,闭环故障" gate="+" x="1050" y="350" Width="100" Height="30"/>
+  <WorkNode ID="322" Name="功率柜故障" NodeType="0" father="励磁系统故障" children="电源异常,风扇故障,整流桥故障" gate="0" x="1300" y="350" Width="100" Height="30"/>
+  <WorkNode ID="4111" Name="发电机转频过高" NodeType="0" father="发电机过热" children="null" gate="0" x="50" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4112" Name="空冷器故障" NodeType="0" father="发电机过热" children="null" gate="0" x="200" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4113" Name="转子绝缘损坏" NodeType="0" father="发电机过热" children="null" gate="0" x="350" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4114" Name="机端电流过大" NodeType="0" father="发电机过热" children="null" gate="0" x="500" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4121" Name="电磁不平衡" NodeType="0" father="动不平衡" children="null" gate="0" x="950" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4122" Name="转子质量不平衡" NodeType="0" father="动不平衡" children="null" gate="0" x="1100" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4131" Name="极频振动" NodeType="0" father="电磁振动" children="null" gate="0" x="1250" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4132" Name="转频振动" NodeType="0" father="电磁振动" children="null" gate="0" x="1400" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4211" Name="起励接触器不动" NodeType="0" father="起励失败" children="null" gate="0" x="1550" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4212" Name="励磁电源故障" NodeType="0" father="起励失败" children="null" gate="0" x="1700" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4213" Name="闭环故障" NodeType="0" father="起励失败" children="null" gate="0" x="1850" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4221" Name="电源异常" NodeType="0" father="功率柜故障" children="null" gate="0" x="2000" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4222" Name="风扇故障" NodeType="0" father="功率柜故障" children="null" gate="0" x="2150" y="600" Width="100" Height="30"/>
+  <WorkNode ID="4223" Name="整流桥故障" NodeType="0" father="功率柜故障" children="null" gate="0" x="2300" y="600" Width="100" Height="30"/>
+  <AndGateNode ID="120" Name="" x="1000" y="40" Radio="20"/>
+  <AndGateNode ID="230" Name="" x="333" y="150" Radio="20"/>
+  <AndGateNode ID="231" Name="" x="666" y="150" Radio="20"/>
+  <AndGateNode ID="232" Name="" x="1333" y="150" Radio="20"/>
+  <AndGateNode ID="233" Name="" x="1666" y="150" Radio="20"/>  
+  <AndGateNode ID="350" Name="" x="50" y="450" Radio="20"/>
+  <AndGateNode ID="351" Name="" x="300" y="450" Radio="20"/>
+  <AndGateNode ID="354" Name="" x="1050" y="450" Radio="20"/>
+  <AndGateNode ID="356" Name="" x="1550" y="450" Radio="20"/>
+  <AndGateNode ID="357" Name="" x="1800" y="450" Radio="20"/>
+  <AndGateNode ID="358" Name="" x="2050" y="450" Radio="20"/> 
+  
+  
+</WorkFlow>

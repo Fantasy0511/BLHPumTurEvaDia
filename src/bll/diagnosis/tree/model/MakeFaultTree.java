@@ -17,7 +17,10 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import bll.diagnosis.tree.GovXMLUtils;
+import service.faulttree.BallValve.BallValvefaultBool;
+import service.faulttree.Genmotor.GenMotorFault;
 import service.faulttree.Governor.GovernorfaultBool;
+import service.faulttree.MainTransformer.MainTransformerfaultBool;
 import service.faulttree.pumptur.PumpturBFault;
 import service.faulttree.pumptur.PumpturFFault;
 import util.TimeUtils;
@@ -25,7 +28,7 @@ import util.TimeUtils;
 /**
  * 构造树的逻辑实现
  * 
- * @author 肖汉、付文龙
+ * @author 
  *
  */
 public class MakeFaultTree {
@@ -292,6 +295,191 @@ public class MakeFaultTree {
 				}
 			}
 		}
+		//球阀故障树
+		else if (system.equals("blv")) {
+			String result = GovXMLUtils.GetXMLPath("BallValveFaultTree");
+			System.out.println("文件读取成功！");
+			if (new File(result).exists()) {
+				try {
+
+					SAXReader reader = new SAXReader();
+					Document document = reader.read(new File(result));
+					Element rootElement = document.getRootElement();
+
+					/**
+					 * 得到第一层节点
+					 * */
+					List list = rootElement.elements("WorkNode");
+					Iterator iter = list.iterator();
+
+					BallValvefaultBool bv=new BallValvefaultBool();
+					
+					while (iter.hasNext()) {
+						Element ele = (Element) iter.next();
+
+
+						Node temp = new Node();
+						temp.name = ele.attribute("Name").getValue();
+						
+						String[] childs = ele.attribute("children").getValue().split(",");
+						for (int i = 0; i < childs.length; i++) {
+							if (!childs[i].equals("null")) {
+								temp.children.add(childs[i]);
+							}
+						}
+						temp.gate = ele.attribute("gate").getValue();
+						Long time = TimeUtils.StringtoLong(date);
+						
+						if(temp.name.equals("油压偏低")) {	
+							temp.freq=bv.getPressuretankpressurelow(time, unitNo)<0.1?1.0:bv.getPressuretankpressurelow(time, unitNo);	
+						}else if(temp.name.equals("油位偏高")){
+							temp.freq=bv.gettankoilhigh(time, unitNo)<0.1?1.0:bv.gettankoilhigh(time, unitNo);
+						}else if(temp.name.equals("油位偏低")){
+					     temp.freq=bv.gettankoillow(time, unitNo)<0.1?1.0:bv.gettankoillow(time, unitNo);
+						}else{
+							temp.freq=0;
+						}
+						
+						
+						if (!ele.attribute("father").getValue().equals("null")) {
+							temp.father = ele.attribute("father").getValue();
+						}
+
+						Inodes.add(temp);
+						
+					}
+
+				} catch (DocumentException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		//主变故障树
+				else if (system.equals("mt")) {
+					String result = GovXMLUtils.GetXMLPath("MainTransformerFaultTree");
+					System.out.println("文件读取成功！");
+					if (new File(result).exists()) {
+						try {
+
+							SAXReader reader = new SAXReader();
+							Document document = reader.read(new File(result));
+							Element rootElement = document.getRootElement();
+
+							/**
+							 * 得到第一层节点
+							 * */
+							List list = rootElement.elements("WorkNode");
+							Iterator iter = list.iterator();
+
+							MainTransformerfaultBool  mt=new MainTransformerfaultBool();
+							
+							while (iter.hasNext()) {
+								Element ele = (Element) iter.next();
+
+
+								Node temp = new Node();
+								temp.name = ele.attribute("Name").getValue();
+								
+								String[] childs = ele.attribute("children").getValue().split(",");
+								for (int i = 0; i < childs.length; i++) {
+									if (!childs[i].equals("null")) {
+										temp.children.add(childs[i]);
+									}
+								}
+								temp.gate = ele.attribute("gate").getValue();
+								Long time = TimeUtils.StringtoLong(date);
+								
+								if(temp.name.equals("冷却器故障")) {	
+									temp.freq=1.0	;
+								}else if(temp.name.equals("交流电源故障")){
+									temp.freq=1.0;
+								}else if(temp.name.equals("冷却水泄漏报警")){
+									temp.freq=1.0;
+								}else{
+									temp.freq=0;
+								}
+								
+								
+								if (!ele.attribute("father").getValue().equals("null")) {
+									temp.father = ele.attribute("father").getValue();
+								}
+
+								Inodes.add(temp);
+								
+							}
+
+						} catch (DocumentException e) {
+							e.printStackTrace();
+						}
+					}
+				}else if (system.equals("gen")) {
+					String result = GovXMLUtils.GetXMLPath("GenmotorSystemFaultTree");
+					System.out.println("文件读取成功！");
+					if (new File(result).exists()) {
+						try {
+
+							SAXReader reader = new SAXReader();
+							Document document = reader.read(new File(result));
+							Element rootElement = document.getRootElement();
+
+							/**
+							 * 得到第一层节点
+							 * */
+							List list = rootElement.elements("WorkNode");
+							Iterator iter = list.iterator();
+
+							GenMotorFault gm=new GenMotorFault();
+							
+							while (iter.hasNext()) {
+								Element ele = (Element) iter.next();
+
+
+								Node temp = new Node();
+								temp.name = ele.attribute("Name").getValue();
+								
+								String[] childs = ele.attribute("children").getValue().split(",");
+								for (int i = 0; i < childs.length; i++) {
+									if (!childs[i].equals("null")) {
+										temp.children.add(childs[i]);
+									}
+								}
+								temp.gate = ele.attribute("gate").getValue();
+								Long time = TimeUtils.StringtoLong(date);
+								
+								if(temp.name.equals("发电机转频过高")) {					
+									temp.freq = gm.getRotateFFault(time, unitNo);
+								}else if(temp.name.equals("空冷器故障")) {					
+									temp.freq =gm.getACoolerFault(time, unitNo);
+								}else if(temp.name.equals("转子绝缘损坏")) {					
+									temp.freq =gm.getRoInsulationFault(time, unitNo);
+								}else if(temp.name.equals("转频振动")) {					
+									temp.freq =gm.getZhuanPin(time, unitNo);
+								}else if(temp.name.equals("极频振动")){
+									temp.freq =gm.getJiPin(time, unitNo);
+								}else if(temp.name.equals("励磁电源故障")){
+									temp.freq =gm.getExcitePowerFault(time, unitNo);
+								}else if(temp.name.equals("风扇故障")){
+									temp.freq =gm.getFanFault(time, unitNo);
+								}else{
+									temp.freq=0;
+								}
+								
+								
+								if (!ele.attribute("father").getValue().equals("null")) {
+									temp.father = ele.attribute("father").getValue();
+								}
+
+								Inodes.add(temp);
+								
+							}
+
+						} catch (DocumentException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+				
 		
 		
 		Node temp = Inodes.get(0);

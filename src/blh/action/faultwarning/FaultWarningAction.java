@@ -9,6 +9,7 @@ import service.faultWarning.Result.WarningResultService;
 import service.faultWarning.Result.WarnningFinal;
 import service.faultWarning.Result.WarnningResult;
 import tool.easyui.Table;
+import util.TimeUtils;
 
 /**
  * 故障预警查询
@@ -30,7 +31,10 @@ public class FaultWarningAction extends AbstractActionSupport {
 	public String execute() throws Exception {
 		
 		starttime = getFirstInput() + " 00:00:00";
-		endtime = getSecondInput() + " 00:00:00";
+		Long starttime1=TimeUtils.StringtoLong(starttime);
+		Long endtime1=starttime1+86400;
+		endtime=TimeUtils.LongtoString(endtime1);
+		
 		System.out.println("开始时间："+ starttime + "  ;  "+"结束时间： "+ endtime);
 		
 		WarningResultService warningResultService=new WarningResultService();
