@@ -33,13 +33,24 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 
-		startTime = TimeUtils.DatetoString(TimeUtils.AddUnits(
-				(TimeUtils.StringtoDate(getFirstInput())), "day", -1));
-		endTime = getSecondInput();
+		String startTime1 = getFirstInput();
+		String endTime1 = getSecondInput();
 		paramter = getThirdInput();
 		System.out.println(new String(paramter.getBytes("8859_1"), "utf-8"));
 		typeid1 = paramter.substring(paramter.indexOf("(") + 1,
 				paramter.indexOf(")"));
+		if (typeid1.contains("bool")) {
+			 startTime=TimeUtils.DatetoString(TimeUtils.AddUnits(
+					(TimeUtils.StringtoDate(startTime1)), "day", -30));
+			 endTime=TimeUtils.DatetoString(TimeUtils.AddUnits(
+						(TimeUtils.StringtoDate(endTime1)), "day", +30));
+		}
+		else if(typeid1.contains("float")) {
+			startTime= TimeUtils.DatetoString(TimeUtils.AddUnits(
+					(TimeUtils.StringtoDate(startTime1)), "hours", -6));
+			endTime=TimeUtils.DatetoString(TimeUtils.AddUnits(
+					(TimeUtils.StringtoDate(endTime1)), "hours", +1));
+		}
 		typeid2 = paramter.substring(paramter.lastIndexOf("(") + 1,
 				paramter.lastIndexOf(")"));
 		title = paramter.substring(0, paramter.indexOf("("));

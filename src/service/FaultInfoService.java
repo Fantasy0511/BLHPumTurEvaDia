@@ -71,13 +71,16 @@ public class FaultInfoService {
 //		FaultInfoService faultInfoService = new FaultInfoService();
 //		List<FaultUtils> faultUtils=faultInfoService.getFaultInfos("水泵水轮机");
 //		DataUtils data = faultInfoService.getData("bool1132", faultUtils.get(0).getStartTimeString(), faultUtils.get(0).getEndTimeSting());
-		String regEx = "统计数据\\.|运行参数\\.|虚设备\\.|电气参数\\.";
-		String name ="升压站.500KV莲吉线.电气参数.总无功_过高";
-		Pattern p = Pattern.compile(regEx);
-	    Matcher m = p.matcher(name);
-	    if (m.find()) {
-	    	name = m.replaceAll("");
-	    }
-		System.out.println(name);
+//		String regEx = "统计数据\\.|运行参数\\.|虚设备\\.|电气参数\\.";
+//		String name ="升压站.500KV莲吉线.电气参数.总无功_过高";
+//		Pattern p = Pattern.compile(regEx);
+//	    Matcher m = p.matcher(name);
+//	    if (m.find()) {
+//	    	name = m.replaceAll("");
+//	    }
+//		System.out.println(name);
+		/*FaultInfoService a = new FaultInfoService();
+		DataUtils aDataUtils = a.getData("bool1083", "2014-07-29 00:00:00", "2014-08-29 00:00:00");*/
+		
 	}
 }

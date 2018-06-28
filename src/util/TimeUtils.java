@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import bll.diagnosis.tree.test.dataread;
+import javafx.scene.chart.PieChart.Data;
+
 /**
  * time相关计算的utils 2017-09-28
  * 
@@ -22,6 +25,7 @@ public class TimeUtils {
 	 * 
 	 * @param str
 	 *            输入的string类型时间，形如"2015-08-31 21:08:06"
+	 *            
 	 * @return 对应的长整型数据
 	 */
 	public static long StringtoLong(String str) {
@@ -35,6 +39,7 @@ public class TimeUtils {
 	 * 
 	 * @param str
 	 *            输入的string类型时间，形如"2015-08-31 21:08:06"
+	 *            转换成格式："Mon Aug 31 21:08:06 CST 2015"
 	 * @return
 	 */
 	public static Date StringtoDate(String str) {
@@ -177,11 +182,28 @@ public class TimeUtils {
 		String startMounth = test.substring(0, 4);
 		System.out.println(startMounth);
 		*/
-		Long test1=1456761600L;
+		/*Long test1=1456761600L;
 		String test11=TimeUtils.LongtoString(test1);
 		Long test2=1459429332L;
 		String test22=TimeUtils.LongtoString(test2);
-		System.out.println(test11+"     "+test22);
+		System.out.println(test11+"     "+test22);*/
+		
+		
+		String aString="2017-07-30"+" 00:00:00";
+		String bString="2017-07-31"+" 00:00:00";
+		Long aLong=TimeUtils.StringtoLong(aString);
+		Long bLong=TimeUtils.StringtoLong(bString);
+		System.out.println(aLong+"   "+bLong);
+		
+		String a=TimeUtils.DatetoString(TimeUtils.AddUnits(
+				(TimeUtils.StringtoDate("2017-07-30 00:00:00")), "day", -1));
+		System.out.println("    "+a);
+		
+		
+	    Date orignalDate = TimeUtils.StringtoDate("2015-08-31 21:08:06");
+	    System.out.println("转换时间："+ orignalDate);
+	    Date aaa = TimeUtils.AddUnits(orignalDate, "day", -1);
+	    System.out.println("转换时间："+ aaa);
 	}
 
 }
