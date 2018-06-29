@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Result;
 import blh.action.datamine.history.SystemConvert;
 import blh.action.support.AbstractActionSupport;
 import service.FaultInfoService;
+import tool.easyui.Table;
 import util.FaultUtils;
 import util.TimeUtils;
 
@@ -25,7 +26,7 @@ public class FaultWarningResultAction extends AbstractActionSupport {
 	private String system;
 	private Long startTime;
 	private Long endTime;
-	private List<FaultUtils> data;
+	private Table bottomDetail;
 
 	@Override
 	public String execute() throws Exception {
@@ -34,13 +35,23 @@ public class FaultWarningResultAction extends AbstractActionSupport {
 		startTime = TimeUtils.StringtoLong(getSecondInput() + " 00:00:00");
 		endTime = TimeUtils.StringtoLong(getThirdInput() + " 00:00:00");
 		FaultInfoService faultInfoService = new FaultInfoService();
-		data = faultInfoService.getFaultInfos(system, startTime, endTime);
+		List<FaultUtils> data = faultInfoService.getFaultInfos(system, startTime, endTime);
 		
+		bottomDetail=new Table(new String[] {"system","startTimeString","endTimeString","paramters"});
+		for (int i = 0; i < data.size(); i++) {
+			bottomDetail.withRow(data.get(i).getSystem(),data.get(i).getStartTimeString(),data.get(i).getEndTimeString(),data.get(i).getParamters());
+			
+		}
 		return SUCCESS;
 	}
 
-	public List<FaultUtils> getData() {
-		return data;
+	public Table getBottomDetail() {
+		return bottomDetail;
 	}
 
+	public void setBottomDetail(Table bottomDetail) {
+		this.bottomDetail = bottomDetail;
+	}
+
+	
 }

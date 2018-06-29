@@ -13,10 +13,6 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
-<link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
@@ -26,8 +22,6 @@
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 
 
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
@@ -42,133 +36,23 @@
 
 </head>
 <script type="text/javascript">
-	var table = $('#historyTable').DataTable();
+	
 	function faultWarning() {
 
-		table.destroy();
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
 
 		var starTime = getComboboxValue("startTime");
 		var endTime = getDate("endTime");
-		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
+		var url = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
-		console.log(url1);
-
-		//***上面的代码已经将前端数据传到后台了，下面开始后端回调到前端***//
-		table = $('#historyTable').DataTable({ /* json数组 */
-			"iDisplayLength" : 3,
-			"lengthMenu" : [ [ 3, 6, 9, -1 ], [ 3, 6, 9, "所有" ] ],
-			"bAutoWidth" : true,
-			ajax : {
-				url : url1
-			},
-			columns : [
-			//JSON语句+数组               columns:纵列
-			{
-				"data" : "faultName",
-				orderable : false
-			}, {
-				"data" : "startTimeString",
-				orderable : false
-			}, {
-				"data" : "endTimeString",
-				orderable : false
-			}, {
-				"data" : "paramters",
-				orderable : false
-			} ],
-			searching : false, //去掉搜索框
-			bLengthChange : false,//去掉每页多少条框体
-			"language" : {
-				"lengthMenu" : "每页 _MENU_ 条记录",
-				"zeroRecords" : "抱歉，没有找到",
-				"info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-				"infoEmpty" : "无记录",
-				"infoFiltered" : "(从 _MAX_ 条记录过滤)",
-				"sSearch" : "模糊查询:  ",
-				"oPaginate" : {
-					"sPrevious" : "前一页",
-					"sNext" : "后一页",
-				}
-			}
-		});
-
-	}
-
-	//***上面的代码实现了历史数据的调出，下面的代码实现某一故障，鼠标点上去，以调出相应的图表Chart***//
-
-	$(document).ready(function() {
-						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
-						function() {$(this).toggleClass('selected');
-						});
-						$('#historyTable tbody').on('mouseout', 'tr',
-						function() {$(this).toggleClass('selected');});
-						$('#historyTable tbody').on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
-								
-										function() {
-											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
-											// $(this).toggleClass('selected');
-											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
-											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
-											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
-											var para = data.paramters; //将选中那行的元素--参数传给“para”
-											console.log(para); //传递成功显示“para”
-											var titleChart = para.split(" ");
-
-											url = url + start + "//" + end
-													+ "//" + para; //重新定义了传入地址url
-											console.log(url);
-											
-											var chart1 = Highcharts.chart;
-											$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
-																options1.series[0].data = result.data1.value;
-																options1.series[0].name = titleChart[0];
-																chart1 = new Highcharts.Chart(
-																		options1);
-																chart1.series[0].update(options1.series[0].data);
-															});
-
-											var options1 = {
-												chart : {
-													renderTo : 'container1', //生成的故障图1扔进“container1”里
-													type : 'spline'
-												},
-												series : [ {} ],
-												title : null,
-												xAxis : {
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												yAxis : {
-													title : {
-														text : null
-													},
-													lineWidth : 2,
-													lineColor : 'black',
-													gridLineColor : '#A0A0A0',
-													gridLineDashStyle : 'dash',
-													minorGridLineWidth : 0,
-													minorTickLength : 5,
-													minorTickInterval : 'auto',
-													minorTickPosition : 'outside',
-													minorTickWidth : 1
-												},
-												credits : {
-													enabled : false
-												}
-											};
-											
-										});
-						
-					});
-
+		console.log(url);
+			
+		getJSON(url, function(result) {
+			loadData("historyTable", result.bottomDetail);
+			});
+		}
+		
+	
 	function WarningResult(){
 		showMask();
 		var starTime = getComboboxValue("startTime");
@@ -202,6 +86,12 @@
 						var title = {
 							text : '预警概率结果分析图'
 						};
+						var legend= {//控制图例显示位置
+				            layout: 'vertical',
+				            align: 'left',
+				            verticalAlign: 'top',
+				            borderWidth: 0
+				        };
 						var tooltip = {
 							pointFormat : '<b>{point.percentage:.1f}%</b>'
 						};
@@ -215,7 +105,7 @@
 									enabled : true,
 									format : '{point.name}'
 								},
-
+							showInLegend: true // 设置饼图是否在图例中显示
 							}
 						};
 
@@ -227,6 +117,7 @@
 						var json = {};
 						json.chart = chart;
 						json.title = title;
+						json.legend = legend;
 						json.credits = credits;
 						json.tooltip = tooltip;
 						json.plotOptions = plotOptions;
@@ -275,67 +166,53 @@
 	</div>
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
-		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
-			<div class="easyui-panel" title="历史运行状态数据"
-				style="width: 100%; height: 400px;">
-				<div>
-					<table class="table" id="historyTable"
-						style="text-align: left; margin-top: 1%; margin-left: 1%; margin-right: 1%">
-						<thead>
-							<tr>
-								<th>故障名称</th>
-								<th>开始时间</th>
-								<th>结束时间</th>
-								<th>关联参数</th>
-
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-				</div>
+		<div style="width: 94%; height: auto; float: left; display: inline;">
+			
+				<table class="easyui-datagrid" id="historyTable" title="历史运行状态数据"
+						data-options="singleSelect:true,fitColumns:false,display:'inline-block'"
+						style="text-align: left ;width: 99%; height: 460px">
+				<thead>
+					<tr>
+							<th data-options="field:'system',align:'center'"  style="width:15%">故障名称</th>
+							<th data-options="field:'startTimeString',align:'center'" style="width:20%">开始时间</th>
+							<th data-options="field:'endTimeString',align:'center'" style="width:20%">结束时间</th>
+							<th data-options="field:'paramters',align:'center'"  style="width:40%">关联参数</th>
+					</tr>
+				</thead>
+				</table>
 			</div>
-		</div>
-
-		<div style="width: 45%; height: auto; float: left; display: inline">
-			<div class="easyui-panel" title="运行状态数据图"
-				style="width: 100%; height: 400px;">
-				<div id="container1" style="height: 100%">
-					<pre>    暂无结果</pre>
-				</div>
-			</div>
-		</div>
-
 	</div>
-
-	<div class="ipad" style="height: 30px"></div>
+	
+	<br>
+	<div  style="height: 100px"></div>
 
 
 	<div style="margin-left: 2%; margin-right: 2%; width: 100%;">
 		<div
-			style="width: 47%; height: 430px; float: left; display: inline; margin-right: 2%">
+			style="width: 94%; height: 460x; float: left; display: inline;">
 			<div class="easyui-panel" title="预警结果分析图"
 				style="width: 100%; height: auto">
 				<div id="container3" style="width: 96%; height:  390px;"></div>
 			</div>
 		</div>
-		<div style="width: 45%; height: 470px; float: left; display: inline">
-			
-				<table class="easyui-datagrid" title="评价与建议" id="faultInfo" style="width: 100%; height: 460px"
-				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
-					<thead>
-						<tr>
-							<th data-options="field:'system',align:'center',width:170">系统名称</th>
-							<th data-options="field:'faultName',align:'center',width:170">故障名称</th>
-							<th data-options="field:'detail',align:'center',width:170">发生概率</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				
-				</table>
 		
 	</div>
-</div>
-
+	
+	<div  style="height: 100px"></div>
+	
+	<div style="margin-left: 2%; margin-right: 2%; width: 100%;">
+	<div style="width: 94%; height: auto; float: left; display: inline">
+				<table class="easyui-datagrid" title="评价与建议" id="faultInfo" style="width: 96%; height: 460px"
+					data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
+					<thead>
+						<tr>
+							<th data-options="field:'system',align:'center'" style="width:15%">系统名称</th>
+							<th data-options="field:'faultName',align:'center'" style="width:50%">故障名称</th>
+							<th data-options="field:'detail',align:'center'" style="width:25%">发生概率</th>
+						</tr>
+					</thead>
+				</table>
+	</div>
+	</div>
 </body>
 </html>
