@@ -36,7 +36,6 @@
 
 </head>
 <script type="text/javascript">
-	
 	function faultWarning() {
 
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
@@ -46,87 +45,88 @@
 		var url = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
 		console.log(url);
-			
+
 		getJSON(url, function(result) {
 			loadData("historyTable", result.bottomDetail);
-			});
-		}
-		
-	
-	function WarningResult(){
+		});
+	}
+
+	function WarningResult() {
 		showMask();
 		var starTime = getComboboxValue("startTime");
 		/* var endTime = getDate("endTime"); */
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
-				 + starTime ; //将某个子系统历史数据的地址传给url1
+				+ starTime; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
 		getJSON(url1, function(data) {
-			var view=data.resultFinal;
+			var view = data.resultFinal;
 			loadData("faultInfo", view.tableWarn);
-			
+
 			var jsonArr = [];
 			tem_Arry = [];
 			for (i = 0; i < view.pieWarn.length; i++) {
-			jsonArr = [view.pieWarn[i].faultName,view.pieWarn[i].faultChance ];
-							tem_Arry.push(jsonArr)
-						}
-						var chart = {
-							type : 'pie',
-							options3d : {
-								enabled : true,
-								alpha : 45,
-								beta : 0
-							}
+				jsonArr = [ view.pieWarn[i].faultName,
+						view.pieWarn[i].faultChance ];
+				tem_Arry.push(jsonArr)
+			}
+			var chart = {
+				type : 'pie',
+				options3d : {
+					enabled : true,
+					alpha : 45,
+					beta : 0
+				}
 
-						};
-						var credits = {
-							enabled : false
-						};
+			};
+			var credits = {
+				enabled : false
+			};
 
-						var title = {
-							text : '预警概率结果分析图'
-						};
-						var legend= {//控制图例显示位置
-				            layout: 'vertical',
-				            align: 'left',
-				            verticalAlign: 'top',
-				            borderWidth: 0
-				        };
-						var tooltip = {
-							pointFormat : '<b>{point.percentage:.1f}%</b>'
-						};
+			var title = {
+				text : '预警概率结果分析图'
+			};
+			var legend = {//控制图例显示位置
+				layout : 'vertical',
+				align : 'left',
+				verticalAlign : 'top',
+				borderWidth : 0
+			};
+			var tooltip = {
+				pointFormat : '<b>{point.percentage:.1f}%</b>'
+			};
 
-						var plotOptions = {
-							pie : {
-								allowPointSelect : true,
-								cursor : 'pointer',
-								depth : 35,
-								dataLabels : {
-									enabled : true,
-									format : '{point.name}'
-								},
-							showInLegend: true // 设置饼图是否在图例中显示
-							}
-						};
+			var plotOptions = {
+				pie : {
+					allowPointSelect : true,
+					cursor : 'pointer',
+					depth : 35,
+					dataLabels : {
+						enabled : true,
+						format : '{point.name}'
+					},
+					showInLegend : true
+				// 设置饼图是否在图例中显示
+				}
+			};
 
-						var series = [ {
-							type : 'pie',
-							data : tem_Arry
-						} ];
+			var series = [ {
+				type : 'pie',
+				data : tem_Arry
+			} ];
 
-						var json = {};
-						json.chart = chart;
-						json.title = title;
-						json.legend = legend;
-						json.credits = credits;
-						json.tooltip = tooltip;
-						json.plotOptions = plotOptions;
-						json.series = series;
-						$('#container3').highcharts(json);
+			var json = {};
+			json.chart = chart;
+			json.title = title;
+			json.legend = legend;
+			json.credits = credits;
+			json.tooltip = tooltip;
+			json.plotOptions = plotOptions;
+			json.series = series;
+			$('#container3').highcharts(json);
 		});
-		
+
 	}
-	
+
 	$(function() {
 		$("#StartFind").click(faultWarning);
 		$("#Startwarning").click(WarningResult);
@@ -134,7 +134,9 @@
 </script>
 
 <body>
-	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:2%;width:94%">
+
+	<div class="input_div"
+		style="margin-bottom: 5px; margin-top: 5px; margin-left: 2%; margin-right: 2%; width: 96%">
 		<span class="input_title">条件输入：</span> <label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
@@ -160,59 +162,62 @@
 			<option value="Transfer">主变系统</option>
 			<option value="Pum">水泵水轮机</option>
 		</select> <a id="StartFind" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">开始查询</a>
-		<a id="Startwarning" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">开始预警</a>
+			data-options="iconCls:'icon-ok'">开始查询</a> <a id="Startwarning"
+			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">开始预警</a>
 	</div>
 
-	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
-		<div style="width: 94%; height: auto; float: left; display: inline;">
-			
-				<table class="easyui-datagrid" id="historyTable" title="历史运行状态数据"
-						data-options="singleSelect:true,fitColumns:false,display:'inline-block'"
-						style="text-align: left ;width: 99%; height: 460px">
+	<!-- 第一个框 start -->
+
+	<div
+		style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
+
+		<table class="easyui-datagrid" id="historyTable" title="历史运行状态数据"
+			data-options="singleSelect:true,fitColumns:false,display:'inline-block'"
+			style="text-align: left; width: 100%; height: auto;">
+			<thead>
+				<tr>
+					<th data-options="field:'system',align:'center'" style="width: 15%">故障名称</th>
+					<th data-options="field:'startTimeString',align:'center'"
+						style="width: 20%">开始时间</th>
+					<th data-options="field:'endTimeString',align:'center'"
+						style="width: 20%">结束时间</th>
+					<th data-options="field:'paramters',align:'center'"
+						style="width: 40%">关联参数</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<!-- 第一个框 end -->
+
+	
+
+	<!-- 第二个框 start -->
+	<div style="width: 96%; height: auto; margin-left: 2%; 
+	   margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
+		<div class="easyui-panel" title="预警结果分析图"
+			style="width: auto; height: auto">
+			<div id="container3" style="width: 100%; height: 390px;"></div>
+		</div>
+	</div>
+	<!-- 第二个框 end -->
+
+	<!-- 第三个框 start -->
+	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
+			<table class="easyui-datagrid" title="评价与建议" id="faultInfo"
+				style="width: 100%; height: 460px"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
 				<thead>
 					<tr>
-							<th data-options="field:'system',align:'center'"  style="width:15%">故障名称</th>
-							<th data-options="field:'startTimeString',align:'center'" style="width:20%">开始时间</th>
-							<th data-options="field:'endTimeString',align:'center'" style="width:20%">结束时间</th>
-							<th data-options="field:'paramters',align:'center'"  style="width:40%">关联参数</th>
+						<th data-options="field:'system',align:'center'"
+							style="width: 15%">系统名称</th>
+						<th data-options="field:'faultName',align:'center'"
+							style="width: 50%">故障名称</th>
+						<th data-options="field:'detail',align:'center'"
+							style="width: 25%">发生概率</th>
 					</tr>
 				</thead>
-				</table>
-			</div>
-	</div>
-	
-	<br>
-	<div  style="height: 100px"></div>
-
-
-	<div style="margin-left: 2%; margin-right: 2%; width: 100%;">
-		<div
-			style="width: 94%; height: 460x; float: left; display: inline;">
-			<div class="easyui-panel" title="预警结果分析图"
-				style="width: 100%; height: auto">
-				<div id="container3" style="width: 96%; height:  390px;"></div>
-			</div>
+			</table>
 		</div>
-		
-	</div>
-	
-	<div  style="height: 100px"></div>
-	
-	<div style="margin-left: 2%; margin-right: 2%; width: 100%;">
-	<div style="width: 94%; height: auto; float: left; display: inline">
-				<table class="easyui-datagrid" title="评价与建议" id="faultInfo" style="width: 96%; height: 460px"
-					data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
-					<thead>
-						<tr>
-							<th data-options="field:'system',align:'center'" style="width:15%">系统名称</th>
-							<th data-options="field:'faultName',align:'center'" style="width:50%">故障名称</th>
-							<th data-options="field:'detail',align:'center'" style="width:25%">发生概率</th>
-						</tr>
-					</thead>
-				</table>
-	</div>
-	</div>
+	<!-- 第三个框 end -->
 </body>
 </html>
