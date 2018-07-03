@@ -1,9 +1,10 @@
+/service/
+/test/
+/tool/
+/util/
 /algorithms/
 /blh/
 /bll/
 /dao/
-/service/
-/struts.xml
-/test/
-/tool/
-/util/
+/vectors.txt
+/vectors1.txt
