@@ -239,37 +239,37 @@
 											url = url + start + "//" + end
 													+ "//" + para; //重新定义了传入地址url
 											console.log(url);
+													
 											
 											$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
 														time= result.data1.time;
 														data=result.data1.value;
-														var legendTitle=result.data1.title;
-														legendTitle=[result.data1.title];
+														var temp=result.typeid1;
+											
+											
+											if(temp.indexOf("bool")!=-1){    //开关量和状态量进行判断，更换图标类型，和坐标轴名称
+															var stepType='middle';
+															yAxisName='开关量';
+														}
+											else{
+															stepType=false;
+															yAxisName='状态量';
+														} ;
 														
-														
-														
-														/* options1.series[0].data = result.data1.value;
-														options1.series[0].name = titleChart[0];
-														chart1 = new Highcharts.Chart(options1);
-														options2.series[0].name = titleChart[1];
-														options2.series[0].data = result.data2.value;
-														chart2 = new Highcharts.Chart(options2);
-														chart1.series[0].update(options1.series[0].data); */
-															
 											if(myChart !=null && myChart !=""&& myChart !=undefined){
 												myChart.dispose();
 											}
 											myChart = echarts.init(document.getElementById('chartmain')); 
 											
 											var timeData =  time,
-											    timeData = timeData.map(function (str) {
+											timeData = timeData.map(function (str) {
 											        return str.substring(5, 19);
 											    });
-
-											    option = {
+											
+											
+											 option = {
 											        title: {
 											            text:  titleChart[0],
-											            /* subtext: '数据来自西安兰特水电测控技术有限公司', */
 											            x: 'center'
 											        },
 											        tooltip: {
@@ -326,7 +326,7 @@
 											        ],
 											        yAxis : [
 											            {
-											                name : '压力',
+											                name : yAxisName,
 											                type : 'value',
 											                max :  function(value) {
 											                    return (value.max).toFixed(1) ;
@@ -338,7 +338,8 @@
 											        ],
 											        series : [
 											            {
-											                name:'历史查询数据',
+											                step: stepType,
+											            	name:'历史查询数据',
 											                type:'line',
 											                symbolSize: 8,
 											                hoverAnimation: false,
@@ -355,12 +356,9 @@
 											        ]
 											    };
 											    myChart.clear();
-											    myChart.hideLoading();
+											   
 											    myChart.setOption(option);
-											/* }else{
-											    	alert("图标请求不成功，请重新请求！")
-											    }
- */
+											
 											});
 										});
 					});
