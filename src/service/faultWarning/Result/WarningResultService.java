@@ -1,12 +1,9 @@
 package service.faultWarning.Result;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import algorithms.cos.Coscal;
-import service.FaultInfoService;
-import service.faultWarning.PieChartData;
-import util.FaultUtils;
 
 /**
  * 故障预警结果展示
@@ -14,47 +11,25 @@ import util.FaultUtils;
  *
  */
 public class WarningResultService {
-	private List<Double> result;
-	private List<String>  system; //子系统
-	private List<String> faultName;//故障名称
-	
+	private HashMap<String,Double> result;
 	
 	public WarnningResult faultWarnResult(String starttime, String endtime)  {
 		Coscal coscal=new Coscal();	
-		result=coscal.getSimilarityDegree(starttime, endtime);
+		result=coscal.getSimilarityDegreeOfSystemgs(starttime, endtime);
+		System.out.println("输出result: "+result);
 		
-		FaultInfoService faultInfoService = new FaultInfoService();//获取所有的故障信息
-		try {
-			List<FaultUtils> data = faultInfoService.getFaultInfos();
-			system=new ArrayList<>();
-			faultName=new ArrayList<>();
-			for (int i = 0; i < data.size(); i++) {
-				FaultUtils aFaultUtils=data.get(i);
-				system.add(aFaultUtils.getSystem());
-				faultName.add(aFaultUtils.getFaultName());
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		List<Double> faultRate=new ArrayList<>(); //故障概率
+		List<String> faultName=new ArrayList<>(); //故障名称
+		for ( HashMap.Entry<String, Double> entry: result.entrySet()) {
+			faultName.add(entry.getKey());
+			faultRate.add(entry.getValue());
+		};
 		
-		WarnningResult warnResult=new WarnningResult( system,  faultName,result);//表格数据
-		
-		
-		
-		
+		WarnningResult warnResult=new WarnningResult( faultName, faultRate);//表格数据
 		
 		return warnResult;
 	}
 	
-	
-	
-	
-	
-
-
-
 	//测试类
 	public static void main(String[] args) {
 		WarningResultService aResultService=new WarningResultService();

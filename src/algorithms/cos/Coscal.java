@@ -18,7 +18,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import com.lowagie.text.pdf.events.IndexEvents.Entry;
 import com.opensymphony.xwork2.inject.util.Strings;
+import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import bll.diagnosis.tree.model.pumInitialNodes;
@@ -180,7 +182,7 @@ public class Coscal {
 	/**
 	 * 获得开始结束时间内的向量，并与5大系统的故障向量对比，获得每个相似的概率
 	 * */
-	private  HashMap<String, Double> getSimilarityDegreeOfSystemgs(String starttime,String endtime){
+	public  HashMap<String, Double> getSimilarityDegreeOfSystemgs(String starttime,String endtime){
 		HashMap<String, Double> sys_pro = new HashMap<String, Double>();
 		HashMap<String, Integer> sys_counters = new HashMap<String, Integer>();
 		String[] keys = {"水泵水轮机","调速器系统","发电机及励磁系统","主变系统","球阀系统"};
@@ -248,6 +250,23 @@ public class Coscal {
 		String endtime="2015-05-11 08:20:00";
 		String date = TimeUtils.LongtoString(1431303600L);
 		HashMap<String, Double> pro_systems = cc.getSimilarityDegreeOfSystemgs(starttime, endtime);
+		
+		/*List<Double> faultRate=new ArrayList<>();
+		List<String> faultName=new ArrayList<>();
+		for (HashMap.Entry <String, Double> entry: pro_systems.entrySet()) {
+			faultName.add(entry.getKey());
+			faultRate.add(entry.getValue());
+			
+			System.out.println("key： "+entry.getKey());;
+			System.out.println("value:"+ entry.getValue());
+		}
+		for (String string : faultName) {
+			System.out.println(string);
+		}
+		for (Double double1 : faultRate) {
+			System.out.println(double1);
+		}*/
+		
 		System.out.print(pro_systems);
 	}
 }

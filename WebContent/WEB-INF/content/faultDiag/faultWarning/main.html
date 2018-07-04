@@ -26,13 +26,15 @@
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+<!-- <script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script> -->
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
-<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/echarts.js"></script>
+<!-- <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
 
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script>
+	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script> -->
 
 </head>
 <script type="text/javascript">
@@ -51,10 +53,10 @@
 		});
 	}
 
+	var myChart;
 	function WarningResult() {
-		showMask();
+		showMask(); 
 		var starTime = getComboboxValue("startTime");
-		/* var endTime = getDate("endTime"); */
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
 				+ starTime; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
@@ -65,64 +67,157 @@
 			var jsonArr = [];
 			tem_Arry = [];
 			for (i = 0; i < view.pieWarn.length; i++) {
-				jsonArr = [ view.pieWarn[i].faultName,
-						view.pieWarn[i].faultChance ];
-				tem_Arry.push(jsonArr)
+				var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
+				tem_Arry.push(map)
 			}
-			var chart = {
-				type : 'pie',
-				options3d : {
-					enabled : true,
-					alpha : 45,
-					beta : 0
-				}
+			if(myChart !=null && myChart !=""&& myChart !=undefined){
+				myChart.dispose();
+			}
+			myChart = echarts.init(document.getElementById('container3'));
+			
+			 option = {
+				        title : {
+				            text: '故障预警分析图',
+				            subtext: '',
+				            x:'center'
+				        },
+				        tooltip : {
+				            trigger: 'item',
+				            formatter: "{a} <br/>{b} : {c} ({d}%)"
+				        },
+				        toolbox:{
+				            show:true,
+				            orient: 'horizontal',
+				            showTitle: true,
+				            feature:{
+				                saveAsImage:{
+				                    type:'png',
+				                    show:true,
+				                    title:'保存为图片'
+				                },
+				                restore:{show:true}
+				            }
+				        },
+				        legend: {
+				            orient: 'horizontal',
+				            left: '5%',
+				            top:'8%',
+				            data: ['发电机及励磁系统','水泵水轮机','主变系统','调速器系统','球阀系统']
+				        },
+				        series : [
+				            {
+				                name: '预警结果',
+				                type: 'pie',
+				                radius : '35%',
+				                center: ['15%', '50%'],
+				                data:tem_Arry,
 
-			};
-			var credits = {
-				enabled : false
-			};
+				                itemStyle: {
+				                    emphasis: {
+				                        shadowBlur: 10,
+				                        shadowOffsetX: 0,
+				                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+				                    }
+				                }
+				            },
+				            {
+				                name: '',
+				                label: {
+				                    normal: {
+				                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+				                        backgroundColor: '#eee',
+				                        borderColor: '#aaa',
+				                        borderWidth: 1,
+				                        borderRadius: 4,
+				                        rich: {
+				                            a: {
+				                                color: '#999',
+				                                lineHeight: 22,
+				                                align: 'center'
+				                            },
+				                            hr: {
+				                                borderColor: '#aaa',
+				                                width: '100%',
+				                                borderWidth: 0.5,
+				                                height: 0
+				                            },
+				                            b: {
+				                                fontSize: 15,
+				                                lineHeight: 25
+				                            },
+				                            per: {
+				                                color: '#eee',
+				                                backgroundColor: '#334455',
+				                                padding: [2, 4],
+				                                borderRadius: 2
+				                            }
+				                        }
+				                    }
+				                },
+				                type: 'pie',
+				                radius: '20%',
+				                center: ['65%', '50%'],
+				                data: [ ]
+				            }
+				        ]
+				    };
+			
+			    myChart.setOption(option);
 
-			var title = {
-				text : '预警概率结果分析图'
-			};
-			var legend = {//控制图例显示位置
-				layout : 'vertical',
-				align : 'left',
-				verticalAlign : 'top',
-				borderWidth : 0
-			};
-			var tooltip = {
-				pointFormat : '<b>{point.percentage:.1f}%</b>'
-			};
+			    myChart.on('click', function(params) {
+			       /* var index=option.series[1].name;
+			        alert(index);*/
 
-			var plotOptions = {
-				pie : {
-					allowPointSelect : true,
-					cursor : 'pointer',
-					depth : 35,
-					dataLabels : {
-						enabled : true,
-						format : '{point.name}'
-					},
-					showInLegend : true
-				// 设置饼图是否在图例中显示
-				}
-			};
+			    	if(params.name ==("发电机及励磁系统")){
 
-			var series = [ {
-				type : 'pie',
-				data : tem_Arry
-			} ];
+			            option.series[1].name='励磁预警结果';
+			            option.series[1].data=[
+			                {value:24, name:'励磁A '},
+			                {value: 15, name: '励磁B '},
+			                {value: 15, name: '励磁C '},
+			                {value: 15, name: '励磁B '}
+			            ];
+			            myChart.setOption(option);
+			        }
+			        if(params.name ==("水泵水轮机")){
 
-			var json = {};
-			json.chart = chart;
-			json.title = title;
-			json.legend = legend;
-			json.credits = credits;
-			json.tooltip = tooltip;
-			json.plotOptions = plotOptions;
-			json.series = series;
-			$('#container3').highcharts(json);
+			             option.series[1].name='水轮机预警结果';
+			             option.series[1].data=[
+			                {value:12, name:'水泵A '},
+			                {value: 15, name: '水泵B '}
+			            ];
+			            myChart.setOption(option);
+			        }
+			        if(params.name ==("主变系统")){
+			            option.series[1].name='主变预警结果';
+			            option.series[1].data=[
+			                {value:12, name:'主变A '},
+			                {value: 15, name: '主变B '}
+			            ];
+			            myChart.setOption(option);
+			        }
+			        if(params.name ==("调速器系统")){
+			            option.series[1].name='调速预警结果';
+			            option.series[1].data=[
+			                {value:12, name:'调速A '},
+			                {value:12, name:'调速C '},
+			                {value:12, name:'调速D '},
+			                {value: 15, name: '调速B '}
+			            ];
+			            myChart.setOption(option);
+			        }
+			        if(params.name ==("球阀系统")){
+
+			            option.series[1].name='球阀预警结果';
+			            option.series[1].data=[
+			                {value:12, name:'球阀A '},
+			                {value: 6, name: '球阀B '}
+			            ];
+			            myChart.setOption(option);
+			        }
+			        
+			    });
+			
 		});
 
 	}
@@ -211,12 +306,11 @@
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
 				<thead>
 					<tr>
-						<th data-options="field:'system',align:'center'"
-							style="width: 15%">系统名称</th>
+						
 						<th data-options="field:'faultName',align:'center'"
 							style="width: 50%">故障名称</th>
 						<th data-options="field:'detail',align:'center'"
-							style="width: 25%">发生概率</th>
+							style="width: 45%">发生概率</th>
 					</tr>
 				</thead>
 			</table>

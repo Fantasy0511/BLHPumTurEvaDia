@@ -1,44 +1,37 @@
 package service.faultWarning.Result;
 
+
 import java.util.List;
-import util.FaultUtils;
+
 /**
- * 故障预警结果
+ * 故障预警结果数据类型封装
  * @author tiandiwei
  *
  */
 public class WarnningResult {
 	
 	
-	private List<String>  system; //子系统
-	private List<String> faultName;//故障名称
-	private List<Double> warnResult; //当前故障概率
+	private List<String>  faultName; //故障名称
+	private List<Double> faultRate;//故障概率
 	
-	public List<String> getSystem() {
-		return system;
+	public WarnningResult(List<String> faultName, List<Double> faultRate) {
+		super();
+		this.faultName = faultName;
+		this.faultRate = faultRate;
 	}
 	public List<String> getFaultName() {
 		return faultName;
 	}
-	public List<Double> getWarnResult() {
-		return warnResult;
-	}
-	public void setSystem(List<String> system) {
-		this.system = system;
+	public List<Double> getFaultRate() {
+		return faultRate;
 	}
 	public void setFaultName(List<String> faultName) {
 		this.faultName = faultName;
 	}
-	public void setWarnResult(List<Double> warnResult) {
-		this.warnResult = warnResult;
+	public void setFaultRate(List<Double> faultRate) {
+		this.faultRate = faultRate;
 	}
 	
-	public WarnningResult(List<String> system, List<String> faultName, List<Double> warnResult) {
-		super();
-		this.system = system;
-		this.faultName = faultName;
-		this.warnResult = warnResult;
-	}
 	
 	
 }

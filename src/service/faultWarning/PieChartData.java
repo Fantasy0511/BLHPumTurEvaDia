@@ -4,11 +4,6 @@ package service.faultWarning;
 public class PieChartData {
 	private String  faultName;
 	private Double faultChance;
-	public PieChartData(String faultName, Double faultChance) {
-		super();
-		this.faultName = faultName;
-		this.faultChance = faultChance;
-	}
 	public String getFaultName() {
 		return faultName;
 	}
@@ -21,6 +16,13 @@ public class PieChartData {
 	public void setFaultChance(Double faultChance) {
 		this.faultChance = faultChance;
 	}
+	public PieChartData(String faultName, Double faultChance) {
+		super();
+		this.faultName = faultName;
+		this.faultChance = faultChance;
+	}
+	
+	
 	
 	
 

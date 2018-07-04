@@ -35,10 +35,6 @@
 	src="/BLHPumTurEvaDia/js/echarts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/highcharts/highcharts.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script>
 </head>
 <style>
 .page_operation_bar {
@@ -338,7 +334,8 @@
 											        ],
 											        series : [
 											            {
-											                step: stepType,
+											                symbol: "none",
+											            	step: stepType,
 											            	name:'历史查询数据',
 											                type:'line',
 											                symbolSize: 8,
