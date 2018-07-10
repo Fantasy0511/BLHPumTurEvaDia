@@ -202,7 +202,7 @@ body {
     font-size: 20px;
     color:#034D8A;
     background: #EEEEEE;
-    padding-right:20px;
+    padding-right:15px;
     height: 68px;
     border-radius: 0 0 1.5em 1.5em;
 }
@@ -211,7 +211,7 @@ body {
     height: 66px;
     line-height: 66px;
     width: auto;
-    padding-left: 30px;
+    padding-left: 15px;
 }
 .logo-main b{
     font-size: 25px;
