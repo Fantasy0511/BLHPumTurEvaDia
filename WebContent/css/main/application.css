@@ -9,7 +9,7 @@ body {
     margin-bottom: 60px;
 }
 .footer {
-    position: absolute;      /* 绝对位置，让底栏位于最底下切固定不动 */
+    position: absolute;      /* 缁濆浣嶇疆锛岃搴曟爮浣嶄簬鏈�搴曚笅鍒囧浐瀹氫笉鍔� */
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
@@ -202,16 +202,16 @@ body {
     font-size: 20px;
     color:#034D8A;
     background: #EEEEEE;
-    padding-right:15px;
+    padding-right:20px;
     height: 68px;
     border-radius: 0 0 1.5em 1.5em;
 }
 .logo-main .logo{
     background-size:  150px;
     height: 66px;
-    line-height: 66px;
+   /*  line-height: 66px; */
     width: auto;
-    padding-left: 15px;
+    padding-left: 30px;
 }
 .logo-main b{
     font-size: 25px;
@@ -275,12 +275,12 @@ body {
 
 
 
-/*!* dataTables列内容居中 *!*/
+/*!* dataTables鍒楀唴瀹瑰眳涓� *!*/
 /*.table>tbody>tr>td{*/
     /*text-align:center;*/
 /*}*/
 
-/*!* dataTables表头居中 *!*/
+/*!* dataTables琛ㄥご灞呬腑 *!*/
 /*.table>thead:first-child>tr:first-child>th{*/
     /*text-align:center;*/
 /*}*/

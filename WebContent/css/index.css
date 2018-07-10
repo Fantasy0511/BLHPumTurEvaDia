@@ -65,6 +65,9 @@ div.app_main {
 	font-size: 21px;
 	color: #006698;
 	vertical-align: middle;
+	position: absolute;
+    top: 35px;
+    padding-left: 30px;
 }
 
 .app_top_nav {

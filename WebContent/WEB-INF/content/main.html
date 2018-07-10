@@ -68,6 +68,21 @@
     
 }
 
+.main-header{
+    height:70px;
+    background:url(/BLHPumTurEvaDia/images/bg_header.jpg) bottom repeat-x;
+}
+.pull-left{padding-left: 0px;
+    background: #EEEEEE;
+    padding-right:20px;
+    height: 100%;
+    width: 590px;
+    border-radius: 0 0 1.5em 1.5em;
+}
+
+
+.t-footer { height:25px; padding:5px; text-align:center; overflow:hidden; background:#e0ecff;}
+
 </style> 
 
 
@@ -112,18 +127,19 @@
 	});
 </script>
 </head>
-<body>
+<body class="easyui-layout">
 
 	<!-- 导航栏  start-->
+	<div data-options="region:'north',border:false,split:true" style="height:70px;">
 	<nav class="navbar navbar-default navbar-fixed-top">  
-       <div class="main-header" style="background: #093d9a;"> 
+       <div class="main-header" > 
 			<div class="logo-main pull-left">
 				<!-- 放在左边的类 -->
 				<div class="logo">
-					<img src="images/logo/logo1.png" height=80% width="auto" />
-					<img src="images/logo/logo2.png" height=80% width="auto" />
-					 <span class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
+					<img src="images/logo/logo1.png" height=34px width="auto" />
+					<img src="images/logo/logo2.png" height=34px width="auto" />
 				</div>
+				<span class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
 			</div>
 			<div class="pull-right">
 				<ul
@@ -164,15 +180,14 @@
 			</div>
 		</div>
 	</nav> 
+	</div>
 	<!-- 导航栏  end-->
 	
 	<!-- 正文 start -->
-	  <div data-options="region:'center'" style="height: 93%;">
-		<div id="tabs" class="easyui-tabs"
-			style="width: 100%; height: 90%; position: relative; top: 70px;">
-			<div title="首页" style="padding: 1px">
-				<iframe id="home" src="welcome"
-					style="width: 100%; height: 99%; border: none"></iframe>
+	<div data-options="region:'center'" style="padding: 1px;">
+		<div id="tabs" class="easyui-tabs" style="height:100%;width:100%;border:false">
+			<div title="首页"  >
+				<iframe id="home" src="welcome" style="height:99.2%;width:100%;border: none"></iframe>
 				
 			</div>
 		</div>
@@ -182,14 +197,17 @@
 
 	
 	<!-- 下栏：华科标志 start -->
-	<div>
-      <footer class="footer" style="height:4%">
-        <div class="container">
-            <p class="text-muted text-center">Copyright
-			&copy;2018 华中科技大学水电学院 Powered by: HUST@HAE</p>
-        </div>
-      </footer>
-    </div> 
+	<div data-options="region:'south',border:false"
+		style="height: 20px; background: #DDDDDD;">
+		<div style="display: inline-block; position: absolute; left: 1%">
+			<span id="span_shortcut_tips">快捷键：</span>
+			<div id="switch_short_cut" class="easyui-switchbutton"
+				style="height: 17px; width: 40px"
+				data-options="onText:'开',offText:'关',checked:true"></div>
+		</div>
+		<div style="display: inline-block; position: absolute; right: 2%;">Copyright
+			&copy;2018 华中科技大学水电学院 Powered by: HUST@HAE</div>
+	</div>
 <!-- 下栏：华科标志 end -->
 </body>
 </html>
