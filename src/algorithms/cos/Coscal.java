@@ -102,6 +102,7 @@ public class Coscal {
 			this.disc = new DataDiscrete();
 			this.len = StringMap.size();
 			bf.close();
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -240,9 +241,31 @@ public class Coscal {
 		return rs;
 	}
 	
-	
-	
-	
+	/**
+	 * 获得开始结束时间内的向量，并与输入的系统对比，获得对应系统下的故障相似概率
+	 * @param System 水泵水轮机/调速器系统 /发电机及励磁系统/主变系统/球阀系统
+	 * */
+	public  HashMap<String, Double> getFaultSimilarityOfSystemgs(String starttime,String endtime,String System){
+		HashMap<String, Double> fault_pro = new HashMap<String, Double>();
+		ArrayList<Double> rs = this.getSimilarityDegree(starttime,endtime);
+		double total = 0;
+		for(int i=0;i<rs.size();i++){
+			String sys = allfaults.get(i).getSystem();
+			String key = allfaults.get(i).getFaultName();
+			double cos = rs.get(i);
+			if(sys.equals(System)&&(!fault_pro.containsKey(key))){
+				fault_pro.put(key, cos);
+				total = total+cos;
+			}
+		}
+		//求相对值
+		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
+			String key = entry.getKey();
+			double cos = entry.getValue();
+			fault_pro.put(key, cos/total);
+		}
+		return fault_pro;
+	}
 	
 	public static void main(String[] args) {
 		Coscal cc = new Coscal();
@@ -250,7 +273,7 @@ public class Coscal {
 		String endtime="2015-05-11 08:20:00";
 		String date = TimeUtils.LongtoString(1431303600L);
 		HashMap<String, Double> pro_systems = cc.getSimilarityDegreeOfSystemgs(starttime, endtime);
-		
+		HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs(starttime, endtime,"调速器系统");
 		/*List<Double> faultRate=new ArrayList<>();
 		List<String> faultName=new ArrayList<>();
 		for (HashMap.Entry <String, Double> entry: pro_systems.entrySet()) {
