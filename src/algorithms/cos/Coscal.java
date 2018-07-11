@@ -273,7 +273,7 @@ public class Coscal {
 		String endtime="2015-05-11 08:20:00";
 		String date = TimeUtils.LongtoString(1431303600L);
 		HashMap<String, Double> pro_systems = cc.getSimilarityDegreeOfSystemgs(starttime, endtime);
-		HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs(starttime, endtime,"调速器系统");
+		HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs(starttime, endtime,"主变系统");
 		/*List<Double> faultRate=new ArrayList<>();
 		List<String> faultName=new ArrayList<>();
 		for (HashMap.Entry <String, Double> entry: pro_systems.entrySet()) {
@@ -291,5 +291,6 @@ public class Coscal {
 		}*/
 		
 		System.out.print(pro_systems);
+		System.out.println(pro_fault);
 	}
 }

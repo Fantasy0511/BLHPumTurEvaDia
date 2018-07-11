@@ -11,12 +11,29 @@ import algorithms.cos.Coscal;
  *
  */
 public class WarningResultService {
-	private HashMap<String,Double> result;
+	private HashMap<String,Double> result;  
 	
+	//分系统故障概率
 	public WarnningResult faultWarnResult(String starttime, String endtime)  {
 		Coscal coscal=new Coscal();	
 		result=coscal.getSimilarityDegreeOfSystemgs(starttime, endtime);
-		System.out.println("输出result: "+result);
+		
+		List<Double> faultRate=new ArrayList<>(); //故障概率
+		List<String> faultName=new ArrayList<>(); //故障名称
+		for ( HashMap.Entry<String, Double> entry: result.entrySet()) {
+			faultName.add(entry.getKey());
+			faultRate.add(entry.getValue());
+		};
+		
+		WarnningResult warnResult=new WarnningResult( faultName, faultRate);//表格数据
+		
+		return warnResult;
+	}
+	
+	//子系统详细故障概率
+	public WarnningResult faultWarnResult(String starttime, String endtime,String system)  {
+		Coscal coscal=new Coscal();	
+		result=coscal.getFaultSimilarityOfSystemgs(starttime, endtime,system);
 		
 		List<Double> faultRate=new ArrayList<>(); //故障概率
 		List<String> faultName=new ArrayList<>(); //故障名称

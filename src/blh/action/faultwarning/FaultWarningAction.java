@@ -26,6 +26,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String starttime;
 	private String endtime;
+	private String system="";
 	private WarnningResult results;
 	private WarnningFinal resultFinal;
 
@@ -34,14 +35,23 @@ public class FaultWarningAction extends AbstractActionSupport {
 
 		starttime = getFirstInput() + " 00:00:00";
 		Long starttime1 = TimeUtils.StringtoLong(starttime);
-		Long endtime1 = starttime1 + 86400;
+		Long endtime1 = starttime1 + 3600;
 		endtime = TimeUtils.LongtoString(endtime1);
+		system=getSecondInput();
 
 		System.out.println("开始时间：" + starttime + "  ;  " + "结束时间： " + endtime);
 
-		WarningResultService warningResultService = new WarningResultService();// 调用service方法
-		results = warningResultService.faultWarnResult(starttime, endtime);
-
+		// 调用service方法
+		
+		if(system.equals("0") ) {
+			WarningResultService warningResultService = new WarningResultService();
+			results= warningResultService.faultWarnResult(starttime, endtime);
+		}else {
+			System.out.println("系统选择：" + system);
+			WarningResultService warningResultService = new WarningResultService();
+			results = warningResultService.faultWarnResult(starttime, endtime,system); //五个总系统故障概率
+		}
+		
 		List<String> faultName = results.getFaultName();// 获取service层的故障名称
 		List<Double> detail = results.getFaultRate(); // 获取故障概率
 

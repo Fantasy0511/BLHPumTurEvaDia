@@ -58,18 +58,18 @@
 		showMask(); 
 		var starTime = getComboboxValue("startTime");
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
-				+ starTime; //将某个子系统历史数据的地址传给url1
+				+ starTime +"//"+0; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
 		getJSON(url1, function(data) {
 			var view = data.resultFinal;
 			loadData("faultInfo", view.tableWarn);
-
-			var jsonArr = [];
+			
 			tem_Arry = [];
 			for (i = 0; i < view.pieWarn.length; i++) {
 				var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
 				tem_Arry.push(map)
 			}
+			
 			if(myChart !=null && myChart !=""&& myChart !=undefined){
 				myChart.dispose();
 			}
@@ -122,7 +122,7 @@
 				            },
 				            {
 				                name: '',
-				                label: {
+				                /* label: {
 				                    normal: {
 				                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
 				                        backgroundColor: '#eee',
@@ -153,7 +153,7 @@
 				                            }
 				                        }
 				                    }
-				                },
+				                }, */
 				                type: 'pie',
 				                radius: '20%',
 				                center: ['65%', '50%'],
@@ -167,54 +167,27 @@
 			    myChart.on('click', function(params) {
 			       /* var index=option.series[1].name;
 			        alert(index);*/
+					var system=params.name;
+			        var url2="/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
+						+ starTime+"//"+system; //将某个子系统历史数据的地址传给url1
+			        console.log(url2);
+			        getJSON(url2, function(data) {
+			        	
+			        	var view = data.resultFinal;
+						loadData("faultInfo", view.tableWarn);
 
-			    	if(params.name ==("发电机及励磁系统")){
-
-			            option.series[1].name='励磁预警结果';
-			            option.series[1].data=[
-			                {value:24, name:'励磁A '},
-			                {value: 15, name: '励磁B '},
-			                {value: 15, name: '励磁C '},
-			                {value: 15, name: '励磁B '}
-			            ];
-			            myChart.setOption(option);
-			        }
-			        if(params.name ==("水泵水轮机")){
-
-			             option.series[1].name='水轮机预警结果';
-			             option.series[1].data=[
-			                {value:12, name:'水泵A '},
-			                {value: 15, name: '水泵B '}
-			            ];
-			            myChart.setOption(option);
-			        }
-			        if(params.name ==("主变系统")){
-			            option.series[1].name='主变预警结果';
-			            option.series[1].data=[
-			                {value:12, name:'主变A '},
-			                {value: 15, name: '主变B '}
-			            ];
-			            myChart.setOption(option);
-			        }
-			        if(params.name ==("调速器系统")){
-			            option.series[1].name='调速预警结果';
-			            option.series[1].data=[
-			                {value:12, name:'调速A '},
-			                {value:12, name:'调速C '},
-			                {value:12, name:'调速D '},
-			                {value: 15, name: '调速B '}
-			            ];
-			            myChart.setOption(option);
-			        }
-			        if(params.name ==("球阀系统")){
-
-			            option.series[1].name='球阀预警结果';
-			            option.series[1].data=[
-			                {value:12, name:'球阀A '},
-			                {value: 6, name: '球阀B '}
-			            ];
-			            myChart.setOption(option);
-			        }
+						tem_Arry = [];
+						for (i = 0; i < view.pieWarn.length; i++) {
+							var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
+							tem_Arry.push(map)
+						}
+			        	
+				            option.series[1].name='预警结果';
+				            option.series[1].data=tem_Arry;
+				            myChart.setOption(option);
+				        
+			        });
+			        
 			        
 			    });
 			
@@ -291,7 +264,7 @@
 	   margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
 		<div class="easyui-panel" title="预警结果分析图"
 			style="width: 99%; height: auto">
-			<div id="container3" style=" height: 390px;">
+			<div id="container3" style=" height: 420px;">
 			<pre>    暂无结果</pre>
 			</div>
 			
@@ -302,7 +275,7 @@
 	<!-- 第三个框 start -->
 	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
 			<table class="easyui-datagrid" title="评价结果展示" id="faultInfo"
-				style="width: 99%; height: 460px"
+				style="width: 99%; height: auto"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
 				<thead>
 					<tr>
