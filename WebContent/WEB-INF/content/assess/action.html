@@ -62,8 +62,8 @@
             return new Date();
         }
     }
-//开始评估  
-				
+	
+     //开始评估  			
 	function assess() {
 		var begin =getDate("beginDate");
 		var unitNo =$('#unitNo').combobox('getValue');
@@ -74,6 +74,7 @@
 		if (system=="pum"){
 			$("#label1").html("主轴密封");
 			$("#label2").html("振动信号性能");
+			
 			};
 		
 		if (system=="exc"){
@@ -96,25 +97,43 @@
 		showMask();   // 显示与隐藏
 		var success = function(data) {
 			var view = data.assessView;
-			drawGuage('assement-container', view.topScore);
-			loadData("result_table", view.bottomDetail);
-			drawPic("chart_middle_bar", view.middleBar);
+			console.log(view);  
+			drawGuage('assement-container', view.topScore);  // 画仪表盘
+			loadData("result_table", view.bottomDetail);     // 填充“详细评估信息”表格
+			drawPic("chart_middle_bar", view.middleBar);     // 画柱状图
+			console.log(view.middleBar);                     // 显示柱状图数据
 			setTexts(view);
+			
+			//将传回的数据填充饼状图的方法放到这里
+			var sonView = data.sonAssessView;
+			
+			drawPic("chart_son_bar1", sonView.mainShaftSealBar);   // 画小窗口里面“主轴密封”的柱状图
+			drawPic("chart_son_pie1", sonView.mainShaftSealPie);   // 画小窗口里面“主轴密封”的饼状图
+			drawPic("chart_son_bar2", sonView.temperatureBar);   // 画小窗口里面“温度”的柱状图
+			drawPic("chart_son_pie2", sonView.temperaturePie);   // 画小窗口里面“温度”的饼状图
+			
 		}
 		getJSON(url, success);
 	}
 	
+     
+     function sonAsses(){
+    	 $('#test-window').window('open');
+     }
+     
 	$(function() {
+		$('#test-window').window('close');  //小窗口初始关闭
 		clearText(".easyui-textbox");
-		drawGuage('assement-container', 0);
+		drawGuage('assement-container', 0);  //画仪表盘 初始化为0
 		$("#bt_assess").click(assess);     // “开始评估”按钮
-		
+		$('#bt_sonAssess').click(sonAsses);  // 子评估结果的显示
 	});
 	
 </script>
 
 </head>
 <body>
+    <!--条件输入 start-->
 	<div class="input_div" style="margin-bottom: 5px;">
 		<span class="input_title">条件输入：</span> 
 		
@@ -146,18 +165,27 @@
 		
 			<a id="bt_assess" href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-ok'">开始评估</a> 
-			<!-- <a id="bt_history"
-				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/history">历史数据</a> -->
+			
 			<a id="bt_ahp"
 				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/ahp/main">层次分析</a>
-		
+			<!-- <a id="bt_sonAsses"
+				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/sonAsses/main">显示底数据</a> -->
+			<a id="bt_sonAssess" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'">显示子评估</a> 
 	</div>
+	<!--条件输入 end-->
 
-	<!--分项评估结果 共 3 项 -->
+	
 	<div style="width:100%">
+	
+	<!--仪表盘和分项结果 start-->
 	<div style="margin-left: auto; margin-right: auto; width: 75%">
 		<div class="assesment-container">
+			<!-- 仪表盘 start -->
 			<div id="assement-container"></div>
+			<!-- 仪表盘 end -->
+			
+			<!--分项评估结果 start -->
 			<div class="midDiv-container">
 				<div class="midDiv" style="top:60px;width:600px">
 					<div>
@@ -194,34 +222,80 @@
 					</div>
 				</div>
 			</div>
+			<!--分项评估结果 end -->
 		</div>
-	
 	</div>
-	<div style="margin-left: auto; margin-right: auto; width: 75%">
-		<div style="width:38%;marging-right:2%">
-		<table id="result_table" title="详细评估信息" class="easyui-datagrid"
-			style="width: 100%; height: 450px"
-			data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left'}">
-			<thead>
-				<tr>
-					<th data-options="field:'name',width:100">计算指标</th>
-					<th data-options="field:'value',width:100">计算值</th>
-				</tr>
-			</thead>
-		</table>
-		</div>
-		<div style="width:60%;float:right"> 
-		<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
-			style=" width:100%;height: 450px;display:inline;float:left">
-			<div id="chart_middle_bar">
-			<pre>  暂无结果</pre>
+	<!--仪表盘和分项结果 end-->
+
+    <!--信息表和柱状图 start-->
+		<div style="margin-left: auto; margin-right: auto; width: 75%">
+			<!--详细信息表 start -->
+			<div style="width: 38%; marging-right: 2%">
+				<table id="result_table" title="详细评估信息" class="easyui-datagrid"
+					style="width: 100%; height: 450px"
+					data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left'}">
+					<thead>
+						<tr>
+							<th data-options="field:'name',width:100">计算指标</th>
+							<th data-options="field:'value',width:100">计算值</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
+			<!--详细信息表 end -->
+
+			<!--柱状图 start -->
+			<div style="width: 60%; float: right">
+				<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
+					style="width: 100%; height: 450px; display: inline; float: left">
+					<div id="chart_middle_bar">
+						<pre>  暂无结果</pre>
+					</div>
+				</div>
+			</div>
+			<!--柱状图 end -->
 		</div>
-		</div>
+		<!--信息表和柱状图 end-->
+
 	</div>
 	
+   <!--小窗口显示查询内容 start -->
+	<div id="test-window" class="easyui-window" title="XXX系统健康状态"
+		style="width: 100%; height: 550px;">
+     
+	  <div style="width: 100%; height: 400px; float: left">
+		 <!--柱状图1-->
+		<div class="container">
+			<div id="chart_son_bar1"
+				style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+		</div>
+		<!--饼状图1-->
+		<div class="container">
+			<div id="chart_son_pie1"
+				style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+		</div>
+	</div>
+	<hr/>
+	<div style="width: 100%; height: 400px; float: left">
+		 <!--柱状图2-->
+		<div class="container">
+			<div id="chart_son_bar2"
+				style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+		</div>
+		<!--饼状图2-->
+		<div class="container">
+			<div id="chart_son_pie2"
+				style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+		</div>
 	</div>
 
+	<hr />
+		
+	</div>
+	<!--小窗口显示查询内容end -->
+	
+	
+	
 	<div style="height: 50px"></div>
 </body>
 </html>

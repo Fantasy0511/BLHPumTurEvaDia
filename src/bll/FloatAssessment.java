@@ -35,7 +35,9 @@ public class FloatAssessment {
 					li = 1.0;
 			}
 		}
+		
 		System.out.println(li);
+		
 		int a = (int) (98 - 40 * li);
 
 		return a;

@@ -4,7 +4,7 @@ import bll.FloatAssessment;
 //上导轴承温度得分
 public class UpperBearing1 {
 public int UpperBearing(long time){
-	
+	// 上导轴承温度
 	FloatAssessment float826=new FloatAssessment();
 	int U1=float826.FloatAssess(826,time, 190, 0);
 	

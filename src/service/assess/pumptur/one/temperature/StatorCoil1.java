@@ -6,14 +6,14 @@ public class StatorCoil1 {
 
 
 	public int StatorCoil(long time){
-		//U相
+		//定子线圈U相温度
 		FloatAssessment float886=new FloatAssessment();
 		int U1=float886.FloatAssess(886,time, 140, -19);
 		
-		//V相
+		//定子线圈V相
 		FloatAssessment float898=new FloatAssessment();
 		int U2=float898.FloatAssess(898,time, 140, -19);
-		//W相
+		//定子线圈W相
 		FloatAssessment float910=new FloatAssessment();
 		int U3=float910.FloatAssess(910,time, 140, -19);
 		

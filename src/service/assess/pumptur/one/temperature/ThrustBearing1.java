@@ -6,6 +6,7 @@ public class ThrustBearing1 {
 
 	
 	public int ThrustBearing(long time){
+		// 推力轴承发电温度
 		FloatAssessment float854=new FloatAssessment();
 		int U1=float854.FloatAssess(854,time, 190, 0);
 		

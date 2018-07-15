@@ -14,8 +14,14 @@ public class PumpAssResult {
 	private double temperatureAss;
 	private double score;
 
-	public PumpAssResult(double guideVane, double history, double mainShaftSeal,
-			double swingAss, double temperatureAss, double score) {
+	// 主进水阀的底层指标
+	private int waterFlow; // 供水流量
+	private int waterTemperature; // 供水温度
+	private int beforeStress; // 前压力
+	private int afterStress; // 后压力
+
+	public PumpAssResult(double guideVane, double history, double mainShaftSeal, double swingAss, double temperatureAss,
+			double score, int waterFlow, int waterTemperature, int beforeStress, int afterStress) {
 		super();
 		this.guideVane = guideVane;
 		this.history = history;
@@ -23,6 +29,10 @@ public class PumpAssResult {
 		this.swingAss = swingAss;
 		this.temperatureAss = temperatureAss;
 		this.score = score;
+		this.waterFlow = waterFlow;
+		this.waterTemperature = waterTemperature;
+		this.beforeStress = beforeStress;
+		this.afterStress = afterStress;
 	}
 
 	public double getGuideVane() {
@@ -71,6 +81,38 @@ public class PumpAssResult {
 
 	public void setScore(double score) {
 		this.score = score;
+	}
+
+	public int getWaterFlow() {
+		return waterFlow;
+	}
+
+	public void setWaterFlow(int waterFlow) {
+		this.waterFlow = waterFlow;
+	}
+
+	public int getWaterTemperature() {
+		return waterTemperature;
+	}
+
+	public void setWaterTemperature(int waterTemperature) {
+		this.waterTemperature = waterTemperature;
+	}
+
+	public int getBeforeStress() {
+		return beforeStress;
+	}
+
+	public void setBeforeStress(int beforeStress) {
+		this.beforeStress = beforeStress;
+	}
+
+	public int getAfterStress() {
+		return afterStress;
+	}
+
+	public void setAfterStress(int afterStress) {
+		this.afterStress = afterStress;
 	}
 
 }

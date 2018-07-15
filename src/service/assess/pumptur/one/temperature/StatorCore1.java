@@ -5,6 +5,7 @@ import bll.FloatAssessment;
 public class StatorCore1 {
 	
 	public int StatorCore(long time){
+		//定子铁芯温度
 		FloatAssessment float923=new FloatAssessment();
 		int U1=float923.FloatAssess(923,time, 190, 0);
 		

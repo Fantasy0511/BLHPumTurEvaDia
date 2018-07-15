@@ -136,7 +136,13 @@ function _drawLine(lineData, id) {
 	_drawLineChart(lineData.title, lineData.xName, lineData.yName,
 			lineData.data, id);
 }
-
+/**
+ * 绘制柱状图
+ * 
+ * @param title, subtitle, categories, yLabel, seriesName,
+		seriesValue, id
+ *      
+ */
 function _drawBarChart(title, subtitle, categories, yLabel, seriesName,
 		seriesValue, id) {
 	$("#" + id)
@@ -180,9 +186,65 @@ function _drawBarChart(title, subtitle, categories, yLabel, seriesName,
 							}
 						},
 						series : [ {
-							name : seriesName,// 横坐标
-							data : seriesValue
+							name : seriesName, // 横坐标
+							data : seriesValue // 纵坐标
 						} ]
+					});
+}
+
+/**
+ * 绘制柱状图新   by 贾天龙
+ * 
+ * @param title, subtitle, categories, yLabel, seriesName,
+		seriesValue, id
+ *      
+ */
+function _drawBarChartNew(title, subtitle, categories, yLabel, 
+		data, id) {
+	$("#" + id)
+			.highcharts(
+					{
+						chart : {
+							type : 'column'
+						},
+						title : {
+							text : title
+						},
+						subtitle : {
+							text : subtitle
+						},
+						xAxis : {
+							categories : categories
+						},
+						yAxis : {
+							min : 0,
+							title : {
+								text : yLabel
+							}
+						},
+						exporting : {
+							enabled : false
+						},
+						credits : {
+							enabled : false
+						},
+						tooltip : {
+							headerFormat : '<span style="font-size:10px">{point.key}</span>',
+							pointFormat : '' + '',
+							footerFormat : '<table><tbody><tr><td style="color:{series.color};padding:0">得分: </td><td style="padding:0"><b>{point.y:.2f}</b></td></tr></tbody></table>',
+							shared : true,
+							useHTML : true
+						},
+						plotOptions : {
+							column : {
+								pointPadding : 0.2,
+								borderWidth : 0
+							}
+						},
+						series : [ {
+							data:data
+						} ]
+						
 					});
 }
 
@@ -250,13 +312,14 @@ function _drawPieChart(title, pieData, id) {
 							}
 						},
 						legend : {
-							layout : 'vertical',
+							enabled:false,
+							layout : 'horizontal',
 							backgroundColor : '#FFFFFF',
 							floating : true,
-							align : 'left',
-							verticalAlign : 'top',
+							align : 'center',
+							verticalAlign : 'bottom',
 							x : 10,
-							y : 10,
+							y : 25,
 							labelFormatter : function() {
 								return this.name + '('
 										+ this.percentage.toFixed(2) + '%)';
@@ -277,10 +340,13 @@ function _drawPieChart(title, pieData, id) {
  *            绘制饼图的div容器的id。
  */
 function _drawPie(pieData, id) {
-	_drawPieChart(pieData.title, pieData.seriesName, pieData.data, id);
+	_drawPieChart(pieData.title, pieData.data, id);
+	/*_drawPieChart(pieData.title, pieData.seriesName, pieData.data, id);*/ 
+	/*这是以前的，饼状图不应该有seriesName*/
 }
 
 /**
+ * 
  * 调用以作图。if中的判断表达式判断相等，千万不能掉“==”一个等号。这是一个下午的教训。
  * 
  * @param id

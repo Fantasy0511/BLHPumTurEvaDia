@@ -5,8 +5,8 @@ import bll.FloatAssessment;
 //水导轴承    油温1 966     温度1 967    温度5  968    温度10 972 
 public class WaterBearing1 {
 	public int WaterBearing(long time){
-	
-		FloatAssessment float966=new FloatAssessment();
+	// 水导轴承温度
+	FloatAssessment float966=new FloatAssessment();
 	int U1=float966.FloatAssess(966,time, 190, 0);
 	
 	FloatAssessment float967=new FloatAssessment();

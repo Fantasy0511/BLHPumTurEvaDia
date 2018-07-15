@@ -25,8 +25,9 @@ public class GuideVane1 {
 		System.out.println(U3);
 		int a=(int) (0.2*U1+0.4*U2+0.4*U3);
 		return a;
-	}public static void main(String[] args) {
-		
+	}
+	
+	public static void main(String[] args) {
 		GuideVane1  a=new GuideVane1 ();
 		System.out.println(a.GuideVane (1441400000));
 	}
