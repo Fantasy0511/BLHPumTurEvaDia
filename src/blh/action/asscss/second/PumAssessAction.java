@@ -69,7 +69,7 @@ public class PumAssessAction extends AbstractActionSupport {
 		
 
 		// 返回底层的评估对象“sonAssessView”
-		sonAssessView = new SonAssessView(mainShaftSealBar, mainShaftSealPie);
+		sonAssessView = new SonAssessView(mainShaftSealBar, mainShaftSealPie,null,null);
 		return super.execute();
 	}
 

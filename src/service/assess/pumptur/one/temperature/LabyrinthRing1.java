@@ -1,6 +1,5 @@
 package service.assess.pumptur.one.temperature;
 
-import bll.BoolAssess;
 import bll.FloatAssessment;
 
 //迷宫环得分
