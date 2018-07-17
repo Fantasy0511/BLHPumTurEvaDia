@@ -1,10 +1,16 @@
 package service.assess.Governor.three;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 
 public class SignalSum3 {
 	/*3号机组调速故障信号得分*/
-	public double SignalSum3(long time){
+	public List<Number> getSignalSum3(long time){
+		
+		List<Number> singleList = new ArrayList<>();
+		
 		//调速器电气过速报警
 		BoolAssess bool858=new BoolAssess();
 		int U1=bool858.BooleanAssess(858,time);
@@ -16,6 +22,12 @@ public class SignalSum3 {
 		int U3=bool860.BooleanAssess(860,time);
 		
 		double score=0.15*U3+0.45*U1+0.4*U2;
-		return score;
+		
+		singleList.add(U1);
+		singleList.add(U2);
+		singleList.add(U3);
+		singleList.add(score);
+		
+		return singleList;
 	}
 }

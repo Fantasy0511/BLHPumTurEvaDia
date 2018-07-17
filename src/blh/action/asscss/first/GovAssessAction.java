@@ -60,7 +60,7 @@ public class GovAssessAction extends AbstractActionSupport {
 		double govSum = govAssResult.getGovSum();
 		String topRemark = (govSum > 60) ? ((govSum >= 80) ? "优秀" : "合格") : "严重";
 
-		// 小窗口显示的各个水泵水轮机底层指标得分
+		// 小窗口显示的各个底层指标得分
 		// 油系统底层指标得分
 		List<String> sonbarName = Arrays.asList( "油泵油压", "油槽油位", "油槽油温", "压力油油位","压油槽油压");
 		List<Double> sonbarValue = Arrays.asList(
@@ -77,21 +77,23 @@ public class GovAssessAction extends AbstractActionSupport {
 		
 		PieData govOilPie = PieData.create("油系统性能底层指标比例", sonbarName, sonbarValueRatio, "得分XXX");
 		
-		// 温度底层指标得分
+		// 振动底层指标得分
 		List<String> sonbarName1 = Arrays.asList("调速器故障次数", "油泵故障得分","超速报警次数得分");
 		List<Double> sonbarValue1 = Arrays.asList(
 				(double) govAssResult.getGovSingleResult().get(0).doubleValue(),
 				(double) govAssResult.getGovSingleResult().get(1).doubleValue(),
 				(double) govAssResult.getGovSingleResult().get(2).doubleValue());
 		List<Double> sonbarValueRatio1 = Arrays.asList(0.15,0.45,0.4);
-		BarData govSingleBar = BarData.create("温度底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
-		PieData govSinglePie = PieData.create("温度底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
+		BarData govSingleBar = BarData.create("振动底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
+		PieData govSinglePie = PieData.create("振动底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
 
 		
 		// 返回总的评估对象“assessView”
 		assessView = new AssessView(govAssResult.getGovSum(), topRemark,
-				govAssResult.getGovOilResult().get(5).toString(), govAssResult.getGovSingleResult().get(3).toString(),
-				govAssResult.getHistory() + "", bottomDetail, middleBar);
+				govAssResult.getGovOilResult().get(5).toString(), 
+				govAssResult.getGovSingleResult().get(3).toString(),
+				govAssResult.getHistory() + "", 
+				bottomDetail, middleBar);
 
 		// 返回底层的评估对象“sonAssessView”
 		sonAssessView = new SonAssessView(govOilBar, govOilPie,govSingleBar, govSinglePie);

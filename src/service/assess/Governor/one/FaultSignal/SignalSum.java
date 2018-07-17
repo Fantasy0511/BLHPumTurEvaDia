@@ -1,5 +1,6 @@
 package service.assess.Governor.one.FaultSignal;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,9 @@ public class SignalSum {
 	 * U1 调速器故障次数 U2 油泵故障次数 U3 超速报警次数
 	 */
 	public List<Number> getSignalSum(long time) {
+		
+		DecimalFormat df=new DecimalFormat("#.0");
+		
 		List<Number> singleList = new ArrayList<>();
 		GeneratorTrip GT = new GeneratorTrip();
 		int U1 = GT.GeneratorTrip(time);
@@ -17,6 +21,9 @@ public class SignalSum {
 		OverspeedAlarm OA = new OverspeedAlarm();
 		int U3 = OA.OverspeedAlarm(time);
 		double score = 0.15 * U1 + 0.45 * U2 + 0.4 * U3;
+		
+		score=Double.parseDouble(df.format(score));
+		
 		singleList.add(U1);
 		singleList.add(U2);
 		singleList.add(U3);

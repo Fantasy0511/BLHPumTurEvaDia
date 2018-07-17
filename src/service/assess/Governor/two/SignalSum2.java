@@ -1,11 +1,17 @@
 package service.assess.Governor.two;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 
 
 public class SignalSum2 {
 	/*2号机组调速故障信号得分*/
-	public double SignalSum2(long time){
+	public List<Number> getSignalSum2(long time){
+		
+		List<Number> singleList = new ArrayList<>();
+		
 		//调速器电气过速报警
 		BoolAssess bool533=new BoolAssess();
 		int U1=bool533.BooleanAssess(533,time);
@@ -25,6 +31,11 @@ public class SignalSum2 {
 		System.out.println("调速器油箱阻塞："+U3);
 		System.out.println("综合得分："+score);
 		System.out.println("************");
-		return score;
+		singleList.add(U1);
+		singleList.add(U2);
+		singleList.add(U3);
+		singleList.add(score);
+		
+		return singleList;
 	}
 }
