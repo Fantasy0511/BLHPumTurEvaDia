@@ -6,11 +6,13 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.asscss.AssessView;
+import blh.action.asscss.SonAssessView;
 import blh.action.support.AbstractActionSupport;
 import service.assess.Ballvalve.one.BallAssSumOut;
 import service.assess.Ballvalve.one.BallAssessResult;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
+import tool.highcharts.PieData;
 import util.TimeUtils;
 
 @Result(type = "json")
@@ -18,6 +20,7 @@ public class BallAssessAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private AssessView assessView;
 	private BallAssessResult ballAssessResult;
+	private SonAssessView sonAssessView;
 
 	@Override
 	public String execute() throws Exception {
@@ -26,37 +29,84 @@ public class BallAssessAction extends AbstractActionSupport {
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
 		BallAssSumOut ballAssSum = new BallAssSumOut();
 		ballAssessResult = ballAssSum.getBallAssSum(time);
-
-		String[] names = { "球阀油系统性能状态", "历史和巡检状态", "球阀性能状态" };
-		double[] values = { ballAssessResult.getOilSystem(), ballAssessResult.getHistory(),
-				ballAssessResult.getPerformance() };
+		
+		//前端的“详细评估信息”里面的内容——对象：bottomDetail
+		String[] names = { "球阀油系统性能状态", "历史和巡检状态", "球阀性能状态",
+				"压力油罐油压低报警","球阀1号油泵故障","球阀2号油泵故障",
+				"球阀突然关闭报警","蜗壳压力","水闸压力"
+				};
+		double[] values = { 
+				ballAssessResult.getOilSystem().get(3).doubleValue(), 
+				ballAssessResult.getHistory(),
+				ballAssessResult.getPerformance().get(3).doubleValue(),
+		
+				ballAssessResult.getOilSystem().get(0).doubleValue(),
+				ballAssessResult.getOilSystem().get(1).doubleValue(),
+				ballAssessResult.getOilSystem().get(2).doubleValue(),
+				
+				ballAssessResult.getPerformance().get(0).doubleValue(),
+				ballAssessResult.getPerformance().get(1).doubleValue(),
+				ballAssessResult.getPerformance().get(2).doubleValue(),
+		};
 		Table bottomDetail = new Table(new String[] { "name", "value" });
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(names[i], values[i]);
 		}
 
+		//前端的“柱状图”里面的内容——对象middleBar
 		List<String> barName = Arrays.asList("球阀油系统性能状态", "历史和巡检状态", "球阀性能状态");
 		
-		List<Double> barValue = Arrays.asList((double) ballAssessResult.getOilSystem(),
-				(double) ballAssessResult.getHistory(), (double)ballAssessResult.getPerformance());
-		
+		List<Double> barValue = Arrays.asList(
+				ballAssessResult.getOilSystem().get(3).doubleValue(), 
+				ballAssessResult.getHistory(),
+				ballAssessResult.getPerformance().get(3).doubleValue()
+				);
 		BarData middleBar = BarData.create("球阀系统状态评估结果", "", "性能状态", "得分",
 				barName, barValue);
-		//饼图数据
+	
+		//前端的“仪表盘”里面的内容——对象：topRemark（优秀/合格/严重）
 		double barAssSum =ballAssessResult.getBallSum();
 		String topRemark = (barAssSum > 60) ? ((barAssSum >= 80) ? "优秀" : "合格")
 				: "严重";
 		
-		assessView=new AssessView(barAssSum, topRemark, 
-				ballAssessResult.getOilSystem() + "",
-				ballAssessResult.getPerformance() + "", 
-				ballAssessResult.getHistory() + "", 
-				bottomDetail, 
-				middleBar);
-
-		return super.execute();
+		// 小窗口显示的各个底层指标得分
+		// 油系统底层指标得分
+		List<String> sonbarName = Arrays.asList("压力油罐油压低报警","球阀1号油泵故障","球阀2号油泵故障");
+		List<Double> sonbarValue = Arrays.asList(
+				ballAssessResult.getOilSystem().get(0).doubleValue(),
+				ballAssessResult.getOilSystem().get(1).doubleValue(),
+				ballAssessResult.getOilSystem().get(2).doubleValue());
+		List<Double> sonbarValueRatio = Arrays.asList(0.33,0.33,0.33);
 		
-	}
+		// govAssResult.getGovOilResult().get(0)是在数组List<Number>里面获取的，里面的每个值拿出来都是number类型的
+		// 这时需要获取这个number的double值，而不是给number转成double ，也转不成
+		
+		BarData ballOilBar = BarData.create("油系统性能底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
+		PieData ballOilPie = PieData.create("油系统性能底层指标比例", sonbarName, sonbarValueRatio, "得分XXX");
+		
+		// 球阀性能底层指标得分
+		List<String> sonbarName1 = Arrays.asList("球阀突然关闭报警","蜗壳压力","水闸压力");
+		List<Double> sonbarValue1 = Arrays.asList(
+				ballAssessResult.getPerformance().get(0).doubleValue(),
+				ballAssessResult.getPerformance().get(1).doubleValue(),
+				ballAssessResult.getPerformance().get(2).doubleValue());
+		List<Double> sonbarValueRatio1 = Arrays.asList(0.33,0.33,0.33);
+		BarData performanceBar = BarData.create("球阀性能底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
+		PieData performancePie = PieData.create("球阀性能底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
+
+		
+// 返回总的评估对象“assessView”
+assessView = new AssessView(
+		ballAssessResult.getBallSum(), topRemark,
+		ballAssessResult.getOilSystem().get(3).doubleValue()+"",
+		ballAssessResult.getPerformance().get(3).doubleValue()+"",
+		ballAssessResult.getHistory()+"" , bottomDetail, middleBar);
+
+// 返回底层的评估对象“sonAssessView”
+sonAssessView = new SonAssessView(ballOilBar, ballOilPie,performanceBar, performancePie);
+		
+return super.execute();
+}
 
 	public AssessView getAssessView() {
 		return assessView;
@@ -73,5 +123,14 @@ public class BallAssessAction extends AbstractActionSupport {
 	public void setBallAssessResult(BallAssessResult ballAssessResult) {
 		this.ballAssessResult = ballAssessResult;
 	}
+
+	public SonAssessView getSonAssessView() {
+		return sonAssessView;
+	}
+
+	public void setSonAssessView(SonAssessView sonAssessView) {
+		this.sonAssessView = sonAssessView;
+	}
+	
 		
 }

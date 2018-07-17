@@ -1,4 +1,7 @@
 package service.assess.Ballvalve.one;
+
+import java.util.List;
+
 /**
  * 球阀状态评估结果
  * @author tiandiwei
@@ -6,38 +9,38 @@ package service.assess.Ballvalve.one;
  */
 public class BallAssessResult {
 	
-	private double oilSystem;
+	private List<Number> oilSystem;
 	private double history;
-	private double performance;
+	private List<Number> performance;
 	private double ballSum;
 	
-	public BallAssessResult(double oilSystem, double history, double performance, double ballSum) {
+	public BallAssessResult(List<Number> oilSystem, double history, List<Number> performance, double ballSum) {
 		super();
 		this.oilSystem = oilSystem;
 		this.history = history;
 		this.performance = performance;
 		this.ballSum = ballSum;
 	}
-	public double getOilSystem() {
+	public List<Number> getOilSystem() {
 		return oilSystem;
+	}
+	public void setOilSystem(List<Number> oilSystem) {
+		this.oilSystem = oilSystem;
 	}
 	public double getHistory() {
 		return history;
 	}
-	public double getPerformance() {
-		return performance;
-	}
-	public double getBallSum() {
-		return ballSum;
-	}
-	public void setOilSystem(double oilSystem) {
-		this.oilSystem = oilSystem;
-	}
 	public void setHistory(double history) {
 		this.history = history;
 	}
-	public void setPerformance(double performance) {
+	public List<Number> getPerformance() {
+		return performance;
+	}
+	public void setPerformance(List<Number> performance) {
 		this.performance = performance;
+	}
+	public double getBallSum() {
+		return ballSum;
 	}
 	public void setBallSum(double ballSum) {
 		this.ballSum = ballSum;
