@@ -9,6 +9,7 @@ public class RelationRecord {
 	private String deviceType;
 	private String deviceState;
 
+	
 	public RelationRecord(String deviceType, String deviceState) {
 		super();
 		this.deviceType = deviceType;

@@ -1,10 +1,12 @@
 package service.dateMine.frequentItem;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import util.PathUtil;
 
@@ -36,7 +38,7 @@ public class FrequentItem {
 	public FrequentItem getFrequentItem(String system, int frequent) throws IOException {
 		@SuppressWarnings("resource")
 		BufferedReader in = new BufferedReader(
-				new FileReader(PathUtil.getWebRealBasePath() + "data/" + system +".txt"));
+				new FileReader(PathUtil.getWebRealBasePath() + "data/" + system + ".txt"));
 		String line = null;
 		FrequentItem fItem = new FrequentItem();
 		while ((line = in.readLine()) != null) {
@@ -83,4 +85,6 @@ public class FrequentItem {
 	public void setItems(List<String> items) {
 		this.items = items;
 	}
+
+	
 }

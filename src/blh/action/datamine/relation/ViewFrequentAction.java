@@ -1,11 +1,13 @@
 package blh.action.datamine.relation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.support.AbstractActionSupport;
 import service.dateMine.frequentItem.FrequentItem;
+import tool.easyui.Table;
 
 /**
  * 频繁项集的展示
@@ -19,31 +21,40 @@ public class ViewFrequentAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String system;
 	private int frequent;
-	private String result;
+	private Table bottomDatail;
 
 	@Override
 	public String execute() throws Exception {
 		system = getFirstInput();
 		frequent = Integer.parseInt(getSecondInput());
-		System.out.println(system + "   " + frequent);
-		FrequentItem frequentItem = new FrequentItem().getFrequentItem(system, frequent);
-		System.out.println(frequentItem);
-		List<String> list = frequentItem.getItems();
-		System.out.println(list.toString());
-		result=list.toString().replaceAll(",", " ; ").replace("[", "").replace("]", "");
+
+		// 输出频繁项集前两项和后两项
+
+		List<String> data = new ArrayList<>();
+		List<String> result = new ArrayList<>();
+		bottomDatail = new Table(new String[] { "FrequentName", "detail" });
+		for (int i = frequent; i < frequent +6; i++) {
+			
+			System.out.println(system + "   " + i);
+			FrequentItem frequentItem = new FrequentItem().getFrequentItem(system, i);
+
+			result.add(frequentItem.getItems().toString());
+			data.add("频繁" + i + "项集");
+			System.out.println(data.get(0));
+		}
+		for (int j = 0; j < result.size(); j++) {
+			bottomDatail.withRow(data.get(j), result.get(j));
+		}
+			
 		return super.execute();
 	}
 
-	public void setSystem(String system) {
-		this.system = system;
+	public Table getBottomDatail() {
+		return bottomDatail;
 	}
 
-	public void setFrequent(int frequent) {
-		this.frequent = frequent;
-	}
-
-	public String getResult() {
-		return result;
+	public void setBottomDatail(Table bottomDatail) {
+		this.bottomDatail = bottomDatail;
 	}
 
 }

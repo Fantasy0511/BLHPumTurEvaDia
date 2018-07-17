@@ -10,6 +10,7 @@ import service.dateMine.Relation;
 import service.dateMine.Relation.node;
 import service.dateMine.bean.Links;
 import service.dateMine.relation.RelationRecord;
+import tool.easyui.Table;
 
 /**
  * @author wuyue 关联规则挖掘对应的action
@@ -24,7 +25,7 @@ public class RelationAction extends AbstractActionSupport {
 	private List<node> nodes = null;
 	private String system;
 	private int support;
-	private List<RelationRecord> relationTables = new ArrayList<>();
+	private Table relationTables;
 
 	@Override
 	public String execute() throws Exception {
@@ -35,6 +36,10 @@ public class RelationAction extends AbstractActionSupport {
 		Relation relation = new Relation();
 		links = relation.getLinks(system, (double) (support) / 100);
 		nodes = relation.getNodes(system, (double) (support) / 100);
+		
+		relationTables = new Table(new String[] { "deviceType", "deviceState" });
+		
+		List<RelationRecord> relationTables1 = new ArrayList<>();
 		for (node n : nodes) {
 			String deviceType = n.getName().substring(0,
 					n.getName().indexOf("."));
@@ -42,8 +47,14 @@ public class RelationAction extends AbstractActionSupport {
 					n.getName().length());
 			RelationRecord relationRecord = new RelationRecord(deviceType,
 					deviceState);
-			relationTables.add(relationRecord);
+			relationTables1.add(relationRecord);
 		}
+		
+		for (int i = 0; i < relationTables1.size(); i++) {
+			relationTables.withRow(relationTables1.get(i).getDeviceType(),
+					relationTables1.get(i).getDeviceState());
+		}
+		
 		return super.execute();
 	}
 
@@ -63,8 +74,14 @@ public class RelationAction extends AbstractActionSupport {
 		this.support = support;
 	}
 
-	public List<RelationRecord> getRelationTables() {
+	public Table getRelationTables() {
 		return relationTables;
 	}
+
+	public void setRelationTables(Table relationTables) {
+		this.relationTables = relationTables;
+	}
+
+	
 
 }

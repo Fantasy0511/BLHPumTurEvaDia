@@ -748,6 +748,43 @@ function loadData(id, data) {
 	$('#' + id).datagrid('loadData', _convert(data));
 }
 
+
+/*//分页功能实现
+function pagerFilter(id,data) {
+    if (typeof data.length == 'number' && typeof data.splice == 'function') {
+        data = {
+            total: data.length,
+            rows: data
+        }
+    }
+    var dg = $('#' + id);
+    var opts = dg.datagrid('options');
+    var pager = dg.datagrid('getPager');
+    pager.pagination({
+        onSelectPage: function (pageNum, pageSize) {
+            opts.pageNumber = pageNum;
+            opts.pageSize = pageSize;
+            pager.pagination('refresh', {
+                pageNumber: pageNum,
+                pageSize: pageSize
+            });
+            dg.datagrid('loadData', _convert(data));
+        }
+    });
+    if (!data.originalRows) {
+        if(data.rows)
+            data.originalRows = (data.rows);
+        else if(data.data && data.data.rows)
+            data.originalRows = (data.data.rows);
+        else
+            data.originalRows = [];
+    }
+    var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+    var end = start + parseInt(opts.pageSize);
+    data.rows = (data.originalRows.slice(start, end));
+} */
+
+
 var mask_id = "_mask";
 var mask_id_selector = "#" + mask_id;
 var mask_open = false;/* true for open, false for closed */
