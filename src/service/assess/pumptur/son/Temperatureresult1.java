@@ -1,6 +1,10 @@
 package service.assess.pumptur.son;
 
-public class Temperatureresult {
+/*
+ * 一、四号机组的温度结果变量
+ * */
+
+public class Temperatureresult1 {
 	private int generatorRotor;  //转子温度
 	private int labyrinthRing;  //上、下迷宫环温度
 	private int lowerBearing ;  //下导轴承温度
@@ -10,9 +14,9 @@ public class Temperatureresult {
 	private int upperBearing ;  // 上导轴承温度
 	private int waterBearing ;  // 水导轴承温度
 	
-	private int score ;  // 主进水阀的总分
+	private int score ;  // 温度平均分
 
-	public Temperatureresult(int generatorRotor, int labyrinthRing, int lowerBearing, int statorCoil, int statorCore,
+	public Temperatureresult1(int generatorRotor, int labyrinthRing, int lowerBearing, int statorCoil, int statorCore,
 			int thrustBearing, int upperBearing, int waterBearing, int score) {
 		super();
 		this.generatorRotor = generatorRotor;

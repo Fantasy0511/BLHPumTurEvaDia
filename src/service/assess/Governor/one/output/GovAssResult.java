@@ -9,8 +9,8 @@ import java.util.List;
  *
  */
 public class GovAssResult {
-	private List<Number> govOilResult;
-	private List<Number> govSingleResult;
+	private List<Number> govOilResult;     //油系统性能
+	private List<Number> govSingleResult;  //振动信号性能
 	public double history;
 	public double govSum;
 

@@ -21,6 +21,16 @@ public class SignalSum {
 		singleList.add(U2);
 		singleList.add(U3);
 		singleList.add(score);
+		
+		System.out.println("*********");
+		System.out.println("振动信号底层指标得分");
+		System.out.println("调速器故障次数："+U1);
+		System.out.println("油泵故障次数："+U2);
+		System.out.println("超速报警次数："+U3);
+		System.out.println("综合得分："+score);
+		System.out.println("************");
+		
+		
 		return singleList;
 	}
 

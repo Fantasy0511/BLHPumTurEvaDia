@@ -1,10 +1,10 @@
 package service.assess.pumptur.one.temperature;
 
-import service.assess.pumptur.son.Temperatureresult;
+import service.assess.pumptur.son.Temperatureresult1;
 
 //温度总得分
 public class TemperatureAss {
-	public Temperatureresult getTemperatureAss(long time){
+	public Temperatureresult1 getTemperatureAss(long time){
 	//转子温度
 	GeneratorRotor1 GR=new GeneratorRotor1();
 	int U1=GR.GeneratorRotor(time);
@@ -44,7 +44,7 @@ public class TemperatureAss {
 	System.out.println("平均分："+a);
 	System.out.println("**************************");
 	
-	Temperatureresult temperatureresult = new Temperatureresult
+	Temperatureresult1 temperatureresult = new Temperatureresult1
 			(U1, U2, U3, U4, U5, U6, U7, U8, a);
 	return temperatureresult;
 	

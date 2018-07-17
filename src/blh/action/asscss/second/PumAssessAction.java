@@ -62,15 +62,29 @@ public class PumAssessAction extends AbstractActionSupport {
 				(double) pumpAssResult.getAfterStress());
 		BarData mainShaftSealBar = BarData.create("主轴密封底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
 		PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonbarName, sonbarValue, "得分XXX");
-
+		//温度底层指标得分
+		List<String> sonbarName1 = Arrays.asList("上导冷却水出水温度", "上导轴瓦温度", "上导油槽温度",
+					"下导冷却水出水温度","下导轴瓦温度","下导油槽温度");
+		List<Double> sonbarValue1 = Arrays.asList(
+				(double) pumpAssResult.getUpperWater(),
+				(double) pumpAssResult.getUpperBearing(),
+				(double) pumpAssResult.getUpperOil(),
+				(double) pumpAssResult.getLowerWater(),
+				(double) pumpAssResult.getLowerBearing(),
+				(double) pumpAssResult.getLowerOil());
+		BarData temperatureBar = BarData.create("温度底层指标得分", "", "性能状态", "得分",
+					sonbarName1, sonbarValue1);
+		PieData temperaturePie = PieData.create("温度底层指标得分", sonbarName1, sonbarValue1, "得分XXX");
+		
+		
 		// 返回总的评估对象“assessView”
 		assessView = new AssessView(pumSum, topRemark, pumpAssResult.getMainShaftSeal() + "",
 				pumpAssResult.getSwingAss() + "", pumpAssResult.getHistory() + "", bottomDetail, middleBar);
 		
 
-		// 返回底层的评估对象“sonAssessView”
-		sonAssessView = new SonAssessView(mainShaftSealBar, mainShaftSealPie,null,null);
-		return super.execute();
+		//返回底层的评估对象“sonAssessView”
+				sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie); 
+				return super.execute();
 	}
 
 	public SonAssessView getSonAssessView() {
