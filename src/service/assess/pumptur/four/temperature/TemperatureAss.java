@@ -1,8 +1,10 @@
 package service.assess.pumptur.four.temperature;
 
+import service.assess.pumptur.son.Temperatureresult1;
+
 //温度总得分
 public class TemperatureAss {
-	public int getTemperatureAss(long time) {
+	public Temperatureresult1 getTemperatureAss(long time) {
 		GeneratorRotor GR = new GeneratorRotor();
 		int U1 = GR.GeneratorRotor(time);
 
@@ -28,6 +30,8 @@ public class TemperatureAss {
 		int U8 = WB.WaterBearing(time);
 
 		int a = (U1 + U2 + U3 + U4 + U5 + U6 + U7 + U8) / 8;
-		return a;
+		Temperatureresult1 temperatureresult = new Temperatureresult1
+				(U1, U2, U3, U4, U5, U6, U7, U8, a);
+		return temperatureresult;
 	}
 }

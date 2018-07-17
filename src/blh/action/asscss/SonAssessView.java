@@ -4,44 +4,41 @@ import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 
 public class SonAssessView {
-	private BarData mainShaftSealBar;
-	private PieData mainShaftSealPie;
-	private BarData temperatureBar;
-	private PieData temperaturePie;
-	public SonAssessView(BarData mainShaftSealBar, PieData mainShaftSealPie, BarData temperatureBar,
-			PieData temperaturePie) {
+	private BarData fristBar;
+	private PieData fristPie;
+	private BarData secondBar;
+	private PieData secondPie;
+	public SonAssessView(BarData fristBar, PieData fristPie, BarData secondBar, PieData secondPie) {
 		super();
-		this.mainShaftSealBar = mainShaftSealBar;
-		this.mainShaftSealPie = mainShaftSealPie;
-		this.temperatureBar = temperatureBar;
-		this.temperaturePie = temperaturePie;
+		this.fristBar = fristBar;
+		this.fristPie = fristPie;
+		this.secondBar = secondBar;
+		this.secondPie = secondPie;
 	}
-	public BarData getMainShaftSealBar() {
-		return mainShaftSealBar;
+	public BarData getFristBar() {
+		return fristBar;
 	}
-	public void setMainShaftSealBar(BarData mainShaftSealBar) {
-		this.mainShaftSealBar = mainShaftSealBar;
+	public void setFristBar(BarData fristBar) {
+		this.fristBar = fristBar;
 	}
-	public PieData getMainShaftSealPie() {
-		return mainShaftSealPie;
+	public PieData getFristPie() {
+		return fristPie;
 	}
-	public void setMainShaftSealPie(PieData mainShaftSealPie) {
-		this.mainShaftSealPie = mainShaftSealPie;
+	public void setFristPie(PieData fristPie) {
+		this.fristPie = fristPie;
 	}
-	public BarData getTemperatureBar() {
-		return temperatureBar;
+	public BarData getSecondBar() {
+		return secondBar;
 	}
-	public void setTemperatureBar(BarData temperatureBar) {
-		this.temperatureBar = temperatureBar;
+	public void setSecondBar(BarData secondBar) {
+		this.secondBar = secondBar;
 	}
-	public PieData getTemperaturePie() {
-		return temperaturePie;
+	public PieData getSecondPie() {
+		return secondPie;
 	}
-	public void setTemperaturePie(PieData temperaturePie) {
-		this.temperaturePie = temperaturePie;
+	public void setSecondPie(PieData secondPie) {
+		this.secondPie = secondPie;
 	}
-	
-	
 	
 	
 	

@@ -2,11 +2,12 @@ package service.assess.pumptur.three;
 
 import bll.BoolAssess;
 import bll.FloatAssessment;
+import service.assess.pumptur.son.MainShaftSealResult;
 
 public class MainShaftSeal3 {
 
 	//3号机组水泵水轮机主轴密封得分
-	public double getMainShaftSeal3(long time){
+	public MainShaftSealResult getMainShaftSeal3(long time){
 		//供水流量
 		FloatAssessment float752=new FloatAssessment();
 		int U1=float752.FloatAssess(752,time, 452, 0);
@@ -29,5 +30,8 @@ public class MainShaftSeal3 {
 		
 		
 		double a=(U1+U2+U3+U4+U5+U6)/6;
-		return a;}
+		MainShaftSealResult mainShaftSealResult = new MainShaftSealResult(U1, U2, U3, U4, a);
+		
+		return mainShaftSealResult;
+		}
 }

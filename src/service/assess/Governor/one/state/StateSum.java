@@ -9,6 +9,7 @@ public class StateSum {
 	 * 油压、油泵油位、油泵油温、压油泵油位、压油泵油压
 	 */
 	public List<Number> getStateSum(long time) {
+		
 		List<Number> oilStateList = new ArrayList<>();
 		OilPressure OP = new OilPressure();
 		int U1 = OP.OilPressure(time);
@@ -26,6 +27,15 @@ public class StateSum {
 		int U5 = PTP.PressureTankPressure(time);
 
 		double score = (U1 + U2 + U3 + U4 + U5) / 5;
+		System.out.println("%%%%%%%%%%%%%");
+		System.out.println("油系统底层指标得分");
+		System.out.println("油压："+U1);
+		System.out.println("油泵油位："+U2);
+		System.out.println("油泵油温："+U3);
+		System.out.println("油压油泵油位："+U4);
+		System.out.println("压油泵油压："+U5);
+		System.out.println("综合得分："+score);
+		System.out.println("%%%%%%%%%%%%%");
 		oilStateList.add(U1);
 		oilStateList.add(U2);
 		oilStateList.add(U3);

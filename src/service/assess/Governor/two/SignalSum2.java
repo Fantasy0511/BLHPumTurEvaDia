@@ -17,6 +17,14 @@ public class SignalSum2 {
 		int U3=bool535.BooleanAssess(535,time);
 		
 		double score=0.15*U3+0.45*U1+0.4*U2;
+		
+		System.out.println("*********");
+		System.out.println("2号机组振动信号底层指标得分");
+		System.out.println("调速器电气过速报警："+U1);
+		System.out.println("调速器机械过速报警："+U2);
+		System.out.println("调速器油箱阻塞："+U3);
+		System.out.println("综合得分："+score);
+		System.out.println("************");
 		return score;
 	}
 }

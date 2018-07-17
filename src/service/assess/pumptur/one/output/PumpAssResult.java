@@ -1,7 +1,7 @@
 package service.assess.pumptur.one.output;
 
 /**
- * 水泵状态评估结果
+ * 1号机组水泵状态评估结果
  * 
  * @author wuyue
  *

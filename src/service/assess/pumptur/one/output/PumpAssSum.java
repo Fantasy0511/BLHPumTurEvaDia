@@ -6,7 +6,7 @@ import service.assess.pumptur.one.other1.History1;
 import service.assess.pumptur.one.other1.MainShaftSeal1;
 import service.assess.pumptur.one.temperature.TemperatureAss;
 import service.assess.pumptur.son.MainShaftSealResult;
-import service.assess.pumptur.son.Temperatureresult;
+import service.assess.pumptur.son.Temperatureresult1;
 
 public class PumpAssSum {
 	public PumpAssResult getPumpAssSum(long time) {
@@ -31,7 +31,7 @@ public class PumpAssSum {
 		double U4 = swingAss.getSwingAssResult(time);//标记.int转double
 		// 1号机组 温度打分
 		TemperatureAss temperatureAss = new TemperatureAss();
-		Temperatureresult result1= temperatureAss.getTemperatureAss(time);
+		Temperatureresult1 result1= temperatureAss.getTemperatureAss(time);
 		int U51 = result1.getGeneratorRotor();
 		int U52 = result1.getLabyrinthRing();
 		int U53 = result1.getLowerBearing();
@@ -42,8 +42,6 @@ public class PumpAssSum {
 		int U58 = result1.getWaterBearing();
 		
 		double U5 = result1.getScore();
-		
-		
 		
 		
 		// 正常来说权重比例应该是由判断矩阵算出来的

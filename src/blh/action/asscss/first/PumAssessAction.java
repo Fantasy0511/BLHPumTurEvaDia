@@ -71,8 +71,8 @@ public class PumAssessAction extends AbstractActionSupport {
 						sonbarName, sonbarValue);
 				PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonbarName, sonbarValue, "得分XXX");
 		//温度底层指标得分
-				List<String> sonbarName1 = Arrays.asList("转子温度得分", "上、下迷宫环温度得分", "下导轴承温度得分",
-							"定子线圈温度得分","定子铁芯温度得分","推力轴承发电温度得分","上导轴承温度得分","水导轴承温度得分");
+				List<String> sonbarName1 = Arrays.asList("转子温度", "上、下迷宫环温度", "下导轴承温度",
+							"定子线圈温度","定子铁芯温度","推力轴承发电温度","上导轴承温度","水导轴承温度");
 				List<Double> sonbarValue1 = Arrays.asList(
 						(double) pumpAssResult.getGeneratorRotor(),
 						(double) pumpAssResult.getLabyrinthRing(),
