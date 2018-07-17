@@ -1,12 +1,18 @@
 package service.assess.Governor.four;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 import bll.FloatAssessment;
 
 public class State4 {
 
 	//4号机组调速油系统性能状态得分
-		public double State4(long time){
+		public List<Number> getState4(long time){
+			DecimalFormat df=new DecimalFormat("#.0");
+			List<Number> list = new ArrayList<>();
 			//调速器油槽油温
 			FloatAssessment float998=new FloatAssessment();
 			int U1=float998.FloatAssess(998,time, 100, 20);
@@ -20,12 +26,20 @@ public class State4 {
 			BoolAssess bool1180=new BoolAssess();
 			int U4=bool1180.BooleanAssess(1180,time);
 			
-			//调速器油箱油位地
+			//补气系统压力罐压力
 			BoolAssess bool1181=new BoolAssess();
 			int U5=bool1181.BooleanAssess(1181,time);
 			
 			 
-			double State4=0.25*U1+0.25*U2+0.2*U3+0.15*U4+0.15*U5;
-			return State4;
+			double score=0.25*U1+0.25*U2+0.2*U3+0.15*U4+0.15*U5;
+			score =Double.parseDouble(df.format(score));
+			
+			list.add(U1);
+			list.add(U2);
+			list.add(U3);
+			list.add(U4);
+			list.add(U5);
+			list.add(score);
+			return list;
 		}
 }

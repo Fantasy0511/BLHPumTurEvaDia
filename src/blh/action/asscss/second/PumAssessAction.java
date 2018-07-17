@@ -32,9 +32,28 @@ public class PumAssessAction extends AbstractActionSupport {
 		pumpAssResult = pumpAssSum.getPumpAssSum(time);
 
 		// 前端的“详细评估信息”里面的内容——对象：bottomDetail
-		String[] names = { "导叶开度状态得分", "主轴密封状态得分", "水泵水轮机振动状态得分", "水泵水轮机温度状态得分" };
-		double[] values = { pumpAssResult.getGuideVane(), pumpAssResult.getMainShaftSeal(), pumpAssResult.getSwingAss(),
-				pumpAssResult.getTemperatureAss() };
+		String[] names = { "导叶开度状态得分", "主轴密封状态得分", "水泵水轮机振动状态得分",
+				"水泵水轮机温度状态得分" ,"供水流量得分", "供水温度得分", "过滤器前压力", "过滤器后压力",
+				"上导冷却水出水温度", "上导轴瓦温度", "上导油槽温度",
+				"下导冷却水出水温度","下导轴瓦温度","下导油槽温度"};
+		double[] values = { 
+				pumpAssResult.getGuideVane(),
+				pumpAssResult.getMainShaftSeal(), 
+				pumpAssResult.getSwingAss(),
+				pumpAssResult.getTemperatureAss(),
+				
+				(double) pumpAssResult.getWaterFlow(),
+				(double) pumpAssResult.getWaterTemperature(), 
+				(double) pumpAssResult.getBeforeStress(),
+				(double) pumpAssResult.getAfterStress(),
+				
+				(double) pumpAssResult.getUpperWater(),
+				(double) pumpAssResult.getUpperBearing(),
+				(double) pumpAssResult.getUpperOil(),
+				(double) pumpAssResult.getLowerWater(),
+				(double) pumpAssResult.getLowerBearing(),
+				(double) pumpAssResult.getLowerOil()
+				};
 		Table bottomDetail = new Table(new String[] { "name", "value" });
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(names[i], values[i]);
@@ -60,8 +79,9 @@ public class PumAssessAction extends AbstractActionSupport {
 				(double) pumpAssResult.getWaterTemperature(), 
 				(double) pumpAssResult.getBeforeStress(),
 				(double) pumpAssResult.getAfterStress());
+		List<Double> sonbarValueRatio = Arrays.asList(0.25,0.25,0.25,0.25);
 		BarData mainShaftSealBar = BarData.create("主轴密封底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
-		PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonbarName, sonbarValue, "得分XXX");
+		PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonbarName, sonbarValueRatio, "得分XXX");
 		//温度底层指标得分
 		List<String> sonbarName1 = Arrays.asList("上导冷却水出水温度", "上导轴瓦温度", "上导油槽温度",
 					"下导冷却水出水温度","下导轴瓦温度","下导油槽温度");
@@ -72,9 +92,10 @@ public class PumAssessAction extends AbstractActionSupport {
 				(double) pumpAssResult.getLowerWater(),
 				(double) pumpAssResult.getLowerBearing(),
 				(double) pumpAssResult.getLowerOil());
+		List<Double> sonbarValueRatio1 = Arrays.asList(0.16,0.16,0.16,0.16,0.16,0.16);
 		BarData temperatureBar = BarData.create("温度底层指标得分", "", "性能状态", "得分",
 					sonbarName1, sonbarValue1);
-		PieData temperaturePie = PieData.create("温度底层指标得分", sonbarName1, sonbarValue1, "得分XXX");
+		PieData temperaturePie = PieData.create("温度底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
 		
 		
 		// 返回总的评估对象“assessView”

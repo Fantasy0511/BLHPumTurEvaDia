@@ -1,12 +1,19 @@
 package service.assess.Governor.three;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 import bll.FloatAssessment;
 
 public class State3 {
 
 	//3号机组调速油系统性能状态得分
-		public double State3(long time){
+		public List<Number> getState3(long time){
+			DecimalFormat df=new DecimalFormat("#.0");
+			List<Number> list = new ArrayList<>();
+			
 			//调速器油槽油温
 			FloatAssessment float781=new FloatAssessment();
 			int U1=float781.FloatAssess(781,time, 100, 20);
@@ -26,6 +33,15 @@ public class State3 {
 			
 			 
 			double score=0.25*U1+0.25*U2+0.2*U3+0.15*U4+0.15*U5;
-			return score;
+			score =Double.parseDouble(df.format(score));
+			
+			list.add(U1);
+			list.add(U2);
+			list.add(U3);
+			list.add(U4);
+			list.add(U5);
+			list.add(score);
+			
+			return list;
 		}
 }
