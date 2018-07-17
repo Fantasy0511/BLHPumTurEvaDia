@@ -1,4 +1,4 @@
-package blh.action.asscss.first;
+package blh.action.asscss.third;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ import blh.action.asscss.AssessView;
 import blh.action.asscss.SonAssessView;
 import blh.action.support.AbstractActionSupport;
 import service.assess.transformer.TransferAssResult;
-import service.assess.transformer.one.TransferAssSum;
+import service.assess.transformer.three.output3;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
@@ -28,7 +28,7 @@ public class TransferAssessAction extends AbstractActionSupport {
 		System.out.println("选择时间： " + timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
 
-		TransferAssSum transferAssSum = new TransferAssSum();
+		output3 transferAssSum = new output3();
 		TransferAssResult transferAssessResult = transferAssSum.output(time);
 		
 		/**评估主页面数据获取*/
