@@ -26,6 +26,8 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+<script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 
 <script type="text/javascript"
@@ -44,237 +46,256 @@
 	src="/BLHPumTurEvaDia/js/assess/test_drawGuage.js"></script>
 
 <script>
-	function myformatter(date){
-	    var y = date.getFullYear();
-	    var m = date.getMonth()+1;
-	    var d = date.getDate();
-	    return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+	function myformatter(date) {
+		var y = date.getFullYear();
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		return y + '-' + (m < 10 ? ('0' + m) : m) + '-'
+				+ (d < 10 ? ('0' + d) : d);
 	}
-	function myparser(s){
-        if (!s) return new Date();
-        var ss = (s.split('-'));
-        var y = parseInt(ss[0],10);
-        var m = parseInt(ss[1],10);
-        var d = parseInt(ss[2],10);
-        if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
-            return new Date(y,m-1,d);
-        } else {
-            return new Date();
-        }
-    }
-	
-     //开始评估  			
+	function myparser(s) {
+		if (!s)
+			return new Date();
+		var ss = (s.split('-'));
+		var y = parseInt(ss[0], 10);
+		var m = parseInt(ss[1], 10);
+		var d = parseInt(ss[2], 10);
+		if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+			return new Date(y, m - 1, d);
+		} else {
+			return new Date();
+		}
+	}
+
+	//开始评估  			
 	function assess() {
-		
-		var begin =getDate("beginDate");
-		var unitNo =$('#unitNo').combobox('getValue');
-		var system=$('#subSystem').combobox('getValue');
-		
+
+		var begin = getDate("beginDate");
+		var unitNo = $('#unitNo').combobox('getValue');
+		var system = $('#subSystem').combobox('getValue');
+
 		$("#label1").html("油系统性能");
-		$("#label2").html("工况性能");  //调速器的这个分数实际上是振动得分
-		
-		if (system=="pum"){
+		$("#label2").html("工况性能"); //调速器的这个分数实际上是振动得分
+
+		if (system == "pum") {
 			$("#label1").html("主轴密封");
 			$("#label2").html("振动信号性能");
-			};
-		
-		if (system=="exc"){
+		}
+		;
+
+		if (system == "exc") {
 			$("#label1").html("发电及励磁故障");
 			$("#label2").html("系统温度状态");
-			};
-			
-		if (system=="ball"){
+		}
+		;
+
+		if (system == "ball") {
 			$("#label1").html("球阀油系统");
 			$("#label2").html("球阀性能状态");
-			};
-			
-		if (system=="transfer"){
+		}
+		;
+
+		if (system == "transfer") {
 			$("#label1").html("系统温度状态");
 			$("#label2").html("主变故障信号");
-			};
+		}
+		;
 		/* if (system=="gov"){
 			$('#test-window').window({title:"调速器系统底层评估指标"});
 			}; */
-		var url = "/BLHPumTurEvaDia/asscss/"+unitNo+"/"+system+"-assess";
-		url+=makeInput(begin);
+		var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
+				+ "-assess";
+		url += makeInput(begin);
 		console.log(url);
-		showMask();   // 显示与隐藏
+		showMask(); // 显示与隐藏
 		var success = function(data) {
 			var view = data.assessView;
-			console.log(view);  
-			drawGuage('assement-container', view.topScore);  // 画仪表盘
-			loadData("result_table", view.bottomDetail);     // 填充“详细评估信息”表格
-			drawPic("chart_middle_bar", view.middleBar);     // 画柱状图
-			console.log(view.middleBar);                     // 显示柱状图数据
+			console.log(view);
+			drawGuage('assement-container', view.topScore); // 画仪表盘
+			loadData("result_table", view.bottomDetail); // 填充“详细评估信息”表格
+			drawPic("chart_middle_bar", view.middleBar); // 画柱状图
+			console.log(view.middleBar); // 显示柱状图数据
 			setTexts(view);
-			
-			
+
 			//将传回的数据填充饼状图的方法放到这里
 			var sonView = data.sonAssessView;
-			if (system=="pum"){
-				drawPic("chart_son_bar1", sonView.fristBar);   // 画小窗口里面“主轴密封”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie);   // 画小窗口里面“主轴密封”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar);   // 画小窗口里面“温度”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie);   // 画小窗口里面“温度”的饼状图
-			};
-			  if (system=="gov"){
-				 drawPic("chart_son_bar1", sonView.fristBar);   // 画小窗口里面“油系统用性能”的柱状图
-				 drawPic("chart_son_pie1", sonView.fristPie);   // 画小窗口里面“油系统用性能”的饼状图
-				 drawPic("chart_son_bar2", sonView.secondBar);   // 画小窗口里面“振动系统性能”的柱状图
-				 drawPic("chart_son_pie2", sonView.secondPie);   // 画小窗口里面“振动系统性能”的饼状图
-			};   
-			if (system=="transfer"){
-				 drawPic("chart_son_bar1", sonView.fristBar);   // 画小窗口里面“油系统用性能”的柱状图
-				 drawPic("chart_son_pie1", sonView.fristPie);   // 画小窗口里面“油系统用性能”的饼状图
-				 drawPic("chart_son_bar2", sonView.secondBar);   // 画小窗口里面“振动系统性能”的柱状图
-				 drawPic("chart_son_pie2", sonView.secondPie);   // 画小窗口里面“振动系统性能”的饼状图
-			}; 
-			if (system=="ball"){
-				 drawPic("chart_son_bar1", sonView.fristBar);   // 画小窗口里面“油系统用性能”的柱状图
-				 drawPic("chart_son_pie1", sonView.fristPie);   // 画小窗口里面“油系统用性能”的饼状图
-				 drawPic("chart_son_bar2", sonView.secondBar);   // 画小窗口里面“振动系统性能”的柱状图
-				 drawPic("chart_son_pie2", sonView.secondPie);   // 画小窗口里面“振动系统性能”的饼状图
-			}; 
+			if (system == "pum") {
+				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“主轴密封”的柱状图
+				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“主轴密封”的饼状图
+				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“温度”的柱状图
+				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“温度”的饼状图
+			}
+			;
+			if (system == "gov") {
+				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+			}
+			;
+			if (system == "exc") {
+				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+			}
+			;
+			if (system == "transfer") {
+				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+			}
+			;
+			if (system == "ball") {
+				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+			}
+			;
 		}
 		getJSON(url, success);
 	}
-	
-     
-     function sonAsses(){
-    	 $('#test-window').window('open');
-    	 
-    	 //显示弹出的小窗口是哪个子系统的底层指标
-    	 var system=$('#subSystem').combobox('getValue');
-    	 if (system=="pum"){
-    	       $('#test-window').window({title:"水泵水轮机系统底层评估指标"});
- 			};
- 		 if (system=="exc"){
- 			$('#test-window').window({title:"发电机及励磁系统底层评估指标"});
- 	 		};
- 	 	 if (system=="ball"){
- 	 		$('#test-window').window({title:"球阀系统底层评估指标"});
- 	 	 	};
- 	 	 if (system=="transfer"){
- 	 		$('#test-window').window({title:"主变系统底层评估指标"});
- 	 	 	 };	
- 	 	 if (system=="gov"){
- 	 	 	$('#test-window').window({title:"调速器系统底层评估指标"});
- 	 	 	 };
-     }
-     
+
+	function sonAsses() {
+		$('#test-window').window('open');
+
+		//显示弹出的小窗口是哪个子系统的底层指标
+		var system = $('#subSystem').combobox('getValue');
+		if (system == "pum") {
+			$('#test-window').window({
+				title : "水泵水轮机系统底层评估指标"
+			});
+		}
+		;
+		if (system == "exc") {
+			$('#test-window').window({
+				title : "发电机及励磁系统底层评估指标"
+			});
+		}
+		;
+		if (system == "ball") {
+			$('#test-window').window({
+				title : "球阀系统底层评估指标"
+			});
+		}
+		;
+		if (system == "transfer") {
+			$('#test-window').window({
+				title : "主变系统底层评估指标"
+			});
+		}
+		;
+		if (system == "gov") {
+			$('#test-window').window({
+				title : "调速器系统底层评估指标"
+			});
+		}
+		;
+	}
+
 	$(function() {
-		$('#test-window').window('close');  //小窗口初始关闭
+		$('#test-window').window('close'); //小窗口初始关闭
 		clearText(".easyui-textbox");
-		drawGuage('assement-container', 0);  //画仪表盘 初始化为0
-		$("#bt_assess").click(assess);     // “开始评估”按钮
-		$('#bt_sonAssess').click(sonAsses);  // 子评估结果的显示
+		drawGuage('assement-container', 0); //画仪表盘 初始化为0
+		$("#bt_assess").click(assess); // “开始评估”按钮
+		$('#bt_sonAssess').click(sonAsses); // 子评估结果的显示
 	});
-	
 </script>
 
 </head>
 <body>
-    <!--条件输入 start-->
+	<!--条件输入 start-->
 	<div class="input_div" style="margin-bottom: 5px;">
-		<span class="input_title">条件输入：</span> 
-		
-		<label for="model">机组：</label> 
+		<span class="input_title">条件输入：</span> <label for="model">机组：</label>
 		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
 			<option value="first">1#</option>
 			<option value="second">2#</option>
 			<option value="third">3#</option>
 			<option value="four">4#</option>
-		</select> 
-		
-		<label for="model">子系统选择： </label> 
-		
-		<select id="subSystem"
+		</select> <label for="model">子系统选择： </label> <select id="subSystem"
 			class="easyui-combobox" style="width: 140px;">
 			<option value="pum">水泵水轮机</option>
 			<option value="gov">调速器系统</option>
 			<option value="exc">发电机及励磁系统</option>
 			<option value="ball">球阀系统</option>
 			<option value="transfer">主变系统</option>
-			
-		</select> 
-		
-		<label style="margin-bottom: 5px">时间：</label>
-		<input id="beginDate"
+
+		</select> <label style="margin-bottom: 5px">时间：</label> <input id="beginDate"
 			class="easyui-datebox"
 			data-options="formatter:myformatter,parser:myparser" required
-			style="width: 150px; height: 26px">
-		
-			<a id="bt_assess" href="#" class="easyui-linkbutton"
-				data-options="iconCls:'icon-ok'">开始评估</a> 
-			
-			<a id="bt_ahp"
-				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/ahp/main">层次分析</a>
-			<!-- <a id="bt_sonAsses"
+			style="width: 150px; height: 26px"> <a id="bt_assess"
+			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">开始评估</a>
+
+		<!-- <a id="bt_ahp" class="easyui-linkbutton"
+			href="/BLHPumTurEvaDia/assess/ahp/main">层次分析</a> -->
+		<!-- <a id="bt_sonAsses"
 				class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/sonAsses/main">显示底数据</a> -->
-			<a id="bt_sonAssess" href="#" class="easyui-linkbutton"
-				data-options="iconCls:'icon-ok'">显示子评估</a> 
+		<a id="bt_sonAssess" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">显示子评估</a>
 	</div>
 	<!--条件输入 end-->
 
-	
-	<div style="width:100%">
-	
-	<!--仪表盘和分项结果 start-->
-	<div style="margin-left: auto; margin-right: auto; width: 75%">
-		<div class="assesment-container">
-			<!-- 仪表盘 start -->
-			<div id="assement-container"></div>
-			<!-- 仪表盘 end -->
-			
-			<!--分项评估结果 start -->
-			<div class="midDiv-container">
-				<div class="midDiv" style="top:60px;width:600px">
-					<div>
-						<pre class="tt">分项评估结果 共 3 项</pre>
-					</div>
-					<hr />
-					<div class="middle">
-						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
-						<div>
-							<label id="label1" style="margin-bottom: 6px">油系统性能：</label><input
-								id="text_oil_remark" class="easyui-textbox"
-								data-options="readonly:true,editable:false" style="width: 40px" />
-						</div>
-					</div>
-					<div class="middle" style="width:216px">
-						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
-						<div>
-							<label id="label2" style="margin-bottom: 5px">工况性能：</label> <input
-								id="text_condition_remark" class="easyui-textbox"
-								data-options="readonly:true,editable:false" style="width: 40px" />
-						</div>
 
-					</div>
-					<div class="middle">
-						<img class="middleImg"
-							src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+	<div style="width: 100%">
+
+		<!--仪表盘和分项结果 start-->
+		<div style="margin-left: auto; margin-right: auto; width: 75%">
+			<div class="assesment-container">
+				<!-- 仪表盘 start -->
+				<div id="assement-container"></div>
+				<!-- 仪表盘 end -->
+
+				<!--分项评估结果 start -->
+				<div class="midDiv-container">
+					<div class="midDiv" style="top: 60px; width: 600px">
 						<div>
-							<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
-								id="text_history_remark" class="easyui-textbox"
-								data-options="readonly:true,editable:false" style="width: 40px" />
+							<pre class="tt">分项评估结果 共 3 项</pre>
+						</div>
+						<hr />
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">油系统性能：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width: 216px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">工况性能：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
 						</div>
 					</div>
 				</div>
+				<!--分项评估结果 end -->
 			</div>
-			<!--分项评估结果 end -->
 		</div>
-	</div>
-	<!--仪表盘和分项结果 end-->
+		<!--仪表盘和分项结果 end-->
 
-    <!--信息表和柱状图 start-->
+		<!--信息表和柱状图 start-->
 		<div style="margin-left: auto; margin-right: auto; width: 75%">
 			<!--详细信息表 start -->
 			<div style="width: 38%; marging-right: 2%">
 				<table id="result_table" title="详细评估信息" class="easyui-datagrid"
 					style="width: 100%; height: 450px"
-					data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left'}">
+					data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
 					<thead>
 						<tr>
 							<th data-options="field:'name',width:100">计算指标</th>
@@ -286,12 +307,11 @@
 			<!--详细信息表 end -->
 
 			<!--柱状图 start -->
-			<div style="width: 60%; float: right">
-				<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
-					style="width: 100%; height: 450px; display: inline; float: left">
-					<div id="chart_middle_bar">
-						<pre>  暂无结果</pre>
-					</div>
+			
+			<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
+				style="width: 600px; height: 450px;display: inline; float: left">
+				<div id="chart_middle_bar"style="width:598px">
+					<pre>  暂无结果</pre>
 				</div>
 			</div>
 			<!--柱状图 end -->
@@ -299,44 +319,44 @@
 		<!--信息表和柱状图 end-->
 
 	</div>
-	
-   <!--小窗口显示查询内容 start -->
+
+	<!--小窗口显示查询内容 start -->
 	<div id="test-window" class="easyui-window" title="子系统健康状态"
 		style="width: 90%; height: 80%;">
-     
-	  <div style="width: 100%; height: 400px; float: left">
-		 <!--柱状图1-->
-		<div class="container">
-			<div id="chart_son_bar1"
-				style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
-		</div>
-		<!--饼状图1-->
-		<div class="container">
-			<div id="chart_son_pie1"
-				style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
-		</div>
-	  </div>
-	<hr/>
-	<div style="width: 100%; height: 400px; float: left">
-		 <!--柱状图2-->
-		<div class="container">
-			<div id="chart_son_bar2"
-				style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
-		</div>
-		<!--饼状图2-->
-		<div class="container">
-			<div id="chart_son_pie2"
-				style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
-		</div>
-	</div>
 
-	<hr />
-		
+		<div style="width: 100%; height: 400px; float: left">
+			<!--柱状图1-->
+			<div class="container">
+				<div id="chart_son_bar1"
+					style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+			</div>
+			<!--饼状图1-->
+			<div class="container">
+				<div id="chart_son_pie1"
+					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+			</div>
+		</div>
+		<hr />
+		<div style="width: 100%; height: 400px; float: left">
+			<!--柱状图2-->
+			<div class="container">
+				<div id="chart_son_bar2"
+					style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+			</div>
+			<!--饼状图2-->
+			<div class="container">
+				<div id="chart_son_pie2"
+					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+			</div>
+		</div>
+
+		<hr />
+
 	</div>
 	<!--小窗口显示查询内容end -->
-	
-	
-	
+
+
+
 	<div style="height: 50px"></div>
 </body>
 </html>
