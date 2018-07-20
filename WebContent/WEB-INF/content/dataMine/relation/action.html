@@ -43,6 +43,12 @@
 		var url = urlAction + "?inputStr=" + subSystem + "//" + minConfidence;
 
 		console.log(url);
+		var urlAction1 = "/BLHPumTurEvaDia/datamine/relation/view-frequent";
+		var url1 = urlAction1 + "?inputStr=" + subSystem + "//" + minSupport;
+		console.log(url1);
+		$.getJSON(url1, function(data) {
+			loadData("historyTable", data.bottomDatail);
+		});
 
 		$.getJSON(url, function(data) {
 			loadData("relationTable", data.relationTables);
@@ -187,21 +193,20 @@
 				return str;
 			} 
 		});
+
 	}
 
 	//频繁项集表格
-	function viewFrequentItem() {
+	/* function viewFrequentItem() {
 		var minSupport = $("#minSupport").val();
 		var subSystem = $("#subSystem").val();
-		console.log(subSystem);
-		console.log(minSupport);
 		var urlAction = "/BLHPumTurEvaDia/datamine/relation/view-frequent";
 		var url1 = urlAction + "?inputStr=" + subSystem + "//" + minSupport;
 		console.log(url1);
 		$.getJSON(url1, function(data) {
 			loadData("historyTable", data.bottomDatail);
 		})
-	}
+	} */
 
 	/* 在列的formatter参数中指定该函数,把全文放入title里面*/
 	function contentFormat(value, row, index) {
@@ -226,7 +231,7 @@
 		$("#relaImage").attr("style", "display:none;");//隐藏div
 		$('#test-window').window('close');
 		$("#btn_beginMine").click(beginDateMine);
-		$("#btn_viewFrequent").click(viewFrequentItem);
+		/* $("#btn_viewFrequent").click(viewFrequentItem); */
 		windowJump();
 	});
 </script>
@@ -385,14 +390,14 @@ hr {
 						</div>
 						<div class="col-lg-10">
 							<div style="padding-top: 8%">
-								<div class="col-md-4" style="margin-left: 80px">
+								<div class="col-md-4" style="margin-left: 100px">
 									<button type="button" class="btn btn-primary"
 										id="btn_beginMine">开始挖掘</button>
 								</div>
-								<div class="col-md-5" >
+								<!-- <div class="col-md-5" >
 									<button type="button" class="btn btn-primary"
 										id="btn_viewFrequent">查看频繁N项集</button>
-								</div>
+								</div> -->
 								<!-- <div class="col-md-3">
 									<button type="button" class="btn btn-primary" ui-sref="">保存</button>
 								</div> -->
