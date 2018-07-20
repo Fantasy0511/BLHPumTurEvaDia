@@ -7,6 +7,7 @@
 	href="/BLHPumTurEvaDia/tool/bootstrap/dateTimePicker/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/BLHPumTurEvaDia/css/style.css">
 <!-- <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css"> -->
 <link rel="stylesheet"
@@ -34,7 +35,7 @@
 	var myChart;
 
 	function beginDateMine() {
-		$("#relaImage").attr("style","display:block;");//显示div
+		$("#relaImage").attr("style", "display:block;");//显示div
 		var minConfidence = $("#minConfidence").val();
 		var minSupport = $("#minSupport").val();
 		var subSystem = $("#subSystem").val();
@@ -85,8 +86,8 @@
 				tooltip : {
 					formatter : function(params, ticket, callback) {//回调函数
 						var str = appendPath(graph.nodes[params.dataIndex].id);
-						/* document.getElementById("div1").innerHTML = str;
-						return str;// */
+						document.getElementById("div1").innerHTML = str;
+						return str;// 
 					}
 				},
 				toolbox : {
@@ -184,7 +185,7 @@
 					id = map[id];
 				}
 				return str;
-			}
+			} 
 		});
 	}
 
@@ -211,18 +212,18 @@
 			return '';
 		}
 	}
-	
+
 	function windowJump() { // 页面跳转
 		$(".changePage").click(function() {
 			var path = $(this).attr("id");
-			console.log(path );
-			$('#Iframe').attr("src","/BLHPumTurEvaDia/assess/ahp/"+path);
+			console.log(path);
+			$('#Iframe').attr("src", "/BLHPumTurEvaDia/assess/ahp/" + path);
 			$('#test-window').window('open');
 		});
 	}
 
 	$(function() {
-		$("#relaImage").attr("style","display:none;");//隐藏div
+		$("#relaImage").attr("style", "display:none;");//隐藏div
 		$('#test-window').window('close');
 		$("#btn_beginMine").click(beginDateMine);
 		$("#btn_viewFrequent").click(viewFrequentItem);
@@ -232,6 +233,21 @@
 
 </head>
 <style>
+
+h2.top_title {
+	border-bottom: none;
+	background: none;
+	text-align: center;
+	line-height: 32px;
+	font-size: 20px
+}
+
+h2.top_title span {
+	font-size: 12px;
+	color: #666;
+	font-weight: 500
+}
+
 /* 文本超长class */
 .textEllipsis {
 	color: red;
@@ -239,12 +255,14 @@
 	white-space: nowrap; /*不允许文本换行*/
 	text-overflow: ellipsis; /*文本超长显示省略号*/
 }
+
 hr {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 1px solid #eee;
 }
+
 .page_operation_bar {
 	height: 50px;
 	width: 97%;
@@ -367,17 +385,17 @@ hr {
 						</div>
 						<div class="col-lg-10">
 							<div style="padding-top: 8%">
-								<div class="col-md-4">
+								<div class="col-md-4" style="margin-left: 80px">
 									<button type="button" class="btn btn-primary"
 										id="btn_beginMine">开始挖掘</button>
 								</div>
-								<div class="col-md-5">
+								<div class="col-md-5" >
 									<button type="button" class="btn btn-primary"
 										id="btn_viewFrequent">查看频繁N项集</button>
 								</div>
-								<div class="col-md-3">
+								<!-- <div class="col-md-3">
 									<button type="button" class="btn btn-primary" ui-sref="">保存</button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -405,18 +423,16 @@ hr {
 		</div>
 	</div>
 
-	<div style="width: 100%; height: 70px; float: left">
-		<hr />
-		<div id="relaImage">
-		<div style="margin-left: 2%; margin-right: 2%">
-			<span>多源异构数据关联挖掘分析结果展示： </span>
-			<a id="gov" class="changePage" >调速系统</a> 
-			<a id="pum" class="changePage" >水泵水轮机系统</a>
-			<a id="ball" class="changePage">球阀系统</a> 
-			<a id="exc" class="changePage" >发电及励磁系统</a>
-			<a id="transfer" class="changePage">主变系统</a>
-		</div>
-		</div>
+	<div style="width: 100%; height: 20px; float: left">
+		<!-- <hr /> -->
+		<!-- <div id="relaImage">
+			<div style="margin-left: 2%; margin-right: 2%">
+				<span>多源异构数据关联挖掘分析结果展示： </span> <a id="gov" class="changePage">调速系统</a>
+				<a id="pum" class="changePage">水泵水轮机系统</a> <a id="ball"
+					class="changePage">球阀系统</a> <a id="exc" class="changePage">发电及励磁系统</a>
+				<a id="transfer" class="changePage">主变系统</a>
+			</div>
+		</div> -->
 	</div>
 
 
@@ -440,12 +456,78 @@ hr {
 
 
 		<div style="width: 46.5%; height: auto; float: left; display: inline">
-			<div class="easyui-panel" title="关联分析图"
+			<div class="easyui-panel relation" title="关联分析图"
 				style="width: 100%; height: 470px;">
-				<div id="equipment" style="width: 99%; height: 98%;">
+				<!-- 关联分析耦合图展示 -->
+				<div>
+					<div id="relaImage">
+
+						<h2 class="top_title">多源异构数据关联挖掘分析结果展示</h2>
+
+						<section id="cd-timeline" class="cd-container">
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-picture">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Picture">
+								</div>
+
+								<div class="cd-timeline-content">
+									<a id="gov" class="changePage">调速系统</a>
+									<!--	<h5>调速系统</h5>
+			&lt;!&ndash;<p>网页时间轴一般用于展示以时间为主线的事件，如企业网站常见的公司发展</p>&ndash;&gt;
+			<a href="http://www.helloweba.com/view-blog-285.html" class="cd-read-more" target="_blank">查看详细分析结果</a>
+			<span class="cd-date">调速系统</span>-->
+								</div>
+							</div>
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-movie">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Movie">
+								</div>
+
+								<div class="cd-timeline-content">
+									<a id="pum" class="changePage">水泵水轮机系统</a>
+								</div>
+							</div>
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-picture">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Picture">
+								</div>
+
+								<div class="cd-timeline-content">
+									<a id="ball" class="changePage">球阀系统</a>
+								</div>
+							</div>
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-movie">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Movie">
+								</div>
+
+								<div class="cd-timeline-content">
+									<a id="exc" class="changePage">发电及励磁系统</a>
+								</div>
+							</div>
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-movie">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Location">
+								</div>
+
+								<div class="cd-timeline-content">
+									<a id="transfer" class="changePage">主变系统</a>
+								</div>
+							</div>
+
+						</section>
+					</div>
+					<!-- <pre
+						style="width: 96%; margin-left: 2%; margin-right: 2%; margin-top: 1%">    暂无结果</pre> -->
+				</div>
+
+				<!-- 关联分析节点图展示 -->
+				<!-- <div id="equipment" style="width: 99%; height: 98%;">
 					<pre
 						style="width: 96%; margin-left: 2%; margin-right: 2%; margin-top: 1%">    暂无结果</pre>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -454,7 +536,8 @@ hr {
 	<!-- 小窗口展示 -->
 	<div id="test-window" class="easyui-window" title="文件查看"
 		style="width: 500px; height: 500px;">
-		<iframe id="Iframe" src="" style="height:98%;width:100%;border: none"></iframe>
+		<iframe id="Iframe" src=""
+			style="height: 98%; width: 100%; border: none"></iframe>
 	</div>
 
 
