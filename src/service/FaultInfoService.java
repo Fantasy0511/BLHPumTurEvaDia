@@ -10,6 +10,7 @@ import dao.impl.ReadData;
 import util.DataInfo;
 import util.DataUtils;
 import util.FaultUtils;
+import util.HistoryTableUtils;
 
 /**
  * 获取故障相关数据
@@ -53,6 +54,32 @@ public class FaultInfoService {
 	      }
 		return null;
 		
+	}
+	
+	
+	/**
+	 * 获取参数在故障时间范围的值，并查询InforTable表输出description/unit
+	 * @param typeid
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public HistoryTableUtils getUnitInfor(String typeid,String startTime,String endTime) throws NumberFormatException, ClassNotFoundException, SQLException{
+		ReadData rd = new ReadData();
+		String pattern = "(\\D*)(\\d+)(.*)";
+		Pattern r = Pattern.compile(pattern);
+		Matcher m = r.matcher(typeid);
+		if (m.find( )) {
+			DataUtils data=rd.queRecord(m.group(1), Integer.parseInt(m.group(2)), startTime, endTime);
+			String  description= rd.queInfo(typeid).getDescription();
+			String unit=rd.queInfo(typeid).getUnit();
+			HistoryTableUtils historyTableUtils=new HistoryTableUtils(data, description, unit);
+			return historyTableUtils;
+	      }
+		return null;
 	}
 	
 	/**

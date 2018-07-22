@@ -10,10 +10,10 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
-<link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/js/assess/icon.css">
-<link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/css/assess/assesment.css">
+<!-- <link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/icon.css"> -->
+<!-- <link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/assesment.css"> -->
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
 <link rel="stylesheet"
@@ -224,6 +224,13 @@
 										function() {
 											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
 											// $(this).toggleClass('selected');
+											
+											showMask();
+											/* if(typeof startTimeString === 'undefined'){
+												alert("请选择开始时间、结束时间");
+												 hideMask();
+											}; */
+											
 											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
 											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
 											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
@@ -241,6 +248,8 @@
 														time= result.data1.time;
 														data=result.data1.value;
 														var temp=result.typeid1;
+														var yUnit=result.data1.unit;
+														var yDescription=result.data1.decription;
 											
 											
 											if(temp.indexOf("bool")!=-1){    //开关量和状态量进行判断，更换图标类型，和坐标轴名称
@@ -249,7 +258,7 @@
 														}
 											else{
 															stepType=false;
-															yAxisName='状态量';
+															yAxisName=yDescription+'('+yUnit+')';
 														} ;
 														
 											if(myChart !=null && myChart !=""&& myChart !=undefined){
@@ -355,8 +364,9 @@
 											    myChart.clear();
 											   
 											    myChart.setOption(option);
-											
+											    hideMask();
 											});
+											
 										});
 					});
 	
@@ -371,7 +381,9 @@
 </script>
 
 <body>
-	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:auto;margin-right:auto;width:94%">
+	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:3%;margin-right:3%;width:94%">
+		
+		<div style="vertical-align:center;float:left">
 		<span class="input_title">条件输入：</span> <label
 			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
@@ -398,14 +410,16 @@
 			<option value="Transfer">主变系统</option>
 		</select> <a id="btn_query" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'"> 查询 </a>
+			
+		</div>
 	</div>
 
-	<div style="margin-left: auto; margin-right: auto; width: 94%">
+	<div style="margin-left:3%;margin-right:3%;width:94%;float:left">
 		<div class="easyui-panel" title="历史运行状态数据"
-			style="width: 100%; height: auto;">
+			style="width: 100%; height: auto;vertical-align:center;float:left">
 			<div>
 				<table class="table" id="historyTable"
-					style="text-align: left; width: 100%; height: auto; margin-left: auto; margin-right: auto">
+					style="text-align: left; width: 98%; height: auto; margin-left: auto; margin-right: auto">
 					<thead>
 						<tr>
 							<th style="width: 7%">故障ID</th>
@@ -424,28 +438,16 @@
 		</div>
 	</div>
 
-	<div class="ipad" style="height: 20px"></div>
+	<div style="margin-left:3%;margin-right:3%;width:94%;height: 20px;float:left"></div>
 
-	<div style="margin-left: auto; margin-right: auto; width: 94%">
-		<div
-			style="width: 100%; height: auto; float: left; display: inline; margin-right: 2%">
-			<div style="width: 100%; height: auto; float: left; display: inline">
+	<div style="margin-left:3%;margin-right:3%;width:94%;float:left">
+				
 				<div class="easyui-panel" title="故障趋势图"
-					style="width: 100%; height: 600px;">
-					<div id="chartmain" style="height: 100%">
+					style="width: 99%; height: 600px;vertical-align:center;float:left">
+					<div id="chartmain" style="width: 100%;height: 100%">
 						<pre>    暂无结果</pre>
 					</div>
 				</div>
-			</div>
-		</div>
-		<!-- <div style="width: 49%; height: auto; float: left; display: inline">
-			<div class="easyui-panel" title="故障趋势图"
-				style="width: 100%; height: 400px;">
-				<div id="container2" style="height: 100%">
-					<pre>    暂无结果</pre>
-				</div>
-			</div>
-		</div> -->
 	</div>
 
 	<!-- <script type="text/javascript">
