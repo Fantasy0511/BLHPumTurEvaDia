@@ -8,12 +8,17 @@ public class SonAssessView {
 	private PieData fristPie;
 	private BarData secondBar;
 	private PieData secondPie;
-	public SonAssessView(BarData fristBar, PieData fristPie, BarData secondBar, PieData secondPie) {
+	private BarData thirdBar;
+	private PieData thirdPie;
+	public SonAssessView(BarData fristBar, PieData fristPie, BarData secondBar, PieData secondPie, BarData thirdBar,
+			PieData thirdPie) {
 		super();
 		this.fristBar = fristBar;
 		this.fristPie = fristPie;
 		this.secondBar = secondBar;
 		this.secondPie = secondPie;
+		this.thirdBar = thirdBar;
+		this.thirdPie = thirdPie;
 	}
 	public BarData getFristBar() {
 		return fristBar;
@@ -39,7 +44,17 @@ public class SonAssessView {
 	public void setSecondPie(PieData secondPie) {
 		this.secondPie = secondPie;
 	}
-	
-	
+	public BarData getThirdBar() {
+		return thirdBar;
+	}
+	public void setThirdBar(BarData thirdBar) {
+		this.thirdBar = thirdBar;
+	}
+	public PieData getThirdPie() {
+		return thirdPie;
+	}
+	public void setThirdPie(PieData thirdPie) {
+		this.thirdPie = thirdPie;
+	}
 	
 }

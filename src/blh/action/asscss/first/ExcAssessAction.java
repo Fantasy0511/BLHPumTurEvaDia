@@ -10,7 +10,6 @@ import blh.action.asscss.SonAssessView;
 import blh.action.support.AbstractActionSupport;
 import service.assess.generator.excAssResult;
 import service.assess.generator.one.output.GenerAssSum;
-import service.assess.generator.one.output.GeneratorAssessResult;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
@@ -34,12 +33,18 @@ public class ExcAssessAction extends AbstractActionSupport {
 		
 		/**评估主页面数据获取*/
 		// 详细评估信息
-		String[] names = { "励磁故障信号得分", "机组监测电气量状态得分", "发电机故障信号状态得分", "励磁发电系统温度状态得分", "灭磁开关动作状态得分", "励磁电源故障", "电压/频率跳闸",
-				"晶闸管桥风扇故障", "有功功率测量值", "励磁电压", "机组频率", "转子绝缘报警次数", "发电机停止报警次数", "频率保护报警", "发电机热风温度", "发电机冷风温度", "空冷器出水温度",
+		String[] category = {
+	            "励磁故障信号", "", "","机组监测电气量", "", "","发电机故障信号", "", "","励磁发电系统温度", "", "","灭磁开关动作状态", ""
+				  };
+		String[] names = {
+				"励磁电源故障", "电压/频率跳闸","晶闸管桥风扇故障", 
+				"有功功率测量值", "励磁电压", "机组频率", 
+				"转子绝缘报警次数", "发电机停止报警次数", "频率保护报警", 
+				"发电机热风温度", "发电机冷风温度", "空冷器出水温度",
 				"励磁电流", "励磁电压" };
-		Table bottomDetail = new Table(new String[] { "name", "value" });
+		Table bottomDetail = new Table(new String[] {"category", "name", "value" });
 		for (int i = 0; i < names.length; i++) {
-			bottomDetail.withRow(names[i], excAssResult.getIndicator().get(i).doubleValue());
+			bottomDetail.withRow(category[i],names[i], excAssResult.getIndicator().get(i+6).doubleValue());
 		}
 
 		// 柱状图数据
@@ -84,7 +89,7 @@ public class ExcAssessAction extends AbstractActionSupport {
 				sonBarName2, sonbarValue2);
 		PieData mainShaftSealPie = PieData.create("发电机故障信号评估指标得分", sonBarName2, sonbarValue2, "得分XXX");
 		
-		sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie);
+		sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie,null,null);
 		
 		
 		return super.execute();

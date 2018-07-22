@@ -1,5 +1,7 @@
 package service.assess.pumptur.three.output;
 
+import java.util.List;
+
 /**
  * 水泵状态评估结果
  * 
@@ -10,7 +12,7 @@ public class PumpAssResult {
 	private double guideVane;
 	private double history;
 	private double mainShaftSeal;
-	private double swingAss;
+	private List<Number> swingAss;
 	private double temperatureAss;
 	private double score;
 
@@ -27,10 +29,9 @@ public class PumpAssResult {
 	private int lowerWater; // 下导冷却水出水温度
 	private int lowerBearing; // 下导轴瓦温度
 	private int lowerOil; // 下导油槽温度
-	
-	public PumpAssResult(double guideVane, double history, double mainShaftSeal, double swingAss, double temperatureAss,
-			double score, int waterFlow, int waterTemperature, int beforeStress, int afterStress, int upperWater,
-			int upperBearing, int upperOil, int lowerWater, int lowerBearing, int lowerOil) {
+	public PumpAssResult(double guideVane, double history, double mainShaftSeal, List<Number> swingAss,
+			double temperatureAss, double score, int waterFlow, int waterTemperature, int beforeStress, int afterStress,
+			int upperWater, int upperBearing, int upperOil, int lowerWater, int lowerBearing, int lowerOil) {
 		super();
 		this.guideVane = guideVane;
 		this.history = history;
@@ -67,10 +68,10 @@ public class PumpAssResult {
 	public void setMainShaftSeal(double mainShaftSeal) {
 		this.mainShaftSeal = mainShaftSeal;
 	}
-	public double getSwingAss() {
+	public List<Number> getSwingAss() {
 		return swingAss;
 	}
-	public void setSwingAss(double swingAss) {
+	public void setSwingAss(List<Number> swingAss) {
 		this.swingAss = swingAss;
 	}
 	public double getTemperatureAss() {
@@ -145,6 +146,7 @@ public class PumpAssResult {
 	public void setLowerOil(int lowerOil) {
 		this.lowerOil = lowerOil;
 	}
-
+	
+	
 	
 }

@@ -38,6 +38,9 @@ public class GovAssessAction extends AbstractActionSupport {
 		GovAssResultTwo govAssResult2 = output.getOutput2(time);
 		
 		//前端的“详细评估信息”里面的内容——对象：bottomDetail
+		String[] category = {
+	            "调速系统性能状态", "", "","","", "调速故障信号", "", ""
+				  };
 		double[] values= {
 				govAssResult2.getState2().get(0).doubleValue(),
 				govAssResult2.getState2().get(1).doubleValue(),
@@ -51,14 +54,14 @@ public class GovAssessAction extends AbstractActionSupport {
 		String[] Names = { "油槽油温", "供油管油压", "压力油罐油位", "调速器油箱油位","补气系统压力罐压力",
 				"调速器电气过速报警", "调速器机械过速报警","调速器油箱阻塞"};
 		
-		Table bottomDetail = new Table(new String[] { "name", "value" });
+		Table bottomDetail = new Table(new String[] { "category","name", "value" });
 		for (int i = 0; i < Names.length; i++) {
-			bottomDetail.withRow(Names[i],values[i]);
+			bottomDetail.withRow(category[i],Names[i],values[i]);
 		}
 		
 		
 		//前端的“柱状图”里面的内容——对象middleBar
-		List<String> barName = Arrays.asList("油系统性能", "振动信号性能", "历史性能");
+		List<String> barName = Arrays.asList("调速系统性能状态", "调速故障信号", "历史性能");
 		List<Double> barValue = Arrays.asList(
 				 govAssResult2.getState2().get(5).doubleValue(),
 				 govAssResult2.getSignalSum2().get(3).doubleValue(),
@@ -84,8 +87,8 @@ public class GovAssessAction extends AbstractActionSupport {
 				// 这时需要获取这个number的double值，而不是给number转成double ，也转不成
 				List<Double> sonbarValueRatio = Arrays.asList(0.25,0.25,0.2,0.15,0.15);
 				
-				BarData govOilBar = BarData.create("油系统性能底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
-				PieData govOilPie = PieData.create("油系统性能底层指标比例", sonbarName, sonbarValueRatio, "得分XXX");
+				BarData govOilBar = BarData.create("调速系统性能状态底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
+				PieData govOilPie = PieData.create("调速系统性能状态底层指标比例", sonbarName, sonbarValueRatio, "得分XXX");
 				
 				// 振动底层指标得分
 				List<String> sonbarName1 = Arrays.asList("调速器电气过速报警", "调速器机械过速报警","调速器油箱阻塞");
@@ -94,8 +97,8 @@ public class GovAssessAction extends AbstractActionSupport {
 						govAssResult2.getSignalSum2().get(1).doubleValue(),
 						govAssResult2.getSignalSum2().get(2).doubleValue());
 				List<Double> sonbarValueRatio1 = Arrays.asList(0.15,0.45,0.4);
-				BarData govSingleBar = BarData.create("振动底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
-				PieData govSinglePie = PieData.create("振动底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
+				BarData govSingleBar = BarData.create("调速故障信号底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
+				PieData govSinglePie = PieData.create("调速故障信号底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
 
 				
 				
@@ -107,7 +110,7 @@ public class GovAssessAction extends AbstractActionSupport {
 				govAssResult2.getHistory2()+"" , bottomDetail, middleBar);
 		
 		// 返回底层的评估对象“sonAssessView”
-		sonAssessView = new SonAssessView(govOilBar, govOilPie,govSingleBar, govSinglePie);
+		sonAssessView = new SonAssessView(govOilBar, govOilPie,govSingleBar, govSinglePie,null,null);
 				
 		return super.execute();
 	}

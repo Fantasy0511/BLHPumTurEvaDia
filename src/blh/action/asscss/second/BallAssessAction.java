@@ -31,11 +31,12 @@ public class BallAssessAction extends AbstractActionSupport {
 		ballAssessResult = ballAssSum.getOutput2(time);
 
 		// 前端的“详细评估信息”里面的内容——对象：bottomDetail
-		String[] names = { "球阀油系统性能状态", "历史和巡检状态", "球阀性能状态", "压力油罐油压低报警", "球阀1号油泵故障", "球阀2号油泵故障", "球阀突然关闭报警", "蜗壳压力",
+		String[] category = {
+	            "油系统性能状态", "", "","球阀性能状态", "", ""
+				  };
+		String[] names = { "压力油罐油压低报警", "球阀1号油泵故障", "球阀2号油泵故障", "球阀突然关闭报警", "蜗壳压力",
 				"水闸压力" };
-		double[] values = { ballAssessResult.getOilSystem().get(3).doubleValue(), ballAssessResult.getHistory(),
-				ballAssessResult.getPerformance().get(3).doubleValue(),
-
+		double[] values = {
 				ballAssessResult.getOilSystem().get(0).doubleValue(),
 				ballAssessResult.getOilSystem().get(1).doubleValue(),
 				ballAssessResult.getOilSystem().get(2).doubleValue(),
@@ -43,9 +44,9 @@ public class BallAssessAction extends AbstractActionSupport {
 				ballAssessResult.getPerformance().get(0).doubleValue(),
 				ballAssessResult.getPerformance().get(1).doubleValue(),
 				ballAssessResult.getPerformance().get(2).doubleValue(), };
-		Table bottomDetail = new Table(new String[] { "name", "value" });
+		Table bottomDetail = new Table(new String[] { "category","name", "value" });
 		for (int i = 0; i < names.length; i++) {
-			bottomDetail.withRow(names[i], values[i]);
+			bottomDetail.withRow(category[i],names[i], values[i]);
 		}
 
 		// 前端的“柱状图”里面的内容——对象middleBar
@@ -89,7 +90,7 @@ public class BallAssessAction extends AbstractActionSupport {
 				bottomDetail, middleBar);
 
 		// 返回底层的评估对象“sonAssessView”
-		sonAssessView = new SonAssessView(ballOilBar, ballOilPie, performanceBar, performancePie);
+		sonAssessView = new SonAssessView(ballOilBar, ballOilPie, performanceBar, performancePie,null,null);
 
 		return super.execute();
 	}

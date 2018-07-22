@@ -1,5 +1,7 @@
 package service.assess.pumptur.three.output;
 
+import java.util.List;
+
 import service.assess.pumptur.son.MainShaftSealResult;
 import service.assess.pumptur.son.Temperatureresult2;
 import service.assess.pumptur.three.GuideVane3;
@@ -29,7 +31,9 @@ public class PumpAssSum {
 		
 		// 2号水轮机振动打分
 		Vibration3 swingAss = new Vibration3();
-		double U4 = swingAss.getVibration3(time);
+		List<Number> U4 = swingAss.getVibration3(time);
+		
+		
 		// 2号机组水泵水轮机温度总得分
 		temperature3 temperatureAss = new temperature3();
 		Temperatureresult2 result1 = temperatureAss.gettemperature3(time);
@@ -44,7 +48,7 @@ public class PumpAssSum {
 	
 		// 正常来说权重比例应该是由判断矩阵算出来的
 		System.out.println("********"+U1+"*****三号机组的导叶打分有问题，数据库查不到值");
-		double U6 = 0.263 * U1 + 0.419 * U2 + 0.160 * U3 + 0.097 * U4 + 0.062 * U5;// 打分比例可能存在问题jtl 6.9
+		double U6 = 0.263 * U1 + 0.419 * U2 + 0.160 * U3 + 0.097 * (double)U4.get(U4.size()-1) + 0.062 * U5;// 打分比例可能存在问题jtl 6.9
 		
 		PumpAssResult pumpAssResult = new PumpAssResult(U1, U2, U3, U4, U5, U6,U31,U32,U33,U34,U51,U52,U53,U54,U55,U56);
 		return pumpAssResult;

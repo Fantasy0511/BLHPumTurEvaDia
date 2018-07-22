@@ -1,5 +1,7 @@
 package service.assess.pumptur.four.output;
 
+import java.util.List;
+
 import service.assess.pumptur.four.Vibration.SwingAss;
 import service.assess.pumptur.four.other.GuideVane;
 import service.assess.pumptur.four.other.History;
@@ -29,7 +31,9 @@ public class PumpAssSum {
 
 		// 振动打分
 		SwingAss swingAss = new SwingAss();
-		double U4 = swingAss.getSwingAssResult(time);
+		List<Number> U4 = swingAss.getSwingAssResult(time);
+		
+		
 		// 温度打分
 		TemperatureAss temperatureAss = new TemperatureAss();
 		Temperatureresult1 result1 = temperatureAss.getTemperatureAss(time);
@@ -45,7 +49,7 @@ public class PumpAssSum {
 		double U5 = result1.getScore();
 
 		// 正常来说权重比例应该是由判断矩阵算出来的
-		double U6 = 0.090 * U1 + 0.055 * U2 + 0.110 * U3 + 0.475 * U4 + 0.263 * U5;
+		double U6 = 0.090 * U1 + 0.055 * U2 + 0.110 * U3 + 0.475 * (double)U4.get(U4.size() - 1) + 0.263 * U5;
 		PumpAssResult pumpAssResult = new PumpAssResult(U1, U2, U3, U4, U5, U6,U31,U32,U33,U34,U51,U52,U53,U54,U55,U56,U57,U58);
 		return pumpAssResult;
 	}

@@ -73,8 +73,7 @@ public class GenerAssSum {
 		firstList.add(t2); // 空冷器出水温度16
 		// 灭磁开关动作
 		firstList.add(d0); // 励磁电流17
-		firstList.add(d1);
-		;// 励磁电压18
+		firstList.add(d1); // 励磁电压18
 
 		excAssResult generatorAssessResult = new excAssResult(firstList);
 		return generatorAssessResult;

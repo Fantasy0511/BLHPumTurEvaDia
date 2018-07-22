@@ -33,12 +33,15 @@ public class TransferAssessAction extends AbstractActionSupport {
 		
 		/**评估主页面数据获取*/
 		//评估主页面表格数据
-		String[] names = { "主变系统总得分","主变压器温度","主变故障信号","历史和巡检状态",
+		String[] category = {
+	            "主变压器温度", "", "","主变故障信号", "", ""
+				  };
+		String[] names = { 
 				"主变油温","高压侧绕组温度","冷却器出口水温","主变重瓦斯跳闸","主变油位高报警",
 				"机组电气停机报警"};
-		Table bottomDetail = new Table(new String[] { "name", "value" });
+		Table bottomDetail = new Table(new String[] { "category","name", "value" });
 		for (int i = 0; i < names.length; i++) {
-			bottomDetail.withRow(names[i], transferAssessResult.getFirstIndicator().get(i).doubleValue());
+			bottomDetail.withRow(category[i],names[i], transferAssessResult.getFirstIndicator().get(i+4).doubleValue());
 		}
 		
 		//评估主页面 柱状图
@@ -74,7 +77,7 @@ public class TransferAssessAction extends AbstractActionSupport {
 				sonBarName2, sonbarValue2);
 		PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonBarName2, sonbarValue2, "得分XXX");
 		
-		sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie);
+		sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie,null,null);
 		
 		return super.execute();
 	

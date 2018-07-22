@@ -1,13 +1,19 @@
 package service.assess.pumptur.two;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 import bll.FloatAssessment;
 
 public class Vibration2 {
 	//2号机组水泵水轮机振动得分
 	
-	public double getVibration2(long time){
+	public List<Number> getVibration2(long time){
 		
+		DecimalFormat df = new DecimalFormat("#.0");
+		List<Number> singleList = new ArrayList<>();
         //主轴X轴摆动跳闸 
 
 		BoolAssess bool441=new BoolAssess();
@@ -49,7 +55,20 @@ public class Vibration2 {
 		int U10=float549.FloatAssess(549,time, 20, 0);
 		
 		double score=(U1+U2+U3+U4+U5+U6+U7+U8+U9+U10)/10;
-		return score;
+		score = Double.parseDouble(df.format(score));
+
+		singleList.add(U1);
+		singleList.add(U2);
+		singleList.add(U3);
+		singleList.add(U4);
+		singleList.add(U5);
+		singleList.add(U6);
+		singleList.add(U7);
+		singleList.add(U8);
+		singleList.add(U9);
+		singleList.add(U10);
+		singleList.add(score);
+		return singleList;
 		
 }
 }
