@@ -36,25 +36,22 @@ public class RelationAction extends AbstractActionSupport {
 		Relation relation = new Relation();
 		links = relation.getLinks(system, (double) (support) / 100);
 		nodes = relation.getNodes(system, (double) (support) / 100);
-		
+
 		relationTables = new Table(new String[] { "deviceType", "deviceState" });
-		
+
 		List<RelationRecord> relationTables1 = new ArrayList<>();
 		for (node n : nodes) {
-			String deviceType = n.getName().substring(0,
-					n.getName().indexOf("."));
-			String deviceState = n.getName().substring(n.getName().indexOf("."),
-					n.getName().length());
-			RelationRecord relationRecord = new RelationRecord(deviceType,
-					deviceState);
+			String deviceType = n.getName().substring(0, n.getName().indexOf("."));
+			String deviceState = n.getName().substring(n.getName().indexOf("."), n.getName().length());
+			RelationRecord relationRecord = new RelationRecord(deviceType, deviceState);
 			relationTables1.add(relationRecord);
 		}
-		
+
 		for (int i = 0; i < relationTables1.size(); i++) {
-			relationTables.withRow(relationTables1.get(i).getDeviceType(),
-					relationTables1.get(i).getDeviceState());
+			relationTables.withRow(relationTables1.get(i).getDeviceType(), relationTables1.get(i).getDeviceState()
+					.substring(1, relationTables1.get(i).getDeviceState().length()));//去掉关联分析表“设备状态”列，字符多了一个“.”
 		}
-		
+
 		return super.execute();
 	}
 
@@ -81,7 +78,5 @@ public class RelationAction extends AbstractActionSupport {
 	public void setRelationTables(Table relationTables) {
 		this.relationTables = relationTables;
 	}
-
-	
 
 }
