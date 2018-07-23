@@ -124,53 +124,89 @@ public class GovernorfaultBool {
 					}
 			}
 				
-				//调速器补气系统气压罐压力高
-				public double getFilltankpressurehigh(long time,int No){
-					if(No==1){
-						BoolTree bool207=new BoolTree();
-						double p1=bool207.BooleanTree(207,time);
-							return p1;
-					}else if(No==2){
-						BoolTree bool526=new BoolTree();
-						double p1=bool526.BooleanTree(526,time);
-						return p1;
-					}else if(No==3){
-						BoolTree bool852=new BoolTree();
-						double p1=bool852.BooleanTree(852,time);
-						return p1;
-					}else if(No==4){
-						BoolTree bool1172=new BoolTree();
-						double p1=bool1172.BooleanTree(1172,time);
-						return p1;
-					}else{
-						double p1=0;
-					return p1;
-					}
-			}
 				
-				//调速器补气系统气压罐压力低
-				public double getFilltankpressurelow(long time,int No){
+				//油泵不能正常开启
+				public double OilPFailure(long time,int No){
 					if(No==1){
-						BoolTree bool208=new BoolTree();
-						double p1=bool208.BooleanTree(208,time);
-							return p1;
+						BoolTree bool205=new BoolTree();
+        				double p1=bool205.BooleanTree(205,time);
+        				BoolTree bool202=new BoolTree();
+        				double p2=bool202.BooleanTree(202,time);
+        				p1=p1+p2;
+        				if(p1>1){
+        					p1=0.99;
+        				}
+        				return p1;
 					}else if(No==2){
-						BoolTree bool527=new BoolTree();
-						double p1=bool527.BooleanTree(527,time);
-						return p1;
+						BoolTree bool524=new BoolTree();
+        				double p1=bool524.BooleanTree(524,time);
+        				BoolTree bool521=new BoolTree();
+        				double p2=bool521.BooleanTree(521,time);
+        				p1=p1+p2;
+        				if(p1>1){
+        					p1=0.99;
+        				}
+        				return p1;
 					}else if(No==3){
-						BoolTree bool853=new BoolTree();
-						double p1=bool853.BooleanTree(853,time);
-						return p1;
+						BoolTree bool850=new BoolTree();
+        				double p1=bool850.BooleanTree(524,time);
+        				BoolTree bool847=new BoolTree();
+        				double p2=bool847.BooleanTree(847,time);
+        				p1=p1+p2;
+        				if(p1>1){
+        					p1=0.99;
+        				}
+        				return p1;
 					}else if(No==4){
-						BoolTree bool1173=new BoolTree();
-						double p1=bool1173.BooleanTree(1173,time);
-						return p1;
+						BoolTree bool1170=new BoolTree();
+        				double p1=bool1170.BooleanTree(1170,time);
+        				BoolTree bool1167=new BoolTree();
+        				double p2=bool1167.BooleanTree(1167,time);
+        				p1=p1+p2;
+        				if(p1>1){
+        					p1=0.99;
+        				}
+        				return p1;
 					}else{
 						double p1=0;
-					return p1;
+						return p1;
 					}
-			}
-
+				}
+				
+				//油泵单位时间启动频繁
+				public double  PumpEfficiency(long time,int No){
+					if(No==1){
+						BoolTree bool200=new BoolTree();
+        				double p1=bool200.BooleanTree(200,time);
+        				BoolTree bool203=new BoolTree();
+        				double p2=bool203.BooleanTree(203,time);
+        				p1=p1+p2;
+        				return p1;
+					}else if(No==2){
+						BoolTree bool519=new BoolTree();
+        				double p1=bool519.BooleanTree(519,time);
+        				BoolTree bool522=new BoolTree();
+        				double p2=bool522.BooleanTree(522,time);
+        				p1=p1+p2;
+        				return p1;
+					}else if(No==3){
+						BoolTree bool845=new BoolTree();
+        				double p1=bool845.BooleanTree(545,time);
+        				BoolTree bool848=new BoolTree();
+        				double p2=bool848.BooleanTree(848,time);
+        				p1=p1+p2;
+        				return p1;
+					}else if(No==4){
+						BoolTree bool1165=new BoolTree();
+        				double p1=bool1165.BooleanTree(1165,time);
+        				BoolTree bool1168=new BoolTree();
+        				double p2=bool1168.BooleanTree(1168,time);
+        				p1=p1+p2;
+        				return p1;
+					}else{
+						double p1=0;
+						return p1;
+					}
+				}
 
 }

@@ -273,10 +273,14 @@ public class MakeFaultTree {
 							temp.freq =gn.getPressuretankoilhigh(time, unitNo);
 						}else if(temp.name.equals("压力油罐油位偏低")){
 							temp.freq =gn.getPressuretankoillow(time, unitNo);
-						}else if(temp.name.equals("补气压罐压力偏高")){
-							temp.freq =gn.getFilltankpressurehigh(time, unitNo);
-						}else if(temp.name.equals("补气压罐压力偏低")){
-							temp.freq =gn.getFilltankpressurelow(time, unitNo);
+						}else if(temp.name.equals("压油罐漏气")){
+							temp.freq =0.05;
+						}else if(temp.name.equals("油系统漏油")){
+							temp.freq=0.07;
+						}else if(temp.name.equals("油泵效率低")){
+							temp.freq=0.09;
+						}else if(temp.name.equals("油泵不能正常开启")){
+							temp.freq=gn.OilPFailure(time, unitNo);
 						}else{
 							temp.freq=0;
 						}

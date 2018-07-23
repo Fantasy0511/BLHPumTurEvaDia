@@ -33,10 +33,10 @@
   <Route ID="732" Name="" FromElementID="333" ToElementID="345"/>
   <Route ID="733" Name="" FromElementID="345" ToElementID="4331"/>
   <Route ID="734" Name="" FromElementID="345" ToElementID="4332"/>
-  <WorkNode ID="1" Name="调速系统故障" NodeType="0" father="null" children="调速器本体故障,调速系统性能异常,油压装置运行异常" gate="+" x="429" y="6" Width="100" Height="30"/>
+  <WorkNode ID="1" Name="调速系统故障" NodeType="0" father="null" children="调速器本体故障,调速系统性能异常,调速油系统故障" gate="+" x="429" y="6" Width="100" Height="30"/>
   <WorkNode ID="21" Name="调速器本体故障" NodeType="0" father="调速系统故障" children="导叶开度反馈故障,配压阀跳动或抖动,剪断销故障" gate="+" x="267" y="75" Width="100" Height="30"/>
   <WorkNode ID="22" Name="调速系统性能异常" NodeType="0" father="调速系统故障" children="停机超时,开机异常,增减负荷异常,并网运行溜负荷" gate="+" x="621" y="75" Width="100" Height="30"/>
-  <WorkNode ID="23" Name="油压装置运行异常" NodeType="0" father="调速系统故障" children="集油箱异常,压力油罐异常,气系统压力罐异常" gate="+" x="1000" y="75" Width="100" Height="30"/>
+  <WorkNode ID="23" Name="调速油系统故障" NodeType="0" father="调速系统故障" children="状态越限异常,性能下降或异常,设备故障" gate="+" x="1000" y="75" Width="100" Height="30"/>
   <WorkNode ID="311" Name="导叶开度反馈故障" NodeType="0" father="调速器本体故障" children="开度反馈信号为零,开度反馈信号为最大值" gate="+" x="19" y="186" Width="100" Height="30"/>
   <WorkNode ID="312" Name="配压阀跳动或抖动" NodeType="0" father="调速器本体故障" children="null" gate="0" x="219" y="186" Width="100" Height="30"/>
   <WorkNode ID="313" Name="剪断销故障" NodeType="0" father="调速器本体故障" children="null" gate="0" x="419" y="186" Width="100" Height="30"/>
@@ -44,21 +44,23 @@
   <WorkNode ID="322" Name="开机异常" NodeType="0" father="调速系统性能异常" children="导叶响应缓慢,转速达不到额定值,接力器不开启,机组误开机或蠕动" gate="+" x="819" y="186" Width="100" Height="30"/>
   <WorkNode ID="323" Name="增减负荷异常" NodeType="0" father="调速系统性能异常" children="null" gate="0" x="1019" y="186" Width="100" Height="30"/>
   <WorkNode ID="324" Name="并网运行溜负荷" NodeType="0" father="调速系统性能异常" children="null" gate="0" x="1219" y="186" Width="100" Height="30"/>
-  <WorkNode ID="331" Name="集油箱异常" NodeType="0" father="油压装置运行异常" children="集油箱油位偏高,集油箱油位偏低" gate="+" x="1419" y="186" Width="100" Height="30"/>
-  <WorkNode ID="332" Name="压力油罐异常" NodeType="0" father="油压装置运行故障" children="压力油罐油位偏高,压力油罐油位偏低" gate="+" x="1619" y="186" Width="100" Height="30"/>
-  <WorkNode ID="333" Name="气系统压力罐异常" NodeType="0" father="油压装置运行故障" children="补气压罐压力偏高,补气压罐压力偏低" gate="+" x="1819" y="186" Width="100" Height="30"/> 
+  <WorkNode ID="331" Name="状态越限异常" NodeType="0" father="调速油系统故障" children="集油箱油位偏高,集油箱油位偏低，压力油罐油位偏高,压力油罐油位偏低" gate="+" x="1419" y="186" Width="100" Height="30"/>
+  <WorkNode ID="332" Name="性能下降或异常" NodeType="0" father="调速油系统故障" children="压油罐漏气，油系统漏油，油泵效率低" gate="+" x="1619" y="186" Width="100" Height="30"/>
+  <WorkNode ID="333" Name="设备故障" NodeType="0" father="调速油系统故障" children="油泵不能正常开启" gate="+" x="1819" y="186" Width="100" Height="30"/> 
    <WorkNode ID="4111" Name="开度反馈信号为零" NodeType="0" father="导叶开度反馈故障" children="null" gate="0" x="19" y="320" Width="100" Height="30"/>
   <WorkNode ID="4112" Name="开度反馈信号为最大值" NodeType="0" father="导叶开度反馈故障" children="null" gate="0" x="319" y="320" Width="100" Height="30"/>
   <WorkNode ID="4221" Name="导叶响应缓慢" NodeType="0" father="开机异常" children="null" gate="0" x="819" y="320" Width="100" Height="30"/>
   <WorkNode ID="4222" Name="转速达不到额定值" NodeType="0" father="开机异常" children="null" gate="0" x="1019" y="320" Width="100" Height="30"/>
   <WorkNode ID="4223" Name="接力器不开启" NodeType="0" father="开机异常" children="null" gate="0" x="1219" y="320" Width="100" Height="30"/>
   <WorkNode ID="4224" Name="机组误开机或蠕动" NodeType="0" father="开机异常" children="null" gate="0" x="1419" y="320" Width="100" Height="30"/>
-  <WorkNode ID="4311" Name="集油箱油位偏高" NodeType="0" father="集油箱异常" children="null" gate="0" x="1419" y="320" Width="100" Height="30"/>
-  <WorkNode ID="4312" Name="集油箱油位偏低" NodeType="0" father="集油箱异常" children="null" gate="0" x="1619" y="320" Width="100" Height="30"/>
-  <WorkNode ID="4321" Name="压力油罐油位偏高" NodeType="0" father="压力油罐异常" children="null" gate="0" x="1819" y="320" Width="100" Height="30"/>
-  <WorkNode ID="4322" Name="压力油罐油位偏低" NodeType="0" father="压力油罐异常" children="null" gate="0" x="2019" y="320" Width="100" Height="30"/>
-  <WorkNode ID="4331" Name="补气压罐压力偏高" NodeType="0" father="气系统压力罐异常" children="null" gate="0" x="2219" y="320" Width="100" Height="30"/>  
-  <WorkNode ID="4332" Name="补气压罐压力偏低" NodeType="0" father="气系统压力罐异常" children="null" gate="0" x="2419" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4311" Name="集油箱油位偏高" NodeType="0" father="状态越限异常" children="null" gate="0" x="1419" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4312" Name="集油箱油位偏低" NodeType="0" father="状态越限异常" children="null" gate="0" x="1619" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4313" Name="压力油罐油位偏高" NodeType="0" father="状态越限异常" children="null" gate="0" x="1819" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4314" Name="压力油罐油位偏低" NodeType="0" father="状态越限异常" children="null" gate="0" x="2019" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4321" Name="压油罐漏气" NodeType="0" father="性能下降或异常" children="null" gate="0" x="2219" y="320" Width="100" Height="30"/>  
+  <WorkNode ID="4322" Name="油系统漏油" NodeType="0" father="性能下降或异常" children="null" gate="0" x="2419" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4323" Name="油泵效率低" NodeType="0" father="性能下降或异常" children="null" gate="0" x="2419" y="320" Width="100" Height="30"/>
+  <WorkNode ID="4331" Name="油泵不能正常开启" NodeType="0" father="设备故障" children="null" gate="0" x="2419" y="320" Width="100" Height="30"/>
   <AndGateNode ID="120" Name="" x="479" y="72" Radio="20"/>
   <AndGateNode ID="230" Name="" x="267" y="140" Radio="20"/>
   <AndGateNode ID="231" Name="" x="621" y="140" Radio="20"/>

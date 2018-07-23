@@ -15,9 +15,62 @@ public class JKData {
 	int ptHAlarm;  //压力油罐油位高报警
 	int ptLAlarm;  //压力油罐油位低报警
 	
-	int qiptHAlarm;  //补气系统压力罐压力高报警
-	int qiptLAlarm;  //补气系统压力罐压力低报警
+	int OilPFailure;//油泵不能正常开启
 	
+	public int getOilSpill() {
+		return OilSpill;
+	}
+	public void setOilSpill(int oilSpill) {
+		OilSpill = oilSpill;
+	}
+	public int getPreviewLow() {
+		return PreviewLow;
+	}
+	public void setPreviewLow(int previewLow) {
+		PreviewLow = previewLow;
+	}
+	public int getFrequentH() {
+		return FrequentH;
+	}
+	public void setFrequentH(int frequentH) {
+		FrequentH = frequentH;
+	}
+	int OilSpill;//耗油速度偏大
+	
+	int PreviewLow;//大油量偏低
+	
+	int FrequentH;//油泵开启频繁
+	
+	
+	public int getOilPFailure() {
+		return OilPFailure;
+	}
+	public void setOilPFailure(int oilPFailure) {
+		OilPFailure = oilPFailure;
+	}
+	int ptAirLeak; //压油罐漏气
+	
+	public int getPtAirLeak() {
+		return ptAirLeak;
+	}
+	public void setPtAirLeak(int ptAirLeak) {
+		this.ptAirLeak = ptAirLeak;
+	}
+	public int getSysOilSpill() {
+		return sysOilSpill;
+	}
+	public void setSysOilSpill(int sysOilSpill) {
+		this.sysOilSpill = sysOilSpill;
+	}
+	public int getLowEff() {
+		return LowEff;
+	}
+	public void setLowEff(int lowEff) {
+		LowEff = lowEff;
+	}
+	int sysOilSpill; //系统漏油
+	
+	int LowEff; //油泵效率低
 	public int getJdxzt() {
 		return jdxzt;
 	}
@@ -48,18 +101,5 @@ public class JKData {
 	public void setPtLAlarm(int ptLAlarm) {
 		this.ptLAlarm = ptLAlarm;
 	}
-	public int getQiptHAlarm() {
-		return qiptHAlarm;
-	}
-	public void setQiptHAlarm(int qiptHAlarm) {
-		this.qiptHAlarm = qiptHAlarm;
-	}
-	public int getQiptLAlarm() {
-		return qiptLAlarm;
-	}
-	public void setQiptLAlarm(int qiptLAlarm) {
-		this.qiptLAlarm = qiptLAlarm;
-	}
-	
 
 }

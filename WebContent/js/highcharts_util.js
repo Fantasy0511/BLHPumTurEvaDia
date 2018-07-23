@@ -154,6 +154,9 @@ function _drawBarChart(title, subtitle, categories, yLabel, seriesName,
 						title : {
 							text : title
 						},
+						colors:[
+				            '#63B8FF',//浅蓝
+				          ],
 						subtitle : {
 							text : subtitle
 						},
@@ -243,7 +246,9 @@ function _drawBarChartNew(title, subtitle, categories, yLabel,
 						},
 						series : [ {
 							data:data
+							
 						} ]
+						
 						
 					});
 }

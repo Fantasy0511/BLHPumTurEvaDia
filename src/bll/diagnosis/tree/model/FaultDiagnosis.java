@@ -165,40 +165,47 @@ public class FaultDiagnosis {
 					FaultSymptom[0] = 0;
 				}
 
-				if (datas.getFtHAlarm() == 1) {  //集油箱高
+				if (datas.getFtHAlarm() == 1) {  //集油箱油位偏高
 					FaultSymptom[1] = 3;
 				} else {
 					FaultSymptom[1] = 0;
 				}
-				if (datas.getFtLAlarm() == 1) {   //集油箱低
+				if (datas.getFtLAlarm() == 1) {   //集油箱油位偏低
 					FaultSymptom[2] = 5;
 				} else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getPtHAlarm() == 1) {  //压力油罐油位高
+				if (datas.getPtHAlarm() == 1) {  //压力油罐油位偏高
 					FaultSymptom[3] = 10;
 				} else {
 					FaultSymptom[3] = 0;
 				}
-				if (datas.getPtLAlarm() == 1) { //压力油罐油位低
+				if (datas.getPtLAlarm() == 1) { //压力油罐油位偏低
 					FaultSymptom[4] = 30;
 				} else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getQiptHAlarm() == 1) { //补气系统压力罐压力高报警
+				if (datas.getPtAirLeak() == 1) { //压油罐漏气
 					FaultSymptom[5] = 50;
 				} else {
 					FaultSymptom[5] = 0;
 				}
-				if (datas.getPtLAlarm() == 1) { //补气系统压力罐压力低报警
+				if (datas.getSysOilSpill() == 1) { //油系统漏油
 					FaultSymptom[6] = 100;
 				} else {
 					FaultSymptom[6] = 0;
+				}if(datas.getLowEff()==1){ //油泵效率低
+				FaultSymptom[7] = 300;
+				}else{
+					FaultSymptom[7] = 0;
 				}
-				FaultSymptom[7] = 0;
-				FaultSymptom[8] = 0;
+				if(datas.getOilPFailure()==1){
+				FaultSymptom[8] = 500;
+				}else{
+					FaultSymptom[8] = 0;
+				}
 				FaultSymptom[9] = 0;
 				FaultSymptom[10] = 0;
 				FaultSymptom[11] = 0;
