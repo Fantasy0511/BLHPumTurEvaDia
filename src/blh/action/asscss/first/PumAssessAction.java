@@ -131,7 +131,8 @@ public class PumAssessAction extends AbstractActionSupport {
 		assessView = new AssessView(pumSum, topRemark,
 				pumpAssResult.getMainShaftSeal() + "",
 				pumpAssResult.getSwingAss().get(6) + "",
-				pumpAssResult.getHistory() + "", bottomDetail, middleBar);
+				pumpAssResult.getHistory() + "", 
+				pumpAssResult.getTemperatureAss() + "", bottomDetail, middleBar);
 		
 		
 		//返回底层的评估对象“sonAssessView”

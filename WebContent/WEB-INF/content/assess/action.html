@@ -15,6 +15,10 @@
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+ 
+ <script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script> 
+	
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
 
@@ -47,6 +51,9 @@
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/loadDataAneMergeCells/loadDataAneMergeCells.js"></script>
+
+
+	
 <script>
 	function myformatter(date) {
 		var y = date.getFullYear();
@@ -73,26 +80,46 @@
 		var begin = getDate("beginDate");
 		var unitNo = $('#unitNo').combobox('getValue');
 		var system = $('#subSystem').combobox('getValue');
-		$("#label1").html("调速系统性能状态");
-		$("#label2").html("调速故障信号"); //调速器的这个分数实际上是振动得分
+		
 		if (system == "pum") {
-			$("#label1").html("主轴密封");
-			$("#label2").html("振动信号性能");
-		}
-		;
+			$("#originResult").hide();
+			$("#govResult").hide();
+			$("#excResult").hide();
+			$("#ballResult").hide();
+			$("#transferResult").hide();
+			$("#pumResult").show();
+		};
+		if (system == "gov") {
+			$("#originResult").hide();
+			$("#pumResult").hide();
+			$("#excResult").hide();
+			$("#ballResult").hide();
+			$("#transferResult").hide();
+			$("#govResult").show();
+		};
 		if (system == "exc") {
-			$("#label1").html("发电及励磁故障");
-			$("#label2").html("系统温度状态");
-		}
-		;
+			$("#originResult").hide();
+			$("#pumResult").hide();
+			$("#govResult").hide();
+			$("#ballResult").hide();
+			$("#transferResult").hide();
+			$("#excResult").show();
+		};
 		if (system == "ball") {
-			$("#label1").html("球阀油系统");
-			$("#label2").html("球阀性能状态");
-		}
-		;
+			$("#originResult").hide();
+			$("#pumResult").hide();
+			$("#govResult").hide();
+			$("#excResult").hide();
+			$("#transferResult").hide();
+			$("#ballResult").show();
+		};
 		if (system == "transfer") {
-			$("#label1").html("系统温度状态");
-			$("#label2").html("主变故障信号");
+			$("#originResult").hide();
+			$("#pumResult").hide();
+			$("#govResult").hide();
+			$("#excResult").hide();
+			$("#ballResult").hide();
+			$("#transferResult").show();
 		};
 		
 		var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
@@ -109,8 +136,10 @@
 			loadDataAneMergeCells('result_table', view.bottomDetail,system,unitNo);
 			// 填写“详细评估信息”并合并该合并的单元格，使用了loadDataAneMergeCells.js中的方法
 
-			console.log(view.middleBar); // 显示柱状图数据
-			setTexts(view);
+			console.log(view.middleBar);   // 显示柱状图数据
+			setTexts(view);                // 将分项结果写进"input"里面
+			
+			
 			//将传回的数据填充饼状图的方法放到这里
 			var sonView = data.sonAssessView;
 			if (system == "pum") {
@@ -189,6 +218,14 @@
 		;
 	}
 	$(function() {
+		$("#pumResult").hide();
+		$("#govResult").hide();
+		$("#excResult").hide();
+		$("#ballResult").hide();
+		$("#transferResult").hide();
+		/* $("#govResult").attr("style","visibility:hidden"); // visibility:hidden  隐藏后仍占用该空间
+		 */
+	
 		$('#test-window').window('close'); //小窗口初始关闭
 		clearText(".easyui-textbox");
 		drawGuage('assement-container', 0); //画仪表盘 初始化为0
@@ -231,15 +268,15 @@
 	<div style="width: 100%">
 
 		<!--仪表盘和分项结果 start-->
-		<div style="margin-left: auto; margin-right: auto; width: 75%">
+		<div  style="margin-left: auto; margin-right: auto; width: 75%">
 			<div class="assesment-container">
 				<!-- 仪表盘 start -->
 				<div id="assement-container"></div>
 				<!-- 仪表盘 end -->
 
-				<!--分项评估结果 start -->
-				<div class="midDiv-container">
-					<div class="midDiv" style="top: 60px; width: 600px">
+				<!--分项评估结果 start (初始) -->
+				<div class="midDiv-container" id="originResult">
+					<div class="midDiv"  style="top: 30px; width: 600px">
 						<div>
 							<pre class="tt">分项评估结果 共 3 项</pre>
 						</div>
@@ -274,7 +311,230 @@
 						</div>
 					</div>
 				</div>
-				<!--分项评估结果 end -->
+				<!--分项评估结果 end (初始) -->
+				
+				<!--分项评估结果 start（水泵水轮机） -->
+				<div class="midDiv-container" id="pumResult" style="margin-left:50px">
+					<div class="midDiv"  style="top: 30px; width: 820px">
+						<div>
+							<pre class="tt">分项评估结果 共 4 项</pre>
+						</div>
+						<hr />
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">主轴密封：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/振动.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">振动状态：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/温度.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">温度状态：</label> <input
+									id="text_temperature_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--分项评估结果 end（水泵水轮机） -->
+				
+				<!--分项评估结果 start（调速器） -->
+				<div class="midDiv-container" id="govResult">
+					<div class="midDiv"  style="top: 30px; width: 600px">
+						<div>
+							<pre class="tt">分项评估结果 共 3 项</pre>
+						</div>
+						<hr />
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">调速器系统性能：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width: 216px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">调速信号性能：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--分项评估结果 end（调速器） -->
+					
+			    <!--分项评估结果 start（励磁） -->
+				<div class="midDiv-container" id="excResult"style="margin-left:1px">
+					<div class="midDiv"  style="top: 30px; left:20px; width: 900px">
+						<div>
+							<pre class="tt">分项评估结果 共 5 项</pre>
+						</div>
+						<hr />
+						<div class="middle" style="width:150px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">励磁故障：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width:150px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">机组电气量：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle" style="width:150px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">发电机故障：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width:150px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">温度：</label> <input
+									id="text_temperature_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width:150px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">灭磁开关：</label> <input
+									id="text_fifth_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<!--分项评估结果 end（励磁） -->
+			
+				<!--分项评估结果 start（球阀） -->
+				<div class="midDiv-container" id="ballResult">
+					<div class="midDiv"  style="top: 30px; width: 600px">
+						<div>
+							<pre class="tt">分项评估结果 共 3 项</pre>
+						</div>
+						<hr />
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">球阀油系统：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width: 216px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">球阀性能状态：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--分项评估结果 end（球阀） -->
+			
+				<!--分项评估结果 start（主变） -->
+				<div class="midDiv-container" id="transferResult">
+					<div class="midDiv"  style="top: 30px; width: 600px">
+						<div>
+							<pre class="tt">分项评估结果 共 3 项</pre>
+						</div>
+						<hr />
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+							<div>
+								<label id="label1" style="margin-bottom: 6px">系统温度状态：</label><input
+									id="text_oil_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+						<div class="middle" style="width: 216px">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+							<div>
+								<label id="label2" style="margin-bottom: 5px">历史性能：</label> <input
+									id="text_condition_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+
+						</div>
+						<div class="middle">
+							<img class="middleImg"
+								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+							<div>
+								<label id="label3" style="margin-bottom: 5px">主变故障信号：</label> <input
+									id="text_history_remark" class="easyui-textbox"
+									data-options="readonly:true,editable:false" style="width: 40px" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--分项评估结果 end（主变） -->
 			</div>
 		</div>
 		<!--仪表盘和分项结果 end-->

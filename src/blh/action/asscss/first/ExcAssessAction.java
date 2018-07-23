@@ -59,8 +59,14 @@ public class ExcAssessAction extends AbstractActionSupport {
 		String topRemark = (excSum > 60) ? ((excSum >= 80) ? "优秀" : "合格") : "严重";
 
 		// 返回评估结果
-		assessView = new AssessView(excSum, topRemark, excAssResult.getIndicator().get(2).toString(),
-				 excAssResult.getIndicator().get(3).toString(),excAssResult.getIndicator().get(4).toString(), bottomDetail, middleBar);
+		// 返回评估结果
+				assessView = new AssessView(excSum, topRemark, 
+						 excAssResult.getIndicator().get(1).toString(),
+						 excAssResult.getIndicator().get(2).toString(),
+						 excAssResult.getIndicator().get(3).toString(),
+						 excAssResult.getIndicator().get(4).toString(), 
+						 excAssResult.getIndicator().get(5).toString(), 
+						 bottomDetail, middleBar);
 
 		/**小窗口显示底层指标数据获取*/
 		//励磁故障状态
