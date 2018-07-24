@@ -147,6 +147,19 @@
 	background-color: #ADF0A3;
 	color: #fff
 }
+
+.dt_canvas canvas{
+	width:80%;
+	height:80%;
+	border:1px;
+	display：block;
+	margin-left:6%;
+	margin-right:6%
+	
+}  
+
+
+
 </style>
 </head>
 <body>
@@ -175,7 +188,7 @@
 			</a> <a style="margin-left: 20px">
 				<button type="button" class="easyui-linkbutton" id="b2">调速器性能</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="easyui-linkbutton" id="b3">油压装置</button>
+				<button type="button" class="easyui-linkbutton" id="b3">调速油系统</button>
 			</a> <a style="margin-left: 20px">
 				<button type="button" class="btn btn-primary" id="b4">调速器总图</button>
 			</a>
@@ -189,7 +202,7 @@
 			<div class="easyui-panel" title="故障树展示"></div>
 			<div id="drag" title="故障树">
 				<div style="cursor: pointer; width:98%">
-					<span id="container" style="float: center"></span>
+					<div id="container" class="dt_canvas"></div>
 				</div>
 			</div>
 		</div>
@@ -203,9 +216,9 @@
 			data-options="rownumbers:true,fitColumns:false, singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultName',align:'center',width:300">故障名称</th>
-					<th data-options="field:'probality',align:'center',width:300">发生概率</th>
-					<th data-options="field:'describe',align:'center',width:450">建议描述</th>
+					<th data-options="field:'faultName',align:'center'" style="width:30%">故障名称</th>
+					<th data-options="field:'probality',align:'center'" style="width:20%">发生概率</th>
+					<th data-options="field:'describe',align:'center'"  style="width:49%">建议描述</th>
 				</tr>
 			</thead>
 		</table>

@@ -21,20 +21,12 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 
-
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
-<!-- <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script> -->
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/echarts.js"></script>
-<!-- <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
-
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/highcharts/highcharts-more.js"></script> -->
 
 </head>
 <script type="text/javascript">
@@ -122,38 +114,13 @@
 				            },
 				            {
 				                name: '',
-				                /* label: {
-				                    normal: {
-				                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-				                        backgroundColor: '#eee',
-				                        borderColor: '#aaa',
-				                        borderWidth: 1,
-				                        borderRadius: 4,
-				                        rich: {
-				                            a: {
-				                                color: '#999',
-				                                lineHeight: 22,
-				                                align: 'center'
-				                            },
-				                            hr: {
-				                                borderColor: '#aaa',
-				                                width: '100%',
-				                                borderWidth: 0.5,
-				                                height: 0
-				                            },
-				                            b: {
-				                                fontSize: 15,
-				                                lineHeight: 25
-				                            },
-				                            per: {
-				                                color: '#eee',
-				                                backgroundColor: '#334455',
-				                                padding: [2, 4],
-				                                borderRadius: 2
-				                            }
-				                        }
+				                itemStyle: {
+				                    emphasis: {
+				                        shadowBlur: 10,
+				                        shadowOffsetX: 0,
+				                        shadowColor: 'rgba(0, 0, 0, 0.5)'
 				                    }
-				                }, */
+				                },
 				                type: 'pie',
 				                radius: '20%',
 				                center: ['65%', '50%'],
@@ -167,6 +134,8 @@
 			    myChart.on('click', function(params) {
 			       /* var index=option.series[1].name;
 			        alert(index);*/
+			        showMask();
+			        
 					var system=params.name;
 			        var url2="/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
 						+ starTime+"//"+system; //将某个子系统历史数据的地址传给url1
@@ -187,7 +156,6 @@
 				            myChart.setOption(option);
 				        
 			        });
-			        
 			        
 			    });
 			
@@ -241,7 +209,7 @@
 
 		<table class="easyui-datagrid" id="historyTable" title="历史运行状态数据"
 			data-options="singleSelect:true,fitColumns:false,display:'inline-block'"
-			style="text-align: left; width: 99%; height: auto;">
+			style="text-align: left; width: 100%; height: auto;">
 			<thead>
 				<tr>
 					<th data-options="field:'system',align:'center'" style="width: 15%">故障名称</th>
@@ -250,7 +218,7 @@
 					<th data-options="field:'endTimeString',align:'center'"
 						style="width: 20%">结束时间</th>
 					<th data-options="field:'paramters',align:'center'"
-						style="width: 40%">关联参数</th>
+						style="width: 44%">关联参数</th>
 				</tr>
 			</thead>
 		</table>
@@ -263,7 +231,7 @@
 	<div style="width: 96%; height: auto; margin-left: 2%;margin-right: 2% 
 	   margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
 		<div class="easyui-panel" title="预警结果分析图"
-			style="width: 99%; height: auto">
+			style="width: 100%; height: auto">
 			<div id="container3" style=" height: 420px;">
 			<pre>    暂无结果</pre>
 			</div>
@@ -275,15 +243,14 @@
 	<!-- 第三个框 start -->
 	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
 			<table class="easyui-datagrid" title="评价结果展示" id="faultInfo"
-				style="width: 99%; height: auto"
+				style="width: 100%; height: auto"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
 				<thead>
 					<tr>
-						
 						<th data-options="field:'faultName',align:'center'"
 							style="width: 50%">故障名称</th>
 						<th data-options="field:'detail',align:'center'"
-							style="width: 45%">发生概率</th>
+							style="width: 50%">发生概率</th>
 					</tr>
 				</thead>
 			</table>

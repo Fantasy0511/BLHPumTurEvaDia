@@ -81,6 +81,17 @@
 		var unitNo = $('#unitNo').combobox('getValue');
 		var system = $('#subSystem').combobox('getValue');
 		
+		$("#chart_son_bar1").empty();
+		$("#chart_son_pie1").empty();
+		$("#chart_son_bar2").empty();
+		$("#chart_son_pie2").empty();
+		$("#chart_son_bar3").empty();
+		$("#chart_son_pie3").empty();
+		$("#chart_son_bar4").empty();
+		$("#chart_son_pie4").empty();
+		$("#chart_son_bar5").empty();
+		$("#chart_son_pie5").empty();
+		
 		if (system == "pum") {
 			$("#originResult").hide();
 			$("#govResult").hide();
@@ -149,6 +160,12 @@
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动”的饼状图
 				drawPic("chart_son_bar3", sonView.thirdBar); // 画小窗口里面“温度”的柱状图
 				drawPic("chart_son_pie3", sonView.thirdPie); // 画小窗口里面“温度”的饼状图
+				// visibility:hidden  隐藏后仍占用该空间;display:none 隐藏后不占用该空间  
+				$("#row4").attr("style","display:none"); 
+				$("#row5").attr("style","display:none"); 
+				$("#line3").attr("style","display:none"); 
+				$("#line4").attr("style","display:none"); 
+				
 			}
 			;
 			if (system == "gov") {
@@ -156,6 +173,13 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				
+				$("#row3").attr("style","display:none"); 
+				$("#row4").attr("style","display:none"); 
+				$("#row5").attr("style","display:none"); 
+				$("#line2").attr("style","display:none"); 
+				$("#line3").attr("style","display:none"); 
+				$("#line4").attr("style","display:none"); 
 			}
 			;
 			if (system == "exc") {
@@ -163,6 +187,12 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				drawPic("chart_son_bar3", sonView.secondBar); 
+				drawPic("chart_son_pie3", sonView.secondPie); 
+				drawPic("chart_son_bar4", sonView.secondBar); 
+				drawPic("chart_son_pie4", sonView.secondPie); 
+				drawPic("chart_son_bar5", sonView.secondBar); 
+				drawPic("chart_son_pie5", sonView.secondPie); 
 			}
 			;
 			if (system == "transfer") {
@@ -170,6 +200,13 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				
+				$("#row3").attr("style","display:none"); 
+				$("#row4").attr("style","display:none"); 
+				$("#row5").attr("style","display:none"); 
+				$("#line2").attr("style","display:none"); 
+				$("#line3").attr("style","display:none"); 
+				$("#line4").attr("style","display:none"); 
 			}
 			;
 			if (system == "ball") {
@@ -177,6 +214,13 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				
+				$("#row3").attr("style","display:none"); 
+				$("#row4").attr("style","display:none"); 
+				$("#row5").attr("style","display:none"); 
+				$("#line2").attr("style","display:none"); 
+				$("#line3").attr("style","display:none"); 
+				$("#line4").attr("style","display:none"); 
 			}
 			;
 		}
@@ -223,9 +267,6 @@
 		$("#excResult").hide();
 		$("#ballResult").hide();
 		$("#transferResult").hide();
-		/* $("#govResult").attr("style","visibility:hidden"); // visibility:hidden  隐藏后仍占用该空间
-		 */
-	
 		$('#test-window').window('close'); //小窗口初始关闭
 		clearText(".easyui-textbox");
 		drawGuage('assement-container', 0); //画仪表盘 初始化为0
@@ -341,7 +382,7 @@
 						</div>
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/history.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
 									id="text_history_remark" class="easyui-textbox"
@@ -370,7 +411,7 @@
 						<hr />
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/系统性能.png" />
 							<div>
 								<label id="label1" style="margin-bottom: 6px">调速器系统性能：</label><input
 									id="text_oil_remark" class="easyui-textbox"
@@ -379,7 +420,7 @@
 						</div>
 						<div class="middle" style="width: 216px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/信号.png" />
 							<div>
 								<label id="label2" style="margin-bottom: 5px">调速信号性能：</label> <input
 									id="text_condition_remark" class="easyui-textbox"
@@ -389,7 +430,7 @@
 						</div>
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/history.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
 									id="text_history_remark" class="easyui-textbox"
@@ -409,7 +450,7 @@
 						<hr />
 						<div class="middle" style="width:150px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/励磁故障.png" />
 							<div>
 								<label id="label1" style="margin-bottom: 6px">励磁故障：</label><input
 									id="text_oil_remark" class="easyui-textbox"
@@ -418,7 +459,7 @@
 						</div>
 						<div class="middle" style="width:150px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/电气.png" />
 							<div>
 								<label id="label2" style="margin-bottom: 5px">机组电气量：</label> <input
 									id="text_condition_remark" class="easyui-textbox"
@@ -428,7 +469,7 @@
 						</div>
 						<div class="middle" style="width:150px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/发电机.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">发电机故障：</label> <input
 									id="text_history_remark" class="easyui-textbox"
@@ -437,7 +478,7 @@
 						</div>
 						<div class="middle" style="width:150px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/温度.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">温度：</label> <input
 									id="text_temperature_remark" class="easyui-textbox"
@@ -446,7 +487,7 @@
 						</div>
 						<div class="middle" style="width:150px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/开关.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">灭磁开关：</label> <input
 									id="text_fifth_remark" class="easyui-textbox"
@@ -467,7 +508,7 @@
 						<hr />
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" />
 							<div>
 								<label id="label1" style="margin-bottom: 6px">球阀油系统：</label><input
 									id="text_oil_remark" class="easyui-textbox"
@@ -476,7 +517,7 @@
 						</div>
 						<div class="middle" style="width: 216px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/系统性能.png" />
 							<div>
 								<label id="label2" style="margin-bottom: 5px">球阀性能状态：</label> <input
 									id="text_condition_remark" class="easyui-textbox"
@@ -486,7 +527,7 @@
 						</div>
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/history.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">历史性能：</label> <input
 									id="text_history_remark" class="easyui-textbox"
@@ -506,7 +547,7 @@
 						<hr />
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/oil.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/温度.png" />
 							<div>
 								<label id="label1" style="margin-bottom: 6px">系统温度状态：</label><input
 									id="text_oil_remark" class="easyui-textbox"
@@ -515,7 +556,7 @@
 						</div>
 						<div class="middle" style="width: 216px">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/workStation.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/history.png" />
 							<div>
 								<label id="label2" style="margin-bottom: 5px">历史性能：</label> <input
 									id="text_condition_remark" class="easyui-textbox"
@@ -525,7 +566,7 @@
 						</div>
 						<div class="middle">
 							<img class="middleImg"
-								src="/BLHPumTurEvaDia/images/pages/assessment/history_1.png" />
+								src="/BLHPumTurEvaDia/images/pages/assessment/信号.png" />
 							<div>
 								<label id="label3" style="margin-bottom: 5px">主变故障信号：</label> <input
 									id="text_history_remark" class="easyui-textbox"
@@ -573,9 +614,9 @@
 
 	<!--小窗口显示查询内容 start -->
 	<div id="test-window" class="easyui-window" title="子系统健康状态"
-		style="width: 90%; height: 60%;">
+		style="width: 90%; height: 40%; top:30%">
 
-		<div style="width: 100%; height: 400px; float: left">
+		<div id="row1" style="width: 100%; height: 400px; float: left">
 			<!--柱状图1-->
 			<div class="container">
 				<div id="chart_son_bar1"
@@ -587,8 +628,8 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr />
-		<div style="width: 100%; height: 400px; float: left">
+		<hr  id="line1"/>
+		<div id="row2" style="width: 100%; height: 400px; float: left">
 			<!--柱状图2-->
 			<div class="container">
 				<div id="chart_son_bar2"
@@ -600,8 +641,8 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr />
-        <div style="width: 100%; height: 400px; float: left">
+		<hr  id="line2"/>
+        <div id="row3" style="width: 100%; height: 400px; float: left">
 			<!--柱状图3-->
 			<div class="container">
 				<div id="chart_son_bar3"
@@ -610,6 +651,32 @@
 			<!--饼状图3-->
 			<div class="container">
 				<div id="chart_son_pie3"
+					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+			</div>
+		</div>
+		<hr  id="line3"/>
+        <div id="row4" style="width: 100%; height: 400px; float: left">
+			<!--柱状图4-->
+			<div class="container">
+				<div id="chart_son_bar4"
+					style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+			</div>
+			<!--饼状图4-->
+			<div class="container">
+				<div id="chart_son_pie4"
+					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
+			</div>
+		</div>
+		<hr  id="line4"/>
+        <div id="row5" style="width: 100%; height: 400px; float: left">
+			<!--柱状图5-->
+			<div class="container">
+				<div id="chart_son_bar5"
+					style="height: 400px; width: 40%; float: left; margin: 0 0 5% 5%"></div>
+			</div>
+			<!--饼状图5-->
+			<div class="container">
+				<div id="chart_son_pie5"
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
