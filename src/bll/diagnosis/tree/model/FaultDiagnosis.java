@@ -13,7 +13,7 @@ import bll.diagnosis.tree.GovDBConfig;
 /**
  * 调速系统故障树诊断
  * 
- * @author 
+ * @author
  *
  */
 public class FaultDiagnosis {
@@ -60,94 +60,113 @@ public class FaultDiagnosis {
 				FaultSymptom = null;
 			} else {
 
-				if (datas.getLqsyc() == 1)  // 冷却水异常
+				if (datas.getLqslld() == 1) // 冷却水流量低
 					FaultSymptom[0] = 1;
 				else {
 					FaultSymptom[0] = 0;
 				}
- 
-				if (datas.getYxtyc() == 1)  // 油系统异常
+
+				if (datas.getLqsswg() == 1) // 冷却水水温高
 					FaultSymptom[1] = 3;
 				else {
 					FaultSymptom[1] = 0;
 				}
 
-				if (datas.getDzbdyc() == 1) // 大轴摆度异常
+				if (datas.getLqssyyc() == 1) // 冷却水水压异常
 					FaultSymptom[2] = 5;
 				else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getDbph() == 1)  // 动不平衡
+				if (datas.getYxtyyd() == 1) // 油系统油压低
 					FaultSymptom[3] = 10;
 				else {
 					FaultSymptom[3] = 0;
 				}
 
-				if (datas.getLcdlbph() == 1)  // 励磁电流不平衡
+				if (datas.getYxtywyc() == 1) // 油系统油位异常
 					FaultSymptom[4] = 30;
 				else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getJdxgz() == 1)  // 剪断销故障
+				if (datas.getYxtywg() == 1) // 油系统油温高
 					FaultSymptom[5] = 50;
 				else {
 					FaultSymptom[5] = 0;
 				}
 
-				if (datas.getShdbdyc() == 1)  // 上导摆度异常
+				if (datas.getDzbdyc() == 1) // 大轴摆度异常
 					FaultSymptom[6] = 100;
 				else {
 					FaultSymptom[6] = 0;
 				}
 
-				if (datas.getXdbdyc() == 1)  // 下导摆度异常
+				if (datas.getZczdyc() == 1) // 轴承振动异常
 					FaultSymptom[7] = 300;
 				else {
 					FaultSymptom[7] = 0;
 				}
 
-				if (datas.getSdbdyc() == 1)  // 水导摆度异常
+				if (datas.getZzmfyc() == 1) // 轴承密封损坏
 					FaultSymptom[8] = 500;
 				else {
 					FaultSymptom[8] = 0;
 				}
 
-				if (datas.getWsgswg() == 1)  // 尾水管水位过高
+				if (datas.getJzzsgg() == 1) // 机组转速过高
 					FaultSymptom[9] = 1000;
 				else {
 					FaultSymptom[9] = 0;
 				}
 
-				if (datas.getLqslld() == 1)  // 冷却水流量低
+				if (datas.getShdbdyc() == 1) // 上导摆度异常
 					FaultSymptom[10] = 3000;
 				else {
 					FaultSymptom[10] = 0;
 				}
 
-				if (datas.getZwwdyc() == 1) // 轴瓦温度异常
+				if (datas.getXdbdyc() == 1) // 下导摆度异常
 					FaultSymptom[11] = 5000;
 				else {
 					FaultSymptom[11] = 0;
 				}
 
-				if (datas.getZzmfyc() == 1)  // 主轴密封异常
+				if (datas.getDbph() == 1) // 动不平衡
 					FaultSymptom[12] = 10000;
 				else {
 					FaultSymptom[12] = 0;
 				}
- 
-				if (datas.getWkgz() == 1)     // 蜗壳故障
+
+				if (datas.getLcdlbph() == 1) // 磁拉力不平衡
 					FaultSymptom[13] = 30000;
 				else {
 					FaultSymptom[13] = 0;
 				}
 
-				FaultSymptom[14] = 0;
-				FaultSymptom[15] = 0;
-				FaultSymptom[16] = 0;
-				FaultSymptom[17] = 0;
+				if (datas.getSjjzd() == 1) // 上机架振动
+					FaultSymptom[14] = 50000;
+				else {
+					FaultSymptom[14] = 0;
+				}
+
+				if (datas.getXjjzd() == 1) // 下机架振动
+					FaultSymptom[15] = 100000;
+				else {
+					FaultSymptom[15] = 0;
+				}
+
+				if (datas.getWsgylmd() == 1) // 尾水管压力脉动
+					FaultSymptom[16] = 300000;
+				else {
+					FaultSymptom[16] = 0;
+				}
+				if (datas.getDzgdbl() == 1) // 定子绕组固定不良
+					FaultSymptom[17] = 500000;
+				else {
+					FaultSymptom[17] = 0;
+				}
+
 				FaultSymptom[18] = 0;
 			}
 		}
@@ -159,51 +178,52 @@ public class FaultDiagnosis {
 			if (null == datas) {
 				FaultSymptom = null;
 			} else {
-				if (datas.getJdxzt() == 1) {   //剪断销
+				if (datas.getJdxzt() == 1) { // 剪断销
 					FaultSymptom[0] = 1;
 				} else {
 					FaultSymptom[0] = 0;
 				}
 
-				if (datas.getFtHAlarm() == 1) {  //集油箱油位偏高
+				if (datas.getFtHAlarm() == 1) { // 集油箱油位偏高
 					FaultSymptom[1] = 3;
 				} else {
 					FaultSymptom[1] = 0;
 				}
-				if (datas.getFtLAlarm() == 1) {   //集油箱油位偏低
+				if (datas.getFtLAlarm() == 1) { // 集油箱油位偏低
 					FaultSymptom[2] = 5;
 				} else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getPtHAlarm() == 1) {  //压力油罐油位偏高
+				if (datas.getPtHAlarm() == 1) { // 压力油罐油位偏高
 					FaultSymptom[3] = 10;
 				} else {
 					FaultSymptom[3] = 0;
 				}
-				if (datas.getPtLAlarm() == 1) { //压力油罐油位偏低
+				if (datas.getPtLAlarm() == 1) { // 压力油罐油位偏低
 					FaultSymptom[4] = 30;
 				} else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getPtAirLeak() == 1) { //压油罐漏气
+				if (datas.getPtAirLeak() == 1) { // 压油罐漏气
 					FaultSymptom[5] = 50;
 				} else {
 					FaultSymptom[5] = 0;
 				}
-				if (datas.getSysOilSpill() == 1) { //油系统漏油
+				if (datas.getSysOilSpill() == 1) { // 油系统漏油
 					FaultSymptom[6] = 100;
 				} else {
 					FaultSymptom[6] = 0;
-				}if(datas.getLowEff()==1){ //油泵效率低
-				FaultSymptom[7] = 300;
-				}else{
+				}
+				if (datas.getLowEff() == 1) { // 油泵效率低
+					FaultSymptom[7] = 300;
+				} else {
 					FaultSymptom[7] = 0;
 				}
-				if(datas.getOilPFailure()==1){
-				FaultSymptom[8] = 500;
-				}else{
+				if (datas.getOilPFailure() == 1) {
+					FaultSymptom[8] = 500;
+				} else {
 					FaultSymptom[8] = 0;
 				}
 				FaultSymptom[9] = 0;
@@ -218,26 +238,26 @@ public class FaultDiagnosis {
 				FaultSymptom[18] = 0;
 			}
 		}
-		
-		//球阀征兆矩阵
+
+		// 球阀征兆矩阵
 		else if (system.equals("blv")) {
 			BlvFaultTreeInputModel datas = new BlvFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
 			if (null == datas) {
 				FaultSymptom = null;
 			} else {
-				if(datas.getPtPLAlarm()==1){//压力油罐油压低
+				if (datas.getPtPLAlarm() == 1) {// 压力油罐油压低
 					FaultSymptom[0] = 1;
-				}else {
+				} else {
 					FaultSymptom[0] = 0;
 				}
-				if(datas.getPtOHAlarm()==1){//压力油罐油位高
+				if (datas.getPtOHAlarm() == 1) {// 压力油罐油位高
 					FaultSymptom[1] = 3;
-				}else {
+				} else {
 					FaultSymptom[1] = 0;
 				}
-				if(datas.getPtOlAlarm()==0){//压力油罐油位低
+				if (datas.getPtOlAlarm() == 0) {// 压力油罐油位低
 					FaultSymptom[2] = 5;
-				}else {
+				} else {
 					FaultSymptom[2] = 0;
 				}
 				FaultSymptom[3] = 0;
@@ -258,26 +278,26 @@ public class FaultDiagnosis {
 				FaultSymptom[18] = 0;
 			}
 		}
-		
-		//主变征兆矩阵
+
+		// 主变征兆矩阵
 		else if (system.equals("mt")) {
 			MtFaultTreeInputModel datas = new MtFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
 			if (null == datas) {
 				FaultSymptom = null;
 			} else {
-				if(datas.getCoolerF()==1){//冷却器故障
+				if (datas.getCoolerF() == 1) {// 冷却器故障
 					FaultSymptom[0] = 1;
-				}else {
+				} else {
 					FaultSymptom[0] = 0;
 				}
-				if(datas.getACPowerF()==1){//交流电源故障
+				if (datas.getACPowerF() == 1) {// 交流电源故障
 					FaultSymptom[1] = 3;
-				}else {
+				} else {
 					FaultSymptom[1] = 0;
 				}
-				if(datas.getCoolingWF()==1){//冷却水泄漏报警
-					FaultSymptom[2] =5;
-				}else {
+				if (datas.getCoolingWF() == 1) {// 冷却水泄漏报警
+					FaultSymptom[2] = 5;
+				} else {
 					FaultSymptom[2] = 0;
 				}
 				FaultSymptom[3] = 0;
@@ -300,46 +320,46 @@ public class FaultDiagnosis {
 		}
 		// 发电电动机征兆矩阵获取
 		else if (system.equals("gen")) {
-			
+
 			GenFaultTreeInputModel datas = new GenFaultTreeInputModel().tstreeanalysis(datetime, UnitNo, condtionName);
 			System.out.println("输出datas: " + datas);
 			if (null == datas) {
 				FaultSymptom = null;
 			} else {
-				if (datas.getZpgg() == 1) {   //转频过高
+				if (datas.getZpgg() == 1) { // 转频过高
 					FaultSymptom[0] = 1;
 				} else {
 					FaultSymptom[0] = 0;
 				}
 
-				if (datas.getKlqgz() == 1) {  //空冷器故障
+				if (datas.getKlqgz() == 1) { // 空冷器故障
 					FaultSymptom[1] = 3;
 				} else {
 					FaultSymptom[1] = 0;
 				}
-				if (datas.getZzjysh() == 1) {   //转子绝缘损坏
+				if (datas.getZzjysh() == 1) { // 转子绝缘损坏
 					FaultSymptom[2] = 5;
 				} else {
 					FaultSymptom[2] = 0;
 				}
 
-				if (datas.getZpzd() == 1) {  //转频振动
+				if (datas.getZpzd() == 1) { // 转频振动
 					FaultSymptom[3] = 10;
 				} else {
 					FaultSymptom[3] = 0;
 				}
-				if (datas.getJpzd() == 1) { //极频振动
+				if (datas.getJpzd() == 1) { // 极频振动
 					FaultSymptom[4] = 30;
 				} else {
 					FaultSymptom[4] = 0;
 				}
 
-				if (datas.getLcdyyc() == 1) { //励磁电源异常
+				if (datas.getLcdyyc() == 1) { // 励磁电源异常
 					FaultSymptom[5] = 50;
 				} else {
 					FaultSymptom[5] = 0;
 				}
-				if (datas.getFsgz() == 1) { //风扇故障
+				if (datas.getFsgz() == 1) { // 风扇故障
 					FaultSymptom[6] = 100;
 				} else {
 					FaultSymptom[6] = 0;
@@ -358,7 +378,6 @@ public class FaultDiagnosis {
 				FaultSymptom[18] = 0;
 			}
 		}
-
 
 		for (int i = 0; i < FaultSymptom.length; i++) {
 			System.out.println("征兆矩阵：" + FaultSymptom[i]);
@@ -390,11 +409,11 @@ public class FaultDiagnosis {
 				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_PumRule");
 			} else if (system.equals("gov")) {
 				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GovRule");
-			}else if (system.equals("blv")) {
+			} else if (system.equals("blv")) {
 				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_BlvRule");
-			}else if (system.equals("mt")) {
+			} else if (system.equals("mt")) {
 				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_MtRule");
-			}else if (system.equals("gen")) {
+			} else if (system.equals("gen")) {
 				rs1 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GenRule");
 			}
 			while (rs1.next()) {
@@ -408,9 +427,10 @@ public class FaultDiagnosis {
 				temp.relation = Integer.parseInt(relationstr[1]);
 				Faults.add(temp);
 				for (int i = 0; i < Faults.size(); i++) {
-					System.out.println("输出relation   "+Faults.get(i).relation+"  Threshold值：  "+Faults.get(i).Threshold);
+					System.out.println(
+							"输出relation   " + Faults.get(i).relation + "  Threshold值：  " + Faults.get(i).Threshold);
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -499,16 +519,16 @@ public class FaultDiagnosis {
 		// 水泵水轮机
 		FaultFeature taskfeature = new FaultFeature();
 		for (int i = 0; i < Faults.size(); i++) {
-			
+
 			if (Faults.get(i).name.equals(tasknode.name))
 				taskfeature = Faults.get(i);
 		}
-		if(system.equals("pum")){
-			
+		if (system.equals("pum")) {
+
 			int flag = 0;
-			if (taskfeature.Threshold == -1) {   // Threshold阈值
+			if (taskfeature.Threshold == -1) { // Threshold阈值
 				flag = 1;
-				switch (taskfeature.relation) {  // relation:比较关系
+				switch (taskfeature.relation) { // relation:比较关系
 				case 1:
 					for (int i = 0; i < taskfeature.Feature.length; i++) {
 						if (FaultSymptom[i] >= taskfeature.Feature[i])
@@ -549,6 +569,7 @@ public class FaultDiagnosis {
 				}
 
 			} else if (taskfeature.Threshold == 1) {
+
 				flag = 0;
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
@@ -581,8 +602,7 @@ public class FaultDiagnosis {
 				default:
 					;
 				}
-			} 
-			else if (taskfeature.Threshold ==10) {
+			} else if (taskfeature.Threshold == 10) {
 				flag = 0;
 				int tempm = 0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
@@ -697,7 +717,41 @@ public class FaultDiagnosis {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
 				}
 
-				int tempCre = tempm / 10000;
+				int tempCre = (tempm % 100000) / 10000;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			} else if (taskfeature.Threshold == 100000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = tempm / 100000;
 				switch (taskfeature.relation) {
 				case 1:
 					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
@@ -725,7 +779,6 @@ public class FaultDiagnosis {
 
 				}
 			}
-
 			if (flag == 1) {
 				if (!tasknode.gate.equals("0")) {
 					for (int i = 0; i < tasknode.children.size(); i++) {
@@ -737,11 +790,10 @@ public class FaultDiagnosis {
 					}
 				} else {
 					Faultnames.add(tasknode.name);
-					
+
 				}
 			}
-		}	
-
+		}
 		// 调速器
 
 		else if (system.equals("gov")) {
@@ -911,520 +963,517 @@ public class FaultDiagnosis {
 				}
 			}
 		}
-	
-	
-	// 球阀
 
-			else if (system.equals("blv")) {
-				int flag = 0;
-				if (taskfeature.Threshold == -1) {
-					flag = 1;
-					switch (taskfeature.relation) {
-					case 1:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] >= taskfeature.Feature[i])
-								flag = 0;
-						}
-						break;
-					case 2:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] > taskfeature.Feature[i])
-								flag = 0;
-						}
-						break;
-					case 3:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] != taskfeature.Feature[i])
-								flag = 0;
-						}
-						break;
-					case 4:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] < taskfeature.Feature[i])
-								flag = 0;
-						}
-						break;
-					case 5:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
-								flag = 0;
-						}
-						break;
-					case 6:
-						for (int i = 0; i < taskfeature.Feature.length; i++) {
-							if (FaultSymptom[i] == taskfeature.Feature[i])
-								flag = 0;
-						}
-						break;
-					default:
-						;
+		// 球阀
+
+		else if (system.equals("blv")) {
+			int flag = 0;
+			if (taskfeature.Threshold == -1) {
+				flag = 1;
+				switch (taskfeature.relation) {
+				case 1:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] >= taskfeature.Feature[i])
+							flag = 0;
 					}
-
+					break;
+				case 2:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] > taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 3:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] != taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 4:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] < taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 5:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+							flag = 0;
+					}
+					break;
+				case 6:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] == taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				default:
+					;
 				}
 
-				else if (taskfeature.Threshold == 1) {
-					flag = 0;
-					int tempm = 0;
-					for (int i = 1; i < taskfeature.Feature.length; i++) {
-						tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
-					}
+			}
 
-					int tempCre = tempm % 10;
-					switch (taskfeature.relation) {
-					case 1:
-						if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 3:
-						if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 5:
-						if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					default:
-						;
-					}
+			else if (taskfeature.Threshold == 1) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
 				}
 
-				else if (taskfeature.Threshold == 10) {
-					flag = 0;
-					int tempm = 0;
-					for (int i = 1; i < taskfeature.Feature.length; i++) {
-						tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-
-					int tempCre = (tempm % 100) / 10;
-					switch (taskfeature.relation) {
-					case 1:
-						if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 3:
-						if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 5:
-						if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					default:
-						;
-
-					}
-				}
-
-				else if (taskfeature.Threshold == 100) {
-					flag = 0;
-					int tempm = 0;
-					for (int i = 1; i < taskfeature.Feature.length; i++) {
-						tempm += FaultSymptom[i] * taskfeature.Feature[i];
-					}
-
-					int tempCre = (tempm % 1000) / 100;
-					switch (taskfeature.relation) {
-					case 1:
-						if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 3:
-						if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					case 5:
-						if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-							flag = 1;
-						} else {
-							flag = 0;
-						}
-						break;
-					default:
-						;
-
-					}
-				}
-				if (flag == 1) {
-					if (!tasknode.gate.equals("0")) {
-						for (int i = 0; i < tasknode.children.size(); i++) {
-							Node child = new Node();
-							for (int j = 0; j < nodes.size(); j++)
-								if (nodes.get(j).name.equals(tasknode.children.get(i)))
-									child = nodes.get(j);
-							handle(system, child, FaultSymptom, Faultnames);
-						}
+				int tempCre = tempm % 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
 					} else {
-						Faultnames.add(tasknode.name);
+						flag = 0;
 					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
 				}
 			}
-		
-	
-	// 主变
 
-				else if (system.equals("mt")) {
-					int flag = 0;
-					if (taskfeature.Threshold == -1) {
-						flag = 1;
-						switch (taskfeature.relation) {
-						case 1:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] >= taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 2:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] > taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 3:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] != taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 4:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] < taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 5:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
-									flag = 0;
-							}
-							break;
-						case 6:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] == taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						default:
-							;
-						}
-
-					}
-
-					else if (taskfeature.Threshold == 1) {
-						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
-						}
-
-						int tempCre = tempm % 10;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-						}
-					}
-
-					else if (taskfeature.Threshold == 10) {
-						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i];
-						}
-
-						int tempCre = (tempm % 100) / 10;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-
-						}
-					}
-
-					else if (taskfeature.Threshold == 100) {
-						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i];
-						}
-
-						int tempCre = (tempm % 1000) / 100;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-
-						}
-					}
-					if (flag == 1) {
-						if (!tasknode.gate.equals("0")) {
-							for (int i = 0; i < tasknode.children.size(); i++) {
-								Node child = new Node();
-								for (int j = 0; j < nodes.size(); j++)
-									if (nodes.get(j).name.equals(tasknode.children.get(i)))
-										child = nodes.get(j);
-								handle(system, child, FaultSymptom, Faultnames);
-							}
-						} else {
-							Faultnames.add(tasknode.name);
-						}
-					}
+			else if (taskfeature.Threshold == 10) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
 				}
-			
-	
-	// 发电机
 
-				else if (system.equals("gen")) {
-					int flag = 0;
-					if (taskfeature.Threshold == -1) {
+				int tempCre = (tempm % 100) / 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
 						flag = 1;
-						switch (taskfeature.relation) {
-						case 1:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] >= taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 2:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] > taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 3:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] != taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 4:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] < taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						case 5:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
-									flag = 0;
-							}
-							break;
-						case 6:
-							for (int i = 0; i < taskfeature.Feature.length; i++) {
-								if (FaultSymptom[i] == taskfeature.Feature[i])
-									flag = 0;
-							}
-							break;
-						default:
-							;
-						}
-
-					}
-
-					else if (taskfeature.Threshold == 1) {
+					} else {
 						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
-						}
-
-						int tempCre = tempm % 10;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-						}
 					}
-
-					else if (taskfeature.Threshold == 10) {
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
 						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i];
-						}
-
-						int tempCre = (tempm % 100) / 10;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-
-						}
 					}
-
-					else if (taskfeature.Threshold == 100) {
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
 						flag = 0;
-						int tempm = 0;
-						for (int i = 1; i < taskfeature.Feature.length; i++) {
-							tempm += FaultSymptom[i] * taskfeature.Feature[i];
-						}
-
-						int tempCre = (tempm % 1000) / 100;
-						switch (taskfeature.relation) {
-						case 1:
-							if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 3:
-							if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						case 5:
-							if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
-								flag = 1;
-							} else {
-								flag = 0;
-							}
-							break;
-						default:
-							;
-
-						}
 					}
-					if (flag == 1) {
-						if (!tasknode.gate.equals("0")) {
-							for (int i = 0; i < tasknode.children.size(); i++) {
-								Node child = new Node();
-								for (int j = 0; j < nodes.size(); j++)
-									if (nodes.get(j).name.equals(tasknode.children.get(i)))
-										child = nodes.get(j);
-								handle(system, child, FaultSymptom, Faultnames);
-							}
-						} else {
-							Faultnames.add(tasknode.name);
-						}
-					}
+					break;
+				default:
+					;
+
 				}
 			}
+
+			else if (taskfeature.Threshold == 100) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 1000) / 100;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			if (flag == 1) {
+				if (!tasknode.gate.equals("0")) {
+					for (int i = 0; i < tasknode.children.size(); i++) {
+						Node child = new Node();
+						for (int j = 0; j < nodes.size(); j++)
+							if (nodes.get(j).name.equals(tasknode.children.get(i)))
+								child = nodes.get(j);
+						handle(system, child, FaultSymptom, Faultnames);
+					}
+				} else {
+					Faultnames.add(tasknode.name);
+				}
+			}
+		}
+
+		// 主变
+
+		else if (system.equals("mt")) {
+			int flag = 0;
+			if (taskfeature.Threshold == -1) {
+				flag = 1;
+				switch (taskfeature.relation) {
+				case 1:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] >= taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 2:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] > taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 3:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] != taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 4:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] < taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 5:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+							flag = 0;
+					}
+					break;
+				case 6:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] == taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				default:
+					;
+				}
+
+			}
+
+			else if (taskfeature.Threshold == 1) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
+				}
+
+				int tempCre = tempm % 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+				}
+			}
+
+			else if (taskfeature.Threshold == 10) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 100) / 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+
+			else if (taskfeature.Threshold == 100) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 1000) / 100;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			if (flag == 1) {
+				if (!tasknode.gate.equals("0")) {
+					for (int i = 0; i < tasknode.children.size(); i++) {
+						Node child = new Node();
+						for (int j = 0; j < nodes.size(); j++)
+							if (nodes.get(j).name.equals(tasknode.children.get(i)))
+								child = nodes.get(j);
+						handle(system, child, FaultSymptom, Faultnames);
+					}
+				} else {
+					Faultnames.add(tasknode.name);
+				}
+			}
+		}
+
+		// 发电机
+
+		else if (system.equals("gen")) {
+			int flag = 0;
+			if (taskfeature.Threshold == -1) {
+				flag = 1;
+				switch (taskfeature.relation) {
+				case 1:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] >= taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 2:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] > taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 3:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] != taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 4:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] < taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				case 5:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] <= taskfeature.Feature[i] && taskfeature.Feature[i] != 0)
+							flag = 0;
+					}
+					break;
+				case 6:
+					for (int i = 0; i < taskfeature.Feature.length; i++) {
+						if (FaultSymptom[i] == taskfeature.Feature[i])
+							flag = 0;
+					}
+					break;
+				default:
+					;
+				}
+
+			}
+
+			else if (taskfeature.Threshold == 1) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
+				}
+
+				int tempCre = tempm % 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+				}
+			}
+
+			else if (taskfeature.Threshold == 10) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 100) / 10;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+
+			else if (taskfeature.Threshold == 100) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 1000) / 100;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			if (flag == 1) {
+				if (!tasknode.gate.equals("0")) {
+					for (int i = 0; i < tasknode.children.size(); i++) {
+						Node child = new Node();
+						for (int j = 0; j < nodes.size(); j++)
+							if (nodes.get(j).name.equals(tasknode.children.get(i)))
+								child = nodes.get(j);
+						handle(system, child, FaultSymptom, Faultnames);
+					}
+				} else {
+					Faultnames.add(tasknode.name);
+				}
+			}
+		}
+	}
 
 	/**
 	 * 故障诊断结果处理
@@ -1440,7 +1489,7 @@ public class FaultDiagnosis {
 	public int DiagnosisResult(ArrayList<String> Faultsname, double FaultsIPK[], double FaultsFreq[]) {
 		double totalIPK = 0;
 		int num = Faultsname.size() > 5 ? 5 : Faultsname.size();
-		//int num=Faultsname.size();
+		// int num=Faultsname.size();
 		for (int i = 0; i < num; i++) {
 			totalIPK += FaultsIPK[i];
 		}
@@ -1474,11 +1523,11 @@ public class FaultDiagnosis {
 				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_PumFaultInfor order by ID");
 			} else if (system.equals("gov")) {
 				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GovFaultInfor order by ID");
-			}else if (system.equals("blv")) {
+			} else if (system.equals("blv")) {
 				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_BlvFaultInfor order by ID");
-			}else if (system.equals("mt")) {
+			} else if (system.equals("mt")) {
 				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_MtFaultInfor order by ID");
-			}else if (system.equals("gen")) {
+			} else if (system.equals("gen")) {
 				rs0 = stmt.executeQuery("SELECT * FROM BLH_FaultTree_GenFaultInfor order by ID");
 			}
 			while (rs0.next()) {

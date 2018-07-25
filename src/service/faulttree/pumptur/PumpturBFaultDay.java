@@ -151,25 +151,7 @@ public class PumpturBFaultDay {
 
 	public int getBreakpinFault(long time, int No) {
 		int flag = 0;
-		if (No == 1) {
-			BoolTree bool130 = new BoolTree();
-			flag = bool130.BooleanTreeDay(130, time);
-			flag = 1 - flag;
-		} else if (No == 2) {
-			BoolTree bool450 = new BoolTree();
-			flag = bool450.BooleanTreeDay(450, time);
-			flag = 1 - flag;
-		} else if (No == 3) {
-			BoolTree bool775 = new BoolTree();
-			flag = bool775.BooleanTreeDay(775, time);
-			flag = 1 - flag;
-		} else if (No == 4) {
-			BoolTree bool1083 = new BoolTree();
-			flag = bool1083.BooleanTreeDay(1083, time);
-			flag = 1 - flag;
-		} else {
-			flag = 1 - flag;
-		}
+		
 		return flag;
 	}
 	// 上导摆度异常

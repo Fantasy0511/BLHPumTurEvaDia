@@ -7,6 +7,7 @@
 	width: 260px;
 	height: 260px;
 	float: left;
+	left:40px;
 	position: relative;
 }
 
@@ -19,7 +20,7 @@
 .midDiv {
 	position: relative;
 	top: 60px;
-	left: 40px;
+	left: 150px;
 	right: 0;
 	margin: auto;
 	height: 260px;

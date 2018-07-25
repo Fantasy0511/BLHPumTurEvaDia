@@ -18,7 +18,7 @@ public class PumpturBFault {
 			double p1 = bool441.BooleanTree(441, time);
 			BoolTree bool442 = new BoolTree();
 			double p2 = bool442.BooleanTree(442, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -28,7 +28,7 @@ public class PumpturBFault {
 			double p1 = bool766.BooleanTree(766, time);
 			BoolTree bool767 = new BoolTree();
 			double p2 = bool767.BooleanTree(767, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -38,7 +38,7 @@ public class PumpturBFault {
 			double p1 = bool1094.BooleanTree(1094, time);
 			BoolTree bool1095 = new BoolTree();
 			double p2 = bool1095.BooleanTree(1095, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -110,7 +110,7 @@ public class PumpturBFault {
 			double p1 = bool441.BooleanTree(441, time);
 			BoolTree bool442 = new BoolTree();
 			double p2 = bool442.BooleanTree(442, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			p1 = p1 - Math.random() / 10;
 			if (p1 < 0) {
 				p1 = 0;
@@ -121,7 +121,7 @@ public class PumpturBFault {
 			double p1 = bool766.BooleanTree(766, time);
 			BoolTree bool767 = new BoolTree();
 			double p2 = bool767.BooleanTree(767, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			p1 = p1 - Math.random() / 10;
 			if (p1 < 0) {
 				p1 = 0;
@@ -132,7 +132,7 @@ public class PumpturBFault {
 			double p1 = bool1094.BooleanTree(1094, time);
 			BoolTree bool1095 = new BoolTree();
 			double p2 = bool1095.BooleanTree(1095, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			p1 = p1 - Math.random() / 10;
 			if (p1 < 0) {
 				p1 = 0;
@@ -169,43 +169,8 @@ public class PumpturBFault {
 			return p1;
 		}
 	}
-	// 剪断销故障
-
-	public double getBreakpinFault(long time,int No) {
-
-		if (No == 1) {
-			BoolTree bool130 = new BoolTree();
-			double p1 = bool130.BooleanTree(130, time);
-			p1 = 1 - p1;
-			if (p1<0) {p1=0;}
-			if (p1>0.9) {p1=0.9;}
-			return p1;
-		} else if (No == 2) {
-			BoolTree bool450 = new BoolTree();
-			double p1 = bool450.BooleanTree(450, time);
-			p1 = 1 - p1;
-			if (p1<0) {p1=0;}
-			if (p1>0.9) {p1=0.9;}
-			return p1;
-		} else if (No == 3) {
-			BoolTree bool775 = new BoolTree();
-			double p1 = bool775.BooleanTree(775, time);
-			p1 = 1 - p1;
-			if (p1<0) {p1=0;}
-			if (p1>0.9) {p1=0.9;}
-			return p1;
-		} else if (No == 4) {
-			BoolTree bool1083 = new BoolTree();
-			double p1 = bool1083.BooleanTree(1083, time);
-			p1 = 1 - p1;
-			if (p1<0) {p1=0;}
-			if (p1>0.9) {p1=0.9;}
-			return p1;
-		} else {
-			double p1 = 0;
-			return p1;
-		}
-	}
+	
+	
 	// 上导摆度异常
 
 	public double getUpguideFault(long time,int No) {
@@ -219,7 +184,7 @@ public class PumpturBFault {
 			double p1 = bool331.BooleanTree(331, time);
 			BoolTree bool332 = new BoolTree();
 			double p2 = bool332.BooleanTree(332, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -229,7 +194,7 @@ public class PumpturBFault {
 			double p1 = bool656.BooleanTree(656, time);
 			BoolTree bool657 = new BoolTree();
 			double p2 = bool657.BooleanTree(657, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -239,7 +204,7 @@ public class PumpturBFault {
 			double p1 = bool977.BooleanTree(977, time);
 			BoolTree bool978 = new BoolTree();
 			double p2 = bool978.BooleanTree(978, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -263,7 +228,7 @@ public class PumpturBFault {
 			double p1 = bool333.BooleanTree(333, time);
 			BoolTree bool334 = new BoolTree();
 			double p2 = bool334.BooleanTree(334, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -273,7 +238,7 @@ public class PumpturBFault {
 			double p1 = bool651.BooleanTree(651, time);
 			BoolTree bool652 = new BoolTree();
 			double p2 = bool652.BooleanTree(652, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -283,7 +248,7 @@ public class PumpturBFault {
 			double p1 = bool979.BooleanTree(979, time);
 			BoolTree bool980 = new BoolTree();
 			double p2 = bool980.BooleanTree(980, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -309,7 +274,7 @@ public class PumpturBFault {
 			double p2 = bool439.BooleanTree(439, time);
 			BoolTree bool440 = new BoolTree();
 			double p3 = bool440.BooleanTree(440, time);
-			p1 = p1 + p2 + p3;
+			p1 = (p1 + p2 + p3)/3;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -321,7 +286,7 @@ public class PumpturBFault {
 			double p2 = bool764.BooleanTree(764, time);
 			BoolTree bool765 = new BoolTree();
 			double p3 = bool765.BooleanTree(765, time);
-			p1 = p1 + p2 + p3;
+			p1 = (p1 + p2 + p3)/3;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -333,7 +298,7 @@ public class PumpturBFault {
 			double p2 = bool1092.BooleanTree(1092, time);
 			BoolTree bool1093 = new BoolTree();
 			double p3 = bool1093.BooleanTree(1093, time);
-			p1 = p1 + p2 + p3;
+			p1 = (p1 + p2 + p3)/3;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -455,7 +420,7 @@ public class PumpturBFault {
 			double p1 = bool118.BooleanTree(118, time);
 			BoolTree bool119 = new BoolTree();
 			double p2 = bool119.BooleanTree(119, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -465,7 +430,7 @@ public class PumpturBFault {
 			double p1 = bool433.BooleanTree(433, time);
 			BoolTree bool434 = new BoolTree();
 			double p2 = bool434.BooleanTree(434, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -475,7 +440,7 @@ public class PumpturBFault {
 			double p1 = bool758.BooleanTree(758, time);
 			BoolTree bool759 = new BoolTree();
 			double p2 = bool759.BooleanTree(759, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -485,7 +450,7 @@ public class PumpturBFault {
 			double p1 = bool1086.BooleanTree(1086, time);
 			BoolTree bool1087 = new BoolTree();
 			double p2 = bool1087.BooleanTree(1087, time);
-			p1 = p1 + p2;
+			p1 = (p1 + p2)/2;
 			if (p1 > 1) {
 				p1 = 0.99;
 			}
@@ -521,4 +486,134 @@ public class PumpturBFault {
 			return p1;
 		}
 	}
+	
+	// 定子绕组固定不良
+	public double getStatorFault(long time,int No) {
+
+		if (No == 1) {
+			
+			double p1 =0;
+			return p1;
+		} else if (No == 2) {
+			BoolTree bool335 = new BoolTree();
+			double p1 = bool335.BooleanTree(335, time);
+			BoolTree bool336 = new BoolTree();
+			double p2 = bool336.BooleanTree(336, time);
+			BoolTree bool337 = new BoolTree();
+			double p3 = bool337.BooleanTree(337, time);
+			
+			p1 = (p1 + p2 + p3) / 3;
+			return p1;
+		} else if (No == 3) {
+			BoolTree bool658 = new BoolTree();
+			double p1 = bool658.BooleanTree(658, time);
+			BoolTree bool659 = new BoolTree();
+			double p2 = bool659.BooleanTree(659, time);
+			BoolTree bool660 = new BoolTree();
+			double p3 = bool660.BooleanTree(660, time);
+			
+			p1 = (p1 + p2 + p3) / 3;
+			return p1;
+		} else if (No == 4) {
+			BoolTree bool981 = new BoolTree();
+			double p1 = bool981.BooleanTree(981, time);
+			BoolTree bool982 = new BoolTree();
+			double p2 = bool982.BooleanTree(982, time);
+			BoolTree bool983 = new BoolTree();
+			double p3 = bool983.BooleanTree(983, time);
+			
+			p1 = (p1 + p2 + p3) / 3;
+			return p1;
+		} else {
+			double p1 = 0;
+			return p1;
+		}
+	}
+	
+	
+	// 上机架振动
+		public double getUpFrame(long time,int No) {
+
+			if (No == 1) {
+				
+				double p1 =0;
+				return p1;
+			} else if (No == 2) {
+				BoolTree bool338 = new BoolTree();
+				double p1 = bool338.BooleanTree(338, time);
+				BoolTree bool339 = new BoolTree();
+				double p2 = bool339.BooleanTree(339, time);
+				BoolTree bool340 = new BoolTree();
+				double p3 = bool340.BooleanTree(340, time);
+				
+				p1 = (p1 + p2 + p3) / 3;
+				return p1;
+			} else if (No == 3) {
+				BoolTree bool661 = new BoolTree();
+				double p1 = bool661.BooleanTree(661, time);
+				BoolTree bool662 = new BoolTree();
+				double p2 = bool662.BooleanTree(662, time);
+				BoolTree bool663 = new BoolTree();
+				double p3 = bool663.BooleanTree(663, time);
+				
+				p1 = (p1 + p2 + p3) / 3;
+				return p1;
+			} else if (No == 4) {
+				BoolTree bool984 = new BoolTree();
+				double p1 = bool984.BooleanTree(984, time);
+				BoolTree bool985 = new BoolTree();
+				double p2 = bool985.BooleanTree(985, time);
+				BoolTree bool986 = new BoolTree();
+				double p3 = bool986.BooleanTree(986, time);
+				
+				p1 = (p1 + p2 + p3) / 3;
+				return p1;
+			} else {
+				double p1 = 0;
+				return p1;
+			}
+		}
+		// 下机架振动
+				public double getLowFrame(long time,int No) {
+
+					if (No == 1) {
+						
+						double p1 =0;
+						return p1;
+					} else if (No == 2) {
+						BoolTree bool341 = new BoolTree();
+						double p1 = bool341.BooleanTree(341, time);
+						BoolTree bool342 = new BoolTree();
+						double p2 = bool342.BooleanTree(342, time);
+						BoolTree bool343 = new BoolTree();
+						double p3 = bool343.BooleanTree(343, time);
+						
+						p1 = (p1 + p2 + p3) / 3;
+						return p1;
+					} else if (No == 3) {
+						BoolTree bool664 = new BoolTree();
+						double p1 = bool664.BooleanTree(664, time);
+						BoolTree bool665 = new BoolTree();
+						double p2 = bool665.BooleanTree(665, time);
+						BoolTree bool666 = new BoolTree();
+						double p3 = bool666.BooleanTree(666, time);
+						
+						p1 = (p1 + p2 + p3) / 3;
+						return p1;
+					} else if (No == 4) {
+						BoolTree bool987 = new BoolTree();
+						double p1 = bool987.BooleanTree(987, time);
+						BoolTree bool988 = new BoolTree();
+						double p2 = bool988.BooleanTree(988, time);
+						BoolTree bool989 = new BoolTree();
+						double p3 = bool989.BooleanTree(989, time);
+						
+						p1 = (p1 + p2 + p3) / 3;
+						return p1;
+					} else {
+						double p1 = 0;
+						return p1;
+					}
+				}
+	
 }

@@ -139,95 +139,118 @@ public class MakeFaultTree {
 		
 		
 		//读取水泵水轮机故障树XML文件
-		if (system.equals("pum")) {
-			String result = GovXMLUtils.GetXMLPath("PumpturSystemFaultTree");
-			if (new File(result).exists()) {
-				System.out.println("XML文档读取成功！");
-				try {
+				if (system.equals("pum")) {
+					String result = GovXMLUtils.GetXMLPath("PumpturSystemFaultTree");
+					if (new File(result).exists()) {
+						System.out.println("XML文档读取成功！");
+						try {
 
-					SAXReader reader = new SAXReader();
-					Document document = reader.read(new File(result));
-					Element rootElement = document.getRootElement();
+							SAXReader reader = new SAXReader();
+							Document document = reader.read(new File(result));
+							Element rootElement = document.getRootElement();
 
-					/**
-					 * 得到第一层节点
-					 */
-					List list = rootElement.elements("WorkNode");
-					Iterator iter = list.iterator();
+							/**
+							 * 得到第一层节点
+							 */
+							List list = rootElement.elements("WorkNode");
+							Iterator iter = list.iterator();
 
-					PumpturBFault pb = new PumpturBFault();//查询bool型数据
-					/*PumpturFFault fb = new PumpturFFault();//查询float 型数据
-*/				
+							PumpturBFault pb = new PumpturBFault();//查询bool型数据
+							PumpturFFault fb = new PumpturFFault();//查询float 型数据
 					
-					while (iter.hasNext()) {
-						Element ele = (Element) iter.next();
+							
+							while (iter.hasNext()) {
+								Element ele = (Element) iter.next();
 
-						Node temp = new Node();
-						temp.name = ele.attribute("Name").getValue();
+								Node temp = new Node();
+								temp.name = ele.attribute("Name").getValue();
 
-						String[] childs = ele.attribute("children").getValue().split(",");
-						for (int i = 0; i < childs.length; i++) {
-							if (!childs[i].equals("null")) {
-								temp.children.add(childs[i]);
+								String[] childs = ele.attribute("children").getValue().split(",");
+								for (int i = 0; i < childs.length; i++) {
+									if (!childs[i].equals("null")) {
+										temp.children.add(childs[i]);
+									}
+								}
+								temp.gate = ele.attribute("gate").getValue();
+								Long time = TimeUtils.StringtoLong(date);
+								
+								if (temp.name.equals("大轴摆度异常")) {
+									temp.freq = pb.getAxleViFault(time, unitNo);
+									
+								}/* else if (temp.name.equals("冷却水异常")) {
+									temp.freq = pb.getCWaterFault(time, unitNo);
+
+								} else if (temp.name.equals("油系统异常")) {
+									temp.freq = pb.getOilFault(time, unitNo);
+
+								}*/ else if (temp.name.equals("动不平衡")) {
+									temp.freq = pb.getUnbalance(time, unitNo);
+
+								} else if (temp.name.equals("磁拉力不平衡")) {
+									temp.freq = pb.getExCurrentFault(time, unitNo);
+
+								}/* else if (temp.name.equals("剪断销故障")) {
+									temp.freq = pb.getBreakpinFault(time, unitNo);
+
+								} */else if (temp.name.equals("上导摆度异常")) {
+									temp.freq = pb.getUpguideFault(time, unitNo);
+
+								} else if (temp.name.equals("下导摆度异常")) {
+									temp.freq = pb.getLoguideFault(time, unitNo);
+								}/* else if (temp.name.equals("水导摆度异常")) {
+									temp.freq = pb.getWguideFault(time, unitNo);
+								} else if (temp.name.equals("尾水管水位过高")) {
+									temp.freq = pb.getExWPipeFault(time, unitNo);
+								} else if (temp.name.equals("冷却水流量低")) {
+									temp.freq = pb.getCoolWLow(time, unitNo);
+								} else if (temp.name.equals("轴瓦温度")) {
+									temp.freq = pb.getBearingBushHot(time, unitNo);
+								} */else if (temp.name.equals("轴承密封损坏")) {
+									temp.freq = pb.getAxleSealFault(time, unitNo);
+									} else if (temp.name.equals("冷却水流量低")) {
+									temp.freq = fb.getWaterFLFault(time, unitNo);
+									} else if (temp.name.equals("冷却水水温高")) {
+									temp.freq = fb.getWaterTHFault(time, unitNo);
+									} else if (temp.name.equals("冷却水水压异常")) {
+									temp.freq = fb.getWaterPLFault(time, unitNo);
+									} else if (temp.name.equals("油系统油压低")) {
+									temp.freq = fb.getOilPLFault(time, unitNo);
+									} else if (temp.name.equals("油系统油位异常")) {
+									temp.freq = fb.getOilHFFault(time, unitNo);
+									} else if (temp.name.equals("油系统油温高")) {
+									temp.freq = fb.getOilTHFault(time, unitNo);
+									} else if (temp.name.equals("油系统油混水")) {
+									temp.freq = fb.getOilWWFault(time, unitNo);
+									} else if (temp.name.equals("轴承振动异常")) {
+									temp.freq = fb.getVibFault(time, unitNo);
+								} else if (temp.name.equals("机组转速过高")) {
+									temp.freq = fb.getRspeedHFault(time, unitNo);
+								} else if (temp.name.equals("上机架振动异常")) {
+									temp.freq = pb.getUpFrame(time, unitNo);
+								} else if (temp.name.equals("下机架振动异常")) {
+									temp.freq = pb.getLowFrame(time, unitNo);
+								} else if (temp.name.equals("尾水管压力脉动")) {
+									temp.freq = fb.getDraftPressure(time, unitNo);
+								} else if (temp.name.equals("定子绕组固定不良")) {
+									temp.freq = pb.getStatorFault(time, unitNo);
+								} 
+								/*else if (temp.name.equals("蜗壳故障")) {
+									temp.freq = pb.getVoluteFault(time, unitNo);
+								}*/else {
+									temp.freq = 0;
+								}
+
+								if (!ele.attribute("father").getValue().equals("null")) {
+									temp.father = ele.attribute("father").getValue();
+								}
+
+								Inodes.add(temp);
 							}
+						} catch (DocumentException e) {
+							e.printStackTrace();
 						}
-						temp.gate = ele.attribute("gate").getValue();
-						Long time = TimeUtils.StringtoLong(date);
-
-						if (temp.name.equals("大轴摆度异常")) {
-							temp.freq = pb.getAxleViFault(time, unitNo);
-
-						} else if (temp.name.equals("冷却水异常")) {
-							temp.freq = pb.getCWaterFault(time, unitNo);
-
-						} else if (temp.name.equals("油系统异常")) {
-							temp.freq = pb.getOilFault(time, unitNo);
-
-						} else if (temp.name.equals("动不平衡")) {
-							temp.freq = pb.getUnbalance(time, unitNo);
-
-						} else if (temp.name.equals("励磁电流不平衡")) {
-							temp.freq = pb.getExCurrentFault(time, unitNo);
-
-						} else if (temp.name.equals("剪断销故障")) {
-							temp.freq = pb.getBreakpinFault(time, unitNo);
-
-						} else if (temp.name.equals("上导摆度异常")) {
-							temp.freq = pb.getUpguideFault(time, unitNo);
-
-						} else if (temp.name.equals("下导摆度异常")) {
-							temp.freq = pb.getLoguideFault(time, unitNo);
-						} else if (temp.name.equals("水导摆度异常")) {
-							temp.freq = pb.getWguideFault(time, unitNo);
-						} else if (temp.name.equals("尾水管水位过高")) {
-							temp.freq = pb.getExWPipeFault(time, unitNo);
-						} else if (temp.name.equals("冷却水流量低")) {
-							temp.freq = pb.getCoolWLow(time, unitNo);
-						} else if (temp.name.equals("轴瓦温度")) {
-							temp.freq = pb.getBearingBushHot(time, unitNo);
-						} else if (temp.name.equals("主轴密封")) {
-							temp.freq = pb.getAxleSealFault(time, unitNo);
-						} else if (temp.name.equals("蜗壳故障")) {
-							temp.freq = pb.getVoluteFault(time, unitNo);
-						} /*else if (temp.name.equals("迷宫环温度异常")) {
-							temp.freq = fb.getMgTFault(time, unitNo);
-						} else if (temp.name.equals("轴承振摆异常")) {
-							temp.freq = fb.getBearingVFault(time, unitNo);
-						} */else {
-							temp.freq = 0;
-						}
-
-						if (!ele.attribute("father").getValue().equals("null")) {
-							temp.father = ele.attribute("father").getValue();
-						}
-
-						Inodes.add(temp);
 					}
-				} catch (DocumentException e) {
-					e.printStackTrace();
 				}
-			}
-		}
 		
 		else if (system.equals("gov")) {
 			String result = GovXMLUtils.GetXMLPath("SpeedRegulatingSystemFaultTree");
