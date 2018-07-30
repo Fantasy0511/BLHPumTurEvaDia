@@ -15,10 +15,10 @@
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
- 
- <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script> 
-	
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
 
@@ -53,7 +53,7 @@
 	src="/BLHPumTurEvaDia/js/assess/loadDataAneMergeCells/loadDataAneMergeCells.js"></script>
 
 
-	
+
 <script>
 	function myformatter(date) {
 		var y = date.getFullYear();
@@ -80,7 +80,7 @@
 		var begin = getDate("beginDate");
 		var unitNo = $('#unitNo').combobox('getValue');
 		var system = $('#subSystem').combobox('getValue');
-		
+
 		$("#chart_son_bar1").empty();
 		$("#chart_son_pie1").empty();
 		$("#chart_son_bar2").empty();
@@ -91,7 +91,7 @@
 		$("#chart_son_pie4").empty();
 		$("#chart_son_bar5").empty();
 		$("#chart_son_pie5").empty();
-		
+
 		if (system == "pum") {
 			$("#originResult").hide();
 			$("#govResult").hide();
@@ -99,7 +99,8 @@
 			$("#ballResult").hide();
 			$("#transferResult").hide();
 			$("#pumResult").show();
-		};
+		}
+		;
 		if (system == "gov") {
 			$("#originResult").hide();
 			$("#pumResult").hide();
@@ -107,7 +108,8 @@
 			$("#ballResult").hide();
 			$("#transferResult").hide();
 			$("#govResult").show();
-		};
+		}
+		;
 		if (system == "exc") {
 			$("#originResult").hide();
 			$("#pumResult").hide();
@@ -115,7 +117,8 @@
 			$("#ballResult").hide();
 			$("#transferResult").hide();
 			$("#excResult").show();
-		};
+		}
+		;
 		if (system == "ball") {
 			$("#originResult").hide();
 			$("#pumResult").hide();
@@ -123,7 +126,8 @@
 			$("#excResult").hide();
 			$("#transferResult").hide();
 			$("#ballResult").show();
-		};
+		}
+		;
 		if (system == "transfer") {
 			$("#originResult").hide();
 			$("#pumResult").hide();
@@ -131,8 +135,9 @@
 			$("#excResult").hide();
 			$("#ballResult").hide();
 			$("#transferResult").show();
-		};
-		
+		}
+		;
+
 		var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
 				+ "-assess";
 		url += makeInput(begin);
@@ -143,14 +148,14 @@
 			console.log(view);
 			drawGuage('assement-container', view.topScore); // 画仪表盘
 			drawPic("chart_middle_bar", view.middleBar); // 画柱状图
-			
-			loadDataAneMergeCells('result_table', view.bottomDetail,system,unitNo);
+
+			loadDataAneMergeCells('result_table', view.bottomDetail, system,
+					unitNo);
 			// 填写“详细评估信息”并合并该合并的单元格，使用了loadDataAneMergeCells.js中的方法
 
-			console.log(view.middleBar);   // 显示柱状图数据
-			setTexts(view);                // 将分项结果写进"input"里面
-			
-			
+			console.log(view.middleBar); // 显示柱状图数据
+			setTexts(view); // 将分项结果写进"input"里面
+
 			//将传回的数据填充饼状图的方法放到这里
 			var sonView = data.sonAssessView;
 			if (system == "pum") {
@@ -161,11 +166,11 @@
 				drawPic("chart_son_bar3", sonView.thirdBar); // 画小窗口里面“温度”的柱状图
 				drawPic("chart_son_pie3", sonView.thirdPie); // 画小窗口里面“温度”的饼状图
 				// visibility:hidden  隐藏后仍占用该空间;display:none 隐藏后不占用该空间  
-				$("#row4").attr("style","display:none"); 
-				$("#row5").attr("style","display:none"); 
-				$("#line3").attr("style","display:none"); 
-				$("#line4").attr("style","display:none"); 
-				
+				$("#row4").attr("style", "display:none");
+				$("#row5").attr("style", "display:none");
+				$("#line3").attr("style", "display:none");
+				$("#line4").attr("style", "display:none");
+
 			}
 			;
 			if (system == "gov") {
@@ -173,13 +178,13 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
-				
-				$("#row3").attr("style","display:none"); 
-				$("#row4").attr("style","display:none"); 
-				$("#row5").attr("style","display:none"); 
-				$("#line2").attr("style","display:none"); 
-				$("#line3").attr("style","display:none"); 
-				$("#line4").attr("style","display:none"); 
+
+				$("#row3").attr("style", "display:none");
+				$("#row4").attr("style", "display:none");
+				$("#row5").attr("style", "display:none");
+				$("#line2").attr("style", "display:none");
+				$("#line3").attr("style", "display:none");
+				$("#line4").attr("style", "display:none");
 			}
 			;
 			if (system == "exc") {
@@ -187,12 +192,12 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
-				drawPic("chart_son_bar3", sonView.thirdBar); 
-				drawPic("chart_son_pie3", sonView.thirdPie); 
-				drawPic("chart_son_bar4", sonView.fourthBar); 
-				drawPic("chart_son_pie4", sonView.fourthPie); 
-				drawPic("chart_son_bar5", sonView.fifthBar); 
-				drawPic("chart_son_pie5", sonView.fifthPie); 
+				drawPic("chart_son_bar3", sonView.thirdBar);
+				drawPic("chart_son_pie3", sonView.thirdPie);
+				drawPic("chart_son_bar4", sonView.fourthBar);
+				drawPic("chart_son_pie4", sonView.fourthPie);
+				drawPic("chart_son_bar5", sonView.fifthBar);
+				drawPic("chart_son_pie5", sonView.fifthPie);
 			}
 			;
 			if (system == "transfer") {
@@ -200,13 +205,13 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
-				
-				$("#row3").attr("style","display:none"); 
-				$("#row4").attr("style","display:none"); 
-				$("#row5").attr("style","display:none"); 
-				$("#line2").attr("style","display:none"); 
-				$("#line3").attr("style","display:none"); 
-				$("#line4").attr("style","display:none"); 
+
+				$("#row3").attr("style", "display:none");
+				$("#row4").attr("style", "display:none");
+				$("#row5").attr("style", "display:none");
+				$("#line2").attr("style", "display:none");
+				$("#line3").attr("style", "display:none");
+				$("#line4").attr("style", "display:none");
 			}
 			;
 			if (system == "ball") {
@@ -214,18 +219,19 @@
 				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
 				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
 				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
-				
-				$("#row3").attr("style","display:none"); 
-				$("#row4").attr("style","display:none"); 
-				$("#row5").attr("style","display:none"); 
-				$("#line2").attr("style","display:none"); 
-				$("#line3").attr("style","display:none"); 
-				$("#line4").attr("style","display:none"); 
+
+				$("#row3").attr("style", "display:none");
+				$("#row4").attr("style", "display:none");
+				$("#row5").attr("style", "display:none");
+				$("#line2").attr("style", "display:none");
+				$("#line3").attr("style", "display:none");
+				$("#line4").attr("style", "display:none");
 			}
 			;
 		}
 		getJSON(url, success);
 	}
+
 	function sonAsses() {
 		$('#test-window').window('open');
 		//显示弹出的小窗口是哪个子系统的底层指标
@@ -299,7 +305,7 @@
 			style="width: 150px; height: 26px"> <a id="bt_assess"
 			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">开始评估</a>
 
-		
+
 		<a id="bt_sonAssess" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">显示子评估</a>
 	</div>
@@ -309,7 +315,8 @@
 	<div style="width: 100%">
 
 		<!--仪表盘和分项结果 start-->
-		<div  style="margin-left: auto; margin-right: auto; max-width:1270px;min-width:800px">
+		<div
+			style="margin-left: auto; margin-right: auto; max-width: 1270px; min-width: 800px">
 			<div class="assesment-container">
 				<!-- 仪表盘 start -->
 				<div id="assement-container"></div>
@@ -317,7 +324,7 @@
 
 				<!--分项评估结果 start (初始) -->
 				<div class="midDiv-container" id="originResult">
-					<div class="midDiv"  style="top: 30px; width: 600px">
+					<div class="midDiv" style="top: 30px; width: 600px">
 						<div>
 							<pre class="tt">分项评估结果 共 3 项</pre>
 						</div>
@@ -353,10 +360,11 @@
 					</div>
 				</div>
 				<!--分项评估结果 end (初始) -->
-				
+
 				<!--分项评估结果 start（水泵水轮机） -->
-				<div class="midDiv-container" id="pumResult" style="margin-left:50px">
-					<div class="midDiv"  style="top: 30px; width: 820px">
+				<div class="midDiv-container" id="pumResult"
+					style="margin-left: 50px">
+					<div class="midDiv" style="top: 30px; width: 820px">
 						<div>
 							<pre class="tt">分项评估结果 共 4 项</pre>
 						</div>
@@ -401,10 +409,10 @@
 					</div>
 				</div>
 				<!--分项评估结果 end（水泵水轮机） -->
-				
+
 				<!--分项评估结果 start（调速器） -->
 				<div class="midDiv-container" id="govResult">
-					<div class="midDiv"  style="top: 30px; width: 600px">
+					<div class="midDiv" style="top: 30px; width: 600px">
 						<div>
 							<pre class="tt">分项评估结果 共 3 项</pre>
 						</div>
@@ -440,15 +448,16 @@
 					</div>
 				</div>
 				<!--分项评估结果 end（调速器） -->
-					
-			    <!--分项评估结果 start（励磁） -->
-				<div class="midDiv-container" id="excResult"style="margin-left:1px">
-					<div class="midDiv"  style="top: 30px;  width: 900px">
+
+				<!--分项评估结果 start（励磁） -->
+				<div class="midDiv-container" id="excResult"
+					style="margin-left: 1px">
+					<div class="midDiv" style="top: 30px; width: 900px">
 						<div>
 							<pre class="tt">分项评估结果 共 5 项</pre>
 						</div>
 						<hr />
-						<div class="middle" style="width:150px">
+						<div class="middle" style="width: 150px">
 							<img class="middleImg"
 								src="/BLHPumTurEvaDia/images/pages/assessment/励磁故障.png" />
 							<div>
@@ -457,7 +466,7 @@
 									data-options="readonly:true,editable:false" style="width: 40px" />
 							</div>
 						</div>
-						<div class="middle" style="width:150px">
+						<div class="middle" style="width: 150px">
 							<img class="middleImg"
 								src="/BLHPumTurEvaDia/images/pages/assessment/电气.png" />
 							<div>
@@ -467,7 +476,7 @@
 							</div>
 
 						</div>
-						<div class="middle" style="width:150px">
+						<div class="middle" style="width: 150px">
 							<img class="middleImg"
 								src="/BLHPumTurEvaDia/images/pages/assessment/发电机.png" />
 							<div>
@@ -476,7 +485,7 @@
 									data-options="readonly:true,editable:false" style="width: 40px" />
 							</div>
 						</div>
-						<div class="middle" style="width:150px">
+						<div class="middle" style="width: 150px">
 							<img class="middleImg"
 								src="/BLHPumTurEvaDia/images/pages/assessment/温度.png" />
 							<div>
@@ -485,7 +494,7 @@
 									data-options="readonly:true,editable:false" style="width: 40px" />
 							</div>
 						</div>
-						<div class="middle" style="width:150px">
+						<div class="middle" style="width: 150px">
 							<img class="middleImg"
 								src="/BLHPumTurEvaDia/images/pages/assessment/开关.png" />
 							<div>
@@ -494,14 +503,14 @@
 									data-options="readonly:true,editable:false" style="width: 40px" />
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 				<!--分项评估结果 end（励磁） -->
-			
+
 				<!--分项评估结果 start（球阀） -->
 				<div class="midDiv-container" id="ballResult">
-					<div class="midDiv"  style="top: 30px; width: 600px">
+					<div class="midDiv" style="top: 30px; width: 600px">
 						<div>
 							<pre class="tt">分项评估结果 共 3 项</pre>
 						</div>
@@ -537,10 +546,10 @@
 					</div>
 				</div>
 				<!--分项评估结果 end（球阀） -->
-			
+
 				<!--分项评估结果 start（主变） -->
 				<div class="midDiv-container" id="transferResult">
-					<div class="midDiv"  style="top: 30px; width: 600px">
+					<div class="midDiv" style="top: 30px; width: 600px">
 						<div>
 							<pre class="tt">分项评估结果 共 3 项</pre>
 						</div>
@@ -581,27 +590,28 @@
 		<!--仪表盘和分项结果 end-->
 
 		<!--信息表和柱状图 start-->
-		<div style="margin-left: auto; margin-right: auto;max-width:1270px;min-width:800px">
+		<div
+			style="margin-left: auto; margin-right: auto; max-width: 1270px; min-width: 800px">
 			<!--详细信息表 start -->
-			
+
 			<table id="result_table" title="详细评估信息" class="easyui-datagrid"
-					style="width:  45%; height: 450px"
-					data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
-					<thead>
-						<tr>
-						    <th data-options="field:'category',width:100">指标类别</th>
-							<th data-options="field:'name',width:140">计算指标</th>
-							<th data-options="field:'value',width:60">计算得分</th>
-						</tr>
-					</thead>
+				style="width: 45%; height: 450px"
+				data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
+				<thead>
+					<tr>
+						<th data-options="field:'category',width:100">指标类别</th>
+						<th data-options="field:'name',width:140">计算指标</th>
+						<th data-options="field:'value',width:60">计算得分</th>
+					</tr>
+				</thead>
 			</table>
 			<!--详细信息表 end -->
 
 			<!--柱状图 start -->
-			
+
 			<div id="bar_container" title="评估结果柱状图" class="easyui-panel"
-				style="width: 680px; height: 450px;display: inline; float: left">
-				<div id="chart_middle_bar"style="width:678px">
+				style="width: 680px; height: 450px; display: inline; float: left">
+				<div id="chart_middle_bar" style="width: 678px">
 					<pre>  暂无结果</pre>
 				</div>
 			</div>
@@ -613,7 +623,7 @@
 
 	<!--小窗口显示查询内容 start -->
 	<div id="test-window" class="easyui-window" title="子系统健康状态"
-		style="width: 90%; height: 40%; top:30%">
+		style="width: 90%; height: 40%; top: 30%">
 
 		<div id="row1" style="width: 100%; height: 400px; float: left">
 			<!--柱状图1-->
@@ -627,7 +637,7 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr  id="line1"/>
+		<hr id="line1" />
 		<div id="row2" style="width: 100%; height: 400px; float: left">
 			<!--柱状图2-->
 			<div class="container">
@@ -640,8 +650,8 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr  id="line2"/>
-        <div id="row3" style="width: 100%; height: 400px; float: left">
+		<hr id="line2" />
+		<div id="row3" style="width: 100%; height: 400px; float: left">
 			<!--柱状图3-->
 			<div class="container">
 				<div id="chart_son_bar3"
@@ -653,8 +663,8 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr  id="line3"/>
-        <div id="row4" style="width: 100%; height: 400px; float: left">
+		<hr id="line3" />
+		<div id="row4" style="width: 100%; height: 400px; float: left">
 			<!--柱状图4-->
 			<div class="container">
 				<div id="chart_son_bar4"
@@ -666,8 +676,8 @@
 					style="height: 400px; width: 40%; float: right; margin: 0 5% 5% 0"></div>
 			</div>
 		</div>
-		<hr  id="line4"/>
-        <div id="row5" style="width: 100%; height: 400px; float: left">
+		<hr id="line4" />
+		<div id="row5" style="width: 100%; height: 400px; float: left">
 			<!--柱状图5-->
 			<div class="container">
 				<div id="chart_son_bar5"
@@ -683,6 +693,11 @@
 	<!--小窗口显示查询内容end -->
 
 
+	<!-- 小窗口显示底层指标start -->
+	<div id="index-window" class="easyui-window" title="详细底层指标"
+		style="width: 90%; height: 40%; top: 30%">
+	</div>
+	<!-- 小窗口显示底层指标end -->
 
 	<div style="height: 50px"></div>
 </body>

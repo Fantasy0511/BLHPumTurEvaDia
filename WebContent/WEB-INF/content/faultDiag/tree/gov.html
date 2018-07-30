@@ -132,7 +132,7 @@
 		var startTime = $('#startTime').datebox('getValue');
 		var untiNo = $("#untiNo").combobox("getValue");
 		var url = "/BLHPumTurEvaDia/faulttree/fault-gov-tree?inputStr="
-				+startTime + "//" + untiNo;
+				+ startTime + "//" + untiNo;
 		console.log(url);
 		getJSON(url, function(data) {
 			id = data.resultNode;
@@ -148,77 +148,79 @@
 	color: #fff
 }
 
-.dt_canvas canvas{
+/* .dt_canvas canvas{
 	width:80%;
-	height:100%;
+	height:100%; 
 	border:1px;
 	display：block;
 	margin-left:10%;
 	margin-right:10%
 	
 }  
-
-
-
+ */
 </style>
 </head>
 <body>
-	<div style="width: 95%;margin-left:auto;margin-right:auto">
-	<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
-		<span class="input_title">条件输入：</span> <label for="model">机组型号：</label>
-		<select id="untiNo" class="easyui-combobox" style="width: 100px;">
-			<option value="1">一号机组</option>
-			<option value="2">二号机组</option>
-			<option value="3">三号机组</option>
-			<option value="4">四号机组</option>
-		</select> <label style="margin-bottom: 5px">选择时间：</label><input id="startTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<a id="StartDiagno" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">开始诊断</a>
-	</div>
+	<div style="width: 95%; margin-left: auto; margin-right: auto">
+		<div class="input_div" style="margin-bottom: 5px; margin-top: 5px;">
+			<span class="input_title">条件输入：</span> <label for="model">机组型号：</label>
+			<select id="untiNo" class="easyui-combobox" style="width: 100px;">
+				<option value="1">一号机组</option>
+				<option value="2">二号机组</option>
+				<option value="3">三号机组</option>
+				<option value="4">四号机组</option>
+			</select> <label style="margin-bottom: 5px">选择时间：</label><input id="startTime"
+				class="easyui-datebox" required style="width: 150px; height: 26px">
+			<a id="StartDiagno" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'">开始诊断</a>
+		</div>
 	</div>
 
 	<div style="height: 10px"></div>
 
-	<div style="width: 95%;margin-left:auto;margin-right:auto">
+	<div style="width: 95%; margin-left: auto; margin-right: auto">
 		<div class="easyui-panel" title="诊断控制"></div>
 		<div style="margin-top: 10px">
-			<a style="margin-left: 10px">
-				<button type="button" class="easyui-linkbutton" id="b1">调速器本体</button>
+			<a style="margin-left: 20px">
+				<button type="button" class="btn btn-primary" id="b1">调速器总图</button>
+			</a> <a style="margin-left: 10px">
+				<button type="button" class="easyui-linkbutton" id="b2">调速器本体</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="easyui-linkbutton" id="b2">调速器性能</button>
+				<button type="button" class="easyui-linkbutton" id="b3">调速器性能</button>
 			</a> <a style="margin-left: 20px">
-				<button type="button" class="easyui-linkbutton" id="b3">调速油系统</button>
-			</a> <a style="margin-left: 20px">
-				<button type="button" class="btn btn-primary" id="b4">调速器总图</button>
+				<button type="button" class="easyui-linkbutton" id="b4">调速油系统</button>
 			</a>
 		</div>
 	</div>
 
 	<div style="height: 10px"></div>
 
-	<div style="width: 95%;margin-left:auto;margin-right:auto">
+	<div style="width: 95%; margin-left: auto; margin-right: auto">
 		<div>
 			<div class="easyui-panel" title="故障树展示"></div>
-			
-			<div style="cursor: pointer; width:100%">
-					<div id="container" class="dt_canvas"></div>
+
+			<div
+				style="cursor: pointer; width: 70%; margin-left: 10%; margin-right: 20%">
+				<div id="container" class="dt_canvas"></div>
 			</div>
-			
+
 		</div>
 	</div>
 
 	<div style="height: 10px"></div>
 
-	<div style="width: 95%;margin-left:auto;margin-right:auto">
+	<div style="width: 95%; margin-left: auto; margin-right: auto">
 		<table class="easyui-datagrid" id="faultInfo" title="诊断结果分析"
-			style="height: 350px;width:99% ; word-break: break-all; word-wrap: break-all"
+			style="height: 350px; width: 99%; word-break: break-all; word-wrap: break-all"
 			data-options="rownumbers:true,fitColumns:false, singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultName',align:'center'" style="width:30%">故障名称</th>
-					<th data-options="field:'probality',align:'center'" style="width:20%">发生概率</th>
-					<th data-options="field:'describe',align:'center'"  style="width:49%">建议描述</th>
+					<th data-options="field:'faultName',align:'center'"
+						style="width: 30%">故障名称</th>
+					<th data-options="field:'probality',align:'center'"
+						style="width: 20%">发生概率</th>
+					<th data-options="field:'describe',align:'center'"
+						style="width: 49%">建议描述</th>
 				</tr>
 			</thead>
 		</table>
