@@ -66,25 +66,23 @@
 		});
 		
 		$("#StartDiagno").click(function() {
-			diagnose();
-			tree.fromJSON(cell1);
-			changecolor1(id);
+			showMask();
+			var startTime = $('#startTime').datebox('getValue');
+			var untiNo = $("#untiNo").combobox("getValue");
+			var url = "/BLHPumTurEvaDia/faulttree/fault-gen-tree?inputStr="
+					+startTime + "//" + untiNo;
+			console.log(url);
+			getJSON(url, function(data) {
+				id = data.resultNode;
+				console.log(id);
+				loadData("faultInfo", data.faultInfoTable);
+				tree.fromJSON(cell1);
+				changecolor1(id);
+			});
+			
 		});
 	});
 
-	function diagnose() {//从后台得到故障id
-		showMask();
-		var startTime = $('#startTime').datebox('getValue');
-		var untiNo = $("#untiNo").combobox("getValue");
-		var url = "/BLHPumTurEvaDia/faulttree/fault-gen-tree?inputStr="
-				+startTime + "//" + untiNo;
-		console.log(url);
-		getJSON(url, function(data) {
-			id = data.resultNode;
-			console.log(id);
-			loadData("faultInfo", data.faultInfoTable);
-		});
-	}
 </script>
 
 <style type="text/css">
