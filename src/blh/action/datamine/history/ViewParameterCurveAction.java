@@ -24,9 +24,8 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 	private String startTime;
 	private String endTime;
 	private String paramter;
-	private String typeid1, typeid2;
+	private String typeid1;
 	private Utils data1;
-	private Utils data2;
 	private String title;
 	// private List<String> categories1;
 	// private List<String> categories2;
@@ -38,7 +37,13 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 		String endTime1 = getSecondInput();
 		paramter = getThirdInput();
 		System.out.println(new String(paramter.getBytes("ISO-8859-1"), "utf-8"));
+		
+		/*
+		 * paramter形如“2号主变.主变冷却器.2号冷却器.故障(bool1466)”
+		 * 通过字符串操作获取“(bool1466)”,
+		 */
 		typeid1 = paramter.substring(paramter.indexOf("(") + 1, paramter.indexOf(")"));
+		
 		if (typeid1.contains("bool")) {
 			startTime = TimeUtils.DatetoString(TimeUtils.AddUnits((TimeUtils.StringtoDate(startTime1)), "day", -30));
 			endTime = TimeUtils.DatetoString(TimeUtils.AddUnits((TimeUtils.StringtoDate(endTime1)), "day", +30));
@@ -46,13 +51,12 @@ public class ViewParameterCurveAction extends AbstractActionSupport {
 			startTime = TimeUtils.DatetoString(TimeUtils.AddUnits((TimeUtils.StringtoDate(startTime1)), "hours", -6));
 			endTime = TimeUtils.DatetoString(TimeUtils.AddUnits((TimeUtils.StringtoDate(endTime1)), "hours", +1));
 		}
-		typeid2 = paramter.substring(paramter.lastIndexOf("(") + 1, paramter.lastIndexOf(")"));
+		
 		title = paramter.substring(0, paramter.indexOf("("));
 		System.out.println(startTime + "  " + typeid1);
 
 		FaultInfoService service = new FaultInfoService();
 		HistoryTableUtils Data1 = service.getUnitInfor(typeid1, startTime, endTime);
-		/* DataUtils Data2 = service.getData(typeid2, startTime, endTime); */
 
 		ArrayList<String> timeString = new ArrayList<>();
 		for (int i = 0; i < Data1.getDataUtils().getTime().size(); i++) {

@@ -10,14 +10,10 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
-<!-- <link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/js/assess/icon.css"> -->
-<!-- <link rel="stylesheet" type="text/css"
-	href="/BLHPumTurEvaDia/css/assess/assesment.css"> -->
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
 <link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css"> 
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript"
@@ -31,8 +27,7 @@
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/echarts.js"></script>
+<script type="text/javascript" src="/BLHPumTurEvaDia/js/echarts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.js"></script>
 </head>
@@ -58,7 +53,7 @@
 </style>
 <script type="text/javascript">
 	var table = $('#historyTable').DataTable();//jQuery dataTable（表格解决方案）的初始化
-	
+
 	function queryHistory() { //queryHistory()查询方法
 		table.destroy(); //表格销毁
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
@@ -108,7 +103,36 @@
 			//"targets": 0
 			}, {
 				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
-					return '<a>' + row.paramters + '</a>';
+					/* return '<a>' + row.paramters + '</a>'; */
+				var details=row.paramters.split(" ");
+			/* 	var arr=[];
+				arr.push(row.startTimeString);
+				arr.push(row.endTimeString); */
+				
+				var start=row.startTimeString+" ";
+				var end=row.endTimeString+" ";
+				var a=details.length;
+				switch (a)
+				{
+				case 1:
+					return '<button class="btn btn-info btn-sm" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>';
+				  break;
+				case 2:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>';
+				  break;
+				case 3:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[2]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[2] +'</a>';
+				  break;
+				case 4:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[2]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[2] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[3]+'"><i class="fa fa-pencil" onclick="viewParameter(this)"></i>查询</button>'+'<a>' + details[3] +'</a>';
+				  break;
+				}
 				},
 				"targets" : 7
 			//targets参数设置一个列或者多列
@@ -128,19 +152,23 @@
 					"sNext" : "后一页",
 				}
 			},
-			"bDestroy": true
+			"bDestroy" : true
 		});
 		//***dataTable的基本设置   end***//
-		
+
 	}
-	
+
 	//** 点击历史状态查询模块按钮，调一次历史数据表
 	function showHistoryTable() {
-		
+		$('#startTime').datebox('setValue', '2015-01-1');
+		$('#endTime').datebox('setValue', '2018-01-01');
+		$('#subSystem').combobox('setValue', 'Transfer')
 		var table = $('#historyTable').DataTable();
+
 		var system = "Transfer";
-		var starTime = "2015-01-1";
-		var endTime = "2018-01-01";
+		var starTime = getDate("startTime");
+		var endTime = getDate("endTime");
+
 		var url2 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
 				+ system + "//" + starTime + "//" + endTime;
 		console.log(url2);
@@ -178,15 +206,40 @@
 				orderable : false
 			} ],
 			"columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
-			// "visible": false,
-			//"targets": 0
-			}, {
-				"render" : function(data, type, row, meta) { //render:表达/传递，row:行
-					return '<a>' + row.paramters + '</a>';
-				},
-				"targets" : 7
-			//targets参数设置一个列或者多列
-			} ],
+				// "visible": false,
+				//"targets": 0
+				}, {
+					"render" : function(data, type, row, meta) { //render:表达/传递，row:行
+						/* return '<a>' + row.paramters + '</a>'; */
+					var details=row.paramters.split(" ");
+					var start=row.startTimeString+" ";
+					var end=row.endTimeString+" ";
+					var a=details.length;
+					switch (a)
+					{
+				case 1:
+					return '<button class="btn btn-info btn-sm" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>';
+				  break;
+				case 2:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>';
+				  break;
+				case 3:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[2]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[2] +'</a>';
+				  break;
+				case 4:
+					return '<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[0]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[0] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[1]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[1] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" style="margin-bottom:2px" value="'+start+end+details[2]+'" onclick="viewParameter(this)"><i class="fa fa-pencil"></i>查询</button>'+'<a>' + details[2] +'</a>'+'</br>'+
+					'<button class="btn btn-info btn-sm" value="'+start+end+details[3]+'"><i class="fa fa-pencil" onclick="viewParameter(this)"></i>查询</button>'+'<a>' + details[3] +'</a>';
+				  break;
+				}
+					},
+					"targets" : 7
+				//targets参数设置一个列或者多列
+				} ],
 			"sPaginationType" : "simple_numbers",
 			searching : false, //去掉搜索框
 			bLengthChange : false,//去掉每页多少条框体
@@ -202,234 +255,206 @@
 					"sNext" : "后一页",
 				}
 			},
-			"bDestroy": true
+			"bDestroy" : true
 		});
 	};
-	
-	
+
 	var myChart;
-	
-	//***某一故障，鼠标点上去，以调出相应的图表Chart***//
-	$(document).ready(function() {
-						$('#historyTable tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
-						function() {
-							$(this).toggleClass('selected');
-						});
-						$('#historyTable tbody').on('mouseout', 'tr',
-								function() {
-									$(this).toggleClass('selected');
-								});
-						$('#historyTable tbody')
-								.on('click','tr', //mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件，改变元素的背景色 
-										function() {
-											var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
-											// $(this).toggleClass('selected');
-											
-											showMask();
-											/* if(typeof startTimeString === 'undefined'){
-												alert("请选择开始时间、结束时间");
-												 hideMask();
-											}; */
-											
-											var data = table.row('.selected').data(); //将前端点击的行的选择传给参数“data”
-											var start = data.startTimeString; //将选中那行的元素--开始时间传给“start”
-											var end = data.endTimeString; //将选中那行的元素--结束时间传给“end”
-											var para = data.paramters; //将选中那行的元素--参数传给“para”
-											console.log(para); //传递成功显示“para”
-											var titleChart = para.split(" ");
-											
+	//***某一故障，鼠标点击【查询】按钮，以调出相应的图表Chart***//
+	function viewParameter(obj){
+		var valuess =obj.value;
+		
+		var url = "/BLHPumTurEvaDia/datamine/history/view-parameter-curve?inputStr=";
+		
+		showMask();
+		var start = valuess.substring(0,19); //将选中那行的元素--开始时间传给“start”
+		var end = valuess.substring(20,39); //将选中那行的元素--结束时间传给“end”
+		var para = valuess.substring(40); //将选中那行的元素--参数传给“para”
+		console.log(para); //传递成功显示“para” 
+		var titleChart = para;
 
-											url = url + start + "//" + end
-													+ "//" + para; //重新定义了传入地址url
-											console.log(url);
-													
-											
-											$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
-														time= result.data1.time;
-														data=result.data1.value;
-														var temp=result.typeid1;
-														var yUnit=result.data1.unit;
-														var yDescription=result.data1.decription;
-											
-											
-											if(temp.indexOf("bool")!=-1){    //开关量和状态量进行判断，更换图标类型，和坐标轴名称
-															var stepType='middle';
-															yAxisName='开关量';
-														}
-											else{
-															stepType=false;
-															yAxisName=yDescription+'('+yUnit+')';
-														} ;
-														
-											if(myChart !=null && myChart !=""&& myChart !=undefined){
-												myChart.dispose();
+		url = url + start + "//" + end
+				+ "//" + para; //重新定义了传入地址url
+		console.log(url);
+
+		$.getJSON(url,function(result) { //调用url地址json数据，加载成功执行回调函数result
+							time = result.data1.time;
+							data = result.data1.value;
+							var temp = result.typeid1;
+							var yUnit = result.data1.unit;
+							var yDescription = result.data1.decription;
+
+							if (temp.indexOf("bool") != -1) { //开关量和状态量进行判断，更换图标类型，和坐标轴名称
+								var stepType = 'middle';
+								yAxisName = '开关量';
+							} else {
+								stepType = false;
+								yAxisName = yDescription+ '('+ yUnit+ ')';
+							}
+							
+							if (myChart != null&& myChart != ""&& myChart != undefined) {
+								myChart.dispose();
+							}
+							myChart = echarts.init(document.getElementById('chartmain'));
+
+							var timeData = time, timeData = timeData.map(function(str) {
+										return str.substring(5,19);
+									});
+
+							option = {
+								title : {
+									text : titleChart,
+									x : 'center'
+								},
+								tooltip : {
+									trigger : 'axis',
+									axisPointer : {
+										animation : false
+									}
+								},
+								legend : {
+									data : [ '历史查询数据' ],
+									x : 'left',
+									itemHeight : 20
+								},
+								toolbox : {
+									feature : {
+										/* dataZoom: {
+										    yAxisIndex: 'none'
+										},
+										restore: {}, */
+										saveAsImage : {}
+									},
+									right : '8%'
+								},
+
+								dataZoom : [
+										{
+											show : true,
+											realtime : true,
+											start : 0,
+											end : 100,
+											xAxisIndex : [ 0 ]
+										},
+										{
+											type : 'inside',
+											realtime : true,
+											start : 0,
+											end : 100,
+											xAxisIndex : [ 0 ]
+										} ],
+								grid : [ {
+									left : '5%',
+									right : '8%',
+									height : '70%'
+								} ],
+								xAxis : [ {
+									name : '时间',
+									type : 'category',
+									boundaryGap : false,
+									axisLine : {
+										onZero : true
+									},
+									data : timeData
+								} ],
+								yAxis : [ {
+									name : yAxisName,
+									type : 'value',
+									max : function(
+											value) {
+										return (value.max)
+												.toFixed(1);
+									},
+									min : function(
+											value) {
+										return (0.8 * value.min)
+												.toFixed(1);
+									}
+								} ],
+								series : [ {
+									symbol : "none",
+									step : stepType,
+									name : '历史查询数据',
+									type : 'line',
+									symbolSize : 8,
+									hoverAnimation : false,
+									data : data,
+									itemStyle : {
+										normal : {
+											lineStyle : {
+												width : 2,//折线宽度
+												color : "#1c73c1"//折线颜色
 											}
-											myChart = echarts.init(document.getElementById('chartmain')); 
-											
-											var timeData =  time,
-											timeData = timeData.map(function (str) {
-											        return str.substring(5, 19);
-											    });
-											
-											
-											 option = {
-											        title: {
-											            text:  titleChart[0],
-											            x: 'center'
-											        },
-											        tooltip: {
-											            trigger: 'axis',
-											            axisPointer: {
-											                animation: false
-											            }
-											        },
-											        legend: {
-											            data:['历史查询数据'],
-											            x: 'left',
-											            itemHeight:20
-											        },
-											        toolbox: {
-											            feature: {
-											                /* dataZoom: {
-											                    yAxisIndex: 'none'
-											                },
-											                restore: {}, */
-											                saveAsImage: {}
-											            },
-											            right:'8%'
-											        },
-
-											        dataZoom: [
-											            {
-											                show: true,
-											                realtime: true,
-											                start: 0,
-											                end: 100,
-											                xAxisIndex: [0]
-											            },
-											            {
-											                type: 'inside',
-											                realtime: true,
-											                start: 0,
-											                end: 100,
-											                xAxisIndex: [0]
-											            }
-											        ],
-											        grid: [{
-											            left:'5%',
-											            right: '8%',
-											            height: '70%'
-											        }],
-											        xAxis : [
-											            {
-											                name : '时间',
-											                type : 'category',
-											                boundaryGap : false,
-											                axisLine: {onZero: true},
-											                data: timeData
-											            }
-											        ],
-											        yAxis : [
-											            {
-											                name : yAxisName,
-											                type : 'value',
-											                max :  function(value) {
-											                    return (value.max).toFixed(1) ;
-											                },
-											                min :  function(value) {
-											                    return (0.8*value.min).toFixed(1) ;
-											                }
-											            }
-											        ],
-											        series : [
-											            {
-											                symbol: "none",
-											            	step: stepType,
-											            	name:'历史查询数据',
-											                type:'line',
-											                symbolSize: 8,
-											                hoverAnimation: false,
-											                data: data,
-											                itemStyle : {
-											                        normal : {
-											                            lineStyle:{
-											                                width:2,//折线宽度
-											                                color:"#1c73c1"//折线颜色
-											                            }
-											                        }
-											                    }
-											            }
-											        ]
-											    };
-											    myChart.clear();
-											   
-											    myChart.setOption(option);
-											    hideMask();
-											});
-											
-										});
-					});
-	
+										}
+									}
+								} ]
+							};
+							myChart.clear();
+							myChart.setOption(option);
+							hideMask();
+						});
+		
+	}
 	
 
-	
 	$(function() {
 		showHistoryTable();
 		$("#btn_query").click(queryHistory);
-		 
+
 	});
 </script>
 
 <body>
-	<div class="input_div" style="margin-bottom: 5px;margin-top: 5px;margin-left:3%;margin-right:3%;width:94%">
-		
-		<div style="vertical-align:center;float:left">
-		<span class="input_title">条件输入：</span> <label
-			style="margin-bottom: 5px">开始时间：</label><input id="startTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
-			class="easyui-datebox" required style="width: 150px; height: 26px">
-		<script>
-			$.extend($.fn.validatebox.defaults.rules, {
-				md : {
-					validator : function(value, param) {
-						var d1 = $.fn.datebox.defaults.parser(param[0]);
-						var d2 = $.fn.datebox.defaults.parser(value);
-						return d2 >= d1;
-					},
-					message : '结束时间必须大于或等于开始时间。'
-				}
-			})
-		</script>
-		<label for="model">子系统选择：</label> <select id="subSystem"
-			class="easyui-combobox" style="width: 140px;">
-			<option value="Pum">水泵水轮机</option>
-			<option value="ball">球阀系统</option>
-			<option value="Exc">发电机及励磁系统</option>
-			<option value="Gov">调速器系统</option>
-			<option value="Transfer">主变系统</option>
-		</select> <a id="btn_query" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'"> 查询 </a>
-			
+	<div class="input_div"
+		style="margin-bottom: 5px; margin-top: 5px; margin-left: 3%; margin-right: 3%; width: 94%">
+
+		<div style="vertical-align: center; float: left">
+			<span class="input_title">条件输入：</span> <label
+				style="margin-bottom: 5px">开始时间：</label><input id="startTime"
+				class="easyui-datebox" required style="width: 150px; height: 26px">
+			<label style="margin-bottom: 5px">结束时间：</label><input id="endTime"
+				class="easyui-datebox" required style="width: 150px; height: 26px">
+			<script>
+				$.extend($.fn.validatebox.defaults.rules, {
+					md : {
+						validator : function(value, param) {
+							var d1 = $.fn.datebox.defaults.parser(param[0]);
+							var d2 = $.fn.datebox.defaults.parser(value);
+							return d2 >= d1;
+						},
+						message : '结束时间必须大于或等于开始时间。'
+					}
+				})
+			</script>
+			<label for="model">子系统选择：</label> <select id="subSystem"
+				class="easyui-combobox" style="width: 140px;">
+				<option value="Pum">水泵水轮机</option>
+				<option value="ball">球阀系统</option>
+				<option value="Exc">发电机及励磁系统</option>
+				<option value="Gov">调速器系统</option>
+				<option value="Transfer">主变系统</option>
+			</select> <a id="btn_query" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-ok'"> 查询 </a>
+
 		</div>
 	</div>
 
-	<div style="margin-left:3%;margin-right:3%;width:94%;float:left">
+	<div style="margin-left: 3%; margin-right: 3%; width: 94%; float: left">
 		<div class="easyui-panel" title="历史运行状态数据"
-			style="width: 100%; height: auto;vertical-align:center;float:left">
+			style="width: 100%; height: auto; vertical-align: center; float: left">
 			<div>
 				<table class="table" id="historyTable"
 					style="text-align: left; width: 98%; height: auto; margin-left: auto; margin-right: auto">
 					<thead>
 						<tr>
-							<th style="width: 7%">故障ID</th>
-							<th style="width: 9%">子系统</th>
-							<th style="width: 9%">故障名称</th>
-							<th style="width: 34%">故障原因</th>
-							<th style="width: 8%">开始时间</th>
-							<th style="width: 8%">结束时间</th>
-							<th style="width: 8%">工况</th>
-							<th style="width: 17%">关联参数</th>
+							<th style="width: 6%">故障ID</th>
+							<th style="width: 7%">子系统</th>
+							<th style="width: 8%">故障名称</th>
+							<th style="width: 28%">故障原因</th>
+							<th style="width: 7%">开始时间</th>
+							<th style="width: 7%">结束时间</th>
+							<th style="width: 7%">工况</th>
+							<th style="width: 30%">关联参数</th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -438,29 +463,18 @@
 		</div>
 	</div>
 
-	<div style="margin-left:3%;margin-right:3%;width:94%;height: 20px;float:left"></div>
+	<div
+		style="margin-left: 3%; margin-right: 3%; width: 94%; height: 20px; float: left"></div>
 
-	<div style="margin-left:3%;margin-right:3%;width:94%;float:left">
-				
-				<div class="easyui-panel" title="故障趋势图"
-					style="width: 99%; height: 600px;vertical-align:center;float:left">
-					<div id="chartmain" style="width: 100%;height: 100%">
-						<pre>    暂无结果</pre>
-					</div>
-				</div>
+	<div style="margin-left: 3%; margin-right: 3%; width: 94%; float: left">
+
+		<div class="easyui-panel" title="故障趋势图"
+			style="width: 99%; height: 600px; vertical-align: center; float: left">
+			<div id="chartmain" style="width: 100%; height: 100%">
+				<pre>    暂无结果</pre>
+			</div>
+		</div>
 	</div>
 
-	<!-- <script type="text/javascript">
-		$('.form_date').datetimepicker({
-			language : 'fr',
-			weekStart : 1,
-			todayBtn : 1,
-			todayHighlight : 1,
-			startView : 2,
-			minView : 2,
-			forceParse : 0,
-			format : 'yyyy-mm-dd'
-		});
-	</script> -->
 </body>
 </html>

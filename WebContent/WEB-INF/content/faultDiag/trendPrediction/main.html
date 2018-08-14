@@ -55,15 +55,22 @@
 </script>
 <script>
 	function predict() {
-		showMask();
 		var url = "/BLHPumTurEvaDia/predict/predict";
+		var stepUinto=$("#step").val();
+		if(stepUinto=="歩长数不大于10！"){
+			alert("请选择预测歩长！")
+		}
+		else {
+		console.log("选择步长："+stepUinto);
+		showMask();
 		url += makeInput(getComboboxValue("unitNo"), getComboboxValue("item"),
-				getDate("beginDate"), getComboboxValue("step"));
+				getDate("beginDate"), stepUinto);
 		console.log(url);
 		getJSON(url, function(data) {
 			loadData("table_comparison", data.tableComparison);
 			drawPic("chart_comparison", data.chartComparison);
 		});
+		}
 	}
 
 	$(function() {
@@ -93,11 +100,16 @@
 			<option value="B144">水导X轴振摆速率</option>
 			<option value="B145">水导Y轴振摆速率</option>
 			<option value="B146">水导Z轴振摆速率</option>
-		</select> <label style="font-size: 14px">选择步长：</label> <select id="step"
+		</select> <label style="font-size: 14px">选择步长：</label> 
+		<!-- <select id="step"
 			class="easyui-combobox" style="width: 80px">
-			<option value="singleStep" selected="selected">单步</option>
+		<option value="singleStep" selected="selected">单步</option>
 			<option value="multiStep">多步</option>
-		</select> <a id="bt_predict" href="#" class="easyui-linkbutton"
+		</select>  -->
+		<input  class="easyui-validatebox" type="text" style="width:150px"id="step"
+		onfocus="if (value =='歩长数不大于10！'){value =''}" onblur="if (value ==''){value='歩长数不大于10！'}"
+		value ="歩长数不大于10！">
+		<a id="bt_predict" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始预测</a>
 	</div>
 

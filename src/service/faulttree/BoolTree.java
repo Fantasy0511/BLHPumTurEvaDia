@@ -19,7 +19,7 @@ public class BoolTree {
 		double p=0;
 
 		for (Double h : value) {
-			if (h == 1.0) {
+			if (h == 1) {
 				x++;
 			}
 			if (h == 0) {

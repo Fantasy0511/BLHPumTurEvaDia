@@ -25,20 +25,21 @@ public class PredictAction extends AbstractActionSupport {
 		int unitNo = Integer.parseInt(getFirstInput());
 		String item = getSecondInput();
 		String beginTime = getThirdInput();
-		String stepStr = getInput(3);
+		
+		int stepStr =Integer.parseInt(getInput(3));
 		Long time = TimeUtils.StringtoLong(beginTime + " 00:00:00");
 		String tableName = "float" + "_" + beginTime.split("-")[0]
 				+ beginTime.split("-")[1];
-		System.out.println(beginTime + "  " + time + " " + tableName);
-		int step = 1;
+		System.out.println(beginTime + "  " + time + " " + tableName+" "+ stepStr);
+		/*int step = 1;
 		if (stepStr.equals("singleStep")) {
 			step = 1;
 		} else if (stepStr.equals("multiStep")) {
-			step = 3;
+			step = 10;
 		} else {
 			throw new IllegalArgumentException("no such step");
-		}
-		service = new PredictService(tableName, time, unitNo, item, step);
+		}*/
+		service = new PredictService(tableName, time, unitNo, item, stepStr);
 		return super.execute();
 	}
 

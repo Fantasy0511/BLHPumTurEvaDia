@@ -101,7 +101,7 @@
 				                name: '预警结果',
 				                type: 'pie',
 				                radius : '35%',
-				                center: ['15%', '50%'],
+				                center: ['50%', '50%'],
 				                data:tem_Arry,
 
 				                itemStyle: {
@@ -142,18 +142,17 @@
 			        console.log(url2);
 			        getJSON(url2, function(data) {
 			        	
-			        	var view = data.resultFinal;
-						loadData("faultInfo", view.tableWarn);
+						var view = data.resultFinal;
+			        	loadData("subfaultInfo", view.tableWarn);
 
-						tem_Arry = [];
+						/* tem_Arry = [];
 						for (i = 0; i < view.pieWarn.length; i++) {
 							var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
 							tem_Arry.push(map)
 						}
-			        	
 				            option.series[1].name='预警结果';
 				            option.series[1].data=tem_Arry;
-				            myChart.setOption(option);
+				            myChart.setOption(option); */
 				        
 			        });
 			        
@@ -230,27 +229,45 @@
 	<!-- 第二个框 start -->
 	<div style="width: 96%; height: auto; margin-left: 2%;margin-right: 2% 
 	   margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
-		<div class="easyui-panel" title="预警结果分析图"
-			style="width: 100%; height: auto">
-			<div id="container3" style=" height: 420px;">
-			<pre>    暂无结果</pre>
+		
+		<div style="height:420px;width:49%;float:left">
+			<div class="easyui-panel" title="预警结果分析图"
+			style=" height: 400px">
+			<div></div> <!-- 绘图区域自适应窗口 -->
+			<div id="container3" style=" height:350px;width:100%;">
+				<pre>预警结果分析图</pre> 
 			</div>
-			
+			</div>
 		</div>
-	</div>
-	<!-- 第二个框 end -->
-
-	<!-- 第三个框 start -->
-	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
-			<table class="easyui-datagrid" title="评价结果展示" id="faultInfo"
-				style="width: 100%; height: auto"
-				data-options="singleSelect:true,fitColumns:false,display:'inline-block'">
+		
+		<div style="height:420px;width:49%;float:right">
+			<table class="easyui-datagrid" title="子系统详细故障概率" id="subfaultInfo"
+				style="width: 100%; height: 400px"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:true">
 				<thead>
 					<tr>
 						<th data-options="field:'faultName',align:'center'"
 							style="width: 50%">故障名称</th>
 						<th data-options="field:'detail',align:'center',sortable:true"
-							style="width: 50%">发生概率</th>
+							style="width: 45%">发生概率</th>
+					</tr>
+				</thead>
+			</table>
+			</div>
+	</div>
+	<!-- 第二个框 end -->
+
+	<!-- 第三个框 start -->
+	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
+			<table class="easyui-datagrid" title="分系统评价结果展示" id="faultInfo"
+				style="width: 100%; height: auto"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:true">
+				<thead>
+					<tr>
+						<th data-options="field:'faultName',align:'center'"
+							style="width: 48%">故障名称</th>
+						<th data-options="field:'detail',align:'center',sortable:true"
+							style="width: 49%">发生概率</th>
 					</tr>
 				</thead>
 			</table>

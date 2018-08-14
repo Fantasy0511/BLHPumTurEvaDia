@@ -10,35 +10,35 @@ public class GovernorfaultBoolDay {
 		if (No == 1) {
 			BoolTree bool130 = new BoolTree();
 			double p1 = bool130.BooleanTree(130, time);
-			if (1 - p1 > 0) {
+			if (p1<1) {
 				flag = 1;
 			}
 			return flag;
 		} else if (No == 2) {
 			BoolTree bool450 = new BoolTree();
 			double p1 = bool450.BooleanTree(450, time);
-			if (1 - p1 > 0) {
+			if (p1<1) {
 				flag = 1;
 			}
 			return flag;
 		} else if (No == 3) {
 			BoolTree bool775 = new BoolTree();
 			double p1 = bool775.BooleanTree(775, time);
-			if (1 - p1 > 0) {
+			if (p1<1) {
 				flag = 1;
 			}
 			return flag;
 		} else if (No == 4) {
 			BoolTree bool1083 = new BoolTree();
 			double p1 = bool1083.BooleanTree(1083, time);
-			if (1 - p1 > 0) {
+			if (p1<1) {
 				flag = 1;
 			}
 			return flag;
 		} else {
 			flag = 0;
-			return flag;
 		}
+		return flag;
 	}
 
 	// 集油箱油位偏高

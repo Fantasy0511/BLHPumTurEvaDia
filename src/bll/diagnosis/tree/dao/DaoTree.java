@@ -68,7 +68,7 @@ public class DaoTree {
 			e1.printStackTrace();
 		}
 
-		long starttime = endtime - 2419200;
+		long starttime = endtime - 604800;
 		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
 
 		DataUtils data = new DataUtils(table, id);
