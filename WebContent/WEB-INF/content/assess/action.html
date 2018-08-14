@@ -14,10 +14,15 @@
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/lightBox/tx201704218/css/lightbox.css">
+
+<link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/lightBox/tx201704218/js/lightbox.min.js"></script>
 
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.min.js"></script>
@@ -267,6 +272,26 @@
 		}
 		;
 	}
+	
+	function ahp(){
+		var system = $('#subSystem').combobox('getValue');
+		if (system == "pum") {
+			$('#bt_ahp').attr('href','/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/水泵.png');
+		}
+		if (system == "exc") {
+			$('#bt_ahp').attr('href','/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/励磁.png');
+		}
+		if (system == "ball") {
+			$('#bt_ahp').attr('href','/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/球阀.png');
+		}
+		if (system == "transfer") {
+			$('#bt_ahp').attr('href','/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/主变.png');
+		}
+		if (system == "gov") {
+			$('#bt_ahp').attr('href','/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/调速.png');
+		}
+	}
+	
 	$(function() {
 		$("#pumResult").hide();
 		$("#govResult").hide();
@@ -278,6 +303,7 @@
 		drawGuage('assement-container', 0); //画仪表盘 初始化为0
 		$("#bt_assess").click(assess); // “开始评估”按钮
 		$('#bt_sonAssess').click(sonAsses); // 子评估结果的显示
+		$('#bt_ahp').click(ahp)
 	});
 </script>
 
@@ -305,9 +331,10 @@
 			style="width: 150px; height: 26px"> <a id="bt_assess"
 			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">开始评估</a>
 
-
 		<a id="bt_sonAssess" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">显示子评估</a>
+		<a id="bt_ahp" href="/BLHPumTurEvaDia/tool/lightBox/tx201704218/截图/水泵.png" class="easyui-linkbutton"
+			data-lightbox="roadtrip" data-options="iconCls:'icon-ok'">底层指标</a>
 	</div>
 	<!--条件输入 end-->
 
