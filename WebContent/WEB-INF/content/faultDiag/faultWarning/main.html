@@ -32,6 +32,7 @@
 <script type="text/javascript">
 	function faultWarning() {
 
+		
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
 
 		var starTime = getComboboxValue("startTime");
@@ -161,8 +162,24 @@
 		});
 
 	}
+	function historyFault(){
+		$('#startTime').datebox('setValue', '2015-01-1');
+		$('#endTime').datebox('setValue', '2018-01-01');
+		$('#subSystem').combobox('setValue', 'Gov');
+		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
+		var starTime = getComboboxValue("startTime");
+		var endTime = getDate("endTime");
+		var url = "/BLHPumTurEvaDia/faultwarning/fault-warning-result?inputStr="
+				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
+		console.log(url);
+
+		getJSON(url, function(result) {
+			loadData("historyTable", result.bottomDetail);
+		});
+	}
 
 	$(function() {
+		historyFault();
 		$("#StartFind").click(faultWarning);
 		$("#Startwarning").click(WarningResult);
 	});
@@ -216,7 +233,7 @@
 						style="width: 20%">开始时间</th>
 					<th data-options="field:'endTimeString',align:'center'"
 						style="width: 20%">结束时间</th>
-					<th data-options="field:'paramters',align:'center'"
+					<th data-options="field:'paramters',align:'left'"
 						style="width: 44%">关联参数</th>
 				</tr>
 			</thead>
@@ -246,7 +263,7 @@
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:true">
 				<thead>
 					<tr>
-						<th data-options="field:'faultName',align:'center'"
+						<th data-options="field:'faultName',align:'left'"
 							style="width: 50%">故障名称</th>
 						<th data-options="field:'detail',align:'center',sortable:true"
 							style="width: 45%">发生概率</th>
