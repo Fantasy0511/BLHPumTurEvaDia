@@ -83,194 +83,217 @@
 	//开始评估  			
 	function assess() {
 		var begin = getDate("beginDate");
-		var unitNo = $('#unitNo').combobox('getValue');
-		var system = $('#subSystem').combobox('getValue');
-
-		$("#chart_son_bar1").empty();
-		$("#chart_son_pie1").empty();
-		$("#chart_son_bar2").empty();
-		$("#chart_son_pie2").empty();
-		$("#chart_son_bar3").empty();
-		$("#chart_son_pie3").empty();
-		$("#chart_son_bar4").empty();
-		$("#chart_son_pie4").empty();
-		$("#chart_son_bar5").empty();
-		$("#chart_son_pie5").empty();
-
-		if (system == "pum") {
-			$("#originResult").hide();
-			$("#govResult").hide();
-			$("#excResult").hide();
-			$("#ballResult").hide();
-			$("#transferResult").hide();
-			$("#pumResult").show();
+		if(!begin){
+			alert("请选择时间！")
 		}
-		;
-		if (system == "gov") {
-			$("#originResult").hide();
-			$("#pumResult").hide();
-			$("#excResult").hide();
-			$("#ballResult").hide();
-			$("#transferResult").hide();
-			$("#govResult").show();
-		}
-		;
-		if (system == "exc") {
-			$("#originResult").hide();
-			$("#pumResult").hide();
-			$("#govResult").hide();
-			$("#ballResult").hide();
-			$("#transferResult").hide();
-			$("#excResult").show();
-		}
-		;
-		if (system == "ball") {
-			$("#originResult").hide();
-			$("#pumResult").hide();
-			$("#govResult").hide();
-			$("#excResult").hide();
-			$("#transferResult").hide();
-			$("#ballResult").show();
-		}
-		;
-		if (system == "transfer") {
-			$("#originResult").hide();
-			$("#pumResult").hide();
-			$("#govResult").hide();
-			$("#excResult").hide();
-			$("#ballResult").hide();
-			$("#transferResult").show();
-		}
-		;
-
-		var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
-				+ "-assess";
-		url += makeInput(begin);
-		console.log(url);
-		showMask(); // 显示与隐藏
-		var success = function(data) {
-			var view = data.assessView;
-			console.log(view);
-			drawGuage('assement-container', view.topScore); // 画仪表盘
-			drawPic("chart_middle_bar", view.middleBar); // 画柱状图
-
-			loadDataAneMergeCells('result_table', view.bottomDetail, system,
-					unitNo);
-			// 填写“详细评估信息”并合并该合并的单元格，使用了loadDataAneMergeCells.js中的方法
-
-			console.log(view.middleBar); // 显示柱状图数据
-			setTexts(view); // 将分项结果写进"input"里面
-
-			//将传回的数据填充饼状图的方法放到这里
-			var sonView = data.sonAssessView;
-			if (system == "pum") {
-				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“主轴密封”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“主轴密封”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动”的饼状图
-				drawPic("chart_son_bar3", sonView.thirdBar); // 画小窗口里面“温度”的柱状图
-				drawPic("chart_son_pie3", sonView.thirdPie); // 画小窗口里面“温度”的饼状图
-				// visibility:hidden  隐藏后仍占用该空间;display:none 隐藏后不占用该空间  
-				$("#row4").attr("style", "display:none");
-				$("#row5").attr("style", "display:none");
-				$("#line3").attr("style", "display:none");
-				$("#line4").attr("style", "display:none");
-
+		else{
+			arr=begin.split("-")
+			if(parseInt(arr[0]+arr[1])>201707){
+				alert("请选择2017年07月之前的日期！")
 			}
-			;
-			if (system == "gov") {
-				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+			else{
 
-				$("#row3").attr("style", "display:none");
-				$("#row4").attr("style", "display:none");
-				$("#row5").attr("style", "display:none");
-				$("#line2").attr("style", "display:none");
-				$("#line3").attr("style", "display:none");
-				$("#line4").attr("style", "display:none");
-			}
-			;
-			if (system == "exc") {
-				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
-				drawPic("chart_son_bar3", sonView.thirdBar);
-				drawPic("chart_son_pie3", sonView.thirdPie);
-				drawPic("chart_son_bar4", sonView.fourthBar);
-				drawPic("chart_son_pie4", sonView.fourthPie);
-				drawPic("chart_son_bar5", sonView.fifthBar);
-				drawPic("chart_son_pie5", sonView.fifthPie);
-			}
-			;
-			if (system == "transfer") {
-				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				var unitNo = $('#unitNo').combobox('getValue');
+				var system = $('#subSystem').combobox('getValue');
 
-				$("#row3").attr("style", "display:none");
-				$("#row4").attr("style", "display:none");
-				$("#row5").attr("style", "display:none");
-				$("#line2").attr("style", "display:none");
-				$("#line3").attr("style", "display:none");
-				$("#line4").attr("style", "display:none");
-			}
-			;
-			if (system == "ball") {
-				drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
-				drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
-				drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
-				drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+				$("#chart_son_bar1").empty();
+				$("#chart_son_pie1").empty();
+				$("#chart_son_bar2").empty();
+				$("#chart_son_pie2").empty();
+				$("#chart_son_bar3").empty();
+				$("#chart_son_pie3").empty();
+				$("#chart_son_bar4").empty();
+				$("#chart_son_pie4").empty();
+				$("#chart_son_bar5").empty();
+				$("#chart_son_pie5").empty();
 
-				$("#row3").attr("style", "display:none");
-				$("#row4").attr("style", "display:none");
-				$("#row5").attr("style", "display:none");
-				$("#line2").attr("style", "display:none");
-				$("#line3").attr("style", "display:none");
-				$("#line4").attr("style", "display:none");
+				if (system == "pum") {
+					$("#originResult").hide();
+					$("#govResult").hide();
+					$("#excResult").hide();
+					$("#ballResult").hide();
+					$("#transferResult").hide();
+					$("#pumResult").show();
+				}
+				;
+				if (system == "gov") {
+					$("#originResult").hide();
+					$("#pumResult").hide();
+					$("#excResult").hide();
+					$("#ballResult").hide();
+					$("#transferResult").hide();
+					$("#govResult").show();
+				}
+				;
+				if (system == "exc") {
+					$("#originResult").hide();
+					$("#pumResult").hide();
+					$("#govResult").hide();
+					$("#ballResult").hide();
+					$("#transferResult").hide();
+					$("#excResult").show();
+				}
+				;
+				if (system == "ball") {
+					$("#originResult").hide();
+					$("#pumResult").hide();
+					$("#govResult").hide();
+					$("#excResult").hide();
+					$("#transferResult").hide();
+					$("#ballResult").show();
+				}
+				;
+				if (system == "transfer") {
+					$("#originResult").hide();
+					$("#pumResult").hide();
+					$("#govResult").hide();
+					$("#excResult").hide();
+					$("#ballResult").hide();
+					$("#transferResult").show();
+				}
+				;
+
+				var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
+						+ "-assess";
+				url += makeInput(begin);
+				console.log(url);
+				showMask(); // 显示与隐藏
+				var success = function(data) {
+					var view = data.assessView;
+					console.log(view);
+					drawGuage('assement-container', view.topScore); // 画仪表盘
+					drawPic("chart_middle_bar", view.middleBar); // 画柱状图
+
+					loadDataAneMergeCells('result_table', view.bottomDetail, system,
+							unitNo);
+					// 填写“详细评估信息”并合并该合并的单元格，使用了loadDataAneMergeCells.js中的方法
+
+					console.log(view.middleBar); // 显示柱状图数据
+					setTexts(view); // 将分项结果写进"input"里面
+
+					//将传回的数据填充饼状图的方法放到这里
+					var sonView = data.sonAssessView;
+					if (system == "pum") {
+						drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“主轴密封”的柱状图
+						drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“主轴密封”的饼状图
+						drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动”的柱状图
+						drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动”的饼状图
+						drawPic("chart_son_bar3", sonView.thirdBar); // 画小窗口里面“温度”的柱状图
+						drawPic("chart_son_pie3", sonView.thirdPie); // 画小窗口里面“温度”的饼状图
+						// visibility:hidden  隐藏后仍占用该空间;display:none 隐藏后不占用该空间  
+						$("#row4").attr("style", "display:none");
+						$("#row5").attr("style", "display:none");
+						$("#line3").attr("style", "display:none");
+						$("#line4").attr("style", "display:none");
+
+					}
+					;
+					if (system == "gov") {
+						drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+						drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+						drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+						drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+
+						$("#row3").attr("style", "display:none");
+						$("#row4").attr("style", "display:none");
+						$("#row5").attr("style", "display:none");
+						$("#line2").attr("style", "display:none");
+						$("#line3").attr("style", "display:none");
+						$("#line4").attr("style", "display:none");
+					}
+					;
+					if (system == "exc") {
+						drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+						drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+						drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+						drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+						drawPic("chart_son_bar3", sonView.thirdBar);
+						drawPic("chart_son_pie3", sonView.thirdPie);
+						drawPic("chart_son_bar4", sonView.fourthBar);
+						drawPic("chart_son_pie4", sonView.fourthPie);
+						drawPic("chart_son_bar5", sonView.fifthBar);
+						drawPic("chart_son_pie5", sonView.fifthPie);
+					}
+					;
+					if (system == "transfer") {
+						drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+						drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+						drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+						drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+
+						$("#row3").attr("style", "display:none");
+						$("#row4").attr("style", "display:none");
+						$("#row5").attr("style", "display:none");
+						$("#line2").attr("style", "display:none");
+						$("#line3").attr("style", "display:none");
+						$("#line4").attr("style", "display:none");
+					}
+					;
+					if (system == "ball") {
+						drawPic("chart_son_bar1", sonView.fristBar); // 画小窗口里面“油系统用性能”的柱状图
+						drawPic("chart_son_pie1", sonView.fristPie); // 画小窗口里面“油系统用性能”的饼状图
+						drawPic("chart_son_bar2", sonView.secondBar); // 画小窗口里面“振动系统性能”的柱状图
+						drawPic("chart_son_pie2", sonView.secondPie); // 画小窗口里面“振动系统性能”的饼状图
+
+						$("#row3").attr("style", "display:none");
+						$("#row4").attr("style", "display:none");
+						$("#row5").attr("style", "display:none");
+						$("#line2").attr("style", "display:none");
+						$("#line3").attr("style", "display:none");
+						$("#line4").attr("style", "display:none");
+					}
+					;
+				}
+				getJSON(url, success);
 			}
-			;
 		}
-		getJSON(url, success);
+		
+		
 	}
 
 	function sonAsses() {
-		$('#test-window').window('open');
-		//显示弹出的小窗口是哪个子系统的底层指标
-		var system = $('#subSystem').combobox('getValue');
-		if (system == "pum") {
-			$('#test-window').window({
-				title : "水泵水轮机系统底层评估指标"
-			});
+		var begin = getDate("beginDate");
+		if(!begin){
+			alert("请选择时间！")
+			$('#test-window').window('close');
 		}
-		;
-		if (system == "exc") {
-			$('#test-window').window({
-				title : "发电机及励磁系统底层评估指标"
-			});
+		else{
+			arr=begin.split("-")
+			if(parseInt(arr[0]+arr[1])>201707){
+				alert("请选择2017年07月之前的日期！")
+				$('#test-window').window('close');
+			}else{
+				$('#test-window').window('open');
+				//显示弹出的小窗口是哪个子系统的底层指标
+				var system = $('#subSystem').combobox('getValue');
+				if (system == "pum") {
+					$('#test-window').window({
+						title : "水泵水轮机系统底层评估指标"
+					});
+				}
+				if (system == "exc") {
+					$('#test-window').window({
+						title : "发电机及励磁系统底层评估指标"
+					});
+				}
+				if (system == "ball") {
+					$('#test-window').window({
+						title : "球阀系统底层评估指标"
+					});
+				}
+				if (system == "transfer") {
+					$('#test-window').window({
+						title : "主变系统底层评估指标"
+					});
+				}
+				if (system == "gov") {
+					$('#test-window').window({
+						title : "调速器系统底层评估指标"
+					});
+				}
+			}
 		}
-		;
-		if (system == "ball") {
-			$('#test-window').window({
-				title : "球阀系统底层评估指标"
-			});
-		}
-		;
-		if (system == "transfer") {
-			$('#test-window').window({
-				title : "主变系统底层评估指标"
-			});
-		}
-		;
-		if (system == "gov") {
-			$('#test-window').window({
-				title : "调速器系统底层评估指标"
-			});
-		}
-		;
+		
 	}
 	
 	function ahp(){

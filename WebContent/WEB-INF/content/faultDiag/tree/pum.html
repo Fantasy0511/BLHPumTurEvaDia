@@ -135,8 +135,21 @@
 			changecolor5(id);
 		});
 		$("#StartDiagno").click(function() {
-			showMask();
 			var startTime = $('#startTime').datebox('getValue');
+			
+			if(!startTime){
+				alert("请选择开始时间!")
+			}
+			else{
+			
+			var arr=startTime.split("-");
+			console.log(arr[0]+arr[1]+arr[2]);
+			if(parseInt(arr[0]+arr[1])>201707){
+				alert("请选择2017年07月之前的日期！")
+			}
+			else{
+			
+			showMask();
 			var untiNo = $("#untiNo").combobox("getValue");
 			var url = "/BLHPumTurEvaDia/faulttree/fault-pum-tree?inputStr="
 					+ startTime + "//" + untiNo;
@@ -148,7 +161,8 @@
 				tree.fromJSON(cell1);
 				changecolor1(id);
 			});
-			
+			}
+			}
 		});
 
 	});

@@ -19,7 +19,7 @@ public class PredictAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private PredictService service;
-
+	private LineData getChartComparison;
 	@Override
 	public String execute() throws Exception {
 		int unitNo = Integer.parseInt(getFirstInput());
@@ -40,6 +40,9 @@ public class PredictAction extends AbstractActionSupport {
 			throw new IllegalArgumentException("no such step");
 		}*/
 		service = new PredictService(tableName, time, unitNo, item, stepStr);
+		
+		getChartComparison=service.getComparison(itemConvert.valueOf(item).getitem());
+		
 		return super.execute();
 	}
 
@@ -47,7 +50,13 @@ public class PredictAction extends AbstractActionSupport {
 		return service.getData();
 	}
 
-	public LineData getChartComparison() {
-		return service.getComparison();
+	public LineData getGetChartComparison() {
+		return getChartComparison;
 	}
+
+	public void setGetChartComparison(LineData getChartComparison) {
+		this.getChartComparison = getChartComparison;
+	}
+
+	
 }

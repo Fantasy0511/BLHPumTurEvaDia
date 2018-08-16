@@ -14,7 +14,11 @@ public class DeleteRecordAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 		id = Integer.parseInt(getFirstInput());
-		new FileUploadRecordQuery().deleteRecord(id);
+		FileUploadRecordQuery fileUploadRecordQuery = new FileUploadRecordQuery();
+		String fileName = fileUploadRecordQuery.getFileNameById(id);
+		System.out.println("删除："+fileName);
+		new FileUploadRecordQuery().deleteRecord(id,fileName);
+		
 		return super.execute();
 	}
 

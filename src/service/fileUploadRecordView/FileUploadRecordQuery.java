@@ -26,33 +26,39 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	 */
 	public List<HistoryReportRecord> getFileRecords(String begin, String end) {
 		String sqlString = "SELECT * FROM UPLOAD_FILE_RECORD WHERE RECORDTIME BETWEEN ? AND ?";
-		return getJdbcTemplate().query(sqlString,
-				new ResultSetExtractor<List<HistoryReportRecord>>() {
+		return getJdbcTemplate().query(sqlString, new ResultSetExtractor<List<HistoryReportRecord>>() {
 
-					@Override
-					public List<HistoryReportRecord> extractData(ResultSet rs)
-							throws SQLException, DataAccessException {
-						List<HistoryReportRecord> records = new ArrayList<>();
-						while (rs.next()) {
-							records.add(new HistoryReportRecord(rs.getInt("id"),
-									rs.getString("fileName"),
-									TimeUtils.LongtoString(Long.parseLong(
-											rs.getString("recordTime")))));
-						}
+			@Override
+			public List<HistoryReportRecord> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<HistoryReportRecord> records = new ArrayList<>();
+				while (rs.next()) {
+					records.add(new HistoryReportRecord(rs.getInt("id"), rs.getString("fileName"),
+							TimeUtils.LongtoString(Long.parseLong(rs.getString("recordTime")))));
+				}
 
-						return records;
-					}
-				}, begin, end);
+				return records;
+			}
+		}, begin, end);
 	}
 
 	/**
 	 * 删除表记录
 	 */
 
-	public void deleteRecord(int id) {
-		String sql = "delete from UPLOAD_FILE_RECORD where id=?";
-		getJdbcTemplate().update(sql, id);
-
+	public void deleteRecord(int id,String fileName) {
+		String sql1;
+		String sql2;
+		if (fileName.contains("FaultInfo")) {
+			sql1 = "delete from UPLOAD_FILE_RECORD where id=?";
+			getJdbcTemplate().update(sql1, id);
+		}
+		else {
+			sql1 = "delete from UPLOAD_FILE_RECORD where id=?";
+			getJdbcTemplate().update(sql1, id);
+			sql2= "drop table "+fileName;
+			System.out.println("文件名："+fileName);
+			getJdbcTemplate().update(sql2);
+		}
 	}
 
 	/**
@@ -64,8 +70,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 		return getJdbcTemplate().query(sql, new ResultSetExtractor<String>() {
 
 			@Override
-			public String extractData(ResultSet rs)
-					throws SQLException, DataAccessException {
+			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
 				String fileName = null;
 				while (rs.next()) {
 					fileName = rs.getString("fileName");
@@ -83,37 +88,45 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	 * 必须声明表变量 "@P0"。 ++++++++最终使用拼接字符串
 	 */
 	public List<TableRow> getDataByFileName(String fileName) {
-
-		String sql = "select * from " + fileName;
-		return getJdbcTemplate().query(sql,
-				new ResultSetExtractor<List<TableRow>>() {
-					@Override
-					public List<TableRow> extractData(ResultSet rs)
-							throws SQLException, DataAccessException {
-						List<TableRow> list = new ArrayList<>();
-						if (fileName.contains("float")) {
-							while (rs.next()) {
-								list.add(new TableRow(rs.getString(1),
-										rs.getString(2), rs.getString(3),
-										rs.getString(4)));
-							}
-						} else {
-							while (rs.next()) {
-								list.add(new TableRow(rs.getString(1),
-										rs.getString(2), rs.getString(3),
-										rs.getString(4), rs.getString(5)));
-							}
-						}
-
-						return list;
+		String sql;
+		if (fileName.contains("FaultInfo")) {
+			sql = "select * from " + fileName;
+		}
+		else {
+			sql = "select * from " + fileName;
+		}
+		
+		return getJdbcTemplate().query(sql, new ResultSetExtractor<List<TableRow>>() {
+			@Override
+			public List<TableRow> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<TableRow> list = new ArrayList<>();
+				if (fileName.contains("float")) {
+					while (rs.next()) {
+						list.add(new TableRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 					}
+				}
+				if (fileName.contains("bool") || fileName.contains("double")) {
+					while (rs.next()) {
+						list.add(new TableRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+								rs.getString(5)));
+					}
+				} else {
+					while (rs.next()) {
+						list.add(new TableRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+								rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)
 
-				});
+						));
+					}
+				}
+
+				return list;
+			}
+
+		});
 	}
 
 	public static void main(String[] args) {
-		List<TableRow> list = new FileUploadRecordQuery()
-				.getDataByFileName("float_201802");
+		List<TableRow> list = new FileUploadRecordQuery().getDataByFileName("float_201802");
 		System.out.println(list.size());
 	}
 }

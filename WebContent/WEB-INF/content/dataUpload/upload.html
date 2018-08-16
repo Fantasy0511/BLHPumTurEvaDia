@@ -58,16 +58,21 @@
 			for ( var i in rows) {
 				var row = rows[i];
 				var id = row.ID;
+				var fileName = row.fileName;
 				row['operation'] = '<button class="operation_view" '
-						+ 'style="margin-right:10px" value="' + id + '">查看 </button>'
+						+ 'style="margin-right:10px" value="' + id +' '+fileName+ '">查看 </button>'
 						+ '<button class="operation_delete" '
 						+ 'style="margin-right:10px" value="' + id + '">删除  </button>'
 			}
-
 			$("#report_table").datagrid("loadData", rows);
+			
+			/* 获取提交记录表格中“报表序号”和“报表名称” */
 			$(".operation_view").click(function() {
-				var id = $(this).val();
-				_viewRecord(id);
+				var arr = $(this).val();
+				var type=arr.split(" ");
+				var  id=type[0];
+				var  fileName=type[1];
+				_viewRecord(id,fileName);
 			});
 
 			$(".operation_delete").click(function() {
@@ -88,17 +93,33 @@
 		hideMask();
 	}
     /* 【查看】按钮操作 */
-	function _viewRecord(id) {
+	function _viewRecord(id,fileName) {
 		var url = "/BLHPumTurEvaDia/dataUpload/view-record";
 		url += makeInput(id);
+		console.log(url);
 		getJSON(url, function(data) {
-			loadData("file_record_table", data.table);
-			$('#test-window').window('open');
+			
+			if(fileName.indexOf("bool") != -1||fileName.indexOf("double") != -1){
+				loadData("file_record_table_db", data.table);
+				$('#test-window_db').window('open');
+			}
+			if(fileName.indexOf("float") != -1){
+				loadData("file_record_table_fl", data.table);
+				$('#float-window').window('open');
+				
+			}
+			if(fileName.indexOf("FaultInfo") != -1){
+				loadData("file_record_table_Info", data.table);
+				$('#FaultInfo-window').window('open');
+			}
+			
 		});
 	}
 
 	$(function() {
-		$('#test-window').window('close');
+		$('#test-window_db').window('close');
+		$('#float-window').window('close');
+		$('#FaultInfo-window').window('close');
 		showLastHistoryFileRecord(); //展示上一次上传的文件
 		$("#uploadBtn").click(upLoad);
 		$("#bt_query").click(showHistoryFileRecord); // 展示历史记录
@@ -158,7 +179,7 @@
 			</div>
 		</div>
 		<table id="report_table" title="提交记录" class="easyui-datagrid"
-			style="width: 800px; height: 410px" data-options="singleSelect:true">
+			style="width: 800px; height: 410px" data-options="singleSelect:true,rownumbers:true">
 			<thead>
 				<tr>
 					<th data-options="field:'ID',align:'center',width:150">报表序号</th>
@@ -172,18 +193,55 @@
 	</div>
 	
     <!--小窗口显示查询内容 -->
-	<div id="test-window" class="easyui-window" title="文件查看"
+   <!--  显示bool和double表 -->
+	<div id="test-window_db" class="easyui-window" title="文件查看"
 		style="width: 65%; height: 70%;">
 
-		<table id="file_record_table" title="提交记录" class="easyui-datagrid"
+		<table id="file_record_table_db" title="提交记录" class="easyui-datagrid"
 			style="width: 98%; height: auto" data-options="singleSelect:true">
 			<thead>
 				<tr>
 					<th data-options="field:'id',align:'center',width:150">序号</th>
-					<th data-options="field:'pos',align:'center',width:150">位置</th>
+					<th data-options="field:'pos',align:'center',width:400">位置</th>
 					<th data-options="field:'state',align:'center',width:160">状态</th>
 					<th data-options="field:'time',align:'center',width:'200'">时间</th>
 					<th data-options="field:'value',align:'center',width:'200'">数值</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<!-- 显示float表 -->
+	<div id="float-window" class="easyui-window" title="文件查看"
+		style="width: 65%; height: 70%;">
+
+		<table id="file_record_table_fl" title="提交记录" class="easyui-datagrid"
+			style="width: 98%; height: auto" data-options="singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'id',align:'center',width:150">序号</th>
+					<th data-options="field:'pos',align:'center',width:400">位置</th>
+					<th data-options="field:'time',align:'center',width:'200'">时间</th>
+					<th data-options="field:'value',align:'center',width:'200'">数值</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<!-- 显示FaultInfo表 -->
+	<div id="FaultInfo-window" class="easyui-window" title="文件查看"
+		style="width: 65%; height: 70%;">
+
+		<table id="file_record_table_Info" title="提交记录" class="easyui-datagrid"
+			style="width: 98%; height: auto" data-options="singleSelect:true">
+			<thead>
+				<tr>
+					<th data-options="field:'faultID',align:'center',width:100">故障ID</th>
+					<th data-options="field:'system',align:'left',width:100">子系统</th>
+					<th data-options="field:'faultName',align:'left',width:220">故障名称</th>
+					<th data-options="field:'faultReason',align:'left',width:240">故障原因</th>
+					<th data-options="field:'startTime',align:'center',width:150">开始时间</th>
+					<th data-options="field:'endTime',align:'center',width:'150'">结束时间</th>
+					<th data-options="field:'workCondition',align:'center',width:'100'">工况</th>
+					<th data-options="field:'parameters',align:'left',width:'200'">相关参数</th>
 				</tr>
 			</thead>
 		</table>

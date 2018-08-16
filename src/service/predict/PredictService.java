@@ -46,7 +46,7 @@ public class PredictService {
 		return table;
 	}
 
-	public LineData getComparison() {
+	public LineData getComparison(String item) {
 		double[] x = new double[predict.getTransfer().getVy().size()];
 		for (int i = 0; i < x.length; ++i) {
 			x[i] = i + 1;
@@ -58,7 +58,7 @@ public class PredictService {
 		}
 		Vector<Double> predictedY = predict.getAllPredictValues();
 
-		return LineDataBuilder.createBuilder("", "序号", "百分比")
+		return LineDataBuilder.createBuilder("", "序号", item)
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
 				.addSeries("预测值", x1, toDoubleArray(predictedY)).build();

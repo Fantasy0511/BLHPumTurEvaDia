@@ -17,12 +17,15 @@
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
-<script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/bootstrap/dateTimePicker/bootstrap-datetimepicker.min.js"
 	charset="UTF-8"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/bootstrap/dateTimePicker/bootstrap-datetimepicker.zh-CN.js"
+	charset="UTF-8"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
@@ -219,7 +222,7 @@
 	}
 
 	function windowJump() { // 页面跳转
-		$(".changePage").click(function() {
+		$(".cd-timeline-content").click(function() {
 			var path = $(this).attr("id");
 			console.log(path);
 			$('#Iframe').attr("src", "/BLHPumTurEvaDia/assess/ahp/" + path);
@@ -371,7 +374,7 @@ hr {
 
 									<div class="col-sm-5 input-group">
 										<input type='text' id='minSupport' class="form-control"
-											placeholder="5"> <span class="input-group-addon">1</span>
+											 value="5"> <span class="input-group-addon">1</span>
 									</div>
 								</div>
 								<div class="form-group" style="margin-left: -80px">
@@ -380,7 +383,7 @@ hr {
 
 									<div class="col-sm-5 input-group">
 										<input type='text' id='minConfidence' class="form-control"
-											placeholder="60"> <span class="input-group-addon">%</span>
+											 value="60"> <span class="input-group-addon">%</span>
 									</div>
 								</div>
 							</form>
@@ -462,11 +465,11 @@ hr {
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-picture">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Picture">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/系统性能.png" alt="Picture">
 								</div>
 
-								<div class="cd-timeline-content">
-									<a id="gov" class="changePage">调速系统</a>
+								<div class="cd-timeline-content"  id="gov" style="text-align:center">
+									<a class="changePage">调速系统</a>
 									<!--	<h5>调速系统</h5>
 			&lt;!&ndash;<p>网页时间轴一般用于展示以时间为主线的事件，如企业网站常见的公司发展</p>&ndash;&gt;
 			<a href="http://www.helloweba.com/view-blog-285.html" class="cd-read-more" target="_blank">查看详细分析结果</a>
@@ -479,8 +482,8 @@ hr {
 									<img src="/BLHPumTurEvaDia/images/pages/assessment/振动.png" alt="Movie">
 								</div>
 
-								<div class="cd-timeline-content">
-									<a id="pum" class="changePage">水泵水轮机系统</a>
+								<div class="cd-timeline-content" id="pum" style="text-align:center">
+									<a  class="changePage">水泵水轮机系统</a>
 								</div>
 							</div>
 							<div class="cd-timeline-block">
@@ -488,8 +491,8 @@ hr {
 									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Picture">
 								</div>
 
-								<div class="cd-timeline-content">
-									<a id="ball" class="changePage">球阀系统</a>
+								<div class="cd-timeline-content" id="ball" style="text-align:center">
+									<a  class="changePage">球阀系统</a>
 								</div>
 							</div>
 							<div class="cd-timeline-block">
@@ -497,8 +500,8 @@ hr {
 									<img src="/BLHPumTurEvaDia/images/pages/assessment/发电机.png" alt="Movie">
 								</div>
 
-								<div class="cd-timeline-content">
-									<a id="exc" class="changePage">发电及励磁系统</a>
+								<div class="cd-timeline-content" id="exc" style="text-align:center">
+									<a  class="changePage">发电及励磁系统</a>
 								</div>
 							</div>
 							<div class="cd-timeline-block">
@@ -506,8 +509,8 @@ hr {
 									<img src="/BLHPumTurEvaDia/images/pages/assessment/电气.png" alt="Location">
 								</div>
 
-								<div class="cd-timeline-content">
-									<a id="transfer" class="changePage">主变系统</a>
+								<div class="cd-timeline-content" id="transfer" style="text-align:center">
+									<a  class="changePage">主变系统</a>
 								</div>
 							</div>
 
@@ -539,7 +542,7 @@ hr {
 
 	<script type="text/javascript">
 		$('.form_date').datetimepicker({
-			language : 'fr',
+			language : 'zh-CN',
 			weekStart : 1,
 			todayBtn : 1,
 			todayHighlight : 1,

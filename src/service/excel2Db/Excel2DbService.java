@@ -17,11 +17,11 @@ public class Excel2DbService {
 
 	public void upLoadExcelToDb(String filePath)
 			throws BiffException, IOException {
-		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
-				filePath.lastIndexOf("."));
+		/*String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
+				filePath.lastIndexOf("."));*/
 		table2Db.saveTableToDb(excel2Table.readExcel2Table(filePath));
 		// 在数据库上建一个“Table对象”，每个table实例代表一张表,并在数据库中建立了一个表，比如“float_201805”之类的
-		table2Db.saveTable2TestTable(tableName);
+		/*table2Db.saveTable2TestTable(tableName);*/
 		table2Db.saveFileToRecordTable(filePath);
 		// 执行sql语句，存储上传文件信息保存到数据库表 "upload_file_record"
 	}

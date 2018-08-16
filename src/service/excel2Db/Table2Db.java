@@ -23,52 +23,76 @@ public class Table2Db extends JdbcDaoUtil {
 	public void saveTableToDb(Table table) {
 		String tableName = table.getTableName();
 
+		// 新建bool和double表
 		if (tableName.contains("bool") || tableName.contains("double")) {
 			creatNewStateTableByName(tableName);
-			String sql = "insert into " + tableName
-					+ "(ID,pos,state,time,value) values(?,?,?,?,?);";
-			getJdbcTemplate().batchUpdate(sql,
-					new BatchPreparedStatementSetter() {
+			String sql = "insert into " + tableName + "(ID,pos,state,time,value) values(?,?,?,?,?);";
+			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 
-						@Override
-						public void setValues(PreparedStatement ps, int i)
-								throws SQLException {
-							List<TableRow> list = table.getTableRows();
-							ps.setString(1, list.get(i).getId());
-							ps.setString(2, list.get(i).getPos());
-							ps.setString(3, list.get(i).getState());
-							ps.setString(4, list.get(i).getTime());
-							ps.setString(5, list.get(i).getValue());
-						}
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					List<TableRow> list = table.getTableRows();
+					ps.setString(1, list.get(i).getId());
+					ps.setString(2, list.get(i).getPos());
+					ps.setString(3, list.get(i).getState());           
+					ps.setString(4, list.get(i).getTime());
+					ps.setString(5, list.get(i).getValue());
+				}
 
-						@Override
-						public int getBatchSize() {
-							return table.getTableRows().size();
-						}
-					});
-		} else if (tableName.contains("float")) {
+				@Override
+				public int getBatchSize() {
+					return table.getTableRows().size();
+				}
+			});
+		}
+		// 新建float表
+		if (tableName.contains("float")) {
 			creatNewFloatTableByName(tableName);
-			String sql = "insert into " + tableName
-					+ "(ID,pos,time,value) values(?,?,?,?);";
-			getJdbcTemplate().batchUpdate(sql,
-					new BatchPreparedStatementSetter() {
+			String sql = "insert into " + tableName + "(ID,pos,time,value) values(?,?,?,?);";
+			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 
-						@Override
-						public void setValues(PreparedStatement ps, int i)
-								throws SQLException {
-							List<TableRow> list = table.getTableRows();
-							ps.setString(1, list.get(i).getId());
-							ps.setString(2, list.get(i).getPos());
-							ps.setString(3, list.get(i).getTime());
-							ps.setString(4, list.get(i).getValue());
-						}
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					List<TableRow> list = table.getTableRows();
+					ps.setString(1, list.get(i).getId());
+					ps.setString(2, list.get(i).getPos());
+					ps.setString(3, list.get(i).getTime());
+					ps.setString(4, list.get(i).getValue());
+				}
 
-						@Override
-						public int getBatchSize() {
-							return table.getTableRows().size();
-						}
+				@Override
+				public int getBatchSize() {
+					return table.getTableRows().size();
+				}
 
-					});
+			});
+		}
+
+		// FaultInfoTable表中添加数据
+		if (tableName.contains("FaultInfo")) {
+
+			String insertSql = "insert into " + tableName +"(FaultID,System,FaultName,FaultReason,StartTime,EndTime,WorkCondition,Parameters) "
+					+ "values(?,?,?,?,?,?,?,?)";
+			System.out.println(insertSql);
+			getJdbcTemplate().batchUpdate(insertSql, new BatchPreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					List<TableRow> list = table.getTableRows();
+					ps.setString(1, list.get(i).getFaultID());
+					ps.setString(2, list.get(i).getSystem());
+					ps.setString(3, list.get(i).getFaultName());
+					ps.setString(4, list.get(i).getFaultReason());
+					ps.setString(5, list.get(i).getStartTime());
+					ps.setString(6, list.get(i).getEndTime());
+					ps.setString(7, list.get(i).getWorkCondition());
+					ps.setString(8, list.get(i).getParameters());
+				}
+				@Override
+				public int getBatchSize() {
+					return table.getTableRows().size();
+				}
+
+			});
 		}
 
 	}
@@ -78,8 +102,8 @@ public class Table2Db extends JdbcDaoUtil {
 	 */
 
 	public void creatNewStateTableByName(String tableName) {
-		String sql = "if not exists(select * from sysobjects where id = object_id('"
-				+ tableName + "')) " + "begin create table " + tableName
+		String sql = "if not exists(select * from sysobjects where id = object_id('" + tableName + "')) "
+				+ "begin create table " + tableName
 				+ " (ID varchar(50) not null,pos varchar(150),state varchar(150),time varchar(150),value varchar(150));end";
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
@@ -89,8 +113,8 @@ public class Table2Db extends JdbcDaoUtil {
 	 * 根据文件名新建表，文件名如果有"float"
 	 */
 	public void creatNewFloatTableByName(String tableName) {
-		String sql = "if not exists(select * from sysobjects where id = object_id('"
-				+ tableName + "')) " + "begin create table " + tableName
+		String sql = "if not exists(select * from sysobjects where id = object_id('" + tableName + "')) "
+				+ "begin create table " + tableName
 				+ " (ID varchar(50) not null,pos varchar(150),time varchar(150),value varchar(150));end";
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
@@ -101,11 +125,10 @@ public class Table2Db extends JdbcDaoUtil {
 	 */
 
 	public void saveFileToRecordTable(String filePath) {
-		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
-				filePath.lastIndexOf("."));
+		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1, filePath.lastIndexOf("."));
 		String date = String.valueOf(TimeUtils.DatetoLong(new Date())); // 获取当前时间,录入表中的时候还是long型
-		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('"
-				+ tableName + "','" + date + "')";
+		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('" + tableName + "','"
+				+ date + "')";
 		System.out.println(insertRecordSql);
 		getJdbcTemplate().execute(insertRecordSql);
 	}
@@ -113,38 +136,27 @@ public class Table2Db extends JdbcDaoUtil {
 	/**
 	 * 存储上传文件信息保存到数据库表 table_test 用作评估
 	 */
-	public void saveTable2TestTable(String tableName) {
-		String testTableName = tableName + "_test";
-		int[] ids = { 223, 245, 250 };
-		String sql = "";
-		for (int id : ids) {
-			sql = sql + createSqlString(tableName, id);
-		}
-		if (tableName.contains("bool")) {
-
-			creatNewStateTableByName(testTableName);
-
-			System.out.println(sql);
-			getJdbcTemplate().batchUpdate(sql);
-		} else {
-			creatNewFloatTableByName(testTableName);
-			getJdbcTemplate().batchUpdate(sql);
-		}
-	}
-
+	/*
+	 * public void saveTable2TestTable(String tableName) { String testTableName =
+	 * tableName + "_test"; int[] ids = { 223, 245, 250 }; String sql = ""; for (int
+	 * id : ids) { sql = sql + createSqlString(tableName, id); } if
+	 * (tableName.contains("bool")) {
+	 * 
+	 * creatNewStateTableByName(testTableName);
+	 * 
+	 * System.out.println(sql); getJdbcTemplate().batchUpdate(sql); } else {
+	 * creatNewFloatTableByName(testTableName); getJdbcTemplate().batchUpdate(sql);
+	 * } }
+	 */
 	// 拼接数据库语句
-	public String createSqlString(String tableName, int id) {
-		String testTableName = tableName + "_test";
-		if (tableName.contains("bool")) {
-			return "insert into " + testTableName
-					+ "(ID,pos,state,time,value) select * from " + tableName
-					+ " WHERE ID=" + id + ";";
-		} else {
-			return "insert into " + testTableName
-					+ "(ID,pos,time,value) select * from " + tableName
-					+ " WHERE ID=" + id + ";";
-		}
-
-	}
-
+	/*
+	 * public String createSqlString(String tableName, int id) { String
+	 * testTableName = tableName + "_test"; if (tableName.contains("bool")) { return
+	 * "insert into " + testTableName + "(ID,pos,state,time,value) select * from " +
+	 * tableName + " WHERE ID=" + id + ";"; } else { return "insert into " +
+	 * testTableName + "(ID,pos,time,value) select * from " + tableName +
+	 * " WHERE ID=" + id + ";"; }
+	 * 
+	 * }
+	 */
 }
