@@ -109,6 +109,7 @@
 			<option value="B145">水导Y轴振摆速率</option>
 			<option value="B146">水导Z轴振摆速率</option>
 		</select> 
+		<label for="model">预测歩长：</label>
 		<select id="number" class="easyui-combobox" style="width: 50px;">
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -130,9 +131,10 @@
 				id="result-table">
 				<thead>
 					<tr>
-						<th data-options="field:'time',align:'center',width:178">时间</th>
-						<th data-options="field:'original',align:'center',width:150">实测值</th>
-						<th data-options="field:'predicted',align:'center',width:100">预测值</th>
+						<th data-options="field:'time',align:'center',width:150">时间</th>
+						<th data-options="field:'original',align:'center',width:100">实测值</th>
+						<th data-options="field:'linePre',align:'center',width:120">线性回归预测</th>
+						<th data-options="field:'predicted',align:'center',width:100">ARMA预测值</th>
 					</tr>
 				</thead>
 			</table>

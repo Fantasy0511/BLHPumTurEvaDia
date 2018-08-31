@@ -7,10 +7,15 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/lightBox/tx201704218/css/lightbox.css">
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/lightBox/tx201704218/js/lightbox.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
@@ -132,7 +137,7 @@
 			style="width: 340px; height: 410px; padding: 10px 10px;"
 			data-options="style:{display:'inline-block',float:'left',marginRight:'10px'}">
 			<div title="上传文件" class="easyui-panel"
-				style="width: 320px; padding: 20px 20px; text-align: center"
+				style="width: 310px; padding: 20px 20px; text-align: center"
 				data-options="border:true">
 				<div></div>
 				<form method="post" enctype="multipart/form-data">
@@ -142,13 +147,14 @@
 					<input
 						type="submit" id="uploadBtn" style="display: block" value="上传"><br>
 				</form>
-
+				<div style="text-align:left;width:130px;height:20px"><a id="bt_ahp" href="/BLHPumTurEvaDia/images/fileload/文件上传详情.png" 
+			data-lightbox="roadtrip" data-options="iconCls:'icon-ok'">文件格式要求...</a></div> 
 
 			</div>
-			<div class="ipad" style="height: 30px"></div>
+			<div class="ipad" style="height: 20px"></div>
 
 			<div title="查询条件" class="easyui-panel"
-				style="width: 320px; padding: 20px 20px; text-align: center"
+				style="width: 310px; padding: 20px 20px; text-align: center"
 				data-options="border:true">
 				<div style="margin-bottom: 20px">
 					<label style="margin-bottom: 5px">开始时间：</label><input

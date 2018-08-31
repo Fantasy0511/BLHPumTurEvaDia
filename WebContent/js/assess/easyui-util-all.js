@@ -386,7 +386,7 @@ function getTodayDate() {
  * @returns {String} yyyy-mm-dd上个星期的今天的日期字符串。
  */
 function getLastTodayDate() {
-	var lastTodayMillis = new Date().getTime() - 7 * 24 * 60 * 60 * 1000;
+	var lastTodayMillis = new Date().getTime() - 30 * 24 * 60 * 60 * 1000;
 	var lastToday = new Date();
 	lastToday.setTime(lastTodayMillis);
 	return formatDate(lastToday);

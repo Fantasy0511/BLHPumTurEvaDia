@@ -30,9 +30,9 @@ public class RecordAction extends AbstractActionSupport {
 		beginTime = String
 				.valueOf(TimeUtils.StringtoLong(getFirstInput() + " 00:00:00"));
 		endTime = String.valueOf(
-				TimeUtils.StringtoLong(getSecondInput() + " 00:00:00")+86400);
+				TimeUtils.StringtoLong(getSecondInput() + " 00:00:00"));
 		
-		System.out.println(beginTime + " " + endTime);
+		System.out.println("开始时间："+getFirstInput() + "  结束时间：" + getSecondInput());
 		List<HistoryReportRecord> records = fileUploadRecordQuery
 				.getFileRecords(beginTime, endTime);
 		table = new Table(records);

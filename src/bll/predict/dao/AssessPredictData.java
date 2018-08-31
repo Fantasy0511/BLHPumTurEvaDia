@@ -33,38 +33,59 @@ public class AssessPredictData {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 		List<String> times = new ArrayList<String>();
 		List<Double> datas = new ArrayList<Double>();
-		String sql = "SELECT top 50 * from " + tableName + " where pos ='"
+		List<Double> Hlimite = new ArrayList<Double>();
+		/*查询数据库 预测时间和值*/
+		String sql1 = "SELECT top 50 * from " + tableName + " where pos ='"
 				+ objStr + "';";
+		/*查询预测量对应阈值*/
+		String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();
-			System.out.println(sql);
-			rs = stmt.executeQuery(sql);
-			while (rs.next() == true) {
-				times.add(TimeUtils
-						.LongtoString(Long.parseLong(rs.getString("time"))));
+			System.out.println(sql1);
+			rs = stmt.executeQuery(sql1);
+			while (rs.next() == true ) {
+				times.add(TimeUtils.LongtoString(Long.parseLong(rs.getString("time"))));
 				datas.add(Double.parseDouble(rs.getString("value")));
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			GovDBConfig.closeConnection(rs, stmt, conn);
 		}
-		PredictInput inputData = new PredictInput(StringList2Array(times),
-				doubleList2Array(datas));
+		
+		try {
+			conn = GovDBConfig.getconnection();
+			stmt = conn.createStatement();
+			System.out.println(sql2);
+			rs1 = stmt.executeQuery(sql2);
+			while (rs1.next() == true ) {
+				Hlimite.add(Double.parseDouble(rs1.getString("Hlimite")));
+				System.out.println("Hlimite的值："+Hlimite);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			GovDBConfig.closeConnection(rs1, stmt, conn);
+		}
+		
+		/*查询数据库获取time和value以及hlimite*/
+		PredictInput inputData = new PredictInput(StringList2Array(times),doubleList2Array(datas),doubleList2Array(Hlimite));
 		return inputData;
 	}
 
+	
+	/*list<String> time  转String[]*/
 	private static String[] StringList2Array(List<String> data) {
 		String[] re = new String[data.size()];
 		for (int i = 0; i < re.length; i++)
 			re[i] = data.get(i);
 		return re;
 	}
-
+	/*list<Double>  value  转double[]*/
 	private static double[] doubleList2Array(List<Double> data) {
 		double[] re = new double[data.size()];
 		for (int i = 0; i < re.length; i++)
@@ -76,5 +97,6 @@ public class AssessPredictData {
 		PredictInput input = read("float_201701", 1, "LG1G");
 		TestUtil.print(input.getTime());
 		TestUtil.print(input.getData());
+		TestUtil.print(input.getHlimite());
 	}
 }

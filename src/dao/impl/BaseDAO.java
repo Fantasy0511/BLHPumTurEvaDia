@@ -402,7 +402,7 @@ public class BaseDAO implements IBaseDAO {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear
+			String sql = "select ID, time,value from " + table + "_" + startYear
 					+ startMounth + " where id=" + id + " AND time<" + endtime
 					+ " AND time>" + starttime + " ORDER BY time ASC";
 			sqls.add(sql);
@@ -410,7 +410,7 @@ public class BaseDAO implements IBaseDAO {
 			while (!(startYear.equals(endYear)
 					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear
+				String sql = "select ID,time,value from " + table + "_" + startYear
 						+ startMounth + " where id=" + id + " AND time<"
 						+ endtime + " AND time>" + starttime
 						+ " ORDER BY time ASC";
@@ -448,7 +448,7 @@ public class BaseDAO implements IBaseDAO {
 		String endMounth = endStr.substring(5, 7);
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
-			String sql = "select * from " + table + "_" + startYear
+			String sql = "select ID,time,value from " + table + "_" + startYear
 					+ startMounth + " where time<" + endtime + " AND time>"
 					+ starttime + " ORDER BY time ASC";
 			sqls.add(sql);
@@ -456,7 +456,7 @@ public class BaseDAO implements IBaseDAO {
 			while (!(startYear.equals(endYear)
 					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
-				String sql = "select * from " + table + "_" + startYear
+				String sql = "select ID,time,value from " + table + "_" + startYear
 						+ startMounth + " where time<" + endtime + " AND time>"
 						+ starttime + " ORDER BY time ASC";
 				sqls.add(sql);
