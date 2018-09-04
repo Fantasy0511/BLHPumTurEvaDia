@@ -39,12 +39,15 @@ public class FrequentItem {
 		@SuppressWarnings("resource")
 		BufferedReader in = new BufferedReader(
 				new FileReader(PathUtil.getWebRealBasePath() + "data/" + system + ".txt"));
+		System.out.println(PathUtil.getWebRealBasePath()+"data/"+ system + ".txt");
 		String line = null;
 		FrequentItem fItem = new FrequentItem();
 		while ((line = in.readLine()) != null) {
+			
 			String str = "";
 			str += line;
-			if (str.contains("频繁" + frequent + "项集")) {
+			if (str.contains("频繁"+frequent + "项集")) {
+				System.out.println("memda");
 				fItem.setFrequent(frequent);
 				fItem.setItems(getList(in.readLine()));
 				return fItem;

@@ -10,7 +10,7 @@ import java.util.Vector;
  */
 public class lineRegMain {
 
-	public dataLine calculatedSum(dataLine dLine) {
+	public dataLine calculatedSum(dataLine dLine,int step) {
 
 		/* x的和；y的和；x的平方和；xy的和；y的平方和 */
 		double sumX = 0, sumY = 0, sumXX = 0, sumXY = 0, sumYY = 0;
@@ -57,10 +57,10 @@ public class lineRegMain {
 		RegressionBean aBean=new RegressionBean(sse, a, b);
 		Vector<Double> aVector=new Vector<>();
 		DecimalFormat df = new DecimalFormat("#.000"); // 控制小数点位数
-		
+		System.out.println("线性预测： ");
 		//输出结果保留小数点后三位
-		for (int i = 0; i < x.size(); i++) {
-			System.out.println("输出x的值： "+x.get(i));
+		for (int i = 0; i < x.size()+step; i++) {
+			
 			/*aVector.add(Double.parseDouble(df.format(aBean.getA()+aBean.getB()*x.get(i))));*/
 			aVector.add(Double.parseDouble(df.format(aBean.getA()+aBean.getB()*i)));
 		}

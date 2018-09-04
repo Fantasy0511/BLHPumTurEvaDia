@@ -43,7 +43,7 @@ public class PredictService {
 			}
 			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());
 			lineRegMain aLineRegMain=new lineRegMain();
-			resultLine=aLineRegMain.calculatedSum(aLine);
+			resultLine=aLineRegMain.calculatedSum(aLine,step);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class PredictService {
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
 				.addSeries("阈值", x1,listtoDouble(hlimit))
-				.addSeries("线性回归预测", x,toDoubleArray(resultLine.getY()))
+				.addSeries("线性回归预测", x1,toDoubleArray(resultLine.getY()))
 				.addSeries("ARMA预测", x1, toDoubleArray(predictedY)).build();
 	}
 

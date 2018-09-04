@@ -32,22 +32,23 @@
 			0 : {
 				init : false,
 				id : "item0",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/gov"
+				
+				url : "/BLHPumTurEvaDia/faultDiag/tree/pum"
 			},
 			1 : {
 				init : false,
 				id : "item1",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/pum"
+				url : "/BLHPumTurEvaDia/faultDiag/tree/gov"
 			},
 			2 : {
 				init : false,
 				id : "item2",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/ball"
+				url : "/BLHPumTurEvaDia/faultDiag/tree/exc"
 			},
 			3 : {
 				init : false,
 				id : "item3",
-				url : "/BLHPumTurEvaDia/faultDiag/tree/exc"
+				url : "/BLHPumTurEvaDia/faultDiag/tree/ball"
 			},
 			4 : {
 				init : false,
@@ -73,36 +74,49 @@
 
 	<div id="tabs" class="easyui-tabs"
 		data-options="fit:true,tabPosition:'left',tabWidth:146,tabHeight:60">
-		<div
-			title="<table><tr><td align='center' valign='middle'> <img src='/BLHPumTurEvaDia/images/modem.png'/></td><td align='center' valign='middle'>调速系统</td></tr></table>"
-			style="padding: 10px">
-			<iframe id="item0" src="/BLHPumTurEvaDia/faultDiag/tree/gov"
-				style="width: 100%; height: 99%; border: none"></iframe>
-		</div>
+		<!-- 水泵 -->
 		<div
 			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>水泵水轮机系统</td></tr></table>"
 			style="padding: 10px">
-			<iframe id="item1" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
+			<iframe id="item0" src="/BLHPumTurEvaDia/faultDiag/tree/pum"
 				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
+		
+		<!-- 调速 -->
 		<div
-			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>球阀系统</td></tr></table>"
+			title="<table><tr><td align='center' valign='middle'> <img src='/BLHPumTurEvaDia/images/modem.png'/></td><td align='center' valign='middle'>调速系统</td></tr></table>"
 			style="padding: 10px">
-			<iframe id="item2" src="/BLHPumTurEvaDia/faultDiag/tree/ball"
+			<iframe id="item1" src="/BLHPumTurEvaDia/faultDiag/tree/gov"
 				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
+		
+		
+		<!-- 励磁 -->
 		<div
 			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>励磁发电系统</td></tr></table>"
 			style="padding: 10px">
-			<iframe id="item3" src="/BLHPumTurEvaDia/faultDiag/tree/exc"
+			<iframe id="item2" src="/BLHPumTurEvaDia/faultDiag/tree/exc"
 				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
+		
+		<!-- 球阀 -->
+		<div
+			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>球阀系统</td></tr></table>"
+			style="padding: 10px">
+			<iframe id="item3" src="/BLHPumTurEvaDia/faultDiag/tree/ball"
+				style="width: 100%; height: 99%; border: none"></iframe>
+		</div>
+		
+		
+		<!-- 主变 -->
 		<div
 			title="<table><tr><td align='center' valign='middle'><img src='/BLHPumTurEvaDia/images/pda.png'/></td><td align='center' valign='middle'>主变系统</td></tr></table>"
 			style="padding: 10px">
 			<iframe id="item4" src="/BLHPumTurEvaDia/faultDiag/tree/transfer"
 				style="width: 100%; height: 99%; border: none"></iframe>
 		</div>
+	
+	
 	</div>
 
 </body>

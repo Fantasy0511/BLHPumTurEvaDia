@@ -9,7 +9,7 @@ body {
     margin-bottom: 60px;
 }
 .footer {
-    position: absolute;      /* 缁濆浣嶇疆锛岃搴曟爮浣嶄簬鏈�搴曚笅鍒囧浐瀹氫笉鍔� */
+    position: absolute;      /* 缂佹繂顕担宥囩枂閿涘矁顔�鎼存洘鐖担宥勭艾閺堬拷鎼存洑绗呴崚鍥ф祼鐎规矮绗夐崝锟� */
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
@@ -211,7 +211,7 @@ body {
     height: 66px;
    /*  line-height: 66px; */
     width: auto;
-    padding-left: 30px;
+    padding-left: 10px;
 }
 .logo-main b{
     font-size: 25px;
@@ -275,12 +275,12 @@ body {
 
 
 
-/*!* dataTables鍒楀唴瀹瑰眳涓� *!*/
+/*!* dataTables閸掓鍞寸�圭懓鐪虫稉锟� *!*/
 /*.table>tbody>tr>td{*/
     /*text-align:center;*/
 /*}*/
 
-/*!* dataTables琛ㄥご灞呬腑 *!*/
+/*!* dataTables鐞涖劌銇旂仦鍛厬 *!*/
 /*.table>thead:first-child>tr:first-child>th{*/
     /*text-align:center;*/
 /*}*/
