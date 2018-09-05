@@ -25,7 +25,6 @@ public class PredictAction extends AbstractActionSupport {
 		int unitNo = Integer.parseInt(getFirstInput());
 		String item = getSecondInput();
 		String beginTime = getThirdInput();
-		
 		int stepStr =Integer.parseInt(getInput(3));
 		Long time = TimeUtils.StringtoLong(beginTime + " 00:00:00");
 		String tableName = "float" + "_" + beginTime.split("-")[0]

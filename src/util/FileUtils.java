@@ -19,7 +19,7 @@ public class FileUtils {
 		File fileOut = new File(fileOutName);
 		FileInputStream fileInputStream = new FileInputStream(fileSource);
 		OutputStream outputStream = new FileOutputStream(fileOut);
-		byte[] buffer = new byte[1024];
+		byte[] buffer = new byte[10240];
 		while (true) {
 			int ins = fileInputStream.read(buffer);
 			if (ins == -1) {

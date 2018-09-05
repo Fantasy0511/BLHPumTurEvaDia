@@ -28,7 +28,7 @@ public class PredictService {
 
 	public PredictService(String tableName, Long time, int unitNo, String item,
 			int step) {
-		input = AssessPredictData.read(tableName,unitNo, item);
+		input = AssessPredictData.read(tableName,unitNo, item,time);
 		
 		
 		predict = new TendencyPredict();

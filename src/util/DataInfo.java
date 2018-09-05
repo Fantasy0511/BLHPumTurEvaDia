@@ -30,6 +30,18 @@ public class DataInfo {
 		this.setLLimite(LLimite);
 	}
 	
+	
+	public DataInfo(String typeid, String position, String parameters, String description) {
+		super();
+		this.typeid = typeid;
+		this.position = position;
+		this.parameters = parameters;
+		this.description = description;
+	}
+
+
+
+
 	public String getTypeid() {
 		return typeid;
 	}

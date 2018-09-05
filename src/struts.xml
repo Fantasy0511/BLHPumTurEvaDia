@@ -5,6 +5,7 @@
 <struts>
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.multipart.maxSize" value="1000000000" />
 	<constant name="struts.convention.default.parent.package"
 		value="default" />
 	<package name="default" extends="convention-default,json-default">

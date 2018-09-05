@@ -85,6 +85,25 @@ public class ReadData implements IBaseDAO {
 	}
 	
 	/**
+	 * 根据上传文件float.double.bool类型，查询infotable和map表
+	 * @param typeData
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public HashMap<String, DataInfo> ExcleInfo(String typeData) throws ClassNotFoundException, SQLException {
+		BaseDAO database = new BaseDAO();
+		HashMap<String, String> ahashMap=database.mapInfo(typeData);
+		
+		//查询一次之后，connection关闭；所以需要再次连接
+		database.getConnection();
+		HashMap<String, DataInfo> maps = database.tableInfo(typeData,ahashMap);
+		
+		return maps;
+	}
+	
+	
+	/**
 	 * 获取所有数据的代号list
 	 * */
 	public HashMap<String, Integer> queAlltype() throws ClassNotFoundException, SQLException{

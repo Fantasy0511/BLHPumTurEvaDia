@@ -29,7 +29,7 @@ public class AssessPredictData {
 	 * @return
 	 */
 	public static PredictInput read(String tableName, int unitNo,
-			String objStr) {
+			String objStr,Long time) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -37,11 +37,13 @@ public class AssessPredictData {
 		List<String> times = new ArrayList<String>();
 		List<Double> datas = new ArrayList<Double>();
 		List<Double> Hlimite = new ArrayList<Double>();
+		
+		AssessPredictData assessPredictData=new AssessPredictData();
+		Hlimite =assessPredictData.Findlimte(objStr);
+		
 		/*查询数据库 预测时间和值*/
-		String sql1 = "SELECT top 50 * from " + tableName + " where pos ='"
-				+ objStr + "';";
-		/*查询预测量对应阈值*/
-		String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
+		String sql1 = "SELECT top 100 * from " + tableName + " where pos ='"
+				+ objStr + "' AND [time]>"+time+" ORDER BY time;";
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();
@@ -57,6 +59,24 @@ public class AssessPredictData {
 			GovDBConfig.closeConnection(rs, stmt, conn);
 		}
 		
+		/*查询数据库获取time和value以及hlimite*/
+		PredictInput inputData = new PredictInput(StringList2Array(times),doubleList2Array(datas),doubleList2Array(Hlimite));
+		return inputData;
+	}
+	
+	/**
+	 * 查询阈值
+	 * @param objStr
+	 * @return
+	 */
+	public List<Double> Findlimte(String objStr) {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs1 = null;
+		List<Double> Hlimite = new ArrayList<Double>();
+		/*查询预测量对应阈值*/
+		String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
+		
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();
@@ -71,12 +91,9 @@ public class AssessPredictData {
 		} finally {
 			GovDBConfig.closeConnection(rs1, stmt, conn);
 		}
+		return Hlimite;
 		
-		/*查询数据库获取time和value以及hlimite*/
-		PredictInput inputData = new PredictInput(StringList2Array(times),doubleList2Array(datas),doubleList2Array(Hlimite));
-		return inputData;
 	}
-
 	
 	/*list<String> time  转String[]*/
 	private static String[] StringList2Array(List<String> data) {
@@ -94,7 +111,7 @@ public class AssessPredictData {
 	}
 
 	public static void main(String[] args) {
-		PredictInput input = read("float_201701", 1, "LG1G");
+		PredictInput input = read("float_201701", 1, "LG1G",(long)1455552000);
 		TestUtil.print(input.getTime());
 		TestUtil.print(input.getData());
 		TestUtil.print(input.getHlimite());

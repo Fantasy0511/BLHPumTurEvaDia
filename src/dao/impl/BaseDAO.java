@@ -27,6 +27,7 @@ import util.TypeNums;
 public class BaseDAO implements IBaseDAO {
 	private Connection conn = null;
 	private Statement stmt = null;
+	private Statement stmt1 = null;
 	private ResultSet rs = null;
 	private static String CONFIG_DRIVER_CLASS_NAME;
 	private static String CONFIG_URL;
@@ -264,6 +265,65 @@ public class BaseDAO implements IBaseDAO {
 		return maps;
 	}
 
+	/**
+	 * 查询infoTable和Map表  
+	 */
+	public HashMap<String, DataInfo> tableInfo(String typeData,HashMap<String,String> hashMap) {
+		String sql  = "select * from InfoTable" + " ORDER BY typeid ASC";
+		System.out.println("查询infoTable表："+sql);
+		HashMap<String, DataInfo> maps = new HashMap<String, DataInfo>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next() ==true ) {
+				String typeid = rs.getString("typeid");
+				String position = rs.getString("position");
+				String parameters = rs.getString("parameters");
+				String pos = hashMap.get(rs.getString("parameters"));
+				/*String pos = rs.getString("description");*/
+				maps.put(typeid,new DataInfo(typeid, position, parameters, pos));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("数据库连接失败");
+		}
+		closeAll();
+		return maps;
+	}
+	
+	/**
+	 * 查询map表值
+	 * @param parameters
+	 * @return
+	 */
+
+	public HashMap<String,String> mapInfo(String parameters) {
+		
+		String sql  = "select * from map_" + parameters+ " ORDER BY ID ASC";
+		System.out.println("查询map表："+sql);
+		HashMap<String, String> maps = new HashMap<>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String ID = rs.getString("ID");
+				String state = rs.getString("PARAMETERS");
+				/*System.out.println(state);*/
+				maps.put(ID,state);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("数据库连接失败");
+		}
+		closeAll();
+		return maps;
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 获取所有数据的代号list
 	 * */

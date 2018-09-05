@@ -93,7 +93,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 			sql = "select * from " + fileName;
 		}
 		else {
-			sql = "select * from " + fileName;
+			sql = "select TOP 10000 * from " + fileName;
 		}
 		
 		return getJdbcTemplate().query(sql, new ResultSetExtractor<List<TableRow>>() {

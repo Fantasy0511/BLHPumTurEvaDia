@@ -1,6 +1,7 @@
 package service.excel2Db;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import jxl.read.biff.BiffException;
 
@@ -13,7 +14,7 @@ public class Test {
 	// System.out.println(table.getTableName());
 	// }
 
-	public static void main(String[] args) throws BiffException, IOException {
+	public static void main(String[] args) throws BiffException, IOException, ClassNotFoundException, SQLException {
 		Table2Db table2Db = new Table2Db();
 		// table2Db.creatNewTableByName("test11");
 		Excel2Table excel2Table = new Excel2Table();
