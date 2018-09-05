@@ -112,6 +112,7 @@
 			}
 			tree.fromJSON(graphJSON);
 		}
+		
 		$("#b1").click(function() {
 			tree.fromJSON(cell1);
 			changecolor1(id);
@@ -134,6 +135,8 @@
 			tree.fromJSON(cell5);
 			changecolor5(id);
 		});
+		
+	// 点击开始诊断
 		$("#StartDiagno").click(function() {
 			var startTime = $('#startTime').datebox('getValue');
 			
@@ -141,9 +144,9 @@
 				alert("请选择开始时间!")
 			}
 			else{
-			
-			var arr=startTime.split("-");
-			console.log(arr[0]+arr[1]+arr[2]);
+			  var arr=startTime.split("-");
+			  console.log(arr[0]+arr[1]+arr[2]);
+			  
 			if(parseInt(arr[0]+arr[1])>201707){
 				alert("请选择2017年07月之前的日期！")
 			}
@@ -157,9 +160,9 @@
 			getJSON(url, function(data) {
 				id = data.resultNode;
 				console.log(id);
-				loadData("faultInfo", data.faultInfoTable);
+				loadData("faultInfo", data.faultInfoTable);  // 填写诊断结果分析的表
 				tree.fromJSON(cell1);
-				changecolor1(id);
+				changecolor1(id);      // 改变出现故障节点的颜色
 			});
 			}
 			}
@@ -184,7 +187,9 @@
 			<option value="2">二号机组</option>
 			<option value="3">三号机组</option>
 			<option value="4">四号机组</option>
-		</select> <label style="margin-bottom: 5px">选择时间：</label><input id="startTime"
+		</select> 
+		<label style="margin-bottom: 5px">选择时间：</label>
+		<input id="startTime"
 			class="easyui-datebox" required style="width: 150px; height: 26px">
 		<a id="StartDiagno" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始诊断</a>
