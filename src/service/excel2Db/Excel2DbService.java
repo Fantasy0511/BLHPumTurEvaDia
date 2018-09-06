@@ -21,7 +21,7 @@ public class Excel2DbService {
 		/*String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
 				filePath.lastIndexOf("."));*/
 		System.out.println("输出绝对路径："+filePath);
-		table2Db.saveTableToDb(excel2Table.readExcel2Table(filePath));
+		table2Db.saveTableToDb(excel2Table.readCsv2Table(filePath));
 		// 在数据库上建一个“Table对象”，每个table实例代表一张表,并在数据库中建立了一个表，比如“float_201805”之类的
 		/*table2Db.saveTable2TestTable(tableName);*/
 		table2Db.saveFileToRecordTable(filePath);
