@@ -41,7 +41,7 @@ public class Table2Db extends JdbcDaoUtil {
 
 				@Override
 				public int getBatchSize() {
-					return table.getTableRows().size();
+					return (int)table.getTableRows().size()/10;
 				}
 			});
 		}
@@ -62,7 +62,7 @@ public class Table2Db extends JdbcDaoUtil {
 
 				@Override
 				public int getBatchSize() {
-					return table.getTableRows().size();
+					return (int)table.getTableRows().size()/1000;
 				}
 
 			});
