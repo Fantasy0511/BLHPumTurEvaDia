@@ -163,7 +163,7 @@
 					console.log(view);
 					drawGuage('assement-container', view.topScore); // 画仪表盘
 					drawPic("chart_middle_bar", view.middleBar); // 画柱状图
-
+					
 					loadDataAneMergeCells('result_table', view.bottomDetail, system,
 							unitNo);
 					// 填写“详细评估信息”并合并该合并的单元格，使用了loadDataAneMergeCells.js中的方法
@@ -328,18 +328,61 @@
 		$('#bt_sonAssess').click(sonAsses); // 子评估结果的显示
 		$('#bt_ahp').click(ahp)
 	});
+
+	
+	function formatOper(val,row,index){ 
+		var star=row.name; 
+		/* console.log("输出啊西坝："+star); */
+		/* console.log("输出啊西坝："+star); */
+	/* /BLHPumTurEvaDia/faultDiag/trendPrediction/main */
+		return '<button href="#" rel="external nofollow" onclick="editUser('+index+')">查看</button>'; 
+		}
+		
+	function editUser(index){ 
+		$('#result_table').datagrid('selectRow',index);// 关键在这里 
+		 var row = $('#result_table').datagrid('getSelected');  
+		 var  name=row.name;
+		 
+		 var system = $('#subSystem').combobox('getValue');
+		 var  untio= $('#unitNo option:selected').text();
+		 var time =getDate("beginDate");
+		 
+		 console.log(untio+"  "+time);
+		 
+		 showMask(); 
+		$.getJSON("/BLHPumTurEvaDia/data/assdata/"+system+".json",function(data){
+			
+			//读取json数据
+			var eValue=eval('data['+untio+']['+'name'+']');  
+			//正则 ，去掉非数字部分
+			var ID=eValue.replace(/[^0-9]/ig,"");
+			
+			console.log("输出Id： "+ID);
+			var url = "/BLHPumTurEvaDia/faultDiag/trendPrediction/main";
+			url += makeInput(untio, ID, time, 1);
+			
+			window.location.href=url;
+			
+			console.log(url);
+		
+		})
+			hideMask();
+		  
+		}	
+	
 </script>
+
 
 </head>
 <body>
 	<!--条件输入 start-->
 	<div class="input_div" style="margin-bottom: 5px;">
 		<span class="input_title">条件输入：</span> <label for="model">机组：</label>
-		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
-			<option value="first">1#</option>
-			<option value="second">2#</option>
-			<option value="third">3#</option>
-			<option value="four">4#</option>
+		<select id="unitNo" class="easyui-combobox" style="width: 60px;">
+			<option value="first">1</option>
+			<option value="second">2</option>
+			<option value="third">3</option>
+			<option value="four">4</option>
 		</select> <label for="model">子系统选择： </label> <select id="subSystem"
 			class="easyui-combobox" style="width: 140px;">
 			<option value="pum">水泵水轮机</option>
@@ -646,12 +689,13 @@
 
 			<table id="result_table" title="详细评估信息" class="easyui-datagrid"
 				style="width: 45%; height: 450px"
-				data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,striped:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
+				data-options="striped:true,singleSelect:true,collapsible:false,fitColumns:true,style:{display:'inline-block',float:'left',marginRight:'5px'}">
 				<thead>
 					<tr>
 						<th data-options="field:'category',width:100">指标类别</th>
 						<th data-options="field:'name',width:140">计算指标</th>
 						<th data-options="field:'value',width:60">计算得分</th>
+						<th data-options="field:'_operate',width:60,formatter:formatOper">操作</th>
 					</tr>
 				</thead>
 			</table>

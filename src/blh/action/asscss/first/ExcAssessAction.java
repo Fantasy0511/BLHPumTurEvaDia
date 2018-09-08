@@ -38,10 +38,10 @@ public class ExcAssessAction extends AbstractActionSupport {
 				  };
 		String[] names = {
 				"励磁电源故障", "电压/频率跳闸","晶闸管桥风扇故障", 
-				"有功功率测量值", "励磁电压", "机组频率", 
+				"有功功率测量值", "励磁电压a", "机组频率", 
 				"转子绝缘报警次数", "发电机停止报警次数", "频率保护报警", 
 				"发电机热风温度", "发电机冷风温度", "空冷器出水温度",
-				"励磁电流", "励磁电压" };
+				"励磁电流", "励磁电压b" };
 		Table bottomDetail = new Table(new String[] {"category", "name", "value" });
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i],names[i], excAssResult.getIndicator().get(i+6).doubleValue());

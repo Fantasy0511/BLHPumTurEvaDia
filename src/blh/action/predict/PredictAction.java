@@ -40,7 +40,7 @@ public class PredictAction extends AbstractActionSupport {
 		}*/
 		service = new PredictService(tableName, time, unitNo, item, stepStr);
 		
-		getChartComparison=service.getComparison(itemConvert.valueOf(item).getitem());
+		getChartComparison=service.getComparison(item);
 		
 		return super.execute();
 	}

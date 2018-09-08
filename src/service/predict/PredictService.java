@@ -89,7 +89,7 @@ public class PredictService {
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();
 
-		return LineDataBuilder.createBuilder("", "序号", item)
+		return LineDataBuilder.createBuilder("", "序号", "水泵压力")
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
 				.addSeries("阈值", x1,listtoDouble(hlimit))

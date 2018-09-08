@@ -39,11 +39,12 @@ public class AssessPredictData {
 		List<Double> Hlimite = new ArrayList<Double>();
 		
 		AssessPredictData assessPredictData=new AssessPredictData();
-		Hlimite =assessPredictData.Findlimte(objStr);
+		Hlimite =assessPredictData.Findlimte("float334");
 		
 		/*查询数据库 预测时间和值*/
-		String sql1 = "SELECT top 100 * from " + tableName + " where pos ='"
+		String sql1 = "SELECT top 50 * from " + tableName + " where ID ='"
 				+ objStr + "' AND [time]>"+time+" ORDER BY time;";
+		System.out.println(sql1);
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();
@@ -74,9 +75,10 @@ public class AssessPredictData {
 		Statement stmt = null;
 		ResultSet rs1 = null;
 		List<Double> Hlimite = new ArrayList<Double>();
-		/*查询预测量对应阈值*/
-		String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
-		
+		/*根据pos 查询预测量对应阈值*/
+	/*	String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
+		*/
+		String sql2 ="SELECT  Hlimite  from  InfoTable where typeid ='float347'";
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();

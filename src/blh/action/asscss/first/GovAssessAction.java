@@ -41,8 +41,8 @@ public class GovAssessAction extends AbstractActionSupport {
 		String[] category = {
 	            "调速系统性能状态", "", "","","", "调速故障信号", "", ""
 				  };
-		String[] oilNames = { "油泵油压", "油槽油位", "油槽油温", "压力油油位","压油槽油压"};
-		String[] singleNames = { "调速器故障次数", "油泵故障得分","超速报警次数得分"};
+		String[] oilNames = { "油槽油温", "供油管油压", "压力油罐油位", "调速器油箱油位","补气系统压力罐压力"};
+		String[] singleNames = { "调速器电气过速报警", "调速器机械过速报警","调速器油箱阻塞"};
 		Table bottomDetail = new Table(new String[] {"category", "name", "value" });
 		for (int i = 0; i < oilNames.length; i++) {
 			bottomDetail.withRow(category[i],oilNames[i], govAssResult.getGovOilResult().get(i));

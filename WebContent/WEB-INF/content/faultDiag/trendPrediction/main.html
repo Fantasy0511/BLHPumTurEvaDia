@@ -54,35 +54,31 @@
 	}
 </script>
 <script>
+		var dataSet;
 	function predict() {
-		var url = "/BLHPumTurEvaDia/predict/predict";
-		var startTime=getDate("beginDate");
-		console.log(startTime);
-		if(!startTime){
-			alert("请选择时间！")
-		}else{
-			var arr=startTime.split("-");
-			if(parseInt(arr[0]+arr[1])>201707){
-				alert("请选择2017年07月之前的日期！")
-			}
-			else {
-			var stepUinto= getComboboxValue("number");
-			console.log("选择步长："+stepUinto);
-			showMask();
-			url += makeInput(getComboboxValue("unitNo"), getComboboxValue("item"),
-					getDate("beginDate"), stepUinto);
-			console.log(url);
-			getJSON(url, function(data) {
-				loadData("table_comparison", data.tableComparison);
-				drawPic("chart_comparison", data.getChartComparison);
-			});
-			}
-		}
+		var url = window.location.search;
+		var parmeter=url.split("//");
+		url1="/BLHPumTurEvaDia/predict/predict"+url;
+		console.log("接收的url："+url1);
+		
+		console.log("输出参数："+parmeter[3]);
+		
+		showMask(); 
+		getJSON(url1, function(data) {
+			
+			$('#unitNo').combobox('setValue', parmeter[0].split("=")[1]);
+			$('#beginDate').datebox('setValue', parmeter[2]);
+			$('#number').textbox('setValue', parmeter[3]);
+			
+			loadData("table_comparison", data.tableComparison);
+			drawPic("chart_comparison", data.getChartComparison);
+		});
+		hideMask();
 		
 	}
-
+	
 	$(function() {
-		$("#bt_predict").click(predict);
+		 predict();
 	});
 </script>
 
@@ -97,8 +93,10 @@
 		</select><label style="margin-bottom: 5px">时间：</label> <input id="beginDate"
 			class="easyui-datebox"
 			data-options="formatter:myformatter,parser:myparser" required
-			style="width: 150px; height: 26px"> <label for="model">选择对象：
-		</label> <select id="item" class="easyui-combobox" style="width: 150px;">
+			style="width: 150px; height: 26px"> <label for="model">预测对象：
+		</label> 
+		
+		<!-- <select id="item" class="easyui-combobox" style="width: 150px;">
 			<option value="B14B">油路压力</option>
 			<option value="LQLL">冷却水流量</option>
 			<option value="SW">水温</option>
@@ -108,18 +106,13 @@
 			<option value="B144">水导X轴振摆速率</option>
 			<option value="B145">水导Y轴振摆速率</option>
 			<option value="B146">水导Z轴振摆速率</option>
-		</select> 
+		</select> --> 
+		
 		<label for="model">预测歩长：</label>
-		<select id="number" class="easyui-combobox" style="width: 50px;">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-		</select>
-		<a id="bt_predict" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">开始预测</a>
+		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px">
+
+		<a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">返回上一级</a>
 	</div>
 
 	<div style="margin-left: auto; margin-right: auto; width: 96%">
