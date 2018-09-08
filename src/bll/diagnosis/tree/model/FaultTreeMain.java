@@ -70,7 +70,8 @@ public class FaultTreeMain {
 	 * @return 故障信息列表
 	 */
 
-	public static List<FaultResult> FaultTreeDiagnosis(String system,int write, String condtionName, String unitNo, String datetime)
+	public static List<FaultResult> FaultTreeDiagnosis(String system,int write, String condtionName, 
+			String unitNo, String datetime)
 	// public static List<FaultResult> FaultTreeDiagnosis()
 	{
 		initail();
