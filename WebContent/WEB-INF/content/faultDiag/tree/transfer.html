@@ -104,17 +104,7 @@
 
 		$("#StartDiagno").click(function() {
 			var startTime = $('#startTime').datebox('getValue');
-			if(!startTime){
-				alert("请选择开始时间!")
-			}
-			else{
 			
-			var arr=startTime.split("-");
-			console.log(arr[0]+arr[1]+arr[2]);
-			if(parseInt(arr[0]+arr[1])>201707){
-				alert("请选择2017年07月之前的日期！")
-			}
-			else{
 			showMask();
 			var untiNo = $("#untiNo").combobox("getValue");
 			var url = "/BLHPumTurEvaDia/faulttree/fault-mt-tree?inputStr="
@@ -126,9 +116,12 @@
 				loadData("faultInfo", data.faultInfoTable);
 				tree.fromJSON(cell1);
 				changecolor1(id);
+				
+				//检测数据库是否连接成功
+				console.log("查询结果："+data.judgeResult);
+				showMessage(data.judgeResult, 3000);
 			});
-			}
-			}
+			
 		});
 	});
 
