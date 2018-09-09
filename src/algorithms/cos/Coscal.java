@@ -26,6 +26,8 @@ import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import bll.diagnosis.tree.model.pumInitialNodes;
+import algorithms.DNN.LogRegression;
+import algorithms.DNN.MultiClass;
 import algorithms.fpgrowth.DataDiscrete;
 import dao.impl.ReadData;
 import service.FaultInfoService;
@@ -197,9 +199,8 @@ public class Coscal {
 		return sys_vectors;
 	}
 	
-	/**
-	 * 获得开始结束时间内的向量，并与5大系统的故障向量对比，获得每个相似的概率
-	 * */
+	/*
+	//原先的没考虑正常状态，考虑正常状态则余弦相似度不再使用，改用欧氏距离
 	public  HashMap<String, Double> getSimilarityDegreeOfSystemgs(String starttime,String endtime){
 		HashMap<String, Double> sys_pro = new HashMap<String, Double>();
 		HashMap<String, Integer> sys_counters = new HashMap<String, Integer>();
@@ -226,6 +227,7 @@ public class Coscal {
 		}
 		return sys_pro;
 	}
+	*/
 	/*
 	//原先的没考虑正常状态，考虑正常状态则余弦相似度不再使用，改用欧氏距离
 	public  HashMap<String, Double> getSimilarityDegreeOfSystemgs(String starttime,String endtime){
@@ -259,6 +261,55 @@ public class Coscal {
 		return sys_pro;
 	}
 	*/
+	//lr 解决
+		public  HashMap<String, Double> getSimilarityDegreeOfSystemgs(String starttime,String endtime){
+			//得到训练数据
+			float[][] inputx = new float[faultVectors.size()][len];
+			for(int i=0;i<faultVectors.size();i++){
+				float[] vector = faultVectors.get(i);
+				for(int j=0;j<len;j++){
+					inputx[i][j]=vector[j]>0?1:0; //简单的稀疏下
+				}
+			}
+			
+			
+			HashMap<String, Double> sys_pro = new HashMap<String, Double>();
+			try {
+				ArrayList<DataUtils> datas = this.rd.queAllRecord(starttime, endtime);
+				float[] vector = dataUtilstoList(datas,StringMap);//获得当前故障向量
+				for(int i=0;i<len;i++){
+					vector[i] = vector[i]>0?1:0;
+				}
+				String[] keys = {"水泵水轮机","调速器系统","发电机及励磁系统","主变系统","球阀系统"};
+				for(int k=0;k<keys.length;k++){//分为5个lr训练
+					//设置输出label
+					float[] outputy = new float[faultVectors.size()];
+					for(int i=0;i<allfaults.size();i++){
+						if(allfaults.get(i).getSystem().equals(keys[k])) {
+							outputy[i]=1;
+						}
+						else{
+							outputy[i]=0;
+						}
+					}
+					LogRegression lr = new LogRegression();
+					lr.train(inputx,outputy, 0.011f, 2000, (short)1);
+					sys_pro.put(keys[k], (double) lr.pred(vector));
+				}
+				
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			return sys_pro;
+		}
 	/**
 	 * 获得开始结束时间内的向量，并与已知所有的故障向量对比，获得每个相似的概率
 	 * */
