@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -22,7 +24,9 @@ import java.io.OutputStreamWriter;
 
 import com.lowagie.text.pdf.events.IndexEvents.Entry;
 import com.opensymphony.xwork2.inject.util.Strings;
+import com.sun.glass.ui.Size;
 import com.sun.javafx.collections.MappingChange.Map;
+import com.sun.org.apache.xpath.internal.operations.And;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import bll.diagnosis.tree.model.pumInitialNodes;
@@ -31,6 +35,7 @@ import algorithms.DNN.MultiClass;
 import algorithms.fpgrowth.DataDiscrete;
 import dao.impl.ReadData;
 import service.FaultInfoService;
+import util.DataInfo;
 import util.DataUtils;
 import util.FaultUtils;
 import util.PathUtil;
@@ -45,6 +50,7 @@ public class Coscal {
 	private int len; //每个向量的长度
 	private DataDiscrete disc; //供离散化数据
 	private HashMap<String, Integer> StringMap; //typeid对应的每个向量的维度，从0开始
+	private HashMap<Integer,String> idMap = new  HashMap<Integer,String>(); //faultvector每个维度对应的参数，与StringMap相反
 	private ReadData rd; 
 	private ArrayList<FaultUtils> allfaults; //所有故障样本信息
 	private ArrayList<float[]> faultVectors = new ArrayList<float[]>();//所有故障样本向量
@@ -102,6 +108,9 @@ public class Coscal {
 			this.rd = new ReadData();
 			this.allfaults= this.rd.queFault();
 			this.StringMap = this.rd.queAlltype();
+			for (HashMap.Entry <String, Integer> entry: StringMap.entrySet()) {
+				this.idMap.put((int)entry.getValue(),entry.getKey());
+			}
 			this.disc = new DataDiscrete();
 			this.len = StringMap.size();
 			bf.close();
@@ -352,6 +361,34 @@ public class Coscal {
 			}
 		}
 		//求相对值
+//		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
+//			String key = entry.getKey();
+//			double cos = entry.getValue();
+//			fault_pro.put(key, cos/total);
+//		}
+		//降序排序
+		List<HashMap.Entry<String,Double>> list = new ArrayList<HashMap.Entry<String,Double>>(fault_pro.entrySet());
+        Collections.sort(list,new Comparator<HashMap.Entry<String,Double>>() {
+            
+            public int compare(HashMap.Entry<String, Double> o1,
+            		HashMap.Entry<String, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+            
+        });
+        
+//        for(int i=0;i<list.size();i++){ 
+//        	java.lang.System.out.println(list.get(i).getKey()+":"+list.get(i).getValue());
+//          } 
+        //只显示前5个
+        fault_pro = new HashMap<String, Double>();
+        total = 0;
+        int size = list.size()<5?list.size():5;
+        for(int i=0;i<size;i++){ 
+        	total += list.get(i).getValue();
+        	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());
+          } 
+        //重新计算相对值
 		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
 			String key = entry.getKey();
 			double cos = entry.getValue();
@@ -359,6 +396,83 @@ public class Coscal {
 		}
 		return fault_pro;
 	}
+	/**
+	 * 获得开始结束时间内的向量，并与输入的系统对比，获得对应系统下的故障相似概率
+	 * @param System 水泵水轮机/调速器系统 /发电机及励磁系统/主变系统/球阀系统
+	 * */
+	public  HashMap<String, Double> getFaultSimilarityOfSystemgs(String starttime,String endtime){
+		HashMap<String, Double> fault_pro = new HashMap<String, Double>();
+		ArrayList<Double> rs = this.getSimilarityDegree(starttime,endtime);
+		double total = 0;
+		for(int i=0;i<rs.size();i++){
+			String key = allfaults.get(i).getFaultName();
+			double cos = rs.get(i);
+			fault_pro.put(key, cos);
+		}
+		//求相对值
+//		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
+//			String key = entry.getKey();
+//			double cos = entry.getValue();
+//			fault_pro.put(key, cos/total);
+//		}
+		//降序排序
+		List<HashMap.Entry<String,Double>> list = new ArrayList<HashMap.Entry<String,Double>>(fault_pro.entrySet());
+        Collections.sort(list,new Comparator<HashMap.Entry<String,Double>>() {
+            
+            public int compare(HashMap.Entry<String, Double> o1,
+            		HashMap.Entry<String, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+            
+        });
+        
+//        for(int i=0;i<list.size();i++){ 
+//        	java.lang.System.out.println(list.get(i).getKey()+":"+list.get(i).getValue());
+//          } 
+        //只显示前10个
+        fault_pro = new HashMap<String, Double>();
+        total = 0;
+        int size = list.size()<5?list.size():5;
+        for(int i=0;i<size;i++){ 
+        	total += list.get(i).getValue();
+        	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());
+          } 
+        //重新计算相对值
+		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
+			String key = entry.getKey();
+			double cos = entry.getValue();
+			fault_pro.put(key, cos/total);
+		}
+		return fault_pro;
+	}
+	
+	//所有发生故障的参数
+	public ArrayList<String> getFaultParameters(String starttime,String endtime) {
+		ArrayList<String> faultparameter = new ArrayList<String>();
+		try {
+			ArrayList<DataUtils> datas = this.rd.queAllRecord(starttime, endtime);
+			float[] vector = dataUtilstoList(datas,StringMap);//获得当前故障向量
+			Arrays.sort(vector);
+			int i=len-1;
+			int size=0;
+			DataInfo info;
+			while(vector[i]>0&&size<10){
+				info = this.rd.queInfo(idMap.get(i));
+				faultparameter.add(info.getPosition()+"."+info.getDescription());
+				i -= 1;
+				size +=1;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return faultparameter;
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		Coscal cc = new Coscal();
@@ -370,8 +484,12 @@ public class Coscal {
 		//String date = TimeUtils.LongtoString(1431303600L);
 //		starttime = TimeUtils.LongtoString(1456761600l);
 //		endtime = TimeUtils.LongtoString(1456761700l);
+		//每个系统发生故障的概率
 		HashMap<String, Double> pro_systems = cc.getSimilarityDegreeOfSystemgs(starttime, endtime);
-		//HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs(starttime, endtime,"主变系统");
+		//时间段内发生故障的运行参数（由发生次数多到少排序,只显示前10个）
+		ArrayList<String> faultparameter=cc.getFaultParameters(starttime, endtime);
+		//时间段内，与当前故障最相近的历史故障，只显示前10个
+		HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs(starttime, endtime);
 		/*List<Double> faultRate=new ArrayList<>();
 		List<String> faultName=new ArrayList<>();
 		for (HashMap.Entry <String, Double> entry: pro_systems.entrySet()) {
@@ -389,6 +507,7 @@ public class Coscal {
 		}*/
 		
 		System.out.print(pro_systems);
-		//System.out.println(pro_fault);
+		System.out.println(faultparameter);
+		System.out.println(pro_fault);
 	}
 }
