@@ -504,7 +504,7 @@ public class Coscal {
 			System.out.println(double1);
 		}*/
 		
-		System.out.print(pro_systems);
+		System.out.println(pro_systems);
 		System.out.println(faultparameter);
 		System.out.println(pro_fault);
 	}
