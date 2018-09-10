@@ -471,9 +471,7 @@ public class Coscal {
 		}
 		return faultparameter;
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		Coscal cc = new Coscal();
 		//cc.writeVectors();
