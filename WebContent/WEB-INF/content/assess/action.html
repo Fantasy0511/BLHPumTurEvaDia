@@ -329,7 +329,7 @@
 		$('#bt_ahp').click(ahp)
 	});
 
-	
+	//点击查看按钮 ，弹出状态量预测 和开关量历史查询
 	function formatOper(val,row,index){ 
 		var star=row.name; 
 		/* console.log("输出啊西坝："+star); */
@@ -339,36 +339,68 @@
 		}
 		
 	function editUser(index){ 
+		
+		//获取当前页面机组型号、时间、ID 
 		$('#result_table').datagrid('selectRow',index);// 关键在这里 
-		 var row = $('#result_table').datagrid('getSelected');  
+		var row = $('#result_table').datagrid('getSelected');  
 		 var  name=row.name;
-		 
 		 var system = $('#subSystem').combobox('getValue');
-		 var  untio= $('#unitNo option:selected').text();
+		 var  untio= $('#unitNo').combobox('getText');
 		 var time =getDate("beginDate");
 		 
-		 console.log(untio+"  "+time);
+		 console.log("机组型号："+untio+" 选择时间： "+time);
 		 
-		 showMask(); 
 		$.getJSON("/BLHPumTurEvaDia/data/assdata/"+system+".json",function(data){
 			
 			//读取json数据
 			var eValue=eval('data['+untio+']['+'name'+']');  
 			//正则 ，去掉非数字部分
 			var ID=eValue.replace(/[^0-9]/ig,"");
-			
 			console.log("输出Id： "+ID);
-			var url = "/BLHPumTurEvaDia/faultDiag/trendPrediction/main";
-			url += makeInput(untio, ID, time, 1);
 			
-			window.location.href=url;
-			
-			console.log(url);
+			var obj=makeParm(eValue,untio, ID, time, 1,name);
+			 console.log("输出拼接字符串："+obj);
 		
-		})
-			hideMask();
-		  
+			 if(eValue.indexOf("bool")!=-1){
+				//根据子页面获取父页面内容，实现在父页面添加tab显示
+				var jq = top.jQuery;
+				var content = "<iframe scrolling='auto' id='iframeA' frameborder='0'  src="+obj+" style='width:100%;height:100%;'></iframe>";
+				console.log("输出iframe:"+content);
+				jq("#tabs").tabs('add',{
+				        title:name,
+				        content:content,
+				        closable:true
+				    });
+			/* 	window.location.href=url;
+				console.log(url); */
+			}else{
+				//根据子页面获取父页面内容，实现在父页面添加tab显示
+				var jq = top.jQuery;
+				var content = "<iframe scrolling='auto' id='iframeA' frameborder='0'  src="+obj+"  style='width:100%;height:100%;'></iframe>";
+				console.log("输出iframe:"+content);
+				jq("#tabs").tabs('add',{
+				        title:name,
+				        content:content,
+				        closable:true
+				    });
+				
+				/* window.location.href=url;
+				console.log(url); */
+			}
+		}) 
 		}	
+	
+	function makeParm(eValue,untio,Id,time,item,datail){
+		var obj;
+		if(eValue.indexOf("bool")!=-1){
+			obj= "/BLHPumTurEvaDia/assess/detailParm/assBool?inputStr="+untio+"//"+Id+""+"//"+time+"//"+item+"//"+datail;
+			return  obj
+		}else{
+			obj= "/BLHPumTurEvaDia/assess/detailParm/assFloat?inputStr="+untio+"//"+Id+""+"//"+time+"//"+item+"//"+datail;
+			return  obj
+		}
+	}
+	
 	
 </script>
 

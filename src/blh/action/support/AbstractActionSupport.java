@@ -40,4 +40,10 @@ public abstract class AbstractActionSupport extends ActionSupport {
 	public final String getThirdInput() {
 		return inputStr[2];
 	}
+	public final String getFourthInput() {
+		return inputStr[3];
+	}
+	public final String getFifthInput() {
+		return inputStr[4];
+	}
 }

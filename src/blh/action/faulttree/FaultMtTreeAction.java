@@ -6,6 +6,7 @@ import bll.diagnosis.tree.model.FaultResult;
 import service.faulttree.MtFaultTreeService;
 import service.faulttree.BlvFaultTreeService;
 import service.faulttree.GovFaultTreeService;
+import tool.exception.JudgeTime;
 import tool.ui.easyui.Table;
 /**
  * 前端调用时间和故障id 返回故障id和故障描述
@@ -21,12 +22,17 @@ public class FaultMtTreeAction extends AbstractActionSupport{
 	private int[] resultNode;
 	private String[] columnHeaders = { "faultName", "probality", "describe" };// 故障描述表
 	Table faultInfoTable = new Table(columnHeaders);
+	private String judgeResult;
 	
 	@Override
 	public String execute() throws Exception {
 		String time = getFirstInput().toString() + " 00:00:00";
 		untiNo=getSecondInput();
 		System.out.println("输出时间和机组号："+time+"   "+untiNo);
+		
+		// 判断输入的时间是否能在数据库中找到相应表格
+		JudgeTime jt = new JudgeTime();
+		judgeResult = jt.judgeTime(time);
 		
 		results = new MtFaultTreeService().findfault(time,untiNo);
 		resultNode = new int[results.size()];
@@ -72,6 +78,14 @@ public class FaultMtTreeAction extends AbstractActionSupport{
 
 	public void setFaultInfoTable(Table faultInfoTable) {
 		this.faultInfoTable = faultInfoTable;
+	}
+
+	public String getJudgeResult() {
+		return judgeResult;
+	}
+
+	public void setJudgeResult(String judgeResult) {
+		this.judgeResult = judgeResult;
 	}
 
 }

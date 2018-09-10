@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>趋势预测</title>
+
+<link rel="stylesheet"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/js/assess/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/BLHPumTurEvaDia/css/assess/assesment.css">
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
+</head>
+<script type="text/javascript">
+	function myformatter(date) {
+		var y = date.getFullYear();
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		return y + '-' + (m < 10 ? ('0' + m) : m) + '-'
+				+ (d < 10 ? ('0' + d) : d);
+	}
+	function myparser(s) {
+		if (!s)
+			return new Date();
+		var ss = (s.split('-'));
+		var y = parseInt(ss[0], 10);
+		var m = parseInt(ss[1], 10);
+		var d = parseInt(ss[2], 10);
+		if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+			return new Date(y, m - 1, d);
+		} else {
+			return new Date();
+		}
+	}
+</script>
+<script>
+	function predict() {
+		
+		var url = window.location.search;
+		var parmeter=url.split("//");
+		var lastParmeter =lastChar(url);
+		var  firstParmeter=startChar(url);
+		url1="/BLHPumTurEvaDia/predict/predict"+firstParmeter+decodeURIComponent(lastParmeter);
+		
+		console.log("接收的url："+url1);
+		
+		console.log("输出参数："+parmeter[3]);
+		
+		
+		getJSON(url1, function(data) {
+			
+			$('#unitNo').combobox('setValue', parmeter[0].split("=")[1]);
+			$('#beginDate').datebox('setValue', parmeter[2]);
+			$('#number').textbox('setValue', parmeter[3]);
+			$('#detailTest').textbox('setValue', decodeURIComponent(parmeter[4]));
+			loadData("table_comparison", data.tableComparison);
+			drawPic("chart_comparison", data.getChartComparison);
+		});
+		
+	}
+	
+	function lastChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(index+2,parmeter.length);
+		console.log("最后一个//后的字符串："+str)
+		return str
+	}
+	function startChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(0,index+2);
+		console.log("最后一个//前的字符串："+str)
+		return str
+	}
+	
+	$(function() {
+		/* console.log(window.parent.document.getElementById('iframeA').contentWindow.location); */
+		showMask(); 
+		predict();
+	});
+</script>
+
+<body>
+	<div class="input_div" style="margin-bottom: 5px;margin-left:auto;margin-right:auto;width:96%">
+		<span class="input_title">条件输入：</span> <label for="model">选择机组：</label>
+		<select id="unitNo" class="easyui-combobox" style="width: 100px;">
+			<option value="1">1号机组</option>
+			<option value="2">2号机组</option>
+			<option value="3">3号机组</option>
+			<option value="4">4号机组</option>
+		</select><label style="margin-bottom: 5px">时间：</label> <input id="beginDate"
+			class="easyui-datebox"
+			data-options="formatter:myformatter,parser:myparser" required
+			style="width: 150px; height: 26px"> <label for="model">预测对象：
+		</label> 
+		<input type="text" id="detailTest" class="easyui-textbox" value="" >
+		<!-- <select id="item" class="easyui-combobox" style="width: 150px;">
+			<option value="B14B">油路压力</option>
+			<option value="LQLL">冷却水流量</option>
+			<option value="SW">水温</option>
+			<option value="YWEI">油位</option>
+			<option value="U18V">磨损</option>
+			<option value="LG0C">出口油温</option>
+			<option value="B144">水导X轴振摆速率</option>
+			<option value="B145">水导Y轴振摆速率</option>
+			<option value="B146">水导Z轴振摆速率</option>
+		</select> --> 
+		
+	<!-- 	<label for="model">预测歩长：</label>
+		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px"> -->
+
+		<!-- <a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">返回上一级</a> -->
+	</div>
+
+	<div style="margin-left: auto; margin-right: auto; width: 96%">
+		<div
+			style="width: 40%; height: auto; float: left; display: inline; margin-right: 2%">
+			<table id="table_comparison" title="预测结果对比表" class="easyui-datagrid"
+				style="width: 100%; height: 490px"
+				data-options="singleSelect:true,fitColumns:false,display:'inline-block',style:{marginRight:'20px',float:'left'}"
+				id="result-table">
+				<thead>
+					<tr>
+						<th data-options="field:'time',align:'center',width:150">时间</th>
+						<th data-options="field:'original',align:'center',width:100">实测值</th>
+						<th data-options="field:'linePre',align:'center',width:120">线性回归预测</th>
+						<th data-options="field:'predicted',align:'center',width:100">ARMA预测值</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		
+		<div style="width: 58%; height: auto; float: left; display: inline">
+			<div class="easyui-panel" title="预测结果对比图"
+				style="width: 100%; height: 490px;">
+				<div id="chart_comparison">
+					<pre>    暂无结果</pre>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ipad" style="height: 50px"></div>
+
+
+</body>
+</html>

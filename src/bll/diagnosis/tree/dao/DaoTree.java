@@ -119,6 +119,7 @@ public class DaoTree {
 			closeAll();
 			return data;
 		}
+	
 	// 查询float型数据
 	public DataUtils queFloat(String table, int id, long endtime) {
 		try {
@@ -129,7 +130,7 @@ public class DaoTree {
 		}
 
 		long starttime = endtime - 300;
-		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
+		ArrayList<String> sqls = getSQL(table, id, starttime, endtime); // 获取了sql语句
 
 		DataUtils data = new DataUtils(table, id);
 		try {
@@ -144,12 +145,14 @@ public class DaoTree {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("float型找不到数据时间");
 			System.out.println("数据库连接失败");
 		}
 		closeAll();
 		return data;
 	}
-
+	
+	// 获取了sql语句，返回sqls一个数组
 	public ArrayList<String> getSQL(String table, int id, long starttime,
 			long endtime) {
 		if (starttime > endtime) {
