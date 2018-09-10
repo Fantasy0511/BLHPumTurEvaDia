@@ -35,7 +35,7 @@ public class boolHistory{
 			
 		}
 
-		return LineDataBuilder.createBuilder("", "序号", item)
+		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", x,input.getData()).build();
 	}
 

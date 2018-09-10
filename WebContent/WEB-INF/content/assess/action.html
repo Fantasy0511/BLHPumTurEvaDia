@@ -345,10 +345,10 @@
 		var row = $('#result_table').datagrid('getSelected');  
 		 var  name=row.name;
 		 var system = $('#subSystem').combobox('getValue');
-		 var  untio= $('#unitNo option:selected').text();
+		 var  untio= $('#unitNo').combobox('getText');
 		 var time =getDate("beginDate");
 		 
-		 console.log(untio+"  "+time);
+		 console.log("机组型号："+untio+" 选择时间： "+time);
 		 
 		$.getJSON("/BLHPumTurEvaDia/data/assdata/"+system+".json",function(data){
 			

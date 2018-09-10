@@ -26,13 +26,15 @@ public class PredictAction extends AbstractActionSupport {
 		String item = getSecondInput();
 		String beginTime = getThirdInput();
 		int stepStr =Integer.parseInt(getInput(3));
+		String detail=getFifthInput();
+		System.out.println("参数信息："+detail);
 		Long time = TimeUtils.StringtoLong(beginTime + " 00:00:00");
 		String tableName = "float" + "_" + beginTime.split("-")[0]
 				+ beginTime.split("-")[1];
 		System.out.println(beginTime + "  " + time + " " + tableName+" "+ stepStr);
 		service = new PredictService(tableName, time, unitNo, item, stepStr);
 		
-		getChartComparison=service.getComparison(item);
+		getChartComparison=service.getComparison(detail);
 		
 		return super.execute();
 	}

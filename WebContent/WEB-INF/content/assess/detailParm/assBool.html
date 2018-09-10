@@ -57,11 +57,16 @@
 	function predict() {
 		
 		var url = window.location.search;
-		showMask(); 
 		var parmeter=url.split("//");
-		url1="/BLHPumTurEvaDia/asscss/bool-parm/predict"+url;
-		console.log("接收的url："+url1);
-		console.log("输出参数："+parmeter[4]);
+		/* encodeURI */
+		var lastParmeter =lastChar(url);
+		var  firstParmeter=startChar(url);
+		url1="/BLHPumTurEvaDia/asscss/bool-parm/predict"+firstParmeter+decodeURIComponent(lastParmeter);
+		
+		console.log("接收并解析的url："+url1);
+		
+		//编码格式转换，传过来的参数是已经被编译过的
+		console.log("输出参数："+decodeURIComponent(parmeter[4]));
 		
 		
 		getJSON(url1, function(data) {
@@ -69,16 +74,28 @@
 			$('#unitNo').combobox('setValue', parmeter[0].split("=")[1]);
 			$('#beginDate').datebox('setValue', parmeter[2]);
 			$('#number').textbox('setValue', parmeter[3]);
-			$('#detailTest').textbox('setValue', parmeter[4]);
+			$('#detailTest').textbox('setValue', decodeURIComponent(parmeter[4]));
 			loadData("table_comparison", data.tableComparison);
 			drawPic("chart_comparison", data.getChartComparison);
 		});
-		hideMask();
 		
 	}
 	
+	function lastChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(index+2,parmeter.length);
+		console.log("最后一个//后的字符串："+str)
+		return str
+	}
+	function startChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(0,index+2);
+		console.log("最后一个//前的字符串："+str)
+		return str
+	}
+	
 	$(function() {
-		console.log( window.location.search);
+		showMask(); 
 		 predict();
 	});
 </script>
@@ -94,14 +111,14 @@
 		</select><label style="margin-bottom: 5px">时间：</label> <input id="beginDate"
 			class="easyui-datebox"
 			data-options="formatter:myformatter,parser:myparser" required
-			style="width: 150px; height: 26px"> <label for="model">预测对象：
+			style="width: 150px; height: 26px"> <label for="model">查询参数：
 		</label> 
 		<input type="text" id="detailTest" class="easyui-textbox" value="" >
-		<label for="model">预测歩长：</label>
-		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px">
+		<!-- <label for="model">预测歩长：</label>
+		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px"> -->
 
-		<a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">返回上一级</a>
+		<!-- <a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">返回上一级</a> -->
 	</div>
 
 	<div style="margin-left: auto; margin-right: auto; width: 96%">

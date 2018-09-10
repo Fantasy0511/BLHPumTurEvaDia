@@ -55,10 +55,13 @@
 </script>
 <script>
 	function predict() {
-		showMask(); 
+		
 		var url = window.location.search;
 		var parmeter=url.split("//");
-		url1="/BLHPumTurEvaDia/predict/predict"+url;
+		var lastParmeter =lastChar(url);
+		var  firstParmeter=startChar(url);
+		url1="/BLHPumTurEvaDia/predict/predict"+firstParmeter+decodeURIComponent(lastParmeter);
+		
 		console.log("接收的url："+url1);
 		
 		console.log("输出参数："+parmeter[3]);
@@ -69,17 +72,30 @@
 			$('#unitNo').combobox('setValue', parmeter[0].split("=")[1]);
 			$('#beginDate').datebox('setValue', parmeter[2]);
 			$('#number').textbox('setValue', parmeter[3]);
-			
+			$('#detailTest').textbox('setValue', decodeURIComponent(parmeter[4]));
 			loadData("table_comparison", data.tableComparison);
 			drawPic("chart_comparison", data.getChartComparison);
 		});
-		hideMask();
 		
+	}
+	
+	function lastChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(index+2,parmeter.length);
+		console.log("最后一个//后的字符串："+str)
+		return str
+	}
+	function startChar(parmeter){
+		var index=parmeter.lastIndexOf("//");
+		var str =parmeter.substring(0,index+2);
+		console.log("最后一个//前的字符串："+str)
+		return str
 	}
 	
 	$(function() {
 		/* console.log(window.parent.document.getElementById('iframeA').contentWindow.location); */
-		 predict();
+		showMask(); 
+		predict();
 	});
 </script>
 
@@ -96,7 +112,7 @@
 			data-options="formatter:myformatter,parser:myparser" required
 			style="width: 150px; height: 26px"> <label for="model">预测对象：
 		</label> 
-		
+		<input type="text" id="detailTest" class="easyui-textbox" value="" >
 		<!-- <select id="item" class="easyui-combobox" style="width: 150px;">
 			<option value="B14B">油路压力</option>
 			<option value="LQLL">冷却水流量</option>
@@ -109,11 +125,11 @@
 			<option value="B146">水导Z轴振摆速率</option>
 		</select> --> 
 		
-		<label for="model">预测歩长：</label>
-		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px">
+	<!-- 	<label for="model">预测歩长：</label>
+		<input type="text" id="number" class="easyui-numberbox" value="" style="width: 60px"> -->
 
-		<a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
-			data-options="iconCls:'icon-ok'">返回上一级</a>
+		<!-- <a id="bt_predict" href="/BLHPumTurEvaDia/assess/action" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'">返回上一级</a> -->
 	</div>
 
 	<div style="margin-left: auto; margin-right: auto; width: 96%">
