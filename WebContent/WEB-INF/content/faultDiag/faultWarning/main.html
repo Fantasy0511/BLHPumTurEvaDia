@@ -13,25 +13,27 @@
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
-
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
-
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+	src="/BLHPumTurEvaDia/js/assess/highcharts-more.js"></script>
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/echarts.js"></script>
+	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
+
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
 
 </head>
 <script type="text/javascript">
 	function faultWarning() {
-
 		
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
 
@@ -46,122 +48,21 @@
 		});
 	}
 
-	var myChart;
 	function WarningResult() {
 		showMask(); 
 		var starTime = getComboboxValue("startTime");
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
 				+ starTime +"//"+0; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
-		getJSON(url1, function(data) {
-			var view = data.resultFinal;
-			loadData("faultInfo", view.tableWarn);
-			
-			tem_Arry = [];
-			for (i = 0; i < view.pieWarn.length; i++) {
-				var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
-				tem_Arry.push(map)
-			}
-			
-			if(myChart !=null && myChart !=""&& myChart !=undefined){
-				myChart.dispose();
-			}
-			myChart = echarts.init(document.getElementById('container3'));
-			
-			 option = {
-				        title : {
-				            text: '故障预警分析图',
-				            subtext: '',
-				            x:'center'
-				        },
-				        tooltip : {
-				            trigger: 'item',
-				            formatter: "{a} <br/>{b} : {c} ({d}%)"
-				        },
-				        toolbox:{
-				            show:true,
-				            orient: 'horizontal',
-				            showTitle: true,
-				            feature:{
-				                saveAsImage:{
-				                    type:'png',
-				                    show:true,
-				                    title:'保存为图片'
-				                },
-				                restore:{show:true}
-				            }
-				        },
-				        legend: {
-				            orient: 'horizontal',
-				            left: '5%',
-				            top:'8%',
-				            data: ['发电机及励磁系统','水泵水轮机','主变系统','调速器系统','球阀系统']
-				        },
-				        series : [
-				            {
-				                name: '预警结果',
-				                type: 'pie',
-				                radius : '35%',
-				                center: ['50%', '50%'],
-				                data:tem_Arry,
-
-				                itemStyle: {
-				                    emphasis: {
-				                        shadowBlur: 10,
-				                        shadowOffsetX: 0,
-				                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-				                    }
-				                }
-				            },
-				            {
-				                name: '',
-				                itemStyle: {
-				                    emphasis: {
-				                        shadowBlur: 10,
-				                        shadowOffsetX: 0,
-				                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-				                    }
-				                },
-				                type: 'pie',
-				                radius: '20%',
-				                center: ['65%', '50%'],
-				                data: [ ]
-				            }
-				        ]
-				    };
-			
-			    myChart.setOption(option);
-
-			    myChart.on('click', function(params) {
-			       /* var index=option.series[1].name;
-			        alert(index);*/
-			        showMask();
-			        
-					var system=params.name;
-			        var url2="/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
-						+ starTime+"//"+system; //将某个子系统历史数据的地址传给url1
-			        console.log(url2);
-			        getJSON(url2, function(data) {
-			        	
-						var view = data.resultFinal;
-			        	loadData("subfaultInfo", view.tableWarn);
-
-						/* tem_Arry = [];
-						for (i = 0; i < view.pieWarn.length; i++) {
-							var map={'value':view.pieWarn[i].faultChance,'name':view.pieWarn[i].faultName};
-							tem_Arry.push(map)
-						}
-				            option.series[1].name='预警结果';
-				            option.series[1].data=tem_Arry;
-				            myChart.setOption(option); */
-				        
-			        });
-			        
-			    });
-			
+		getJSON(url1, function(result) {
+			/* loadData("historyTable", result.bottomDetail); */
+			drawPic("container3", result.resultFinal.systemBar); // 画柱状图
+			loadData("subfaultInfo", result.resultFinal.similarFault);
+			loadData("faultInfo", result.resultFinal.parameterWarn);
 		});
-
 	}
+	
+	
 	function historyFault(){
 		$('#startTime').datebox('setValue', '2015-01-1');
 		$('#endTime').datebox('setValue', '2018-01-01');
@@ -248,25 +149,24 @@
 	   margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
 		
 		<div style="height:420px;width:49%;float:left">
-			<div class="easyui-panel" title="故障诊断结果图"
+			<div class="easyui-panel" title="子系统详细故障预警"
 			style=" height: 400px">
 			<div></div> <!-- 绘图区域自适应窗口 -->
-			<div id="container3" style=" height:350px;width:100%;">
-				<pre>故障诊断结果图</pre> 
+			<div id="container3" style=" height:350px;width:95%;">
+				<pre>暂无结果</pre> 
 			</div>
 			</div>
 		</div>
 		
 		<div style="height:420px;width:49%;float:right">
-			<table class="easyui-datagrid" title="子系统详细故障预警" id="subfaultInfo"
+			<table class="easyui-datagrid" title="故障参数" id="subfaultInfo"
 				style="width: 100%; height: 400px"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:true">
 				<thead>
 					<tr>
-						<th data-options="field:'faultName',align:'left'"
-							style="width: 50%">故障名称</th>
-						<th data-options="field:'detail',align:'center',sortable:true"
-							style="width: 45%">发生概率</th>
+						<th data-options="field:'faultName',align:'center'"
+							style="width: 95%">故障参数</th>
+					
 					</tr>
 				</thead>
 			</table>
@@ -276,7 +176,7 @@
 
 	<!-- 第三个框 start -->
 	<div style="width: 96%; height: auto; margin-left: 2%; margin-right: 2%; float: left; display: inline; margin-bottom: 10px">
-			<table class="easyui-datagrid" title="分系统评价结果展示" id="faultInfo"
+			<table class="easyui-datagrid" title="历史相似故障" id="faultInfo"
 				style="width: 100%; height: auto"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:true">
 				<thead>

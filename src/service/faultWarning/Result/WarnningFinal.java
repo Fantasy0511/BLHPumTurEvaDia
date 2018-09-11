@@ -1,35 +1,44 @@
 package service.faultWarning.Result;
 
-import java.util.List;
-
-import service.faultWarning.PieChartData;
 import tool.easyui.Table;
+import tool.highcharts.BarData;
 /**
- * 封装饼图数据和表格填充数据
+ * 封装柱状图数据和表格填充数据
  * @author tiandiwei
  *
  */
 public class WarnningFinal {
-	private Table tableWarn;
-	private List<PieChartData> pieWarn;
+	private Table ParameterWarn;
+	private Table similarFault;
+	private BarData systemBar;
 	
-	public WarnningFinal(Table tableWarn, List<PieChartData> pieWarn) {
+	
+	public WarnningFinal(Table parameterWarn, Table similarFault, BarData systemBar) {
 		super();
-		this.tableWarn = tableWarn;
-		this.pieWarn = pieWarn;
+		ParameterWarn = parameterWarn;
+		this.similarFault = similarFault;
+		this.systemBar = systemBar;
 	}
-	public Table getTableWarn() {
-		return tableWarn;
+	public Table getParameterWarn() {
+		return ParameterWarn;
 	}
-	public List<PieChartData> getPieWarn() {
-		return pieWarn;
+	public Table getSimilarFault() {
+		return similarFault;
 	}
-	public void setTableWarn(Table tableWarn) {
-		this.tableWarn = tableWarn;
+	public BarData getSystemBar() {
+		return systemBar;
 	}
-	public void setPieWarn(List<PieChartData> pieWarn) {
-		this.pieWarn = pieWarn;
+	public void setParameterWarn(Table parameterWarn) {
+		ParameterWarn = parameterWarn;
 	}
+	public void setSimilarFault(Table similarFault) {
+		this.similarFault = similarFault;
+	}
+	public void setSystemBar(BarData systemBar) {
+		this.systemBar = systemBar;
+	}
+	
+	
 	
 
 	

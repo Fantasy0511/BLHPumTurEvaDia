@@ -2,16 +2,19 @@ package blh.action.faultwarning;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.support.AbstractActionSupport;
 import service.faultWarning.PieChartData;
+import service.faultWarning.warnResultData;
 import service.faultWarning.Result.WarningResultService;
 import service.faultWarning.Result.WarnningFinal;
 import service.faultWarning.Result.WarnningResult;
 import tool.easyui.Table;
+import tool.highcharts.BarData;
 import util.TimeUtils;
 
 /**
@@ -27,7 +30,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 	private String starttime;
 	private String endtime;
 	private String system="";
-	private WarnningResult results;
+	private warnResultData results;
 	private WarnningFinal resultFinal;
 
 	@Override
@@ -42,33 +45,34 @@ public class FaultWarningAction extends AbstractActionSupport {
 		System.out.println("开始时间：" + starttime + "  ;  " + "结束时间： " + endtime);
 
 		// 调用service方法
+		System.out.println("系统选择：" + system);
+		WarningResultService warningResultService = new WarningResultService();
+		results = warningResultService.systemWarn(starttime, endtime); //五个总系统故障概率
 		
-		if(system.equals("0") ) {
-			WarningResultService warningResultService = new WarningResultService();
-			results= warningResultService.faultWarnResult(starttime, endtime);
-		}else {
-			System.out.println("系统选择：" + system);
-			WarningResultService warningResultService = new WarningResultService();
-			results = warningResultService.faultWarnResult(starttime, endtime,system); //五个总系统故障概率
-		}
+		WarnningResult Pro_systems = results.getPro_systems();// 柱状图显示
+		List<String>   faultparameter =results.getFaultparameter();// 故障参数
+		WarnningResult Pro_fault = results.getPro_fault(); //历史相似故障概率
 		
-		List<String> faultName = results.getFaultName();// 获取service层的故障名称
-		List<Double> detail = results.getFaultRate(); // 获取故障概率
 
 		Table bottomDetail = new Table(new String[] { "faultName", "detail" });
-		List<PieChartData> piedata = new ArrayList<>();
-		for (int i = 0; i < detail.size(); i++) {
-			Double double1 = detail.get(i);
+		for (int i = 0; i < Pro_fault.getFaultRate().size(); i++) {
+			Double double1 =Pro_fault.getFaultRate().get(i);
 			NumberFormat num = NumberFormat.getPercentInstance();//将double转百分数
 			String rates = num.format(double1);
-			bottomDetail.withRow(faultName.get(i), rates);
-			
-			
-			PieChartData pieChartData = new PieChartData(faultName.get(i), double1);// 饼图数据
-			piedata.add(pieChartData);
+			bottomDetail.withRow(Pro_fault.getFaultName().get(i), rates);
 		}
+		
+		Table ParameterTable = new Table(new String[] { "faultName"});
+		for (int i = 0; i <faultparameter.size(); i++) {
+			String aString =faultparameter.get(i);
+			ParameterTable.withRow(aString);
+		}
+		
+		
+		// 柱状图数据
+		BarData middleBar = BarData.create("", "", "子系统详细故障预警", "故障概率",Pro_systems.getFaultName(), Pro_systems.getFaultRate());
 
-		resultFinal = new WarnningFinal(bottomDetail, piedata);// 储存表格数据和饼图数据
+		resultFinal = new WarnningFinal(bottomDetail,ParameterTable,middleBar);// 储存表格数据和柱状图数据
 
 		return super.execute();
 	}

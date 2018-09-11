@@ -1,9 +1,9 @@
-package blh.action.predict;
+package blh.action.asscss.floatParm;
 
 import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.support.AbstractActionSupport;
-import service.predict.PredictService;
+import blh.action.asscss.floatParm.service.*;
 import tool.easyui.Table;
 import tool.highcharts.LineData;
 import util.TimeUtils;

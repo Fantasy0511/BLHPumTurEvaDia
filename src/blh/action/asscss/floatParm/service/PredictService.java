@@ -1,4 +1,4 @@
-package service.predict;
+package blh.action.asscss.floatParm.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,17 +7,16 @@ import java.util.Vector;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import algorithms.cos.LinearRegression;
 import bll.LinearReg.dataLine;
 import bll.LinearReg.lineRegMain;
 import bll.predict.PredictInput;
 import bll.predict.TendencyPredict;
-import bll.predict.dao.AssessPredictData;
+import blh.action.asscss.floatParm.dao.*;
 import net.sf.jasperreports.engine.JasperPrint;
+import service.predict.PredictReport;
 import tool.easyui.Table;
 import tool.highcharts.LineData;
 import tool.highcharts.LineDataBuilder;
-import util.TimeUtils;
 
 public class PredictService {
 	private TendencyPredict predict;
@@ -28,7 +27,7 @@ public class PredictService {
 	private PredictReport report = new PredictReport();
 
 	public PredictService(String tableName, Long time, int unitNo, String item,
-			int step,int id) {
+			int step) {
 		input = AssessPredictData.read(tableName,unitNo, item,time);
 		
 		
@@ -36,17 +35,15 @@ public class PredictService {
 		try {
 			predict.predictMain(input, step);
 			
-			LinearRegression lRegression = new LinearRegression("float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time)+86400);
-			
-			/*//线性回归预测
+			//线性回归预测
 			Vector<Double> xline=new Vector<>();
 			for(int i=0;i<predict.getFinalResult().size();i++) {
-				xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));
+				/*xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));*/
 				xline.add((double) i);
 			}
-			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());*/
+			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());
 			lineRegMain aLineRegMain=new lineRegMain();
-			resultLine=aLineRegMain.calculatedSum(lRegression.fit(),step);
+			resultLine=aLineRegMain.calculatedSum(aLine,step);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

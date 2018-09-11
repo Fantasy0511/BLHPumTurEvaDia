@@ -4,6 +4,7 @@ package service.faultWarning;
 public class PieChartData {
 	private String  faultName;
 	private Double faultChance;
+	
 	public String getFaultName() {
 		return faultName;
 	}
