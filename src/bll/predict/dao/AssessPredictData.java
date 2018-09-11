@@ -28,7 +28,7 @@ public class AssessPredictData {
 	 * @return
 	 */
 	public static PredictInput read(String tableName, int unitNo,
-			String objStr,Long time) {
+			int id,Long time) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -37,10 +37,10 @@ public class AssessPredictData {
 		List<Double> datas = new ArrayList<Double>();
 		List<Double> Hlimite = new ArrayList<Double>();
 		/*查询数据库 预测时间和值*/
-		String sql1 = "SELECT top 50 * from " + tableName + " where pos ='"
-				+ objStr + "' AND [time]>"+time+" ORDER BY time;";
+		String sql1 = "SELECT top 50 * from " + tableName + " where ID ='"
+				+ String.valueOf(id) + "' AND [time]>"+time+" ORDER BY time;";
 		/*查询预测量对应阈值*/
-		String sql2 ="SELECT TOP 1 Hlimite  from  InfoTable where (typeid LIKE '%float%'  AND parameters ='"+objStr+"')" ;
+		String sql2 ="SELECT  Hlimite  from  InfoTable where typeid ='float"+String.valueOf(id)+"'" ;
 		try {
 			conn = GovDBConfig.getconnection();
 			stmt = conn.createStatement();

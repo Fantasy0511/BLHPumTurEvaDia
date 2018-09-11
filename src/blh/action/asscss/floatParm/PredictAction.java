@@ -2,8 +2,9 @@ package blh.action.asscss.floatParm;
 
 import org.apache.struts2.convention.annotation.Result;
 
+import algorithms.cos.LinearRegression;
+import blh.action.asscss.floatParm.service.PredictService;
 import blh.action.support.AbstractActionSupport;
-import blh.action.asscss.floatParm.service.*;
 import tool.easyui.Table;
 import tool.highcharts.LineData;
 import util.TimeUtils;
@@ -20,6 +21,7 @@ public class PredictAction extends AbstractActionSupport {
 
 	private PredictService service;
 	private LineData getChartComparison;
+	private String alarmDetail;
 	@Override
 	public String execute() throws Exception {
 		int unitNo = Integer.parseInt(getFirstInput());
@@ -36,7 +38,16 @@ public class PredictAction extends AbstractActionSupport {
 		
 		getChartComparison=service.getComparison(detail);
 		
+		alarmDetail=service.alarmDetail1;
 		return super.execute();
+	}
+
+	public String getAlarmDetail() {
+		return alarmDetail;
+	}
+
+	public void setAlarmDetail(String alarmDetail) {
+		this.alarmDetail = alarmDetail;
 	}
 
 	public Table getTableComparison() {

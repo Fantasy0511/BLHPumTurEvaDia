@@ -21,30 +21,23 @@ public class preDataAction extends AbstractActionSupport {
 
 	private PredictService service;
 	private LineData getChartComparison;
-	private String  alarmDetail;
+	private String alarmDetail;
 	@Override
 	public String execute() throws Exception {
 		int unitNo = Integer.parseInt(getFirstInput());
 		String item = getSecondInput();
 		String beginTime = getThirdInput();
 		int stepStr =Integer.parseInt(getInput(3));
-		
+		int id= Integer.parseInt(itemConvert.valueOf(item).getitem());//获取ID
 		Long time = TimeUtils.StringtoLong(beginTime + " 00:00:00");
 		String tableName = "float" + "_" + beginTime.split("-")[0]
 				+ beginTime.split("-")[1];
 		System.out.println(beginTime + "  " + time + " " + tableName+" "+ stepStr);
 		
-		int id= Integer.parseInt(itemConvert.valueOf(item).getitem());
-		
 		service = new PredictService(tableName, time, unitNo, item, stepStr,id);
 		
 		getChartComparison=service.getComparison(item);
-		
-		LinearRegression aLinearRegression=new LinearRegression("float", id, beginTime+" 00:00:00",beginTime+" 23:59:59");
-		
-		 alarmDetail=aLinearRegression.alter;
-		
-		
+		alarmDetail=service.alarmDetail2;
 		return super.execute();
 	}
 

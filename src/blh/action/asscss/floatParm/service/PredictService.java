@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import algorithms.cos.LinearRegression;
 import bll.LinearReg.dataLine;
 import bll.LinearReg.lineRegMain;
 import bll.predict.PredictInput;
@@ -17,6 +18,7 @@ import service.predict.PredictReport;
 import tool.easyui.Table;
 import tool.highcharts.LineData;
 import tool.highcharts.LineDataBuilder;
+import util.TimeUtils;
 
 public class PredictService {
 	private TendencyPredict predict;
@@ -25,6 +27,7 @@ public class PredictService {
 	private dataLine resultLine;
 	private JasperPrint jp = null;
 	private PredictReport report = new PredictReport();
+	public String  alarmDetail1;
 
 	public PredictService(String tableName, Long time, int unitNo, String item,
 			int step) {
@@ -34,16 +37,18 @@ public class PredictService {
 		predict = new TendencyPredict();
 		try {
 			predict.predictMain(input, step);
-			
-			//线性回归预测
+			LinearRegression lRegression = new LinearRegression("float", Integer.parseInt(item), TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
+			alarmDetail1=lRegression.alter;
+			System.out.println("   "+alarmDetail1);
+			/*//线性回归预测
 			Vector<Double> xline=new Vector<>();
 			for(int i=0;i<predict.getFinalResult().size();i++) {
-				/*xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));*/
+				xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));
 				xline.add((double) i);
 			}
-			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());
+			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());*/
 			lineRegMain aLineRegMain=new lineRegMain();
-			resultLine=aLineRegMain.calculatedSum(aLine,step);
+			resultLine=aLineRegMain.calculatedSum(lRegression.fit(),step);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,7 +89,7 @@ public class PredictService {
 		double[] x1 = new double[predict.getAllPredictValues().size()];
 		for (int i = 0; i < x1.length; ++i) {
 			x1[i] = i + 1;
-			hlimit.add(input.getHlimite()[0]);
+			/*hlimit.add(input.getHlimite()[0]);*/
 		}
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();
@@ -92,7 +97,6 @@ public class PredictService {
 		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
-				.addSeries("阈值", x1,listtoDouble(hlimit))
 				.addSeries("线性回归预测", x1,toDoubleArray(resultLine.getY()))
 				.addSeries("ARMA预测", x1, toDoubleArray(predictedY)).build();
 	}
@@ -105,44 +109,5 @@ public class PredictService {
 		return result;
 	}
 	
-	private double[] listtoDouble(List<Double> lDoubles) {
-		double[] result=new double[lDoubles.size()];
-		for (int i = 0; i < lDoubles.size(); i++) {
-			result[i] = lDoubles.get(i);
-			
-		}
-		return result;
-	}
-
-	/**
-	 * 1. 检查是否已经进行过预测试验 2. 构造输出到html和pdf文件的方法 3. makeprint方法生成japserprint报表文件
-	 * 构建报表
-	 */
-
-	private void checkPredictNotNull() {
-		if (predict == null) {
-			throw new IllegalStateException("no predict right now");
-		}
-	}
-
-	/**
-	 * 生成jfreechart.linechart数据源
-	 * 
-	 * @return
-	 */
-	private DefaultCategoryDataset getDataSet() {
-		DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
-		String[] predictedX = predict.getTransfer().getVTime();
-		Vector<Double> predictedY = predict.getFinalResult();
-		Vector<Double> originalY = predict.getTransfer().getOriginalY();
-		for (int i = 0; i < predictedX.length; ++i) {
-			defaultcategorydataset.addValue(predictedY.get(i), "预测值", "" + i);
-		}
-		for (int i = 0; i < predictedX.length; ++i) {
-			defaultcategorydataset.addValue(originalY.get(i), "实测值", "" + i);
-		}
-
-		return defaultcategorydataset;
-	}
 
 }

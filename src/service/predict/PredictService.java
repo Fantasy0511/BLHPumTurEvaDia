@@ -26,10 +26,11 @@ public class PredictService {
 	private dataLine resultLine;
 	private JasperPrint jp = null;
 	private PredictReport report = new PredictReport();
+	public String  alarmDetail2;
 
 	public PredictService(String tableName, Long time, int unitNo, String item,
 			int step,int id) {
-		input = AssessPredictData.read(tableName,unitNo, item,time);
+		input = AssessPredictData.read(tableName,unitNo, id,time);
 		
 		
 		predict = new TendencyPredict();
@@ -37,7 +38,7 @@ public class PredictService {
 			predict.predictMain(input, step);
 			
 			LinearRegression lRegression = new LinearRegression("float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time)+86400);
-			
+			alarmDetail2=lRegression.alter;
 			/*//线性回归预测
 			Vector<Double> xline=new Vector<>();
 			for(int i=0;i<predict.getFinalResult().size();i++) {
@@ -55,6 +56,7 @@ public class PredictService {
 		report.setStep(String.valueOf(step));
 		report.setObject(item);
 	}
+
 
 	public Table getData() {
 		String[] headers = { "time", "original", "linePre","predicted" };
@@ -87,7 +89,7 @@ public class PredictService {
 		double[] x1 = new double[predict.getAllPredictValues().size()];
 		for (int i = 0; i < x1.length; ++i) {
 			x1[i] = i + 1;
-			hlimit.add(input.getHlimite()[0]);
+			/*hlimit.add(input.getHlimite()[0]);*/
 		}
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();
@@ -95,7 +97,6 @@ public class PredictService {
 		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
-				.addSeries("阈值", x1,listtoDouble(hlimit))
 				.addSeries("线性回归预测", x1,toDoubleArray(resultLine.getY()))
 				.addSeries("ARMA预测", x1, toDoubleArray(predictedY)).build();
 	}
