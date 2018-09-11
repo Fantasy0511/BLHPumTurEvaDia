@@ -52,7 +52,7 @@ public class LinearRegression {
 				Ex += (x.get(i)-start);
 				Ey += y.get(i);
 				Exx += (x.get(i)-start)*(x.get(i)-start);
-			}
+			} 
 			k=(size*Exy-Ex*Ey)/(size*Exx-Ex*Ex);
 			b=(Exx*Ey-Ex*Exy)/(size*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
