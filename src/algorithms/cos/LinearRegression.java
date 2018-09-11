@@ -5,6 +5,8 @@ import java.util.Vector;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 import bll.LinearReg.dataLine;
 import util.DataInfo;
 import util.DataUtils;
@@ -15,11 +17,12 @@ public class LinearRegression {
 	
 	private double k;
 	private double b;
-	private String alter;
+	public String alter;
+	private int size = 50;
 	ArrayList<Long> x;
 	ArrayList<Double> y;
 	public static void main(String[] args) {
-		LinearRegression lRegression = new LinearRegression("float", 1310, "2015-01-01 00:00:00", "2015-01-02 00:00:00");
+		LinearRegression lRegression = new LinearRegression("float", 1097, "2014-07-25 00:00:00", "2014-07-26 00:00:00");
 		
 		dataLine dl = lRegression.fit();
 		System.out.println(lRegression.alter);
@@ -29,7 +32,7 @@ public class LinearRegression {
 		Vector<Double> inputx = new Vector<Double>();
 		long start = x.get(0);
 		Vector<Double> fity = new Vector<Double>();
-		for(int i=0;i<x.size();i++){
+		for(int i=0;i<size;i++){
 			inputx.addElement((double)i);
 			fity.addElement(k*(double)(x.get(i)-start)+b);
 		}
@@ -42,27 +45,33 @@ public class LinearRegression {
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
 			x = data.getTime();
 			y = data.getValue();
-			int n = x.size();
 			long start = x.get(0);
 			double Exy=0,Ex=0,Ey=0,Exx=0;
-			for(int i=0;i<n;i++){
+			for(int i=0;i<size;i++){
 				Exy += (x.get(i)-start)*y.get(i);
 				Ex += (x.get(i)-start);
 				Ey += y.get(i);
 				Exx += (x.get(i)-start)*(x.get(i)-start);
 			}
-			k=(n*Exy-Ex*Ey)/(n*Exx-Ex*Ex);
-			b=(Exx*Ey-Ex*Exy)/(n*Exx-Ex*Ex);
+			k=(size*Exy-Ex*Ey)/(size*Exx-Ex*Ex);
+			b=(Exx*Ey-Ex*Exy)/(size*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
+			double h = info.getHHLimite()==0?info.getHHLimite():info.getHLimite();
+			double l = info.getLLimite()==0?info.getLLimite():info.getLLLimite();
 			String name = info.getPosition()+"."+info.getDescription();
+			if(h>0){
+				name += " 阈值上限为"+h+info.getUnit();
+			}
+			if(l>0){
+				name += " 阈值下限为"+h+info.getUnit();
+			}
 			if(k==0){
 				alter =  name+" 近期运行稳定。";
 			}
 			else{
 				//往后延1个月
 				Date excepteDate=TimeUtils.AddUnits(TimeUtils.LongtoDate(x.get(x.size()-1)), "month", 3);
-				double h = info.getHHLimite()==0?info.getHHLimite():info.getHLimite();
-				double l = info.getLLimite()==0?info.getLLimite():info.getLLLimite();
+
 				if(k>0 && h>0){//超过上限
 					double inputx = TimeUtils.DatetoLong(excepteDate)-start;
 					double predy = inputx*k+b;
