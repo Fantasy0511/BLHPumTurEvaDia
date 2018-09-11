@@ -56,8 +56,8 @@ public class LinearRegression {
 			k=(size*Exy-Ex*Ey)/(size*Exx-Ex*Ex);
 			b=(Exx*Ey-Ex*Exy)/(size*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
-			double h = info.getHHLimite()==0?info.getHHLimite():info.getHLimite();
-			double l = info.getLLimite()==0?info.getLLimite():info.getLLLimite();
+			double h = info.getHHLimite()==0?info.getHLimite():info.getHHLimite();
+			double l = info.getLLimite()==0?info.getLLLimite():info.getLLimite();
 			String name = info.getPosition()+"."+info.getDescription();
 			if(h>0){
 				name += " 阈值上限为"+h+info.getUnit();
