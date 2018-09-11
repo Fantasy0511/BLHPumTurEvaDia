@@ -1,25 +1,47 @@
 package algorithms.cos;
 
 import java.util.Date;
+import java.util.Vector;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bll.LinearReg.dataLine;
 import util.DataInfo;
 import util.DataUtils;
 import util.TimeUtils;
 import dao.impl.ReadData;
 
 public class LinearRegression {
+	
+	private double k;
+	private double b;
+	private String alter;
+	ArrayList<Long> x;
+	ArrayList<Double> y;
 	public static void main(String[] args) {
-		System.out.println(LinearRegression.lr("float", 1329, "2015-01-01 00:00:00", "2015-01-02 00:00:00"));
+		LinearRegression lRegression = new LinearRegression("float", 1310, "2015-01-01 00:00:00", "2015-01-02 00:00:00");
 		
+		dataLine dl = lRegression.fit();
+		System.out.println(lRegression.alter);
 	}
-	public static String lr(String table,int id,String starttime,String endtime) {
+	
+	public dataLine fit() {
+		Vector<Double> inputx = new Vector<Double>();
+		long start = x.get(0);
+		Vector<Double> fity = new Vector<Double>();
+		for(int i=0;i<x.size();i++){
+			inputx.addElement((double)i);
+			fity.addElement(k*(double)(x.get(i)-start)+b);
+		}
+		return new dataLine(inputx,fity);
+	}
+	
+	public LinearRegression(String table,int id,String starttime,String endtime) {
 		ReadData rd = new ReadData();
 		try {
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
-			ArrayList<Long> x = data.getTime();
-			ArrayList<Double> y = data.getValue();
+			x = data.getTime();
+			y = data.getValue();
 			int n = x.size();
 			long start = x.get(0);
 			double Exy=0,Ex=0,Ey=0,Exx=0;
@@ -29,12 +51,12 @@ public class LinearRegression {
 				Ey += y.get(i);
 				Exx += (x.get(i)-start)*(x.get(i)-start);
 			}
-			double k=(n*Exy-Ex*Ey)/(n*Exx-Ex*Ex);
-			double b=(Exx*Ey-Ex*Exy)/(n*Exx-Ex*Ex);
+			k=(n*Exy-Ex*Ey)/(n*Exx-Ex*Ex);
+			b=(Exx*Ey-Ex*Exy)/(n*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
 			String name = info.getPosition()+"."+info.getDescription();
 			if(k==0){
-				return name+" 近期运行稳定。";
+				alter =  name+" 近期运行稳定。";
 			}
 			else{
 				//往后延1个月
@@ -45,24 +67,24 @@ public class LinearRegression {
 					double inputx = TimeUtils.DatetoLong(excepteDate)-start;
 					double predy = inputx*k+b;
 					if(predy>h){
-						return name+" 将在"+TimeUtils.LongtoString((long)((h-b)/k+start))+"达到参数阈值上限，请注意检修！";
+						alter = name+" 将在"+TimeUtils.LongtoString((long)((h-b)/k+start))+"达到参数阈值上限，请注意检修！";
 					}
 					else{
-						return name+" 近期运行正常。";
+						alter = name+" 近期运行正常。";
 					}
 				}
 				else if(k<0 && l>0){//超过上限
 					double inputx = TimeUtils.DatetoLong(excepteDate)-start;
 					double predy = inputx*k+b;
 					if(predy<l){
-						return name+" 将在"+TimeUtils.LongtoString((long)((l-b)/k+start))+"达到参数阈值下限，请注意检修！";
+						alter = name+" 将在"+TimeUtils.LongtoString((long)((l-b)/k+start))+"达到参数阈值下限，请注意检修！";
 					}
 					else{
-						return name+" 近期运行正常。";
+						alter = name+" 近期运行正常。";
 					}
 				}
 				else{
-					return name+" 近期运行正常。";
+					alter = name+" 近期运行正常。";
 				}
 				
 			}
@@ -73,7 +95,7 @@ public class LinearRegression {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "该参数处于正常范围内。";
+		//alter = "该参数处于正常范围内。";
 	}
 
 }
