@@ -38,7 +38,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 
 		starttime = getFirstInput() + " 00:00:00";
 		Long starttime1 = TimeUtils.StringtoLong(starttime);
-		Long endtime1 = starttime1 + 3600;
+		Long endtime1 = starttime1 + 3600*24;
 		endtime = TimeUtils.LongtoString(endtime1);
 		system=getSecondInput();
 

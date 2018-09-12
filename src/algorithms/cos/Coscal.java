@@ -303,7 +303,7 @@ public class Coscal {
 					}
 					LogRegression lr = new LogRegression();
 					lr.train(inputx,outputy, 0.011f, 2000, (short)1);
-					sys_pro.put(keys[k], (double) lr.pred(vector));
+					sys_pro.put(keys[k], lr.pred(vector)<0.01?0.01:(double) lr.pred(vector));
 				}
 				
 				
@@ -429,7 +429,7 @@ public class Coscal {
 //        for(int i=0;i<list.size();i++){ 
 //        	java.lang.System.out.println(list.get(i).getKey()+":"+list.get(i).getValue());
 //          } 
-        //只显示前10个
+        //只显示前5个
         fault_pro = new HashMap<String, Double>();
         total = 0;
         int size = list.size()<5?list.size():5;
@@ -476,8 +476,8 @@ public class Coscal {
 		Coscal cc = new Coscal();
 		//cc.writeVectors();
 		//System.out.println("write finish");
-		String starttime="2015-05-11 07:20:00";
-		String endtime="2015-05-11 08:20:00";
+		String starttime="2014-01-01 00:00:00";
+		String endtime="2014-01-02 00:00:00";
 		Long slong = TimeUtils.StringtoLong(starttime);//1431300000
 		//String date = TimeUtils.LongtoString(1431303600L);
 //		starttime = TimeUtils.LongtoString(1456761600l);
