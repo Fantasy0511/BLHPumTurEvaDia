@@ -34,22 +34,39 @@
 </head>
 <script type="text/javascript">
 	function WarningResult() {
-		showMask(); 
+		
 		var starTime = getComboboxValue("startTime");
+		if(!starTime){
+			alert("请选择时间！")
+					
+	}else{ 
+		showMask(); 
 		var url1 = "/BLHPumTurEvaDia/faultwarning/fault-warning?inputStr="
 				+ starTime +"//"+0; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
+				
 		getJSON(url1, function(result) {
 
 			//检测数据库是否连接成功
 			console.log("查询结果："+result.judgeResult);
 			showMessage(result.judgeResult, 3000);
 			
-			/* loadData("historyTable", result.bottomDetail); */
-			drawPic("container3", result.resultFinal.systemBar); // 画柱状图
-			loadData("subfaultInfo", result.resultFinal.similarFault);
-			loadData("faultInfo", result.resultFinal.parameterWarn);
+			if(result.judgeResult == "查询数据库成功"){
+				/* loadData("historyTable", result.bottomDetail); */
+				drawPic("container3", result.resultFinal.systemBar); // 画柱状图
+				loadData("subfaultInfo", result.resultFinal.similarFault);
+				loadData("faultInfo", result.resultFinal.parameterWarn);
+			}else{
+				$("#container3").empty(); // 清空柱状图的数据
+				$("#dataLine").empty(); // 清空柱状图的数据
+			    $('#subfaultInfo').datagrid('loadData', { total: 0, rows: [] }); // 清空详细信息表中的数据	
+			    $('#faultInfo').datagrid('loadData', { total: 0, rows: [] }); // 清空详细信息表中的数据	
+			   
+			};
+			
+			
 		});
+	}
 	}
 	
 	

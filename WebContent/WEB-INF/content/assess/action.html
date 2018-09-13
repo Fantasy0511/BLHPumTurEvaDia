@@ -83,13 +83,10 @@
 	//开始评估  			
 	function assess() {
 		var begin = getDate("beginDate");
-		if(!begin){
-			alert("请选择时间！")
-		}
-		else{
+		
 				var unitNo = $('#unitNo').combobox('getValue');
 				var system = $('#subSystem').combobox('getValue');
-
+	 
 				$("#chart_son_bar1").empty();
 				$("#chart_son_pie1").empty();
 				$("#chart_son_bar2").empty();
@@ -146,7 +143,10 @@
 					$("#transferResult").show();
 				}
 				;
-
+			if(!begin){
+					alert("请选择时间！")
+							
+			}else{
 				var url = "/BLHPumTurEvaDia/asscss/" + unitNo + "/" + system
 						+ "-assess";
 				url += makeInput(begin);
@@ -160,6 +160,8 @@
 					console.log("查询结果："+data.judgeResult);
 					showMessage(data.judgeResult, 3000);
 					
+					if(data.judgeResult == "查询数据库成功"){
+						
 					drawGuage('assement-container', view.topScore); // 画仪表盘
 					drawPic("chart_middle_bar", view.middleBar); // 画柱状图
 					
@@ -243,11 +245,29 @@
 					}
 					;
 					
-				
+				   }else{
+					    clearText(".easyui-textbox");
+						drawGuage('assement-container', 0); //画仪表盘 初始化为0
+						
+						$("#chart_middle_bar").empty(); // 清空大柱状图的数据
+					    $('#result_table').datagrid('loadData', { total: 0, rows: [] }); // 清空详细信息表中的数据
+					  /*  $("#chart_son_bar1").empty();
+						$("#chart_son_pie1").empty();
+						$("#chart_son_bar2").empty();
+						$("#chart_son_pie2").empty();
+						$("#chart_son_bar3").empty();
+						$("#chart_son_pie3").empty();
+						$("#chart_son_bar4").empty();
+						$("#chart_son_pie4").empty();
+						$("#chart_son_bar5").empty();
+						$("#chart_son_pie5").empty(); */
+						
+				   }
+					   
 				}
 				getJSON(url, success);
 			
-		}
+			}
 		
 		
 	}
@@ -259,11 +279,8 @@
 			$('#test-window').window('close');
 		}
 		else{
-			arr=begin.split("-")
-			if(parseInt(arr[0]+arr[1])>201707){
-				alert("请选择2017年07月之前的日期！")
-				$('#test-window').window('close');
-			}else{
+			
+			
 				$('#test-window').window('open');
 				//显示弹出的小窗口是哪个子系统的底层指标
 				var system = $('#subSystem').combobox('getValue');
@@ -292,7 +309,7 @@
 						title : "调速器系统底层评估指标"
 					});
 				}
-			}
+			
 		}
 		
 	}
