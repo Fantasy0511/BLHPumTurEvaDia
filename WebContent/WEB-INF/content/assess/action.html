@@ -87,12 +87,6 @@
 			alert("请选择时间！")
 		}
 		else{
-			arr=begin.split("-")
-			if(parseInt(arr[0]+arr[1])>201707){
-				alert("请选择2017年07月之前的日期！")
-			}
-			else{
-
 				var unitNo = $('#unitNo').combobox('getValue');
 				var system = $('#subSystem').combobox('getValue');
 
@@ -161,6 +155,11 @@
 				var success = function(data) {
 					var view = data.assessView;
 					console.log(view);
+					
+					//检测数据库是否连接成功
+					console.log("查询结果："+data.judgeResult);
+					showMessage(data.judgeResult, 3000);
+					
 					drawGuage('assement-container', view.topScore); // 画仪表盘
 					drawPic("chart_middle_bar", view.middleBar); // 画柱状图
 					
@@ -243,9 +242,11 @@
 						$("#line4").attr("style", "display:none");
 					}
 					;
+					
+				
 				}
 				getJSON(url, success);
-			}
+			
 		}
 		
 		

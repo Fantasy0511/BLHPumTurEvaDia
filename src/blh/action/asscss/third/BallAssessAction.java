@@ -11,6 +11,7 @@ import blh.action.support.AbstractActionSupport;
 import service.assess.Ballvalve.one.BallAssessResult;
 import service.assess.Ballvalve.three.output3;
 import tool.easyui.Table;
+import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
@@ -21,12 +22,19 @@ public class BallAssessAction extends AbstractActionSupport {
 	private AssessView assessView;
 	private BallAssessResult ballAssessResult;
 	private SonAssessView sonAssessView;
-
+	private String judgeResult;
+	
 	@Override
 	public String execute() throws Exception {
 		String timeString = getFirstInput();
+		String time2 = getFirstInput().toString() + " 00:00:00";
 		System.out.println("选择时间： " + timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
+
+		// 判断输入的时间是否能在数据库中找到相应表格
+		JudgeTime jt = new JudgeTime();
+		judgeResult = jt.judgeTime(time2);				
+		
 		output3 ballAssSum = new output3();
 		ballAssessResult = ballAssSum.getOutput3(time);
 
@@ -117,6 +125,14 @@ public class BallAssessAction extends AbstractActionSupport {
 
 	public void setSonAssessView(SonAssessView sonAssessView) {
 		this.sonAssessView = sonAssessView;
+	}
+
+	public String getJudgeResult() {
+		return judgeResult;
+	}
+
+	public void setJudgeResult(String judgeResult) {
+		this.judgeResult = judgeResult;
 	}
 
 }

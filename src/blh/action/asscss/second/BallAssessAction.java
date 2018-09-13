@@ -11,6 +11,7 @@ import blh.action.support.AbstractActionSupport;
 import service.assess.Ballvalve.one.BallAssessResult;
 import service.assess.Ballvalve.two.output2;
 import tool.easyui.Table;
+import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
@@ -21,32 +22,34 @@ public class BallAssessAction extends AbstractActionSupport {
 	private AssessView assessView;
 	private BallAssessResult ballAssessResult;
 	private SonAssessView sonAssessView;
+	private String judgeResult;
 
 	@Override
 	public String execute() throws Exception {
 		String timeString = getFirstInput();
+		String time2 = getFirstInput().toString() + " 00:00:00";
 		System.out.println("选择时间： " + timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
 		output2 ballAssSum = new output2();
 		ballAssessResult = ballAssSum.getOutput2(time);
+		
+		// 判断输入的时间是否能在数据库中找到相应表格
+		JudgeTime jt = new JudgeTime();
+		judgeResult = jt.judgeTime(time2);
 
 		// 前端的“详细评估信息”里面的内容——对象：bottomDetail
-		String[] category = {
-	            "油系统性能状态", "", "","球阀性能状态", "", ""
-				  };
-		String[] names = { "压力油罐油压低报警", "球阀1号油泵故障", "球阀2号油泵故障", "球阀突然关闭报警", "蜗壳压力",
-				"水闸压力" };
-		double[] values = {
-				ballAssessResult.getOilSystem().get(0).doubleValue(),
+		String[] category = { "油系统性能状态", "", "", "球阀性能状态", "", "" };
+		String[] names = { "压力油罐油压低报警", "球阀1号油泵故障", "球阀2号油泵故障", "球阀突然关闭报警", "蜗壳压力", "水闸压力" };
+		double[] values = { ballAssessResult.getOilSystem().get(0).doubleValue(),
 				ballAssessResult.getOilSystem().get(1).doubleValue(),
 				ballAssessResult.getOilSystem().get(2).doubleValue(),
 
 				ballAssessResult.getPerformance().get(0).doubleValue(),
 				ballAssessResult.getPerformance().get(1).doubleValue(),
 				ballAssessResult.getPerformance().get(2).doubleValue(), };
-		Table bottomDetail = new Table(new String[] { "category","name", "value" });
+		Table bottomDetail = new Table(new String[] { "category", "name", "value" });
 		for (int i = 0; i < names.length; i++) {
-			bottomDetail.withRow(category[i],names[i], values[i]);
+			bottomDetail.withRow(category[i], names[i], values[i]);
 		}
 
 		// 前端的“柱状图”里面的内容——对象middleBar
@@ -90,7 +93,7 @@ public class BallAssessAction extends AbstractActionSupport {
 				bottomDetail, middleBar);
 
 		// 返回底层的评估对象“sonAssessView”
-		sonAssessView = new SonAssessView(ballOilBar, ballOilPie, performanceBar, performancePie,null,null);
+		sonAssessView = new SonAssessView(ballOilBar, ballOilPie, performanceBar, performancePie, null, null);
 
 		return super.execute();
 	}
@@ -117,6 +120,14 @@ public class BallAssessAction extends AbstractActionSupport {
 
 	public void setSonAssessView(SonAssessView sonAssessView) {
 		this.sonAssessView = sonAssessView;
+	}
+
+	public String getJudgeResult() {
+		return judgeResult;
+	}
+
+	public void setJudgeResult(String judgeResult) {
+		this.judgeResult = judgeResult;
 	}
 
 }

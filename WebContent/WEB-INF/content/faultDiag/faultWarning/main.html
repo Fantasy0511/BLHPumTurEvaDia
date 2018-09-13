@@ -40,6 +40,11 @@
 				+ starTime +"//"+0; //将某个子系统历史数据的地址传给url1
 		console.log(url1);
 		getJSON(url1, function(result) {
+
+			//检测数据库是否连接成功
+			console.log("查询结果："+result.judgeResult);
+			showMessage(result.judgeResult, 3000);
+			
 			/* loadData("historyTable", result.bottomDetail); */
 			drawPic("container3", result.resultFinal.systemBar); // 画柱状图
 			loadData("subfaultInfo", result.resultFinal.similarFault);

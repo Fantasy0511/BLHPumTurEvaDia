@@ -11,6 +11,7 @@ import blh.action.support.AbstractActionSupport;
 import service.assess.transformer.TransferAssResult;
 import service.assess.transformer.one.TransferAssSum;
 import tool.easyui.Table;
+import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
@@ -21,68 +22,70 @@ public class TransferAssessAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private AssessView assessView;
 	private SonAssessView sonAssessView;
-
+	private String judgeResult;
+	
 	@Override
 	public String execute() throws Exception {
 		String timeString = getFirstInput();
+		String time2 = getFirstInput().toString() + " 00:00:00";
 		System.out.println("选择时间： " + timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
 
+		// 判断输入的时间是否能在数据库中找到相应表格
+		JudgeTime jt = new JudgeTime();
+		judgeResult = jt.judgeTime(time2);
+		
 		TransferAssSum transferAssSum = new TransferAssSum();
 		TransferAssResult transferAssessResult = transferAssSum.output(time);
-		
-		/**评估主页面数据获取*/
-		//评估主页面表格数据
-		String[] category = {
-	            "主变压器温度", "", "","主变故障信号", "", ""
-				  };
-		String[] names = { 
-				"主变油温","高压侧绕组温度","冷却器出口水温",
-				"主变重瓦斯跳闸","主变油位高报警","机组电气停机报警"};
-		Table bottomDetail = new Table(new String[] {"category", "name", "value" });
+
+		/** 评估主页面数据获取 */
+		// 评估主页面表格数据
+		String[] category = { "主变压器温度", "", "", "主变故障信号", "", "" };
+		String[] names = { "主变油温", "高压侧绕组温度", "冷却器出口水温", "主变重瓦斯跳闸", "主变油位高报警", "机组电气停机报警" };
+		Table bottomDetail = new Table(new String[] { "category", "name", "value" });
 		for (int i = 0; i < names.length; i++) {
-			bottomDetail.withRow(category[i],names[i], transferAssessResult.getFirstIndicator().get(i+4).doubleValue());
+			bottomDetail.withRow(category[i], names[i],
+					transferAssessResult.getFirstIndicator().get(i + 4).doubleValue());
 		}
-		
-		//评估主页面 柱状图
+
+		// 评估主页面 柱状图
 		List<String> barName = Arrays.asList("主变压器温度", "历史和巡检状态", "主变压器故障信号");
 		List<Double> barValue = Arrays.asList(transferAssessResult.getFirstIndicator().get(1).doubleValue(),
-				transferAssessResult.getFirstIndicator().get(3).doubleValue(),transferAssessResult.getFirstIndicator().get(2).doubleValue());
-		//评估主页面 仪表盘
+				transferAssessResult.getFirstIndicator().get(3).doubleValue(),
+				transferAssessResult.getFirstIndicator().get(2).doubleValue());
+		// 评估主页面 仪表盘
 		BarData middleBar = BarData.create("主变系统状态评估结果", "", "性能状态", "得分", barName, barValue);
 		double transAss = transferAssessResult.getFirstIndicator().get(0).doubleValue();
 		String topRemark = (transAss > 60) ? ((transAss >= 80) ? "优秀" : "合格") : "严重";
-		
-		//评估主页面数据返回
-		assessView = new AssessView(transAss, topRemark, transferAssessResult.getFirstIndicator().get(1).toString(),
-				transferAssessResult.getFirstIndicator().get(3).toString(), transferAssessResult.getFirstIndicator().get(2).toString(), bottomDetail, middleBar);
 
-		/**小窗口显示底层指标数据获取*/
-		//主变温度底层指标
+		// 评估主页面数据返回
+		assessView = new AssessView(transAss, topRemark, transferAssessResult.getFirstIndicator().get(1).toString(),
+				transferAssessResult.getFirstIndicator().get(3).toString(),
+				transferAssessResult.getFirstIndicator().get(2).toString(), bottomDetail, middleBar);
+
+		/** 小窗口显示底层指标数据获取 */
+		// 主变温度底层指标
 		List<String> sonBarName1 = Arrays.asList("主变压器油温", "高压侧绕组温度", "冷却器出口水温");
-		List<Double> sonbarValue1 = Arrays.asList(		
-				transferAssessResult.getTransTemperIndicator().get(0).doubleValue(),
+		List<Double> sonbarValue1 = Arrays.asList(transferAssessResult.getTransTemperIndicator().get(0).doubleValue(),
 				transferAssessResult.getTransTemperIndicator().get(1).doubleValue(),
 				transferAssessResult.getTransTemperIndicator().get(2).doubleValue());
-		BarData temperatureBar = BarData.create("温度底层指标得分", "", "性能状态", "得分",sonBarName1, sonbarValue1);
+		BarData temperatureBar = BarData.create("温度底层指标得分", "", "性能状态", "得分", sonBarName1, sonbarValue1);
 		PieData temperaturePie = PieData.create("主变温度底层指标得分", sonBarName1, sonbarValue1, "得分XXX");
-		
-		//主变故障指标
+
+		// 主变故障指标
 		List<String> sonBarName2 = Arrays.asList("主变重瓦斯跳闸", "主变油位高报警", "机组电气停机报警");
-		List<Double> sonbarValue2 = Arrays.asList(		
-				transferAssessResult.getFaultIndicator().get(0).doubleValue(),
+		List<Double> sonbarValue2 = Arrays.asList(transferAssessResult.getFaultIndicator().get(0).doubleValue(),
 				transferAssessResult.getFaultIndicator().get(1).doubleValue(),
 				transferAssessResult.getFaultIndicator().get(2).doubleValue());
-		BarData mainShaftSealBar = BarData.create("主轴密封底层指标得分", "", "性能状态", "得分",
-				sonBarName2, sonbarValue2);
+		BarData mainShaftSealBar = BarData.create("主轴密封底层指标得分", "", "性能状态", "得分", sonBarName2, sonbarValue2);
 		PieData mainShaftSealPie = PieData.create("主轴密封底层指标得分", sonBarName2, sonbarValue2, "得分XXX");
-		
-		sonAssessView = new SonAssessView(mainShaftSealBar,mainShaftSealPie,temperatureBar,temperaturePie,null,null);
-		
-		return super.execute();
-	
-	}
 
+		sonAssessView = new SonAssessView(mainShaftSealBar, mainShaftSealPie, temperatureBar, temperaturePie, null,
+				null);
+
+		return super.execute();
+
+	}
 
 	public AssessView getAssessView() {
 		return assessView;
@@ -100,8 +103,12 @@ public class TransferAssessAction extends AbstractActionSupport {
 		this.sonAssessView = sonAssessView;
 	}
 
-	
+	public String getJudgeResult() {
+		return judgeResult;
+	}
 
-	
+	public void setJudgeResult(String judgeResult) {
+		this.judgeResult = judgeResult;
+	}
 
 }

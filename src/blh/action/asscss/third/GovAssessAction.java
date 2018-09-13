@@ -11,6 +11,7 @@ import blh.action.support.AbstractActionSupport;
 import service.assess.Governor.three.GovAssResultThree;
 import service.assess.Governor.three.output3;
 import tool.easyui.Table;
+import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
@@ -26,12 +27,18 @@ public class GovAssessAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private AssessView assessView;
 	private SonAssessView sonAssessView;
-
+	private String judgeResult;
+	
 	@Override
 	public String execute() throws Exception {
 		String timeString = getFirstInput();
+		String time2 = getFirstInput().toString() + " 00:00:00";
 		System.out.println(timeString);
 		Long time = TimeUtils.StringtoLong(timeString + " 00:00:00");
+
+		// 判断输入的时间是否能在数据库中找到相应表格
+		JudgeTime jt = new JudgeTime();
+		judgeResult = jt.judgeTime(time2);				
 		
 		output3 output = new output3();
 		GovAssResultThree govAssResultThree=output.getOutput3(time);
@@ -121,6 +128,14 @@ public class GovAssessAction extends AbstractActionSupport {
 
 	public void setSonAssessView(SonAssessView sonAssessView) {
 		this.sonAssessView = sonAssessView;
+	}
+
+	public String getJudgeResult() {
+		return judgeResult;
+	}
+
+	public void setJudgeResult(String judgeResult) {
+		this.judgeResult = judgeResult;
 	}
 	
 

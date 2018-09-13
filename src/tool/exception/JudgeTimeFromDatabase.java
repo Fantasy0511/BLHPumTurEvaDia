@@ -39,7 +39,7 @@ public class JudgeTimeFromDatabase {
 
 	}
 
-	// 查询一下时间是否是数据库中的表的时间      使用bool型数据查
+	// 查询一下时间是否是数据库中的表的时间      使用float型数据查
 	public String queFloat(long endtime) throws ClassNotFoundException, SQLException {
 		try {
 			getConnection();
