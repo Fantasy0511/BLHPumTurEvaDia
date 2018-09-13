@@ -105,7 +105,7 @@ public class DataDiscrete {
 		//首先获得data的数据源信息
 		String typeid = data.getType()+data.getId();
 		DataInfo datainfo = this.maps.get(typeid);
-		double h = datainfo.getHHLimite()==0?datainfo.getHLimite():datainfo.getHHLimite();//高报警
+		double h = datainfo.getHLimite()==0?datainfo.getHHLimite():datainfo.getHLimite();//高报警
 		double l = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
 		for(Double value:data.getValue()){
 			if(h!=0&&value>h){

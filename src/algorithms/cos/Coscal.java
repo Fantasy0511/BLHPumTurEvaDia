@@ -480,8 +480,8 @@ public class Coscal {
 	}
 
 	public static void main(String[] args) {
-		String starttime="2016-06-15 00:00:00";
-		String endtime="2016-06-17 00:00:00";
+		String starttime="2015-06-24 00:00:00";
+		String endtime="2015-06-25 00:00:00";
 		Coscal cc = new Coscal(starttime,endtime);
 		//cc.writeVectors();
 		//System.out.println("write finish");
