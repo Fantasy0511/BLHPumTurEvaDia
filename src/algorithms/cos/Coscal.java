@@ -412,7 +412,7 @@ public class Coscal {
         //只显示前5个
         fault_pro = new HashMap<String, Double>();
         total = 0;
-        int size = list.size()<5?list.size():5;
+        int size = list.size()<8?list.size():8;
         for(int i=0;i<size;i++){ 
         	total += list.get(i).getValue();
         	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());
@@ -431,6 +431,8 @@ public class Coscal {
 		ArrayList<ArrayList<String>> faultparameter = new ArrayList<ArrayList<String>>();
 		ArrayList<String> name = new ArrayList<String>();
 		ArrayList<String> values = new ArrayList<String>();
+		ArrayList<String> llimits = new ArrayList<String>();
+		ArrayList<String> hlimits = new ArrayList<String>();
 		ArrayList<String> typeid = new ArrayList<String>();
 		try {
 			HashMap<Integer, Double> vector_map = new HashMap<Integer, Double>();
@@ -454,12 +456,18 @@ public class Coscal {
 				info = this.rd.queInfo(idMap.get(list.get(i).getKey()));
 				name.add(info.getPosition()+"."+info.getDescription());
 				values.add(""+list.get(i).getValue());
+				double h = info.getHHLimite()==0?info.getHLimite():info.getHHLimite();
+				double l = info.getLLimite()==0?info.getLLLimite():info.getLLimite();
+				llimits.add(l==0?"null":""+l);
+				hlimits.add(h==0?"null":""+h);
 				typeid.add(info.getTypeid());
 				i += 1;
 				size +=1;
 			}
 			faultparameter.add(name);
 			faultparameter.add(values);
+			faultparameter.add(llimits);
+			faultparameter.add(hlimits);
 			faultparameter.add(typeid);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -472,8 +480,8 @@ public class Coscal {
 	}
 
 	public static void main(String[] args) {
-		String starttime="2014-01-01 00:00:00";
-		String endtime="2014-01-03 00:00:00";
+		String starttime="2016-06-15 00:00:00";
+		String endtime="2016-06-17 00:00:00";
 		Coscal cc = new Coscal(starttime,endtime);
 		//cc.writeVectors();
 		//System.out.println("write finish");
@@ -484,7 +492,7 @@ public class Coscal {
 //		endtime = TimeUtils.LongtoString(1456761700l);
 		//每个系统发生故障的概率
 		HashMap<String, Double> pro_systems = cc.getSimilarityDegreeOfSystemgs();
-		//时间段内发生故障的运行参数（由发生次数多到少排序,只显示前10个）,三维的list，第一个list存储故障参数名称，第二个list存储越限次数，第三个list存储对应id
+		//时间段内发生故障的运行参数（由发生次数多到少排序,只显示前10个）,五维的list，第一个list存储故障参数名称，第二个list存储越限次数，第三个阈值下限，第四个阈值上限，第五个list存储对应id
 		ArrayList<ArrayList<String>> faultparameter=cc.getFaultParameters();
 		//时间段内，与当前故障最相近的历史故障，只显示前10个
 		HashMap<String, Double> pro_fault = cc.getFaultSimilarityOfSystemgs();
