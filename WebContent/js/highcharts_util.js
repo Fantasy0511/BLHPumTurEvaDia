@@ -234,7 +234,7 @@ function _drawBarChartNew(title, subtitle, categories, yLabel,
 						tooltip : {
 							headerFormat : '<span style="font-size:10px">{point.key}</span>',
 							pointFormat : '' + '',
-							footerFormat : '<table><tbody><tr><td style="color:{series.color};padding:0">得分: </td><td style="padding:0"><b>{point.y:.2f}</b></td></tr></tbody></table>',
+							footerFormat : '<table><tbody><tr><td style="color:{series.color};padding:0">故障概率: </td><td style="padding:0"><b>{point.y:.2f}</b></td></tr></tbody></table>',
 							shared : true,
 							useHTML : true
 						},

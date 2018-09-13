@@ -1,18 +1,15 @@
 package blh.action.faultwarning;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.struts2.convention.annotation.Result;
 
 import blh.action.support.AbstractActionSupport;
-import service.faultWarning.PieChartData;
 import service.faultWarning.warnResultData;
 import service.faultWarning.Result.WarningResultService;
 import service.faultWarning.Result.WarnningFinal;
 import service.faultWarning.Result.WarnningResult;
+import service.faultWarning.Result.faultParaData;
 import tool.easyui.Table;
 import tool.highcharts.BarData;
 import util.TimeUtils;
@@ -29,7 +26,6 @@ public class FaultWarningAction extends AbstractActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String starttime;
 	private String endtime;
-	private String system="";
 	private warnResultData results;
 	private WarnningFinal resultFinal;
 
@@ -38,19 +34,17 @@ public class FaultWarningAction extends AbstractActionSupport {
 
 		starttime = getFirstInput() + " 00:00:00";
 		Long starttime1 = TimeUtils.StringtoLong(starttime);
-		Long endtime1 = starttime1 + 3600*24;
+		Long endtime1 = starttime1 + 3600*24*2;
 		endtime = TimeUtils.LongtoString(endtime1);
-		system=getSecondInput();
 
 		System.out.println("开始时间：" + starttime + "  ;  " + "结束时间： " + endtime);
 
 		// 调用service方法
-		System.out.println("系统选择：" + system);
 		WarningResultService warningResultService = new WarningResultService();
 		results = warningResultService.systemWarn(starttime, endtime); //五个总系统故障概率
 		
 		WarnningResult Pro_systems = results.getPro_systems();// 柱状图显示
-		List<String>   faultparameter =results.getFaultparameter();// 故障参数
+		faultParaData   faultparameter =results.getFaultparameter();// 故障参数
 		WarnningResult Pro_fault = results.getPro_fault(); //历史相似故障概率
 		
 
@@ -62,10 +56,10 @@ public class FaultWarningAction extends AbstractActionSupport {
 			bottomDetail.withRow(Pro_fault.getFaultName().get(i), rates);
 		}
 		
-		Table ParameterTable = new Table(new String[] { "faultName"});
-		for (int i = 0; i <faultparameter.size(); i++) {
-			String aString =faultparameter.get(i);
-			ParameterTable.withRow(aString);
+		Table ParameterTable = new Table(new String[] { "faultName","number","ID"});
+		for (int i = 0; i <faultparameter.getFaultName().size(); i++) {
+			ParameterTable.withRow(faultparameter.getFaultName().get(i),
+					faultparameter.getNumber().get(i),faultparameter.getID().get(i));
 		}
 		
 		

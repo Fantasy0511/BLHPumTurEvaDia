@@ -15,14 +15,15 @@ public class WarningResultService {
 
 	//每个子系统的故障概率
 	public warnResultData systemWarn(String starttime, String endtime)  {
-		Coscal coscal=new Coscal();	
+		Coscal coscal=new Coscal(starttime,endtime);	
 		//每个系统发生故障的概率
-		HashMap<String, Double> pro_systems = coscal.getSimilarityDegreeOfSystemgs(starttime, endtime);
+		HashMap<String, Double> pro_systems = coscal.getSimilarityDegreeOfSystemgs();
 		//时间段内发生故障的运行参数（由发生次数多到少排序,只显示前10个）
-		ArrayList<String> faultparameter=coscal.getFaultParameters(starttime, endtime);
+		ArrayList<ArrayList<String>> faultparameter=coscal.getFaultParameters();
 		//时间段内，与当前故障最相近的历史故障，只显示前10个
-		HashMap<String, Double> pro_fault = coscal.getFaultSimilarityOfSystemgs(starttime, endtime);
-		warnResultData warnResult1=new warnResultData( hash2List(pro_systems),faultparameter, hash2List(pro_fault));
+		HashMap<String, Double> pro_fault = coscal.getFaultSimilarityOfSystemgs();
+		faultParaData aData=new faultParaData(faultparameter.get(0), faultparameter.get(1), faultparameter.get(2));
+		warnResultData warnResult1=new warnResultData( hash2List(pro_systems),aData, hash2List(pro_fault));
 		return warnResult1;
 	}
 	
