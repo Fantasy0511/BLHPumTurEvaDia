@@ -213,11 +213,11 @@ public class BaseDAO implements IBaseDAO {
 				String description = rs.getString("description");
 				String parameters = rs.getString("parameters");
 				String unit = rs.getString("unit");
-				int alarmlevel = rs.getInt("alarmlevel");
-				int HHLimite = rs.getInt("HHLimite");
-				int LLLimite = rs.getInt("LLLimite");
-				int HLimite = rs.getInt("HLimite");
-				int LLimite = rs.getInt("LLimite");
+				double alarmlevel = rs.getInt("alarmlevel");
+				double HHLimite = rs.getInt("HHLimite");
+				double LLLimite = rs.getInt("LLLimite");
+				double HLimite = rs.getInt("HLimite");
+				double LLimite = rs.getInt("LLimite");
 				datainfo = new DataInfo(typeid, position, parameters,
 						description, unit, alarmlevel, HHLimite, LLLimite,
 						HLimite, LLimite);

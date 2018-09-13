@@ -363,7 +363,7 @@ public class Coscal {
         //只显示前5个
         fault_pro = new HashMap<String, Double>();
         total = 0;
-        int size = list.size()<5?list.size():5;
+        int size = list.size()<10?list.size():10;
         for(int i=0;i<size;i++){ 
         	total += list.get(i).getValue();
         	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());

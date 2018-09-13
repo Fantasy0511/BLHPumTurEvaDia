@@ -69,14 +69,12 @@ public class DataDiscrete {
 		//首先获得data的数据源信息
 		String typeid = data.getType()+data.getId();
 		DataInfo datainfo = this.maps.get(typeid);
-		int HH = datainfo.getHHLimite();//高高报警
-		int LL = datainfo.getLLLimite();//低低报警
-		int H = datainfo.getHLimite();//高报警
-		int L = datainfo.getLLimite();//低报警
+		double h = datainfo.getHHLimite()==0?datainfo.getHLimite():datainfo.getHHLimite();//高报警
+		double l = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
 		int Limiteflag = 0;
 		for(Double value:data.getValue()){
 			//判断是否越限,[hh,h,l,ll]按位置1,1100：高高报，0100：高报，0010：低报，0001：低低报，0000：正常
-			if(value>H){
+			if(h!=0&&value>h){
 //				Limiteflag = Limiteflag|4;
 				Limiteflag = 1;
 				break;//下面判断高高报和低低报的暂时不采纳，只用高低报应该够用
@@ -86,7 +84,7 @@ public class DataDiscrete {
 //				}
 				
 			}
-			if(value<L){
+			if(l!=0&&value<l){
 //				Limiteflag = Limiteflag|2;
 				Limiteflag = -1;
 				break;
@@ -107,13 +105,13 @@ public class DataDiscrete {
 		//首先获得data的数据源信息
 		String typeid = data.getType()+data.getId();
 		DataInfo datainfo = this.maps.get(typeid);
-		int H = datainfo.getHLimite();//高报警
-		int L = datainfo.getLLimite();//低报警
+		double h = datainfo.getHHLimite()==0?datainfo.getHLimite():datainfo.getHHLimite();//高报警
+		double l = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
 		for(Double value:data.getValue()){
-			if(value>H){
+			if(h!=0&&value>h){
 				rs = rs+1;
 			}
-			if(value<L){
+			if(l!=0&&value<l){
 				rs = rs+1;
 			}			
 		}

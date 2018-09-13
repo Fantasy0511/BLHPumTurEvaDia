@@ -10,14 +10,14 @@ public class DataInfo {
 	private String parameters;
 	private String description;
 	private String unit;
-	private int alarmlevel;
-	private int HHLimite;
-	private int LLLimite;
-	private int HLimite;
-	private int LLimite;
+	private double alarmlevel;
+	private double HHLimite;
+	private double LLLimite;
+	private double HLimite;
+	private double LLimite;
 	
 	public DataInfo(String typeid,String position,String parameters,String description,
-			String unit,int alarmlevel,int HHLimite,int LLLimite,int HLimite,int LLimite){
+			String unit,double alarmlevel,double HHLimite,double LLLimite,double HLimite,double LLimite){
 		this.setTypeid(typeid);
 		this.setPosition(position);
 		this.setParameters(parameters);
@@ -72,34 +72,34 @@ public class DataInfo {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	public int getAlarmlevel() {
+	public double getAlarmlevel() {
 		return alarmlevel;
 	}
-	public void setAlarmlevel(int alarmlevel) {
+	public void setAlarmlevel(double alarmlevel) {
 		this.alarmlevel = alarmlevel;
 	}
-	public int getHHLimite() {
+	public double getHHLimite() {
 		return HHLimite;
 	}
-	public void setHHLimite(int hHLimite) {
+	public void setHHLimite(double hHLimite) {
 		HHLimite = hHLimite;
 	}
-	public int getLLLimite() {
+	public double getLLLimite() {
 		return LLLimite;
 	}
-	public void setLLLimite(int lLLimite) {
+	public void setLLLimite(double lLLimite) {
 		LLLimite = lLLimite;
 	}
-	public int getHLimite() {
+	public double getHLimite() {
 		return HLimite;
 	}
-	public void setHLimite(int hLimite) {
+	public void setHLimite(double hLimite) {
 		HLimite = hLimite;
 	}
-	public int getLLimite() {
+	public double getLLimite() {
 		return LLimite;
 	}
-	public void setLLimite(int lLimite) {
+	public void setLLimite(double lLimite) {
 		LLimite = lLimite;
 	}
 }
