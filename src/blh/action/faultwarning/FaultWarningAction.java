@@ -56,10 +56,10 @@ public class FaultWarningAction extends AbstractActionSupport {
 			bottomDetail.withRow(Pro_fault.getFaultName().get(i), rates);
 		}
 		
-		Table ParameterTable = new Table(new String[] { "faultName","number","ID"});
+		Table ParameterTable = new Table(new String[] { "faultName","number","ID","Llimit","Hlimit"});
 		for (int i = 0; i <faultparameter.getFaultName().size(); i++) {
 			ParameterTable.withRow(faultparameter.getFaultName().get(i),
-					faultparameter.getNumber().get(i),faultparameter.getID().get(i));
+					faultparameter.getNumber().get(i),faultparameter.getID().get(i),faultparameter.getLlimite().get(i),faultparameter.getHlimite().get(i));
 		}
 		
 		

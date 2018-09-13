@@ -22,7 +22,7 @@ public class WarningResultService {
 		ArrayList<ArrayList<String>> faultparameter=coscal.getFaultParameters();
 		//时间段内，与当前故障最相近的历史故障，只显示前10个
 		HashMap<String, Double> pro_fault = coscal.getFaultSimilarityOfSystemgs();
-		faultParaData aData=new faultParaData(faultparameter.get(0), faultparameter.get(1), faultparameter.get(2));
+		faultParaData aData=new faultParaData(faultparameter.get(0), faultparameter.get(1), faultparameter.get(2),faultparameter.get(3),faultparameter.get(4));
 		warnResultData warnResult1=new warnResultData( hash2List(pro_systems),aData, hash2List(pro_fault));
 		return warnResult1;
 	}
