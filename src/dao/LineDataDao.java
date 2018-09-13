@@ -18,10 +18,10 @@ public class LineDataDao {
 		ResultSet rs = null;
 		List<String> times = new ArrayList<String>();
 		List<Double> datas = new ArrayList<Double>();
-		
+		long endTime=time+86400;		
 		/*查询数据库 预测时间和值*/
 		String sql1 = "SELECT TOP 5000 time,value  from " + tableName + " where ID ='"
-				+ ID + "' AND [time]>"+time+" ORDER BY time;";
+				+ ID + "' AND [time]>"+time+"AND [time] <"+ endTime+" ORDER BY time;";
 		System.out.println(sql1);
 		try {
 			conn = GovDBConfig.getconnection();

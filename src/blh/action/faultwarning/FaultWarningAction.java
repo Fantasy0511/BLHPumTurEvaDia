@@ -34,9 +34,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 
 		starttime = getFirstInput() + " 00:00:00";
 		Long starttime1 = TimeUtils.StringtoLong(starttime);
-		Long endtime1 = starttime1 + 3600*24*2;
-		endtime = TimeUtils.LongtoString(endtime1);
-
+		endtime = TimeUtils.DatetoString(TimeUtils.AddUnits(TimeUtils.LongtoDate(starttime1), "day", 1));
 		System.out.println("开始时间：" + starttime + "  ;  " + "结束时间： " + endtime);
 
 		// 调用service方法

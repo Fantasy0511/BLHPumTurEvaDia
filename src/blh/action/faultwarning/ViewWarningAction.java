@@ -21,14 +21,23 @@ public class ViewWarningAction extends AbstractActionSupport {
 	
 	private WarnViewService aService;
 	private LineData getChartComparison;
+	private String type;
+	private String  id;
 	@Override
 	public String execute() throws Exception {
 		String idString=getFirstInput();
 		String startTime=getSecondInput()+" 00:00:00";
 		String name=getThirdInput();
-		String  id=idString.substring(5);
+		if (idString.contains("float")) {
+			type=idString.substring(0, 5);
+			id=idString.substring(5);
+
+		}else {
+			type=idString.substring(0, 4);
+			id=idString.substring(4);
+		}
 		
-		String tableName = "float" + "_" + startTime.split("-")[0]
+		String tableName = type + "_" + startTime.split("-")[0]
 				+ startTime.split("-")[1];
 		aService=new WarnViewService(tableName, TimeUtils.StringtoLong(startTime),id);
 		getChartComparison=aService.getComparison(name);
