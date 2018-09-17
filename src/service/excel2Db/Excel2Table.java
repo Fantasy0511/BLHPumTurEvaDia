@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.csvreader.CsvReader;
 
+import javassist.compiler.ast.NewExpr;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -164,12 +165,16 @@ public class Excel2Table {
 		readWb = Workbook.getWorkbook(inputStream);
 		Sheet sheet = readWb.getSheet(0);
 		int rows = sheet.getRows();
+		System.out.println("行数：  "  +rows);
 		int cols = sheet.getColumns();
+		System.out.println("列数：  "  +cols);
 		List<TableRow> tableRows = new ArrayList<>();
+		int[] needs = new int[]{3,4,5,7,9};//开始时间，分类，故障名称，故障原因，结束时间
 		for (int i = 4; i < rows; i++) {
 			List<String> list = new ArrayList<>();
-			for (int j = 0; j < cols; j++) {
-				String cell = sheet.getCell(j, i).getContents();
+			for (int j = 0; j < needs.length; j++) {
+				String cell = sheet.getCell(needs[j], i).getContents();
+			/*	System.out.println("输出cell:"+cell);*/
 				list.add(cell);
 			}
 			TableRow tableRow = new TableRow(list);
@@ -178,4 +183,11 @@ public class Excel2Table {
 
 		return new Table(tableName, tableRows);
 	}
+	
+	public static void main(String[] args) throws BiffException, IOException {
+		Excel2Table aExcel2Table=new  Excel2Table();
+		Table  aTable=aExcel2Table.readExcel2Table2("C:\\Users\\Asus\\Desktop\\FaultInfoTable.xls");
+		System.out.println(aTable.getTableName());
+	}
+	
 }

@@ -24,6 +24,7 @@ public class TableRow {
 	private String EndTime;
 	private String WorkCondition;
 	private String Parameters;
+	private String faultLevel;
 	
 	public TableRow() {
 		super();
@@ -53,8 +54,8 @@ public class TableRow {
 			this.EndTime = list.get(5);
 			this.WorkCondition = list.get(6);
 			this.Parameters = list.get(7);
+			this.faultLevel = list.get(8);
 		}
-
 	}
 
 	//bool和double表
@@ -74,10 +75,10 @@ public class TableRow {
 		this.time = time;
 		this.value = value;
 	}
-	
-	//faultInfoTable表
+	//电站设备缺陷表
+
 	public TableRow(String faultID, String system, String faultName, String faultReason, String startTime,
-			String endTime, String workCondition, String parameters) {
+			String endTime, String workCondition, String parameters, String faultLevel) {
 		super();
 		FaultID = faultID;
 		System = system;
@@ -87,6 +88,27 @@ public class TableRow {
 		EndTime = endTime;
 		WorkCondition = workCondition;
 		Parameters = parameters;
+		this.faultLevel = faultLevel;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getPos() {
+		return pos;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 	public String getFaultID() {
@@ -121,6 +143,30 @@ public class TableRow {
 		return Parameters;
 	}
 
+	public String getFaultLevel() {
+		return faultLevel;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setPos(String pos) {
+		this.pos = pos;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	public void setFaultID(String faultID) {
 		FaultID = faultID;
 	}
@@ -153,44 +199,12 @@ public class TableRow {
 		Parameters = parameters;
 	}
 
-	public String getId() {
-		return id;
+	public void setFaultLevel(String faultLevel) {
+		this.faultLevel = faultLevel;
 	}
+	
+	
+	
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPos() {
-		return pos;
-	}
-
-	public void setPos(String pos) {
-		this.pos = pos;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
 
 }

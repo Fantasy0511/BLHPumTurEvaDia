@@ -29,9 +29,27 @@ public class TimeUtils {
 	 * @return 对应的长整型数据
 	 */
 	public static long StringtoLong(String str) {
-		Date dt = StringtoDate(str);
-		long timel = DatetoLong(dt); // 得到秒数，Date类型的getTime()返回毫秒数
-		return timel;
+		if (str == null||str == "") {
+			return  0;
+		}else {
+			Date dt = StringtoDate(str);
+			long timel = DatetoLong(dt); // 得到秒数，Date类型的getTime()返回毫秒数
+			return timel;
+		}
+	}
+	/**
+	 * 输入 时间类型为  18-08-15 21:21:04
+	 * @param str
+	 * @return  输出2018-08-15 21:21:04
+	 */
+	public static long StringtoLong2(String str) {
+		if (str == null||str == "") {
+			return  0;
+		}else {
+			Date dt = StringtoDate("20"+str);
+			long timel = DatetoLong(dt); // 得到秒数，Date类型的getTime()返回毫秒数
+			return timel;
+		}
 	}
 
 	/**

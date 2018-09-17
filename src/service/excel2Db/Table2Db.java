@@ -69,23 +69,24 @@ public class Table2Db extends JdbcDaoUtil {
 		}
 
 		// FaultInfoTable表中添加数据
-		if (tableName.contains("FaultInfo")) {
+		if (tableName.contains("FaultInfoTable")) {
 
-			String insertSql = "insert into " + tableName +"(FaultID,System,FaultName,FaultReason,StartTime,EndTime,WorkCondition,Parameters) "
-					+ "values(?,?,?,?,?,?,?,?)";
+			String insertSql = "insert into " + tableName +"(FaultID,System,FaultName,FaultReason,StartTime,EndTime,WorkCondition,Parameters,faultLevel) "
+					+ "values(?,?,?,?,?,?,?,?,?);";
 			System.out.println(insertSql);
 			getJdbcTemplate().batchUpdate(insertSql, new BatchPreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
 					List<TableRow> list = table.getTableRows();
-					ps.setString(1, list.get(i).getFaultID());
-					ps.setString(2, list.get(i).getSystem());
-					ps.setString(3, list.get(i).getFaultName());
-					ps.setString(4, list.get(i).getFaultReason());
-					ps.setString(5, list.get(i).getStartTime());
-					ps.setString(6, list.get(i).getEndTime());
-					ps.setString(7, list.get(i).getWorkCondition());
-					ps.setString(8, list.get(i).getParameters());
+					ps.setString(1, "");
+					ps.setString(2, "");
+					ps.setString(3, list.get(i).getState());
+					ps.setString(4, list.get(i).getTime());
+					ps.setFloat(5, (float)TimeUtils.StringtoLong2(list.get(i).getId()));
+					ps.setFloat(6, (float)TimeUtils.StringtoLong2(list.get(i).getValue()));
+					ps.setString(7, "");
+					ps.setString(8, "");
+					ps.setString(9, list.get(i).getPos());
 				}
 				@Override
 				public int getBatchSize() {

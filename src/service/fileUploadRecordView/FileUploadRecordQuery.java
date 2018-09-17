@@ -113,9 +113,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 				} else {
 					while (rs.next()) {
 						list.add(new TableRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-								rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)
-
-						));
+								rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9)));
 					}
 				}
 
@@ -126,7 +124,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	}
 
 	public static void main(String[] args) {
-		List<TableRow> list = new FileUploadRecordQuery().getDataByFileName("float_201802");
-		System.out.println(list.size());
+		List<TableRow> list = new FileUploadRecordQuery().getDataByFileName("FaultInfoTable");
+		System.out.println(list.get(56).getFaultLevel());
 	}
 }
