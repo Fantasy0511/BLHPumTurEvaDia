@@ -113,7 +113,7 @@
 				$('#float-window').window('open');
 				
 			}
-			if(fileName.indexOf("FaultInfo") != -1){
+			if(fileName.indexOf("Fault") != -1){
 				loadData("file_record_table_Info", data.table);
 				$('#FaultInfo-window').window('open');
 			}
@@ -240,15 +240,15 @@
 			style="width: 98%; height: auto" data-options="singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultID',align:'center',width:80">故障ID</th>
-					<th data-options="field:'faultLevel',align:'center',width:'90'">故障分类</th>
-					<th data-options="field:'system',align:'left',width:100">子系统</th>
-					<th data-options="field:'faultName',align:'left',width:220">故障名称</th>
-					<th data-options="field:'faultReason',align:'left',width:240">故障原因</th>
-					<th data-options="field:'startTime',align:'center',width:140">开始时间</th>
-					<th data-options="field:'endTime',align:'center',width:'140'">结束时间</th>
-					<th data-options="field:'workCondition',align:'center',width:'100'">工况</th>
-					<th data-options="field:'parameters',align:'left',width:'200'">相关参数</th>
+					<th data-options="field:'serial',align:'center',width:80">序号</th>
+					<th data-options="field:'faultLevel',align:'center',width:'90'">分类</th>
+					<th data-options="field:'defect',align:'left',width:100">缺陷</th>
+					<th data-options="field:'team',align:'left',width:110">班组</th>
+					<th data-options="field:'reason',align:'left',width:240">原因</th>
+					<th data-options="field:'deal',align:'center',width:240">处理</th>
+					<th data-options="field:'startTime',align:'center',width:'140'">发现时间</th>
+					<th data-options="field:'endTime',align:'center',width:'100'">处理时间</th>
+					<th data-options="field:'remarks',align:'left',width:'200'">备注</th>
 				</tr>
 			</thead>
 		</table>

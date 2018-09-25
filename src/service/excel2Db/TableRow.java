@@ -16,15 +16,15 @@ public class TableRow {
 	private String value;
 	
 	//faultInfoTable
-	private String FaultID;
-	private String System;
-	private String FaultName;
-	private String FaultReason;
-	private String StartTime;
+	private String Serial;
+	private String FaultLevel;
+	private String Defect;
+	private String Team;
+	private String Reason;
+	private String Deal;
+	private String StartTime ;
 	private String EndTime;
-	private String WorkCondition;
-	private String Parameters;
-	private String faultLevel;
+	private String Remarks;
 	
 	public TableRow() {
 		super();
@@ -45,16 +45,16 @@ public class TableRow {
 			this.time = list.get(2);
 			this.value = list.get(3);
 		}
-		if (list.size() == 8) {
-			this.FaultID = list.get(0);
-			this.System = list.get(1);
-			this.FaultName = list.get(2);
-			this.FaultReason = list.get(3);
-			this.StartTime = list.get(4);
-			this.EndTime = list.get(5);
-			this.WorkCondition = list.get(6);
-			this.Parameters = list.get(7);
-			this.faultLevel = list.get(8);
+		if (list.size() == 9) {
+			this.Serial = list.get(0);
+			this.FaultLevel = list.get(1);
+			this.Defect = list.get(2);
+			this.Team = list.get(3);
+			this.Reason = list.get(4);
+			this.Deal = list.get(5);
+			this.StartTime = list.get(6);
+			this.EndTime = list.get(7);
+			this.Remarks = list.get(8);
 		}
 	}
 
@@ -77,18 +77,18 @@ public class TableRow {
 	}
 	//电站设备缺陷表
 
-	public TableRow(String faultID, String system, String faultName, String faultReason, String startTime,
-			String endTime, String workCondition, String parameters, String faultLevel) {
+	public TableRow(String serial, String faultLevel, String defect, String team, String reason, String deal,
+			String startTime, String endTime, String remarks) {
 		super();
-		FaultID = faultID;
-		System = system;
-		FaultName = faultName;
-		FaultReason = faultReason;
+		Serial = serial;
+		FaultLevel = faultLevel;
+		Defect = defect;
+		Team = team;
+		Reason = reason;
+		Deal = deal;
 		StartTime = startTime;
 		EndTime = endTime;
-		WorkCondition = workCondition;
-		Parameters = parameters;
-		this.faultLevel = faultLevel;
+		Remarks = remarks;
 	}
 
 	public String getId() {
@@ -111,20 +111,28 @@ public class TableRow {
 		return value;
 	}
 
-	public String getFaultID() {
-		return FaultID;
+	public String getSerial() {
+		return Serial;
 	}
 
-	public String getSystem() {
-		return System;
+	public String getFaultLevel() {
+		return FaultLevel;
 	}
 
-	public String getFaultName() {
-		return FaultName;
+	public String getDefect() {
+		return Defect;
 	}
 
-	public String getFaultReason() {
-		return FaultReason;
+	public String getTeam() {
+		return Team;
+	}
+
+	public String getReason() {
+		return Reason;
+	}
+
+	public String getDeal() {
+		return Deal;
 	}
 
 	public String getStartTime() {
@@ -135,16 +143,8 @@ public class TableRow {
 		return EndTime;
 	}
 
-	public String getWorkCondition() {
-		return WorkCondition;
-	}
-
-	public String getParameters() {
-		return Parameters;
-	}
-
-	public String getFaultLevel() {
-		return faultLevel;
+	public String getRemarks() {
+		return Remarks;
 	}
 
 	public void setId(String id) {
@@ -167,20 +167,28 @@ public class TableRow {
 		this.value = value;
 	}
 
-	public void setFaultID(String faultID) {
-		FaultID = faultID;
+	public void setSerial(String serial) {
+		Serial = serial;
 	}
 
-	public void setSystem(String system) {
-		System = system;
+	public void setFaultLevel(String faultLevel) {
+		FaultLevel = faultLevel;
 	}
 
-	public void setFaultName(String faultName) {
-		FaultName = faultName;
+	public void setDefect(String defect) {
+		Defect = defect;
 	}
 
-	public void setFaultReason(String faultReason) {
-		FaultReason = faultReason;
+	public void setTeam(String team) {
+		Team = team;
+	}
+
+	public void setReason(String reason) {
+		Reason = reason;
+	}
+
+	public void setDeal(String deal) {
+		Deal = deal;
 	}
 
 	public void setStartTime(String startTime) {
@@ -191,20 +199,10 @@ public class TableRow {
 		EndTime = endTime;
 	}
 
-	public void setWorkCondition(String workCondition) {
-		WorkCondition = workCondition;
+	public void setRemarks(String remarks) {
+		Remarks = remarks;
 	}
 
-	public void setParameters(String parameters) {
-		Parameters = parameters;
-	}
-
-	public void setFaultLevel(String faultLevel) {
-		this.faultLevel = faultLevel;
-	}
-	
-	
-	
 
 
 }

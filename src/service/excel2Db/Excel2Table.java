@@ -169,18 +169,18 @@ public class Excel2Table {
 		int cols = sheet.getColumns();
 		System.out.println("列数：  "  +cols);
 		List<TableRow> tableRows = new ArrayList<>();
-		int[] needs = new int[]{3,4,5,7,9};//开始时间，分类，故障名称，故障原因，结束时间
+		int[] needs = new int[]{1,4,5,6,7,8,3,9,10};//缺陷月度缺陷表
 		for (int i = 4; i < rows; i++) {
 			List<String> list = new ArrayList<>();
 			for (int j = 0; j < needs.length; j++) {
 				String cell = sheet.getCell(needs[j], i).getContents();
-			/*	System.out.println("输出cell:"+cell);*/
+			System.out.println("输出cell:"+cell);
 				list.add(cell);
 			}
 			TableRow tableRow = new TableRow(list);
 			tableRows.add(tableRow);
 		}
-
+		System.out.println("表格读取成功！");
 		return new Table(tableName, tableRows);
 	}
 	

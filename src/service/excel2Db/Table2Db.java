@@ -69,24 +69,24 @@ public class Table2Db extends JdbcDaoUtil {
 		}
 
 		// FaultInfoTable表中添加数据
-		if (tableName.contains("FaultInfoTable")) {
-
-			String insertSql = "insert into " + tableName +"(FaultID,System,FaultName,FaultReason,StartTime,EndTime,WorkCondition,Parameters,faultLevel) "
-					+ "values(?,?,?,?,?,?,?,?,?);";
+		if (tableName.contains("Fault")) {
+			creatNewFaultInfoTable(tableName);
+			String insertSql = "insert into " + tableName + " (Serial,FaultLevel,Defect,Team,Reason,Deal,StartTime,EndTime,Remarks) values(?,?,?,?,?,?,?,?,?);";
 			System.out.println(insertSql);
+			
 			getJdbcTemplate().batchUpdate(insertSql, new BatchPreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
 					List<TableRow> list = table.getTableRows();
-					ps.setString(1, "");
-					ps.setString(2, "");
-					ps.setString(3, list.get(i).getState());
-					ps.setString(4, list.get(i).getTime());
-					ps.setFloat(5, (float)TimeUtils.StringtoLong2(list.get(i).getId()));
-					ps.setFloat(6, (float)TimeUtils.StringtoLong2(list.get(i).getValue()));
-					ps.setString(7, "");
-					ps.setString(8, "");
-					ps.setString(9, list.get(i).getPos());
+					ps.setString(1, list.get(i).getSerial());
+					ps.setString(2, list.get(i).getFaultLevel());
+					ps.setString(3, list.get(i).getDefect());
+					ps.setString(4, list.get(i).getTeam());
+					ps.setString(5, list.get(i).getReason());
+					ps.setString(6, list.get(i).getDeal());
+					ps.setString(7, String.valueOf(TimeUtils.StringtoLong2(list.get(i).getStartTime())));
+					ps.setString(8, String.valueOf(TimeUtils.StringtoLong2(list.get(i).getEndTime())));
+					ps.setString(9, list.get(i).getRemarks());
 				}
 				@Override
 				public int getBatchSize() {
@@ -121,6 +121,19 @@ public class Table2Db extends JdbcDaoUtil {
 		getJdbcTemplate().update(sql);
 	}
 
+	/**
+	 * 根据电站阅读缺陷表，新建故障特征表
+	 * @param tableName
+	 */
+	public void creatNewFaultInfoTable(String tableName) {
+		String sql = "if not exists(select * from sysobjects where id = object_id('" + tableName + "')) "
+				+ "begin create table " + tableName + " (Serial varchar(50) not null , FaultLevel varchar(150),Defect varchar(250),Team varchar(150),"
+				+ " Reason varchar(250),Deal varchar(500),StartTime varchar(50),EndTime varchar(50),Remarks varchar(150));end";
+		System.out.println(sql);
+		getJdbcTemplate().update(sql);
+	}
+	
+	
 	/**
 	 * 存储上传文件信息保存到数据库表 upload_file_record
 	 */
