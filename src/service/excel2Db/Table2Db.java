@@ -69,7 +69,7 @@ public class Table2Db extends JdbcDaoUtil {
 		}
 
 		// FaultInfoTable表中添加数据
-		if (tableName.contains("Fault")) {
+		if (tableName.contains("缺陷月度情况表")) {
 			creatNewFaultInfoTable(tableName);
 			String insertSql = "insert into " + tableName + " (Serial,FaultLevel,Defect,Team,Reason,Deal,StartTime,EndTime,Remarks) values(?,?,?,?,?,?,?,?,?);";
 			System.out.println(insertSql);
@@ -84,8 +84,9 @@ public class Table2Db extends JdbcDaoUtil {
 					ps.setString(4, list.get(i).getTeam());
 					ps.setString(5, list.get(i).getReason());
 					ps.setString(6, list.get(i).getDeal());
-					ps.setString(7, String.valueOf(TimeUtils.StringtoLong2(list.get(i).getStartTime())));
-					ps.setString(8, String.valueOf(TimeUtils.StringtoLong2(list.get(i).getEndTime())));
+					/*ps.setString(7, String.valueOf(TimeUtils.StringtoLong2(list.get(i).getStartTime())));*/
+					ps.setString(7, list.get(i).getStartTime());
+					ps.setString(8, list.get(i).getEndTime());
 					ps.setString(9, list.get(i).getRemarks());
 				}
 				@Override

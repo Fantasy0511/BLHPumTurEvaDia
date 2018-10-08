@@ -36,9 +36,8 @@
 					+ fileName;
 			console.log(url);
 			$('form').attr('action', url);  //在点击提交按钮之前修改action的地址并且提交相应的表单，通过jquery为action属性赋值
-			alert('上传成功');
 		}
-
+		/* alert('上传成功'); */
 	}
 	function showHistoryFileRecord() {
 		var url = "/BLHPumTurEvaDia/dataUpload/record";
@@ -81,8 +80,15 @@
 			});
 
 			$(".operation_delete").click(function() {
-				var id = $(this).val();
-				_deleteRecord(id);
+				var r=confirm("   确认是否删除！   ");
+				if (r==true)
+			    {
+					var id = $(this).val();
+					_deleteRecord(id);
+			    }
+			  else
+			    {
+			    }
 			});
 		};
 		getJSON(url, success);
@@ -113,7 +119,7 @@
 				$('#float-window').window('open');
 				
 			}
-			if(fileName.indexOf("Fault") != -1){
+			if(fileName.indexOf("缺陷月度情况表") != -1){
 				loadData("file_record_table_Info", data.table);
 				$('#FaultInfo-window').window('open');
 			}
@@ -240,15 +246,14 @@
 			style="width: 98%; height: auto" data-options="singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'serial',align:'center',width:80">序号</th>
 					<th data-options="field:'faultLevel',align:'center',width:'90'">分类</th>
 					<th data-options="field:'defect',align:'left',width:100">缺陷</th>
 					<th data-options="field:'team',align:'left',width:110">班组</th>
 					<th data-options="field:'reason',align:'left',width:240">原因</th>
 					<th data-options="field:'deal',align:'center',width:240">处理</th>
 					<th data-options="field:'startTime',align:'center',width:'140'">发现时间</th>
-					<th data-options="field:'endTime',align:'center',width:'100'">处理时间</th>
-					<th data-options="field:'remarks',align:'left',width:'200'">备注</th>
+					<th data-options="field:'endTime',align:'center',width:'140'">处理时间</th>
+					<th data-options="field:'remarks',align:'left',width:'220'">备注</th>
 				</tr>
 			</thead>
 		</table>

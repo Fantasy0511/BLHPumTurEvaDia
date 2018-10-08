@@ -11,16 +11,14 @@ public class Oilsystem2 {
 	public List<Number> getOilsystem2(long time) {
 		DecimalFormat df = new DecimalFormat("#.0");
 		List<Number> oilStateList = new ArrayList<>();
+		
+		BoolAssess ba = new BoolAssess();
 		// 压力油罐油压低报警
-		BoolAssess bool544 = new BoolAssess();
-		int U1 = bool544.BooleanAssess(544, time);
-
+		int U1 = ba.BooleanAssess(544, time);
 		// 球阀1号油泵故障
-		BoolAssess bool568 = new BoolAssess();
-		int U2 = bool568.BooleanAssess(568, time);
+		int U2 = ba.BooleanAssess(568, time);
 		// 球阀2号油泵故障
-		BoolAssess bool573 = new BoolAssess();
-		int U3 = bool573.BooleanAssess(573, time);
+		int U3 = ba.BooleanAssess(573, time);
 		
 		double score = (U1 + U2 + U3) / 3;
 		score =Double.parseDouble(df.format(score));

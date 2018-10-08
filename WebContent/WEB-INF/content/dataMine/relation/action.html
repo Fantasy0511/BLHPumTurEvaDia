@@ -194,7 +194,7 @@
 					id = map[id];
 				}
 				return str;
-			} 
+			}
 		});
 
 	}
@@ -241,7 +241,6 @@
 
 </head>
 <style>
-
 h2.top_title {
 	border-bottom: none;
 	background: none;
@@ -289,9 +288,13 @@ hr {
 .form-group {
 	
 }
+
+.sys_div {
+	cursor: pointer;
+}
 </style>
 <body>
-	<div align="center">
+	<div align="center" style="display:none">
 		<div class="page_operation_bar">
 			<div align="left" id="showDiv">
 				<form action="" class="form-inline" role="form">
@@ -344,7 +347,7 @@ hr {
 						<label class="control-label" for="method">子系统选择 &nbsp;</label>
 
 						<div class="col-sm-6 input-group">
-							<select class="form-control" id="subSystem">
+							<select class="form-control" >
 								<option value="Gov">调速器系统</option>
 								<option value="Pum">水泵水轮机系统</option>
 								<option value="ball">球阀系统</option>
@@ -358,14 +361,17 @@ hr {
 		</div>
 	</div>
 
-	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
-		<div
-			style="width: 47%; height:; float: left; display: inline; margin-right: 2%">
-			<div style="width: 100%; height: 270px; float: left; display: inline">
+	<div style="margin-left: 2%; margin-right: 2%; width: 100%;    margin-bottom: 10px;">
+		
+		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+		
+		<!-- 关联参数设置 star -->
+		<div style="width: 100%; height: 310px; float: left; display: inline">
 				<div class="easyui-panel" title="关联分析参数设置"
 					style="width: 100%; height: 270px;">
 					<div style="height: 230px">
-						<div class="col-lg-8">
+					
+					<div class="col-lg-8">
 							<form class="form-horizontal">
 								<div class="form-group"></div>
 								<div class="form-group" style="margin-left: -80px">
@@ -374,7 +380,7 @@ hr {
 
 									<div class="col-sm-5 input-group">
 										<input type='text' id='minSupport' class="form-control"
-											 value="5"> <span class="input-group-addon">1</span>
+											value="5" disabled="disabled"> <span class="input-group-addon">1</span>
 									</div>
 								</div>
 								<div class="form-group" style="margin-left: -80px">
@@ -383,14 +389,33 @@ hr {
 
 									<div class="col-sm-5 input-group">
 										<input type='text' id='minConfidence' class="form-control"
-											 value="60"> <span class="input-group-addon">%</span>
+											value="60" disabled="disabled"> <span class="input-group-addon">%</span>
 									</div>
 								</div>
 							</form>
 						</div>
-						<div class="col-md-4" style="padding-top: 3%;">
+
+					<div class="col-md-4" style="padding-top: 3%;">
 							<span class="introduce">&nbsp;&nbsp;&nbsp;&nbsp;支持度是对频繁项出现次数的设置；置信度是对挖掘的关联关系的可信度的设置。</span>
-						</div>
+					</div>
+					
+				
+					<div class="col-lg-10"
+							style="margin-left:35px;">
+							<label class="control-label" for="method" >子系统选择 &nbsp;</label>
+
+							<div  style="margin-right:10px;display: inline-block">
+								<select class="form-control" id="subSystem">
+									<option value="Gov">调速器系统</option>
+									<option value="Pum">水泵水轮机系统</option>
+									<option value="ball">球阀系统</option>
+									<option value="Exc">发电机及励磁系统</option>
+									<option value="Transfer">主变系统</option>
+								</select>
+							</div>
+					</div>
+					
+
 						<div class="col-lg-10">
 							<div style="padding-top: 8%">
 								<div class="col-md-4" style="margin-left: 100px">
@@ -406,39 +431,16 @@ hr {
 								</div> -->
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
-		</div>
-
-
-
-		<div style="width: 47%; height: 270px; float: left; display: inline">
-
-			<table class="easyui-datagrid" title="频繁项集" id="historyTable"
-				style="width: auto; height: 270px"
-				data-options="singleSelect:false,fitColumns:true,display:'inline-block'">
-				<thead>
-					<tr>
-						<th data-options="field:'FrequentName',align:'center'"
-							style="width: 30%;">频繁项集数</th>
-						<th
-							data-options="field:'detail', align:'center',formatter:contentFormat "
-							style="width: 69%;">频繁项集</th>
-					</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
-
-	<div style="width: 100%; height: 20px; float: left"></div>
-
-	<div style="margin-left: 2%; margin-right: 2%; width: 100%">
-
-		<div
-			style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
-			<table class="easyui-datagrid" title="关联分析结果" id="relationTable"
-				style="width: 100%; height: 470px"
+		<!-- 关联参数设置 end -->
+		<div style="float:left ; width: 100%;height: 10px;display: inline;"></div>
+		
+		<!-- 关联分析结果 star -->
+		<table class="easyui-datagrid" title="关联分析结果" id="relationTable"
+				style="width: 100%; height: 500px"
 				data-options="singleSelect:true,fitColumns:false,display:'inline-block',rownumbers:false,pagination:false">
 				<thead>
 					<tr>
@@ -448,13 +450,16 @@ hr {
 							style="width: 48%">设备状态</th>
 					</tr>
 				</thead>
-			</table>
+		</table>
+		<!-- 关联分析结果 end -->
+		
 		</div>
-
-
-		<div style="width: 47%; height: auto; float: left; display: inline">
+		
+		
+		<div style="width: 47%; height: auto; float: left; display: inline; margin-right: 2%">
+		
 			<div class="easyui-panel relation" title="关联分析图"
-				style="width: 100%; height: 470px;">
+				style="width: 100%; height: 820px;">
 				<!-- 关联分析耦合图展示 -->
 				<div>
 					<div id="relaImage">
@@ -462,14 +467,16 @@ hr {
 						<h2 class="top_title">多源异构数据关联挖掘分析结果展示</h2>
 
 						<section id="cd-timeline" class="cd-container">
-							
+
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-movie">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/振动.png" alt="Movie">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/振动.png"
+										alt="Movie">
 								</div>
 
-								<div class="cd-timeline-content" id="pum" style="text-align:center">
-									<a  class="changePage">水泵水轮机系统</a>
+								<div class="cd-timeline-content sys_div" id="pum"
+									style="text-align: center">
+									<a class="changePage">水泵水轮机系统</a>
 								</div>
 							</div>
 
@@ -477,10 +484,12 @@ hr {
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-picture">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/系统性能.png" alt="Picture">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/系统性能.png"
+										alt="Picture">
 								</div>
 
-								<div class="cd-timeline-content"  id="gov" style="text-align:center">
+								<div class="cd-timeline-content sys_div" id="gov"
+									style="text-align: center">
 									<a class="changePage">调速系统</a>
 									<!--	<h5>调速系统</h5>
 			&lt;!&ndash;<p>网页时间轴一般用于展示以时间为主线的事件，如企业网站常见的公司发展</p>&ndash;&gt;
@@ -489,35 +498,41 @@ hr {
 								</div>
 							</div>
 
-							
+
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-movie">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/发电机.png" alt="Movie">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/发电机.png"
+										alt="Movie">
 								</div>
 
-								<div class="cd-timeline-content" id="exc" style="text-align:center">
-									<a  class="changePage">发电及励磁系统</a>
+								<div class="cd-timeline-content sys_div" id="exc"
+									style="text-align: center">
+									<a class="changePage">发电及励磁系统</a>
 								</div>
 							</div>
-							
-							
+
+
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-picture">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png" alt="Picture">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/导水.png"
+										alt="Picture">
 								</div>
 
-								<div class="cd-timeline-content" id="ball" style="text-align:center">
-									<a  class="changePage">球阀系统</a>
+								<div class="cd-timeline-content sys_div" id="ball"
+									style="text-align: center">
+									<a class="changePage">球阀系统</a>
 								</div>
 							</div>
-							
+
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-movie">
-									<img src="/BLHPumTurEvaDia/images/pages/assessment/电气.png" alt="Location">
+									<img src="/BLHPumTurEvaDia/images/pages/assessment/电气.png"
+										alt="Location">
 								</div>
 
-								<div class="cd-timeline-content" id="transfer" style="text-align:center">
-									<a  class="changePage">主变系统</a>
+								<div class="cd-timeline-content sys_div" id="transfer"
+									style="text-align: center">
+									<a class="changePage">主变系统</a>
 								</div>
 							</div>
 
@@ -533,9 +548,34 @@ hr {
 						style="width: 96%; margin-left: 2%; margin-right: 2%; margin-top: 1%">    暂无结果</pre>
 				</div> -->
 			</div>
+	
 		</div>
+		
+		
 
+
+		<!-- <div style="width: 47%; height: 270px; float: left; display: inline">
+
+			<table class="easyui-datagrid" title="频繁项集" id="historyTable"
+				style="width: auto; height: 270px"
+				data-options="singleSelect:false,fitColumns:true,display:'inline-block'">
+				<thead>
+					<tr>
+						<th data-options="field:'FrequentName',align:'center'"
+							style="width: 30%;">频繁项集数</th>
+						<th
+							data-options="field:'detail', align:'center',formatter:contentFormat "
+							style="width: 69%;">频繁项集</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	 -->
+	
 	</div>
+
+	<div style="width: 100%; height: 20px; float: left"></div>
+
 
 	<!-- 小窗口展示 -->
 	<div id="test-window" class="easyui-window" title="关联规则"

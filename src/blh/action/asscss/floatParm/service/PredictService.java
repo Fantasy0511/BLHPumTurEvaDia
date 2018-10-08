@@ -48,7 +48,8 @@ public class PredictService {
 			}
 			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());*/
 			lineRegMain aLineRegMain=new lineRegMain();
-			resultLine=aLineRegMain.calculatedSum(lRegression.fit(),step);
+			resultLine=lRegression.fit();
+			//resultLine=aLineRegMain.calculatedSum(lRegression.fit(),step);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

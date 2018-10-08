@@ -40,7 +40,7 @@ public class GovAssessAction extends AbstractActionSupport {
 		// 判断输入的时间是否能在数据库中找到相应表格
 		JudgeTime jt = new JudgeTime();
 		judgeResult = jt.judgeTime(time2);
-		
+		System.out.println(time2);
 		Output output = new Output();
 		GovAssResult govAssResult = output.getGovAssessResult(time);
 

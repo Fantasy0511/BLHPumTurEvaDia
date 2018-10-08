@@ -89,11 +89,11 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	 */
 	public List<TableRow> getDataByFileName(String fileName) {
 		String sql;
-		if (fileName.contains("FaultInfo")) {
+		if (fileName.contains("缺陷月度情况表")) {
 			sql = "select * from " + fileName;
 		}
 		else {
-			sql = "select TOP 10000 * from " + fileName;
+			sql = "select TOP 2000 * from " + fileName;
 		}
 		
 		return getJdbcTemplate().query(sql, new ResultSetExtractor<List<TableRow>>() {

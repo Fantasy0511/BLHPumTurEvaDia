@@ -2,11 +2,14 @@ package service.dateMine.frequentItem;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jfree.chart.imagemap.ImageMapUtilities;
 
 import util.PathUtil;
 
@@ -36,24 +39,29 @@ public class FrequentItem {
 	}
 
 	public FrequentItem getFrequentItem(String system, int frequent) throws IOException {
-		@SuppressWarnings("resource")
-		BufferedReader in = new BufferedReader(
-				new FileReader(PathUtil.getWebRealBasePath() + "data/" + system + ".txt"));
-		System.out.println(PathUtil.getWebRealBasePath()+"data/"+ system + ".txt");
-		String line = null;
-		FrequentItem fItem = new FrequentItem();
-		while ((line = in.readLine()) != null) {
+	
+		 InputStreamReader read = new InputStreamReader(
+					new FileInputStream(PathUtil.getWebRealBasePath() + "data/" + system + ".txt"),"utf-8");
+			System.out.println(PathUtil.getWebRealBasePath()+"data/"+ system + ".txt");
 			
-			String str = "";
-			str += line;
-			if (str.contains("频繁"+frequent + "项集")) {
-				System.out.println("memda");
-				fItem.setFrequent(frequent);
-				fItem.setItems(getList(in.readLine()));
-				return fItem;
+			@SuppressWarnings("resource")
+			BufferedReader reader=new BufferedReader(read);
+			
+			String line = null;
+			FrequentItem fItem = new FrequentItem();
+			while ((line = reader.readLine()) != null) {
+				
+				String str = "";
+				str += line;
+				if (str.contains("频繁"+frequent + "项集")) {
+					System.out.println("memda");
+					fItem.setFrequent(frequent);
+					fItem.setItems(getList(reader.readLine()));
+					return fItem;
+				}
 			}
-		}
-		return null;
+			read.close();
+			return null;
 
 	}
 

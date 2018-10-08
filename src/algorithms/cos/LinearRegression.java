@@ -54,6 +54,7 @@ public class LinearRegression {
 				Exx += (x.get(i)-start)*(x.get(i)-start);
 			} 
 			k=(size*Exy-Ex*Ey)/(size*Exx-Ex*Ex);
+			System.out.println("預測k為："+k);
 			b=(Exx*Ey-Ex*Exy)/(size*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
 			double h = info.getHHLimite()==0?info.getHLimite():info.getHHLimite();

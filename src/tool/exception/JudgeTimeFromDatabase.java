@@ -53,7 +53,7 @@ public class JudgeTimeFromDatabase {
 		String endMounth = endStr.substring(5, 7);
 
 		String sql = "select id from " + "bool" + "_" + endYear + endMounth;
-
+		System.out.println(sql);
 		try {
 			stmt = conn.createStatement();
 			// 执行数据库查询语句
