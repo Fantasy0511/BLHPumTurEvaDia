@@ -26,38 +26,62 @@ public class DataDiscrete {
 	/**
 	 * 离散化bool表里读出的数据
 	 * */
+	private ArrayList<String> keywords = new ArrayList<String>();
 	private HashMap<String, DataInfo> maps;
 	public DataDiscrete() throws ClassNotFoundException, SQLException{
 		ReadData readDB = new ReadData();
 		this.maps = readDB.queInfo();
+		keywords.add("故障");
+		keywords.add("报警");
+		keywords.add("跳机");
+		keywords.add("堵塞");
+		keywords.add("渗漏");
+		keywords.add("跳闸");
+		keywords.add("高");
+		keywords.add("低");
 	}
 	
 	/**
 	 * 离散化开关量，返回是否出现报警
 	 * */
 	public int boolDiscrete(DataUtils data){
+		String typeid = data.getType()+data.getId();
+		DataInfo datainfo = this.maps.get(typeid);
+		String description=datainfo.getDescription();
 		//bool表里读出的数据只有01,若data.value中含有1则离散化为1
-		int rs = 0;
-		for(Double value:data.getValue()) {
-			if (value==1.0){
-				rs = 1;
-				return rs;
+		for(int i=0;i<keywords.size();i++){
+			if(description.indexOf(keywords.get(i))!=-1){
+				for(Double value:data.getValue()) {
+					if (value==1.0){
+						return 1;
+					}
+				}
 			}
 		}
-		return rs;
+		
+		return 0;
 	}
 	/**
 	 * 离散化开关量，返回报警出现次数
 	 * */
 	public int boolCounter(DataUtils data){
+		String typeid = data.getType()+data.getId();
+		DataInfo datainfo = this.maps.get(typeid);
+		String description=datainfo.getDescription();
 		//bool表里读出的数据只有01,若data.value中含有1则离散化为1
-		int rs = 0;
-		for(Double value:data.getValue()) {
-			if (value==1.0){
-				rs = rs+1;
+		for(int i=0;i<keywords.size();i++){
+			if(description!=null&&description.indexOf(keywords.get(i))!=-1){
+				int rs=0;
+				for(Double value:data.getValue()) {
+					if (value==1.0){
+						rs += 1;
+					}
+				}
+				return rs;
 			}
 		}
-		return rs;
+		
+		return 0;
 	}
 	
 	
@@ -69,9 +93,12 @@ public class DataDiscrete {
 		//首先获得data的数据源信息
 		String typeid = data.getType()+data.getId();
 		DataInfo datainfo = this.maps.get(typeid);
-		double h = datainfo.getHHLimite()==0?datainfo.getHLimite():datainfo.getHHLimite();//高报警
-		double l = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
+		double h = datainfo.getHLimite();//高报警
+		double l = datainfo.getLLimite();//低报警
 		int Limiteflag = 0;
+		if(h==0&&l==0){
+			return Limiteflag;
+		}
 		for(Double value:data.getValue()){
 			//判断是否越限,[hh,h,l,ll]按位置1,1100：高高报，0100：高报，0010：低报，0001：低低报，0000：正常
 			if(h!=0&&value>h){
@@ -105,8 +132,11 @@ public class DataDiscrete {
 		//首先获得data的数据源信息
 		String typeid = data.getType()+data.getId();
 		DataInfo datainfo = this.maps.get(typeid);
-		double h = datainfo.getHLimite()==0?datainfo.getHHLimite():datainfo.getHLimite();//高报警
-		double l = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
+		double h = datainfo.getHLimite();//高报警
+		double l = datainfo.getLLimite();//低报警
+		if(h==0&&l==0){
+			return rs;
+		}
 		for(Double value:data.getValue()){
 			if(h!=0&&value>h){
 				rs = rs+1;

@@ -116,7 +116,9 @@ public class Coscal {
 			this.disc = new DataDiscrete();
 			this.len = StringMap.size();
 			ArrayList<DataUtils> datas = this.rd.queAllRecord(starttime, endtime);
+			System.out.println("查询完毕！");
 			this.vector = dataUtilstoList(datas,StringMap);//获得当前故障向量
+			System.out.println("转换完毕！");
 			bf.close();
 			
 		} catch (ClassNotFoundException e) {
@@ -456,8 +458,8 @@ public class Coscal {
 				info = this.rd.queInfo(idMap.get(list.get(i).getKey()));
 				name.add(info.getPosition()+"."+info.getDescription());
 				values.add(""+list.get(i).getValue());
-				double h = info.getHHLimite()==0?info.getHLimite():info.getHHLimite();
-				double l = info.getLLimite()==0?info.getLLLimite():info.getLLimite();
+				double h = info.getHLimite();
+				double l = info.getLLimite();
 				llimits.add(l==0?"null":""+l);
 				hlimits.add(h==0?"null":""+h);
 				typeid.add(info.getTypeid());
