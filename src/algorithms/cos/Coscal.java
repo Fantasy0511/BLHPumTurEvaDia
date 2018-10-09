@@ -420,11 +420,11 @@ public class Coscal {
         	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());
           } 
         //重新计算相对值
-		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
-			String key = entry.getKey();
-			double cos = entry.getValue();
-			fault_pro.put(key, cos/total);
-		}
+//		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
+//			String key = entry.getKey();
+//			double cos = entry.getValue();
+//			fault_pro.put(key, cos/total);
+//		}
 		return fault_pro;
 	}
 	
@@ -460,8 +460,8 @@ public class Coscal {
 				values.add(""+list.get(i).getValue());
 				double h = info.getHLimite();
 				double l = info.getLLimite();
-				llimits.add(l==0?"null":""+l);
-				hlimits.add(h==0?"null":""+h);
+				llimits.add(l+"");
+				hlimits.add(h+"");
 				typeid.add(info.getTypeid());
 				i += 1;
 				size +=1;
