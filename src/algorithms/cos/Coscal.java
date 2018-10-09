@@ -60,7 +60,7 @@ public class Coscal {
 	//生成本地文件的，用过一次就行了
 	public void writeVectors(){
 		try {
-			File f = new File(PathUtil.getWebRealBasePath()+"/config/" + "vectors2.txt");
+			File f = new File(PathUtil.getWebRealBasePath()+"/config/" + "vectors3.txt");
 			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),"gbk");      
 			this.rd = new ReadData();
 			this.allfaults= this.rd.queFault();
@@ -97,7 +97,7 @@ public class Coscal {
 		try {
 			String line = "";
 			//InputStream is = new FileInputStream("src/vectors.txt");
-			InputStream is = new FileInputStream(PathUtil.getWebRealBasePath()+"/config/" + "vectors2.txt");//加载文件
+			InputStream is = new FileInputStream(PathUtil.getWebRealBasePath()+"/config/" + "vectors3.txt");//加载文件
 			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 			while ((line=bf.readLine()) != null) {//循环一次读取一行
 				String[] vectorStrings = line.split(" ");
