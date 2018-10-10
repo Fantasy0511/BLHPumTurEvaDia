@@ -30,10 +30,10 @@ public class FloatAssessment {
 		DataUtils data = as.queFloat("float", id, time);
 		ArrayList<Double> value = data.getValue();
 		DataInfo datainfo = maps.get(data.getType()+data.getId());
-		double C2 = datainfo.getHHLimite()==0?datainfo.getHLimite():datainfo.getHHLimite();//高报警
-		double C1 = datainfo.getLLimite()==0?datainfo.getLLLimite():datainfo.getLLimite();//低报警
+		double C2 = datainfo.getHLimite();//高报警
+		double C1 = datainfo.getLLimite();//低报警
 		if(C2==0&&C1==0) {
-			return Math.random()>0.5?98:99;
+			return 100;
 		}
 		double interval = C2 - C1;// 区间大小
 		double mid = (C2 + C1) / 2;// 区间中点

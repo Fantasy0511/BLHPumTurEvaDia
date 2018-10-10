@@ -1,9 +1,13 @@
 
 package service.faulttree;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import dao.impl.ReadData;
 import bll.diagnosis.tree.dao.DaoTree;
+import util.DataInfo;
 import util.DataUtils;
 
 public class FloatTreement {
@@ -13,27 +17,49 @@ public class FloatTreement {
 		DaoTree as = new DaoTree();
 
 		DataUtils data = as.queFloat("float", id, time);
+		ReadData readDB = new ReadData();
+		HashMap<String, DataInfo> maps = new HashMap<String, DataInfo>();
+		try {
+			maps= readDB.queInfo();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DataInfo datainfo = maps.get(data.getType()+data.getId());
+		double C2 = datainfo.getHLimite();//高报警
+		double C1 = datainfo.getLLimite();//低报警
 		ArrayList<Double> value = data.getValue();
 		double p = 0;
-		int x = 0;
-		int y = 0;
+		int x = 0; //x表示越限次数
+		int y = 0; //y表示不越限次数
+//		for (Double d : value) {
+//			System.out.println(d);
+//
+//			if (C2 < d || d < C1) {
+//				x++;
+//			} else {
+//				y++;
+//			}
+//		}
+//		if (x == 0 && y == 0) {
+//			p = 0;
+//		} else {
+//			p = (double) x / (x + y);
+//		}
+//		return p;
 		for (Double d : value) {
-			System.out.println(d);
-			double C2 = Hlimite;
-			double C1 = Llimite;
 
-			if (C2 < d || d < C1) {
-				x++;
-			} else {
-				y++;
+			if(C2!=0&&d>C2){
+				x +=1;
+			}
+			else if(C1!=0&&d<C1){
+				x +=1;
 			}
 		}
-		if (x == 0 && y == 0) {
-			p = 0;
-		} else {
-			p = (double) x / (x + y);
-		}
-		return p;
+		return x/value.size();
 	}
 	//耗油速度计算
 	public int  DoubleTree(int id, long time){
