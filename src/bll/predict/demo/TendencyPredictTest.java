@@ -83,9 +83,9 @@ public class TendencyPredictTest {
 		Vector<Double> finalResult = DataNormalize.inverse_normalize_y(
 				normalizedPredictOutput, max_min_y);
 
-		for (int i = 0; i < finalResult.size(); i++) {
+		/*for (int i = 0; i < finalResult.size(); i++) {
 			System.out.println("实际值为： " + vy.get(i) + "      预测值为： "
 					+ finalResult.get(i));
-		}
+		}*/
 	}
 }

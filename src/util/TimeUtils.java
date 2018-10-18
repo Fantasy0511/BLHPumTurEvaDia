@@ -200,28 +200,26 @@ public class TimeUtils {
 		String startMounth = test.substring(0, 4);
 		System.out.println(startMounth);
 		*/
-		/*Long test1=1456761600L;
+		Long test1=1466524804L;
 		String test11=TimeUtils.LongtoString(test1);
-		Long test2=1459429332L;
-		String test22=TimeUtils.LongtoString(test2);
-		System.out.println(test11+"     "+test22);*/
+		System.out.println(test11);
 		
 		
-		String aString="2017-07-30"+" 00:00:00";
-		String bString="2017-07-31"+" 00:00:00";
-		Long aLong=TimeUtils.StringtoLong(aString);
-		Long bLong=TimeUtils.StringtoLong(bString);
-		System.out.println(aLong+"   "+bLong);
-		
-		String a=TimeUtils.DatetoString(TimeUtils.AddUnits(
-				(TimeUtils.StringtoDate("2017-07-30 00:00:00")), "day", -1));
-		System.out.println("    "+a);
-		
-		
-	    Date orignalDate = TimeUtils.StringtoDate("2015-08-31 21:08:06");
-	    System.out.println("转换时间："+ orignalDate);
-	    Date aaa = TimeUtils.AddUnits(orignalDate, "day", -1);
-	    System.out.println("转换时间："+ aaa);
+//		String aString="2017-07-30"+" 00:00:00";
+//		String bString="2017-07-31"+" 00:00:00";
+//		Long aLong=TimeUtils.StringtoLong(aString);
+//		Long bLong=TimeUtils.StringtoLong(bString);
+//		System.out.println(aLong+"   "+bLong);
+//		
+//		String a=TimeUtils.DatetoString(TimeUtils.AddUnits(
+//				(TimeUtils.StringtoDate("2017-07-30 00:00:00")), "day", -1));
+//		System.out.println("    "+a);
+//		
+//		
+//	    Date orignalDate = TimeUtils.StringtoDate("2015-08-31 21:08:06");
+//	    System.out.println("转换时间："+ orignalDate);
+//	    Date aaa = TimeUtils.AddUnits(orignalDate, "day", -1);
+//	    System.out.println("转换时间："+ aaa);
 	}
 
 }

@@ -37,9 +37,10 @@ public class AssessPredictData {
 		List<Double> datas = new ArrayList<Double>();
 		List<Double> Hlimite = new ArrayList<Double>();
 		/*查询数据库 预测时间和值*/
-		String sql1 = "SELECT top 50 * from " + tableName + " where ID ='"
-				+ String.valueOf(id) + "' AND [time]>"+time+" ORDER BY time;";
+		String sql1 = "SELECT time,value from " + tableName + " where ID ='"
+				+ String.valueOf(id) + "' AND [time]>"+time+" AND [time]<"+(time+86400)+" ORDER BY time;";
 		/*查询预测量对应阈值*/
+		System.out.println("sql——svm: "+sql1);
 		String sql2 ="SELECT  Hlimite  from  InfoTable where typeid ='float"+String.valueOf(id)+"'" ;
 		try {
 			conn = GovDBConfig.getconnection();

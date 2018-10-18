@@ -29,7 +29,7 @@ public class LineDataDao {
 			System.out.println(sql1);
 			rs = stmt.executeQuery(sql1);
 			while (rs.next() == true ) {
-				times.add(TimeUtils.LongtoString(Long.parseLong(rs.getString("time"))));
+				times.add(rs.getString("time"));
 				datas.add(Double.parseDouble(rs.getString("value")));
 			}
 		} catch (SQLException e) {

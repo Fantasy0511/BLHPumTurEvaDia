@@ -37,17 +37,10 @@ public class PredictService {
 		try {
 			predict.predictMain(input, step);
 			
-			LinearRegression lRegression = new LinearRegression("float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time)+86400);
+			LinearRegression lRegression = new LinearRegression("float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
 			alarmDetail2=lRegression.alter;
-			/*//线性回归预测
-			Vector<Double> xline=new Vector<>();
-			for(int i=0;i<predict.getFinalResult().size();i++) {
-				xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));
-				xline.add((double) i);
-			}
-			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());*/
-//			lineRegMain aLineRegMain=new lineRegMain();
-			resultLine=lRegression.fit();
+			resultLine=lRegression.fit(); //输出线性回归x、y值
+			System.out.println("线性预测的x长度是："+resultLine.getX().get(2)+" y的值是："+resultLine.getY().size());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,7 +61,8 @@ public class PredictService {
 		/*实测值*/
 		
 		Vector<Double> originalY = predict.getTransfer().getOriginalY();
-		
+		System.out.println("时间长度： "+predictedX.length+"  实测值长度："+originalY.size()+" arma预测长度："+predictedY.size()+"  线性预测值Y："+
+							resultLine.getY().size()+"   线性预测值X："+resultLine.getX().size());
 		//预测结果对比表
 		for (int i = 0; i < predictedX.length; ++i) {
 			table.withRow(predictedX[i], originalY.get(i),resultLine.getY().get(i), predictedY.get(i));
@@ -82,18 +76,26 @@ public class PredictService {
 		double[] x = new double[predict.getTransfer().getVy().size()];
 		hlimit=new ArrayList<>();
 		for (int i = 0; i < x.length; ++i) {
-			x[i] = i + 1;
+			x[i] = resultLine.getX().get(i)*1000;
 			
 		}
 
 		double[] x1 = new double[predict.getAllPredictValues().size()];
 		for (int i = 0; i < x1.length; ++i) {
-			x1[i] = i + 1;
-			/*hlimit.add(input.getHlimite()[0]);*/
+			x1[i] = resultLine.getX().get(i)*1000;
 		}
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();
-
+		
+		
+		int a=x.length;
+		int b=x1.length;
+		int c=toDoubleArray(predict.getTransfer().getVy()).length;
+		int d=toDoubleArray(resultLine.getY()).length;
+		int e=toDoubleArray(predictedY).length;
+		System.out.println(a+" "+b+" "+c+" "+d+" "+e);
+		System.out.println("x轴值："+resultLine.getX().size());
+		
 		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))

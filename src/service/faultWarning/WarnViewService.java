@@ -17,7 +17,7 @@ private PredictInput input;
 		double[] x=new double[input.getTime().length] ;
 		
 		for (int i = 0; i < input.getTime().length; ++i) {
-			x[i] = i + 1;
+			x[i] = Double.parseDouble(input.getTime()[i])*1000;
 			
 		}
 

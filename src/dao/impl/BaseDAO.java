@@ -466,6 +466,7 @@ public class BaseDAO implements IBaseDAO {
 					+ startMounth + " where id=" + id + " AND time<" + endtime
 					+ " AND time>" + starttime + " ORDER BY time ASC";
 			sqls.add(sql);
+			System.out.println("sql-线性预测："+sql);
 		} else {
 			while (!(startYear.equals(endYear)
 					&& startMounth.equals(endMounth))) {
@@ -482,7 +483,7 @@ public class BaseDAO implements IBaseDAO {
 				startMounth = startStr.substring(5, 7);
 			}
 		}
-
+		
 		return sqls;
 	}
 

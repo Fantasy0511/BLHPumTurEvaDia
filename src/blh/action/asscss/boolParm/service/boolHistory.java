@@ -5,6 +5,7 @@ import bll.predict.PredictInput;
 import tool.easyui.Table;
 import tool.highcharts.LineData;
 import tool.highcharts.LineDataBuilder;
+import util.TimeUtils;
 
 public class boolHistory{
 	private PredictInput input; 
@@ -31,7 +32,7 @@ public class boolHistory{
 		double[] x=new double[input.getTime().length] ;
 		
 		for (int i = 0; i < input.getTime().length; ++i) {
-			x[i] = i + 1;
+			x[i] = TimeUtils.StringtoLong(input.getTime()[i])*1000;
 			
 		}
 

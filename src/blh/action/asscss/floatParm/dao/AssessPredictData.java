@@ -41,8 +41,8 @@ public class AssessPredictData {
 		Hlimite =assessPredictData.Findlimte("float"+objStr);
 		
 		/*查询数据库 预测时间和值*/
-		String sql1 = "SELECT top 50 * from " + tableName + " where ID ='"
-				+ objStr + "' AND [time]>"+time+" ORDER BY time;";
+		String sql1 = "SELECT  time,value from " + tableName + " where ID ='"
+				+ objStr + "' AND [time]>"+time+" AND [time]<"+(time+86400)+" ORDER BY time;";
 		System.out.println(sql1);
 		try {
 			conn = GovDBConfig.getconnection();
@@ -96,14 +96,14 @@ public class AssessPredictData {
 		
 	}
 	
-	/*list<String> time  转String[]*/
+	//list<String> time  转String[]
 	private static String[] StringList2Array(List<String> data) {
 		String[] re = new String[data.size()];
 		for (int i = 0; i < re.length; i++)
 			re[i] = data.get(i);
 		return re;
 	}
-	/*list<Double>  value  转double[]*/
+	//list<Double>  value  转double[]
 	private static double[] doubleList2Array(List<Double> data) {
 		double[] re = new double[data.size()];
 		for (int i = 0; i < re.length; i++)

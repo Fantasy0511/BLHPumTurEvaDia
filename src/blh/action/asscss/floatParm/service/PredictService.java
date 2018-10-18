@@ -40,16 +40,7 @@ public class PredictService {
 			LinearRegression lRegression = new LinearRegression("float", Integer.parseInt(item), TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
 			alarmDetail1=lRegression.alter;
 			System.out.println("   "+alarmDetail1);
-			/*//线性回归预测
-			Vector<Double> xline=new Vector<>();
-			for(int i=0;i<predict.getFinalResult().size();i++) {
-				xline.add((double) TimeUtils.StringtoLong(input.getTime()[i]));
-				xline.add((double) i);
-			}
-			dataLine aLine=new dataLine(xline,predict.getTransfer().getOriginalY());*/
-			lineRegMain aLineRegMain=new lineRegMain();
 			resultLine=lRegression.fit();
-			//resultLine=aLineRegMain.calculatedSum(lRegression.fit(),step);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -83,14 +74,13 @@ public class PredictService {
 		double[] x = new double[predict.getTransfer().getVy().size()];
 		hlimit=new ArrayList<>();
 		for (int i = 0; i < x.length; ++i) {
-			x[i] = i + 1;
+			x[i] = resultLine.getX().get(i)*1000;
 			
 		}
 
 		double[] x1 = new double[predict.getAllPredictValues().size()];
 		for (int i = 0; i < x1.length; ++i) {
-			x1[i] = i + 1;
-			/*hlimit.add(input.getHlimite()[0]);*/
+			x1[i] = resultLine.getX().get(i)*1000;
 		}
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();

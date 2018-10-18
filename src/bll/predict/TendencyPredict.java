@@ -68,9 +68,9 @@ public class TendencyPredict {
 				normalizedStepOutput, transfer.getMax_min_y());
 
 		System.out.println("以下输出svm为所有样本历史数据的拟合情况");// 输出预测样本的拟合结果
-		for (int i = 0; i < finalResult.size(); i++)
+		/*for (int i = 0; i < finalResult.size(); i++)
 			System.out.println("实际值为： " + transfer.getVy().get(i)
-					+ "      预测值为： " + finalResult.get(i));
+					+ "      预测值为： " + finalResult.get(i));*/
 	}
 
 	/**
@@ -89,7 +89,6 @@ public class TendencyPredict {
 			allPredictValues.add(LangUtil.keepDigits(stepOutput.get(i), 3));
 		return allPredictValues;
 	}
-
 	
 	
 	public Vector<Double> getFinalResult() {

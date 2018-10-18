@@ -3,6 +3,7 @@ package algorithms.cos;
 import java.util.Date;
 import java.util.Vector;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.sym.Name;
@@ -18,7 +19,7 @@ public class LinearRegression {
 	private double k;
 	private double b;
 	public String alter;
-	private int size = 50;
+	private int size;
 	ArrayList<Long> x;
 	ArrayList<Double> y;
 	public static void main(String[] args) {
@@ -31,10 +32,11 @@ public class LinearRegression {
 	public dataLine fit() {
 		Vector<Double> inputx = new Vector<Double>();
 		long start = x.get(0);
+		DecimalFormat df = new DecimalFormat("#.0000");
 		Vector<Double> fity = new Vector<Double>();
-		for(int i=0;i<size;i++){
-			inputx.addElement((double)i);
-			fity.addElement(k*(double)(x.get(i)-start)+b);
+		for(int i=0;i<x.size();i++){
+			inputx.addElement((double)x.get(i));
+			fity.addElement(Double.parseDouble(df.format((k*(double)(x.get(i)-start)+b))));
 		}
 		return new dataLine(inputx,fity);
 	}
@@ -45,6 +47,8 @@ public class LinearRegression {
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
 			x = data.getTime();
 			y = data.getValue();
+			size=x.size();
+			System.out.println("size的值："+size);
 			long start = x.get(0);
 			double Exy=0,Ex=0,Ey=0,Exx=0;
 			for(int i=0;i<size;i++){
