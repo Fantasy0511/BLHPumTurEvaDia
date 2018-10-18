@@ -55,6 +55,11 @@ function _drawLineChart(title, xName, yName, data, id, callback) {
 		xAxis : {
 			title : {
 				text : xName
+			},
+			type: 'datetime',
+			tickInterval:  1 * 3600 * 1000,
+			dateTimeLabelFormats: {
+				day: '%Y-%m-%d',
 			}
 		},
 		yAxis : {
@@ -67,6 +72,16 @@ function _drawLineChart(title, xName, yName, data, id, callback) {
 				width : 2,
 				color : 'gray',
 				dashStyle : 'shortdot'
+			},
+			dateTimeLabelFormats: {
+				millisecond: '%Y-%m-%d %H:%M:%S',
+				second: '%Y-%m-%d %H:%M:%S',
+				minute: '%H:%M',
+				hour: '%H:%M',
+				day: '%Y-%m-%d',
+				week: '%m-%d',
+				month: '%Y-%m',
+				year: '%Y'
 			},
 			shared : true
 		},
@@ -101,11 +116,8 @@ function _drawLineChart(title, xName, yName, data, id, callback) {
 					},
 					stops : [
 							[ 0, Highcharts.getOptions().colors[0] ],
-							[
-									1,
-									Highcharts.Color(
-											Highcharts.getOptions().colors[0])
-											.setOpacity(0).get('rgba') ] ]
+							[1,Highcharts.Color(Highcharts.getOptions().colors[0])
+							.setOpacity(0).get('rgba') ] ]
 				},
 				marker : {
 					enabled : false
@@ -133,6 +145,11 @@ function _drawLineChart(title, xName, yName, data, id, callback) {
  *            图div容器的id
  */
 function _drawLine(lineData, id) {
+	Highcharts.setOptions({
+		global: {
+			useUTC: false
+		}
+	});
 	_drawLineChart(lineData.title, lineData.xName, lineData.yName,
 			lineData.data, id);
 }
