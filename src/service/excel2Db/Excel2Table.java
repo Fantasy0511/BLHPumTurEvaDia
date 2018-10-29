@@ -165,7 +165,7 @@ public class Excel2Table {
 		readWb = Workbook.getWorkbook(inputStream);
 		Sheet sheet = readWb.getSheet(0);
 		int rows = sheet.getRows();
-		System.out.println("行数：  "  +rows);
+		/*System.out.println("行数：  "  +rows);*/
 		int cols = sheet.getColumns();
 		System.out.println("列数：  "  +cols);
 		List<TableRow> tableRows = new ArrayList<>();

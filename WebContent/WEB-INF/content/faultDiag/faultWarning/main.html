@@ -72,10 +72,12 @@
 	
 	//点击查看按钮 ，弹出状态量预测 和开关量历史查询
 	function formatOper(val,row,index){ 
+		
 		return '<button href="#" rel="external nofollow" onclick="editUser('+index+')">查看</button>'; 
 		}
 		
-	function editUser(index){ 
+	function editUser(index){
+		showMask();
 		$('#subfaultInfo').datagrid('selectRow',index);// 关键在这里 
 		var row = $('#subfaultInfo').datagrid('getSelected');  
 		var ID=row.ID;

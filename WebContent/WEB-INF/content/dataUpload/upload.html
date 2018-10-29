@@ -30,6 +30,7 @@
 			alert("请选择上传文件！");
 			return false;
 		} else {
+			showMask();
 			var fileName = document.getElementById("excelId").files[0].name;
 			    /* input标签中("excelId")的元素可能不止一个，选取的结果是放到数组里，第一个0指的是这个数组的下标是0的那个标签 */
 			var url = "/BLHPumTurEvaDia/dataUpload/excelToDb?fileName="
@@ -37,7 +38,7 @@
 			console.log(url);
 			$('form').attr('action', url);  //在点击提交按钮之前修改action的地址并且提交相应的表单，通过jquery为action属性赋值
 		}
-		/* alert('上传成功'); */
+		
 	}
 	function showHistoryFileRecord() {
 		var url = "/BLHPumTurEvaDia/dataUpload/record";
