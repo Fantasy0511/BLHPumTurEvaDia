@@ -400,38 +400,36 @@ hr {
 					</div>
 					
 				
-					<div class="col-lg-10"
-							style="margin-left:35px;">
-							<label class="control-label" for="method" >子系统选择 &nbsp;</label>
+					<div class="col-lg-8" >
+							<form  class="form-horizontal">
+							
+							<div class="form-group"></div>
+							<div class="form-group" style="margin-left: -80px">
+									<div class="col-sm-1"></div>
+									<label class="col-sm-4 control-label" for="minSupport">子系统选择</label>
 
-							<div  style="margin-right:10px;display: inline-block">
-								<select class="form-control" id="subSystem">
-									<option value="Gov">调速器系统</option>
-									<option value="Pum">水泵水轮机系统</option>
-									<option value="ball">球阀系统</option>
-									<option value="Exc">发电机及励磁系统</option>
-									<option value="Transfer">主变系统</option>
-								</select>
-							</div>
-					</div>
-					
-
-						<div class="col-lg-10">
-							<div style="padding-top: 8%">
-								<div class="col-md-4" style="margin-left: 100px">
+									<div class="col-sm-5 input-group">
+										<select class="form-control" id="subSystem">
+										<option value="Gov">调速器系统</option>
+										<option value="Pum">水泵水轮机系统</option>
+										<option value="ball">球阀系统</option>
+										<option value="Exc">发电机及励磁系统</option>
+										<option value="Transfer">主变系统</option>
+										</select>
+									</div>
+								</div>
+							
+							<div class="form-group" >
+								<div class="col-sm-1"></div>
+								<label class="col-sm-4 control-label" for="minSupport"></label>
+								<div class="col-sm-5 input-group" >
 									<button type="button" class="btn btn-primary"
 										id="btn_beginMine">开始挖掘</button>
 								</div>
-								<!-- <div class="col-md-5" >
-									<button type="button" class="btn btn-primary"
-										id="btn_viewFrequent">查看频繁N项集</button>
-								</div> -->
-								<!-- <div class="col-md-3">
-									<button type="button" class="btn btn-primary" ui-sref="">保存</button>
-								</div> -->
 							</div>
+							</form>
 						</div>
-
+					
 					</div>
 				</div>
 			</div>

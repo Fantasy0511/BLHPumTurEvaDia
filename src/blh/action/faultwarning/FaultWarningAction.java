@@ -69,7 +69,7 @@ public class FaultWarningAction extends AbstractActionSupport {
 		}
 
 		// 柱状图数据
-		BarData middleBar = BarData.create("", "", "子系统详细故障预警", "故障概率", Pro_systems.getFaultName(),
+		BarData middleBar = BarData.create("", "", "", "故障概率", Pro_systems.getFaultName(),
 				Pro_systems.getFaultRate());
 
 		resultFinal = new WarnningFinal(bottomDetail, ParameterTable, middleBar);// 储存表格数据和柱状图数据

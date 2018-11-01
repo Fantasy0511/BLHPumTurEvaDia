@@ -20,14 +20,15 @@
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
+
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/lodash.min.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/highcharts.js"></script>
+<script type="text/javascript"
+	src="/BLHPumTurEvaDia/js/warningChart/highcharts_util.js"></script>
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/js/assess/sand-signika.js"></script>
 </head>
@@ -76,7 +77,7 @@
 			$('#number').textbox('setValue', parmeter[3]);
 			$('#detailTest').textbox('setValue', decodeURIComponent(parmeter[4]));
 			loadData("table_comparison", data.tableComparison);
-			drawPic("chart_comparison", data.getChartComparison);
+			drawPic("chart_comparison", data.getChartComparison,"bool");
 		});
 		
 	}

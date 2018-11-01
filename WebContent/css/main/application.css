@@ -195,6 +195,7 @@ body {
 -------------------------------------------------- */
 .main-header{
     height:70px;
+    width:100%;
     background: #6495ed;
 }
 .logo-main{

@@ -29,8 +29,7 @@
 	src="/BLHPumTurEvaDia/js/assess/easyui-util-all.js"></script>
 
 <script type="text/javascript"
-	src="/BLHPumTurEvaDia/js/highcharts_util.js"></script>
-
+	src="/BLHPumTurEvaDia/js/warningChart/highcharts_util.js"></script>
 </head>
 <script type="text/javascript">
 	function WarningResult() {
@@ -87,7 +86,7 @@
 		url="/BLHPumTurEvaDia/faultwarning/view-warning?inputStr="+ID+"//"+starTime+"//"+name;
 		console.log("url:  "+url);
 		getJSON(url,function(data){
-		drawPic("dataLine", data.getChartComparison);
+		drawPic("dataLine", data.getChartComparison,ID);
 		});
 		
 	};
