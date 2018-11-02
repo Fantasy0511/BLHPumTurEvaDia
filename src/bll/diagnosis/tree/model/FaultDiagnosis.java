@@ -66,11 +66,7 @@ public class FaultDiagnosis {
 					FaultSymptom[0] = 0;
 				}
 
-				if (datas.getLqsswg() == 1) // 冷却水水温高
-					FaultSymptom[1] = 3;
-				else {
-					FaultSymptom[1] = 0;
-				}
+			
 
 				if (datas.getLqssyyc() == 1) // 冷却水水压异常
 					FaultSymptom[2] = 5;
@@ -84,67 +80,90 @@ public class FaultDiagnosis {
 					FaultSymptom[3] = 0;
 				}
 
-				if (datas.getYxtywyc() == 1) // 油系统油位异常
+				if (datas.getHlgz() == 1) // 回路故障
 					FaultSymptom[4] = 30;
 				else {
 					FaultSymptom[4] = 0;
 				}
-
+				/*if (datas.getHlgz() == 1) // 回路故障
+					FaultSymptom[20] = 5000000;
+				else {
+					FaultSymptom[20] = 0;}*/
+				
 				if (datas.getYxtywg() == 1) // 油系统油温高
 					FaultSymptom[5] = 50;
 				else {
 					FaultSymptom[5] = 0;
 				}
-
+				
+				
+				
 				if (datas.getDzbdyc() == 1) // 大轴摆度异常
 					FaultSymptom[6] = 100;
 				else {
 					FaultSymptom[6] = 0;
 				}
 
-				if (datas.getZczdyc() == 1) // 轴承振动异常
+				if (datas.getJyfgz() == 1) // 减压阀故障
 					FaultSymptom[7] = 300;
 				else {
 					FaultSymptom[7] = 0;
 				}
-
-				if (datas.getZzmfyc() == 1) // 轴承密封损坏
+				
+				/*if (datas.getJyfgz() == 1) // 减压阀故障
+					FaultSymptom[22] = 30000000;
+				else {
+					FaultSymptom[22] = 0;}*/
+				
+				if (datas.getHlstyc() == 1) // 回路异常渗漏
 					FaultSymptom[8] = 500;
 				else {
 					FaultSymptom[8] = 0;
 				}
 
-				if (datas.getJzzsgg() == 1) // 机组转速过高
+				if (datas.getXhybgz() == 1) // 循环油泵故障
 					FaultSymptom[9] = 1000;
 				else {
 					FaultSymptom[9] = 0;
 				}
 
-				if (datas.getShdbdyc() == 1) // 上导摆度异常
+				if (datas.getThgz() == 1) // 弹簧故障
 					FaultSymptom[10] = 3000;
 				else {
 					FaultSymptom[10] = 0;
 				}
 
+			/*	if (datas.getThgz() == 1) // 弹簧故障
+					FaultSymptom[21] = 10000000;
+				else {
+					FaultSymptom[21] = 0;}*/
+				
 				if (datas.getXdbdyc() == 1) // 下导摆度异常
 					FaultSymptom[11] = 5000;
 				else {
 					FaultSymptom[11] = 0;
 				}
 
-				if (datas.getDbph() == 1) // 动不平衡
+				if (datas.getGljq() == 1) // 管路进气
 					FaultSymptom[12] = 10000;
 				else {
 					FaultSymptom[12] = 0;
 				}
 
+
+				/*if (datas.getGljq() == 1) // 管路进气
+					FaultSymptom[26] = 500000000;
+				else {
+					FaultSymptom[26] = 0;}*/
+			
+				
 				if (datas.getLcdlbph() == 1) // 磁拉力不平衡
 					FaultSymptom[13] = 30000;
 				else {
 					FaultSymptom[13] = 0;
 				}
 
-				if (datas.getSjjzd() == 1) // 上机架振动
+				if (datas.getYlyc() == 1) // 压力异常
 					FaultSymptom[14] = 50000;
 				else {
 					FaultSymptom[14] = 0;
@@ -156,18 +175,57 @@ public class FaultDiagnosis {
 					FaultSymptom[15] = 0;
 				}
 
-				if (datas.getWsgylmd() == 1) // 尾水管压力脉动
+				if (datas.getYbzcks() == 1) // 油泵轴承卡涩
 					FaultSymptom[16] = 300000;
 				else {
 					FaultSymptom[16] = 0;
 				}
-				if (datas.getDzgdbl() == 1) // 定子绕组固定不良
+				if (datas.getCxdjgz() == 1) // 冲洗电机故障
 					FaultSymptom[17] = 500000;
 				else {
 					FaultSymptom[17] = 0;
 				}
-
-				FaultSymptom[18] = 0;
+			/*	if (datas.getCxdjgz() == 1) // 冲洗电机故障
+					FaultSymptom[24] = 100000000;
+				else {
+					FaultSymptom[24] = 0;}*/
+				if (datas.getGlqds() == 1) // 过滤器堵塞
+					FaultSymptom[18] = 1000000;
+				else {
+					FaultSymptom[18] = 0;}
+			
+				if (datas.getZwjxbj() == 1) // 轴瓦间隙不均
+					FaultSymptom[1] = 3;
+				else {
+					FaultSymptom[1] = 0;}
+				
+				/*if (datas.getLqsswg() == 1) // 冷却水水温高
+					FaultSymptom[1] = 3;
+				else {
+					FaultSymptom[1] = 0;
+				}*/
+				
+				
+				
+				/*if (datas.getGlqds() == 1) // 过滤器堵塞
+					FaultSymptom[23] = 50000000;
+				else {
+					FaultSymptom[23] = 0;}*/
+				
+				
+			
+			/*	if (datas.getCyhlgz() == 1) // 测压回路故障
+					FaultSymptom[25] = 300000000;
+				else {
+					FaultSymptom[25] = 0;}
+			
+			
+				if (datas.getGljq() == 1) // 流量异常
+					FaultSymptom[27] = 1000000000;
+				else {
+					FaultSymptom[27] = 0;}*/
+			
+			
 			}
 		}
 		// 调速器征兆矩阵获取
@@ -751,7 +809,7 @@ public class FaultDiagnosis {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i];
 				}
 
-				int tempCre = tempm / 100000;
+				int tempCre = (tempm % 1000000) / 100000;
 				switch (taskfeature.relation) {
 				case 1:
 					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
@@ -779,6 +837,103 @@ public class FaultDiagnosis {
 
 				}
 			}
+			else if (taskfeature.Threshold == 1000000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 10000000) / 1000000;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			else if (taskfeature.Threshold == 10000000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 100000000) / 10000000;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 3:
+					if (tempCre == 3 || tempCre == 4 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				case 5:
+					if (tempCre == 5 || tempCre == 6 || tempCre == 8 || tempCre == 9) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				default:
+					;
+
+				}
+			}
+			
+			
+			
+			else if (taskfeature.Threshold == 100000000) {
+				flag = 0;
+				int tempm = 0;
+				for (int i = 1; i < taskfeature.Feature.length; i++) {
+					tempm += FaultSymptom[i] * taskfeature.Feature[i];
+				}
+
+				int tempCre = (tempm % 1000000000) / 100000000;
+				switch (taskfeature.relation) {
+				case 1:
+					if (tempCre == 1) {
+						flag = 1;
+					} else {
+						flag = 0;
+					}
+					break;
+				
+				default:
+					;
+
+				}
+			}
+			
+			
 			if (flag == 1) {
 				if (!tasknode.gate.equals("0")) {
 					for (int i = 0; i < tasknode.children.size(); i++) {
@@ -846,11 +1001,15 @@ public class FaultDiagnosis {
 			else if (taskfeature.Threshold == 1) {
 				flag = 0;
 				int tempm = 0;
+				int tempCre=0;
 				for (int i = 1; i < taskfeature.Feature.length; i++) {
 					tempm += FaultSymptom[i] * taskfeature.Feature[i]; // 计算隶属度
 				}
-
-				int tempCre = tempm % 10;
+				if(FaultSymptom[0]==1){
+					tempCre = tempm % 10+1;
+				}else{
+					tempCre = tempm % 10;
+				}
 				switch (taskfeature.relation) {
 				case 1:
 					if (tempCre == 1 || tempCre == 4 || tempCre == 6 || tempCre == 9) {

@@ -110,16 +110,12 @@ public class FaultTreeMain {
 		// ----------------故障诊断----------------//
 		// ---初始化---//
 		faultDiagnosis = new FaultDiagnosis(testnodes);
-		// faultDiagnosis.initialSymptomkind(station,unitNo,datetime);
+		
 
 		faultDiagnosis.InitialFaultFeature(system);// 生成故障表（读取表）
 		FaultSymptom = new double[19];
 		FaultSymptom = faultDiagnosis.InitialFaultSymptom(system,FaultSymptom, datetime, unitNo, condtionName);// 随机生成故障征兆向量（读取征兆）
-		// for(int aaa=0;aaa<18;aaa++)
-		// {System.out.println(FaultSymptom[aaa]);};
-		// double
-		// FaultSymptom[]={1.00,1.00,0.00,0.40,0.50,0.00,0.080,0.00,0.00,0.00,0.60,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00};
-		// ---定义变量---//
+		
 		String BottomEvents[] = new String[testnodes.size()];// 底事件名称数组
 		double BottomIPK[] = new double[testnodes.size()];// 底事件关键重要度数组
 		int BottomEventsNum = 0;// 底事件数
@@ -153,12 +149,10 @@ public class FaultTreeMain {
 
 		System.out.println(Faultsname);
 
-		// 显示故障诊断
-
-		// java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+	
 
 		List<FaultResult> faultResultList = new ArrayList<FaultResult>();
-		// List<Fault> faults = Readtable.Fault();
+		
 		List<Fault> faults = FaultDiagnosis.TSFaultsRead(system);
 
 		if (Faultsname.size() != 0) {
@@ -191,8 +185,7 @@ public class FaultTreeMain {
 					tempFault.setProbability(FaultsFreq[i]);
 					System.out.println(faults.toString());
 					tempFault.setRecommendation(faults.get(temp - 1).getRecommendation());
-					// recommendation[i]=faults.get(temp -
-					// 1).getRecommendation();
+					
 					tempFault.setConditionName(condtionName);
 					faultResultList.add(tempFault);
 				}
@@ -226,41 +219,7 @@ public class FaultTreeMain {
 
 	}
 
-	/**
-	 * 诊断结果存储函数
-	 * 
-	 * @param station
-	 *            电站名称
-	 * @param unit
-	 *            机组名称
-	 * @param datetime
-	 *            诊断时间
-	 *//*
-		 * public static List<Fault> writeresult(String unitNo, String datetime, String
-		 * wcstatus) {
-		 * 
-		 * List<Fault> faults = FaultDiagnosis.TSFaultsRead(); int temp = 0; int node =
-		 * 0;
-		 * 
-		 * TSFaultTreeResultSave tsre = new TSFaultTreeResultSave(); for (int m = 0; m <
-		 * FaultSymptom.length; m++) { faultfeature += FaultSymptom[m] + "/"; } if
-		 * (faultname.length != 0) { int[] resultID = new int[faultname.length]; for
-		 * (int i = 0; i < faultname.length; i++) {
-		 * 
-		 * for (int j = 0; j < faults.size(); j++) { if
-		 * (Faultsname.get(i).equals(faults.get(j).getName())) { temp =
-		 * faults.get(j).getID(); node = faults.get(j).getNode(); } if
-		 * (faults.get(j).getName().equals(faultname[i])) { resultID[i] =
-		 * faults.get(j).getID(); tsre.setID(faults.get(j).getID()); //
-		 * tsre.setWcstatus(wcstatus); tsre.setResult(Faultsname.get(i));
-		 * tsre.setSymptom(faultfeature); tsre.setUnitNo(unitNo);
-		 * tsre.setTime(datetime); tsre.setRecommendation( faults.get(temp -
-		 * 1).getRecommendation()); tsre.save(); System.out.println("诊断结果保存成功");
-		 * System.out.println(resultID[i] + ":  " + faultname[i]); } }
-		 * 
-		 * } } return faults; }
-		 */
-
+	
 	public static Map<String, String> getFaultTreeResultMap() {
 		return faultTreeResultMap;
 	}

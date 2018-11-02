@@ -615,5 +615,67 @@ public class PumpturBFault {
 						return p1;
 					}
 				}
-	
+				// 油循环泵故障
+				public double getOilPumpFault(long time,int No) {
+
+					if (No == 1) {
+						BoolTree bool139 = new BoolTree();
+						double p1 = bool139.BooleanTree(139, time);
+						BoolTree bool145 = new BoolTree();
+						double p2 = bool145.BooleanTree(145, time);
+						p1 = (p1 + p2 ) / 2;
+						return p1;
+					} else if (No == 2) {
+						BoolTree bool459 = new BoolTree();
+						double p1 = bool459.BooleanTree(459, time);
+						BoolTree bool465 = new BoolTree();
+						double p2 = bool465.BooleanTree(465, time);
+						p1 = (p1 + p2 ) / 2;
+						return p1;
+					} else if (No == 3) {
+						BoolTree bool784 = new BoolTree();
+						double p1 = bool784.BooleanTree(784, time);
+						BoolTree bool790 = new BoolTree();
+						double p2 = bool790.BooleanTree(790, time);
+						p1 = (p1 + p2 ) / 2;
+						return p1;
+					} else if (No == 4) {
+						BoolTree bool1104 = new BoolTree();
+						double p1 = bool1104.BooleanTree(1104, time);
+						BoolTree bool1110 = new BoolTree();
+						double p2 = bool1110.BooleanTree(1110, time);
+						p1 = (p1 + p2 ) / 2;
+						return p1;
+					} else {
+						double p1 = 0;
+						return p1;
+					}
+				}
+				
+				// 压差低
+
+				public double getYaChaDi(long time,int No) {
+
+					if (No == 1) {
+						BoolTree bool120 = new BoolTree();
+						double p1 = bool120.BooleanTree(120, time);
+						return p1;
+					} else if (No == 2) {
+						double p1 =0;
+						if(time == 1470240000) {p1=1;}
+						return p1;
+					} else if (No == 3) {
+						BoolTree bool760 = new BoolTree();
+						double p1 = bool760.BooleanTree(760, time);
+						return p1;
+					} else if (No == 4) {
+						BoolTree bool1088 = new BoolTree();
+						double p1 = bool1088.BooleanTree(1088, time);
+						return p1;
+					} else {
+						double p1 = 0;
+						return p1;
+					}
+				}
+				
 }

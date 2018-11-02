@@ -43,47 +43,53 @@
 		children="水导故障,过流部件故障,轴系故障,推力轴承故障" gate="+" x="1000" y="6" Width="100"
 		Height="30" />
 	<WorkNode ID="21" Name="水导故障" NodeType="0" father="水泵水轮机"
-		children="轴瓦温度异常,水导摆度异常" gate="+" x="333" y="75" Width="100"
+		children="轴瓦温度异常,油循环系统故障" gate="+" x="333" y="75" Width="100"
 		Height="30" />
 	<WorkNode ID="22" Name="过流部件故障" NodeType="0" father="水泵水轮机"
-		children="尾水管过高,蜗壳故障" gate="+" x="666" y="75" Width="100" Height="30" />
+		children="尾水管水位过高,蜗壳故障" gate="+" x="666" y="75" Width="100"
+		Height="30" />
 	<WorkNode ID="23" Name="轴系故障" NodeType="0" father="水泵水轮机"
-		children="机组振动异常,迷宫环故障" gate="+" x="1333" y="75" Width="100"
+		children="机组振动异常,主轴密封故障,迷宫环故障" gate="+" x="1333" y="75" Width="100"
 		Height="30" />
 	<WorkNode ID="24" Name="推力轴承故障" NodeType="0" father="水泵水轮机"
-		children="油膜厚度异常,轴承磨损" gate="+" x="1666" y="75" Width="100"
+		children="轴承磨损,油膜厚度异常" gate="+" x="1666" y="75" Width="100"
 		Height="30" />
 	<WorkNode ID="311" Name="轴瓦温度异常" NodeType="0" father="水导故障"
-		children="冷却水流量低,冷却水水温高,冷却水水压异常,油系统油压低,油系统油位异常,油系统油温高,油系统油混水,大轴摆度异常,轴承振动异常,轴承密封损坏,机组转速过高"
+		children="冷却水流量低,冷却水水温高,冷却水水压低,油系统油压低,油系统油位低,油系统油温高,油系统油混水,大轴摆度异常,轴承振动异常,轴承密封损坏"
 		gate="+" x="50" y="350" Width="100" Height="30" />
-	<WorkNode ID="312" Name="水导摆度异常" NodeType="0" father="水导故障"
-		children="null" gate="0" x="300" y="350" Width="100" Height="30" />
+	<WorkNode ID="312" Name="油循环系统故障" NodeType="0" father="水导故障"
+		children="循环油泵故障,油泵轴承卡涩,逆止阀内漏,冷却器内部堵塞,轴瓦间隙不均,回路故障,传感器故障" gate="+"
+		x="300" y="350" Width="100" Height="30" />
 	<WorkNode ID="321" Name="尾水管水位过高" NodeType="0" father="过流部件故障"
-		children="null" gate="0" x="550" y="350" Width="100" Height="30" />
-	<WorkNode ID="322" Name="蜗壳故障" NodeType="0" father="过流部件故障"
-		children="null" gate="0" x="800" y="350" Width="100" Height="30" />
-	<WorkNode ID="331" Name="机组振动异常" NodeType="0" father="轴系故障"
-		children="上导摆度异常,下导摆度异常,动不平衡,主轴弯曲,磁拉力不平衡,上机架振动异常,下机架振动异常,尾水管压力脉动,定子绕组固定不良"
-		gate="+" x="1050" y="350" Width="100" Height="30" />
-	<WorkNode ID="332" Name="迷宫环故障" NodeType="0" father="轴系故障"
-		children="迷宫环温度异常,迷宫环冷却水流量低" gate="+" x="1550" y="350" Width="100"
+		children="补气不足,压力脉动,空蚀磨损" gate="+" x="550" y="350" Width="100"
 		Height="30" />
+	<WorkNode ID="322" Name="蜗壳故障" NodeType="0" father="过流部件故障"
+		children="蜗壳进口压力脉动,蜗壳排水管渗漏" gate="+" x="800" y="350" Width="100"
+		Height="30" />
+	<WorkNode ID="331" Name="机组振动异常" NodeType="0" father="轴系故障"
+		children="上导摆度异常,下导摆度异常,动不平衡,主轴弯曲,磁拉力不平衡,上机架振动异常,下机架振动异常,定子绕组固定不良"
+		gate="+" x="1050" y="350" Width="100" Height="30" />
+	<WorkNode ID="332" Name="主轴密封故障" NodeType="0" father="轴系故障"
+		children="弹簧故障,减压阀故障,过滤器堵塞,冲洗电机故障,测压回路故障，冲洗减压阀故障" gate="+" x="1550"
+		y="350" Width="100" Height="30" />
+	<WorkNode ID="333" Name="迷宫环故障" NodeType="0" father="轴系故障"
+		children="管路进气,流量异常,压力异常,回路异常渗漏,压力振荡" gate="+" x="1550" y="350"
+		Width="100" Height="30" />
 	<WorkNode ID="341" Name="油膜厚度异常" NodeType="0" father="推力轴承故障"
-		children="null" gate="0" x="1800" y="350" Width="100" Height="30" />
+		children="供油故障,轴瓦变形" gate="+" x="1800" y="350" Width="100" Height="30" />
 	<WorkNode ID="342" Name="轴承磨损" NodeType="0" father="推力轴承故障"
-		children="null" gate="0" x="2050" y="350" Width="100" Height="30" />
+		children="轴瓦温度过高,轴承振摆异常" gate="+" x="2050" y="350" Width="100"
+		Height="30" />
 	<WorkNode ID="4111" Name="冷却水流量低" NodeType="0" father="轴瓦温度异常"
 		children="null" gate="0" x="50" y="600" Width="100" Height="30" />
 	<WorkNode ID="4112" Name="冷却水水温高" NodeType="0" father="轴瓦温度异常"
 		children="null" gate="0" x="200" y="600" Width="100" Height="30" />
-	<WorkNode ID="4113" Name="冷却水水压异常" NodeType="0"
-		father="轴瓦温度异常" children="null" gate="0" x="350" y="600" Width="100"
-		Height="30" />
+	<WorkNode ID="4113" Name="冷却水水压低" NodeType="0" father="轴瓦温度异常"
+		children="null" gate="0" x="350" y="600" Width="100" Height="30" />
 	<WorkNode ID="4114" Name="油系统油压低" NodeType="0" father="轴瓦温度异常"
 		children="null" gate="0" x="500" y="600" Width="100" Height="30" />
-	<WorkNode ID="4115" Name="油系统油位异常" NodeType="0"
-		father="轴瓦温度异常" children="null" gate="0" x="650" y="600" Width="100"
-		Height="30" />
+	<WorkNode ID="4115" Name="油系统油位低" NodeType="0" father="轴瓦温度异常"
+		children="null" gate="0" x="650" y="600" Width="100" Height="30" />
 	<WorkNode ID="4116" Name="油系统油温高" NodeType="0" father="轴瓦温度异常"
 		children="null" gate="0" x="800" y="600" Width="100" Height="30" />
 	<WorkNode ID="4117" Name="油系统油混水" NodeType="0" father="轴瓦温度异常"
@@ -94,7 +100,21 @@
 		children="null" gate="0" x="1250" y="600" Width="100" Height="30" />
 	<WorkNode ID="4120" Name="轴承密封损坏" NodeType="0" father="轴瓦温度异常"
 		children="null" gate="0" x="1400" y="600" Width="100" Height="30" />
-	<WorkNode ID="4121" Name="机组转速过高" NodeType="0" father="轴瓦温度异常"
+	<WorkNode ID="4121" Name="循环油泵故障" NodeType="0"
+		father="油循环系统故障" children="null" gate="0" x="1550" y="600" Width="100"
+		Height="30" />
+	<WorkNode ID="4122" Name="油泵轴承卡涩" NodeType="0"
+		father="油循环系统故障" children="null" gate="0" x="1550" y="600" Width="100"
+		Height="30" />
+	<WorkNode ID="4123" Name="逆止阀内漏" NodeType="0" father="油循环系统故障"
+		children="null" gate="0" x="1550" y="600" Width="100" Height="30" />
+	<WorkNode ID="4124" Name="冷却器内部堵塞" NodeType="0"
+		father="油循环系统故障" children="null" gate="0" x="1550" y="600" Width="100"
+		Height="30" />
+	<WorkNode ID="4125" Name="轴瓦间隙不均" NodeType="0"
+		father="油循环系统故障" children="null" gate="0" x="1550" y="600" Width="100"
+		Height="30" />
+	<WorkNode ID="4126" Name="回路故障" NodeType="0" father="油循环系统故障"
 		children="null" gate="0" x="1550" y="600" Width="100" Height="30" />
 	<WorkNode ID="4311" Name="上导摆度异常" NodeType="0" father="机组振动异常"
 		children="null" gate="0" x="1700" y="600" Width="100" Height="30" />
@@ -112,18 +132,29 @@
 	<WorkNode ID="4317" Name="下机架振动异常" NodeType="0"
 		father="机组振动异常" children="null" gate="0" x="2150" y="600" Width="100"
 		Height="30" />
-	<WorkNode ID="4318" Name="尾水管压力脉动" NodeType="0"
+	<WorkNode ID="4318" Name="定子绕组固定不良" NodeType="0"
 		father="机组振动异常" children="null" gate="0" x="2150" y="600" Width="100"
 		Height="30" />
-	<WorkNode ID="4319" Name="定子绕组固定不良" NodeType="0"
-		father="机组振动异常" children="null" gate="0" x="2150" y="600" Width="100"
-		Height="30" />
-	<WorkNode ID="4321" Name="迷宫环温度异常" NodeType="0" father="迷宫环故障"
+	<WorkNode ID="4321" Name="弹簧故障" NodeType="0" father="主轴密封故障"
 		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
-	<WorkNode ID="4322" Name="迷宫环冷却水流量低" NodeType="0"
-		father="迷宫环故障" children="null" gate="0" x="2550" y="600" Width="100"
-		Height="30" />
-
+	<WorkNode ID="4322" Name="减压阀故障" NodeType="0" father="主轴密封故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4323" Name="过滤器堵塞" NodeType="0" father="主轴密封故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4324" Name="冲洗电机故障" NodeType="0" father="主轴密封故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4325" Name="测压回路故障" NodeType="0" father="主轴密封故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4331" Name="管路进气" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4332" Name="流量异常" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4333" Name="压力异常" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4334" Name="回路异常渗漏" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
+	<WorkNode ID="4335" Name="压力振荡" NodeType="0" father="迷宫环故障"
+		children="null" gate="0" x="2300" y="600" Width="100" Height="30" />
 	<AndGateNode ID="120" Name="" x="1000" y="40" Radio="20" />
 	<AndGateNode ID="230" Name="" x="333" y="150" Radio="20" />
 	<AndGateNode ID="231" Name="" x="666" y="150" Radio="20" />
