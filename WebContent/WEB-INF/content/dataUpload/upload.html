@@ -127,6 +127,19 @@
 			
 		});
 	}
+    
+    function showNewTab(){
+    	var jq = top.jQuery;
+    	var obj="/BLHPumTurEvaDia/data/fileUpload/文件上传说明.pdf";
+		var content = "<iframe scrolling='auto'  frameborder='0'  src="+obj+" style='width:100%;height:100%;'></iframe>";
+		console.log("输出iframe:"+content);
+		jq("#tabs").tabs('add',{
+		        title:"文件上传说明书",
+		        content:content,
+		        closable:true
+		    });
+    }
+    
 
 	$(function() {
 		$('#test-window_db').window('close');
@@ -135,6 +148,7 @@
 		showLastHistoryFileRecord(); //展示上一次上传的文件
 		$("#uploadBtn").click(upLoad);
 		$("#bt_query").click(showHistoryFileRecord); // 展示历史记录
+		$("#bt_ahp").click(showNewTab);
 	})
 </script>
 <body>
@@ -154,9 +168,11 @@
 					<input
 						type="submit" id="uploadBtn" style="display: block" value="上传"><br>
 				</form>
-				<div style="text-align:left;width:130px;height:20px"><a id="bt_ahp" href="/BLHPumTurEvaDia/images/fileload/1.png" 
-			data-lightbox="roadtrip" data-options="iconCls:'icon-ok'">文件格式要求...</a></div> 
-
+				<div style="text-align:left;width:130px;height:20px">
+				<!-- <a id="bt_ahp" href="/BLHPumTurEvaDia/images/fileload/1.png" 
+			data-lightbox="roadtrip" data-options="iconCls:'icon-ok'">文件格式要求...</a> -->
+			<a id="bt_ahp" href="#" >文件上传说明...</a>
+			</div> 
 			</div>
 			<div class="ipad" style="height: 20px"></div>
 
@@ -247,8 +263,8 @@
 			style="width: 98%; height: auto" data-options="singleSelect:true">
 			<thead>
 				<tr>
-					<th data-options="field:'faultLevel',align:'center',width:'90'">分类</th>
-					<th data-options="field:'defect',align:'left',width:100">缺陷</th>
+					<th data-options="field:'serial',align:'center',width:'90'">序号</th>
+					<th data-options="field:'faultLevel',align:'left',width:100">缺陷</th>
 					<th data-options="field:'team',align:'left',width:110">班组</th>
 					<th data-options="field:'reason',align:'left',width:240">原因</th>
 					<th data-options="field:'deal',align:'center',width:240">处理</th>

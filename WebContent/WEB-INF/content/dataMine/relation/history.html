@@ -5,15 +5,16 @@
 <title>历史查询</title>
 
 <link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
+	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet" type="text/css"
 	href="/BLHPumTurEvaDia/css/assess/inputdiv.css">
 <link rel="stylesheet"
 	href="/BLHPumTurEvaDia/tool/dataTable/jquery.dataTables.min.css">
+
 <link rel="stylesheet"
-	href="/BLHPumTurEvaDia/tool/bootstrap/dist/css/bootstrap.min.css">
+	href="/BLHPumTurEvaDia/tool/easyui-1.4.5/themes/default/easyui.css">
 <script type="text/javascript"
 	src="/BLHPumTurEvaDia/tool/jquery/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript"
@@ -53,17 +54,22 @@
 </style>
 <script type="text/javascript">
 	var table = $('#historyTable').DataTable();//jQuery dataTable（表格解决方案）的初始化
-
+	var Table1 = $('#defectInfoTable').DataTable();
+	
 	function queryHistory() { //queryHistory()查询方法
-		table.destroy(); //表格销毁
+		table.destroy();
+		 Table1.destroy();//表格销毁
 		var system = $("#subSystem").combobox("getValue"); //把前端选择的子系统传给“system”
 		var starTime = getDate("startTime");
 		var endTime = getDate("endTime");
 
 		var url1 = "/BLHPumTurEvaDia/datamine/history/query-fault-history?inputStr="
 				+ system + "//" + starTime + "//" + endTime; //将某个子系统历史数据的地址传给url1
-		console.log(url1);//传递成功显示“url1”
-
+		var url2 = "/BLHPumTurEvaDia/datamine/history/defect-vo?inputStr="; 
+				
+		console.log(url1+"   "+url2);//传递成功显示“url1”
+		
+		
 		//***dataTable的基本设置   start***//
 		table = $('#historyTable').DataTable({ /* json数组 */
 			"iDisplayLength" : 3,
@@ -155,6 +161,60 @@
 			"bDestroy" : true
 		});
 		//***dataTable的基本设置   end***//
+		
+		Table1 = $('#defectInfoTable').DataTable({ /* json数组 */
+			"iDisplayLength" : 4,
+			"lengthMenu" : [ [ 3, 6, 18, -1 ], [ 3, 6, 18, "所有" ] ],
+			"bAutoWidth" : true,
+			ajax : {
+				url : url2
+			},
+			columns : [ {
+				"data" : "defect",
+			},//JSON语句+数组               columns:纵列
+			{
+				"data" : "team",
+			}, {
+				"data" : "reason",
+			}, {
+				"data" : "deal",
+			}, {
+				"data" : "startTime",
+			}, {
+				"data" : "endTime",
+			}, {
+				"data" : "remarks",
+			} ],
+			"columnDefs" : [ { //datatable 用columnDefs 接收数组列以及datatable 动态传url
+				// "visible": false,
+				//"targets": 0
+				}, {
+					"render" : function(data, type, row, meta) { //render:表达/传递，row:行
+						 return  row.team ; 
+					},
+					"targets" : 1
+				//targets参数设置一个列或者多列
+				} ],
+			"sPaginationType" : "simple_numbers",
+			searching : false, //去掉搜索框
+			bLengthChange : false,//去掉每页多少条框体
+			"language" : {
+				"lengthMenu" : "每页 _MENU_ 条记录",
+				"zeroRecords" : "抱歉，没有找到",
+				"info" : "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty" : "无记录",
+				"infoFiltered" : "(从 _MAX_ 条记录过滤)",
+				"sSearch" : "模糊查询:  ",
+				"oPaginate" : {
+					"sPrevious" : "前一页",
+					"sNext" : "后一页",
+				}
+			},
+			
+			"bDestroy" : true
+		});
+		
+		
 
 	}
 
@@ -435,7 +495,6 @@
 				<option value="Transfer">主变系统</option>
 			</select> <a id="btn_query" href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-ok'"> 查询 </a>
-
 		</div>
 	</div>
 
@@ -463,18 +522,43 @@
 		</div>
 	</div>
 
-	<div
-		style="margin-left: 3%; margin-right: 3%; width: 94%; height: 20px; float: left"></div>
+	<div style="margin-left: 3%; margin-right: 3%; width: 94%; height: 20px; float: left"></div>
 
 	<div style="margin-left: 3%; margin-right: 3%; width: 94%; float: left">
 
 		<div class="easyui-panel" title="参数曲线图"
-			style="width: 99%; height: 600px; vertical-align: center; float: left">
-			<div id="chartmain" style="width: 100%; height: 100%">
+			style="width: 99%; height: 600px; vertical-align: center; float: left;cursor: pointer;">
+			<div id="chartmain" style="width: 100%; height: 100%;cursor: pointer;" >
 				<pre>    暂无结果</pre>
 			</div>
 		</div>
 	</div>
+
+	<div style="margin-left: 3%; margin-right: 3%; width: 94%; height: 20px; float: left"></div>
+	
+	<div style="margin-left: 3%; margin-right: 3%; width: 94%; float: left">
+		<div class="easyui-panel" title="缺陷月度情况表"
+			style="width: 100%; height: auto; vertical-align: center; float: left">
+			<div>
+				<table class="table" id="defectInfoTable"
+					style="text-align: left; width: 98%; height: auto; margin-left: auto; margin-right: auto">
+					<thead>
+						<tr>
+							<th style="width: 6%">缺陷</th>
+							<th style="width: 7%">班组</th>
+							<th style="width: 8%">原因</th>
+							<th style="width: 28%">处理</th>
+							<th style="width: 7%">发现时间</th>
+							<th style="width: 7%">处理时间</th>
+							<th style="width: 7%">备注</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

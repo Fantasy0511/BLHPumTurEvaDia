@@ -68,9 +68,9 @@ public class Table2Db extends JdbcDaoUtil {
 			});
 		}
 
-		// FaultInfoTable表中添加数据
+		// 缺陷月度情况表中添加数据
 		if (tableName.contains("缺陷月度情况表")) {
-			creatNewFaultInfoTable(tableName);
+			/*creatNewFaultInfoTable(tableName);*/
 			String insertSql = "insert into " + tableName + " (Serial,FaultLevel,Defect,Team,Reason,Deal,StartTime,EndTime,Remarks) values(?,?,?,?,?,?,?,?,?);";
 			System.out.println(insertSql);
 			

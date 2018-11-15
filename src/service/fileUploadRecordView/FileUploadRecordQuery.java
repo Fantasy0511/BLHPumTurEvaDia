@@ -48,7 +48,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	public void deleteRecord(int id,String fileName) {
 		String sql1;
 		String sql2;
-		if (fileName.contains("FaultInfo")) {
+		if (fileName.contains("缺陷月度情况表")) {
 			sql1 = "delete from UPLOAD_FILE_RECORD where id=?";
 			getJdbcTemplate().update(sql1, id);
 		}
@@ -112,8 +112,8 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 					}
 				} else {
 					while (rs.next()) {
-						list.add(new TableRow(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-								rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9)));
+						list.add(new TableRow(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5),
+								rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),rs.getString(10)));
 					}
 				}
 
