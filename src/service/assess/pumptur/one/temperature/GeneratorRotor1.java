@@ -7,11 +7,11 @@ public class GeneratorRotor1 {
 
 	public int GeneratorRotor(long time) {
         //转子温度
-		BoolAssess bool1059 = new BoolAssess();
-		int U1 = bool1059.BooleanAssess(1059, time);
+		BoolAssess bool99 = new BoolAssess();
+		int U1 = bool99.BooleanAssess(99, time);
 		//转子温度
-		BoolAssess bool1060 = new BoolAssess();
-		int U2 = bool1060.BooleanAssess(1060, time);
+		BoolAssess bool100 = new BoolAssess();
+		int U2 = bool100.BooleanAssess(100, time);
 
 		int a = (U1 + U2) / 2;
 		return a;
