@@ -5,17 +5,17 @@ import bll.FloatAssessment;
 public class UpperBearing1 {
 public int UpperBearing(long time){
 	// 上导轴承温度
-	FloatAssessment float826=new FloatAssessment();
-	int U1=float826.FloatAssess(826,time, 190, 0);
+	FloatAssessment float173=new FloatAssessment();
+	int U1=float173.FloatAssess(173,time, 190, 0);
 	
 	
-	FloatAssessment float831=new FloatAssessment();
-	int U2=float831.FloatAssess(831,time, 190, 0);
+//	FloatAssessment float831=new FloatAssessment();
+//	int U2=float831.FloatAssess(831,time, 190, 0);
+//	
+//	FloatAssessment float837=new FloatAssessment();
+//	int U3=float837.FloatAssess(837,time, 190, 0);
 	
-	FloatAssessment float837=new FloatAssessment();
-	int U3=float837.FloatAssess(837,time, 190, 0);
-	
-	int a=(U1+U2+U3)/3;
+	int a=U1;
 	return a;
 }
 }

@@ -11,26 +11,26 @@ public class MainShaftSeal1 {
 
 	public MainShaftSealResult MainShaftSeal(long time){
 		//供水流量
-		FloatAssessment float958=new FloatAssessment();
-		int U1=float958.FloatAssess(958,time, 452, 0);
+		FloatAssessment float303 = new FloatAssessment();
+		int U1 = float303.FloatAssess(303, time, 452, 0);
 		//供水温度
-		FloatAssessment float962=new FloatAssessment();
-		int U2=float962.FloatAssess(962,time, 190, 0);
+		FloatAssessment float307 = new FloatAssessment();
+		int U2 = float307.FloatAssess(307, time, 190, 0);
 		//过滤器前压力
-		FloatAssessment float959=new FloatAssessment();
-		int U3=float959.FloatAssess(959,time, 190, 0);
+		FloatAssessment float304 = new FloatAssessment();
+		int U3 = float304.FloatAssess(304, time, 190, 0);
 		//过滤器后压力
-		FloatAssessment float960=new FloatAssessment();
-		int U4=float960.FloatAssess(960,time, 190, 0);
+		FloatAssessment float305 = new FloatAssessment();
+		int U4 = float305.FloatAssess(305, time, 190, 0);
 		//过滤器451FI故障
-		BoolAssess bool1086=new BoolAssess();
-		int U5=bool1086.BooleanAssess(1086,time);
+		BoolAssess bool118 = new BoolAssess();
+		int U5 = bool118.BooleanAssess(118, time);
 		//过滤器452FI故障
-		BoolAssess bool1087=new BoolAssess();
-		int U6=bool1087.BooleanAssess(1087,time);
+		BoolAssess bool119 = new BoolAssess();
+		int U6 = bool119.BooleanAssess(119, time);
 		//压差低(L2)
-		BoolAssess bool1088=new BoolAssess();
-		int U7=bool1088.BooleanAssess(1088,time);
+		BoolAssess bool120 = new BoolAssess();
+		int U7 = bool120.BooleanAssess(120, time);
 		
 		double a=(U1+U2+U3+U4+U5+U6+U7)/7;
 		
