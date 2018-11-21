@@ -99,7 +99,7 @@ public class DaoAssessment {
 			e1.printStackTrace();
 		}
 
-		long starttime = endtime - 300;
+		long starttime = endtime - 604800;//300
 		ArrayList<String> sqls = getSQL(table, id, starttime, endtime);
 
 		DataUtils data = new DataUtils(table, id);

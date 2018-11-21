@@ -26,8 +26,8 @@ public class BoolAssess {
 			}
 		}
 		int score = 100-5*num;
-		if (score<20) {
-			score=20;
+		if (score<30) {
+			score=30;
 			
 		}
 		return score;

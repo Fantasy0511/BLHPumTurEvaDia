@@ -61,14 +61,14 @@ public class LinearRegression {
 			System.out.println("預測k為："+k);
 			b=(Exx*Ey-Ex*Exy)/(size*Exx-Ex*Ex);
 			DataInfo info = rd.queInfo(table+id);
-			double h = info.getHHLimite()==0?info.getHLimite():info.getHHLimite();
-			double l = info.getLLimite()==0?info.getLLLimite():info.getLLimite();
+			double h = info.getHLimite();
+			double l = info.getLLimite();
 			String name = info.getPosition()+"."+info.getDescription();
-			if(h>0){
+			if(h!=0){
 				name += " 阈值上限为"+h+info.getUnit();
 			}
-			if(l>0){
-				name += " 阈值下限为"+h+info.getUnit();
+			if(l!=0){
+				name += " 阈值下限为"+l+info.getUnit();
 			}
 			if(k==0){
 				alter =  name+" 近期运行稳定。";
