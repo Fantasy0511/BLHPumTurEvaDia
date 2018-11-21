@@ -141,7 +141,7 @@ public class DaoAssessment {
 
 		if (startYear.equals(endYear) && startMounth.equals(endMounth)) {
 			String sql = "select value,time from " + table + "_" + startYear
-					+ startMounth + "_test" +" where id=" + id + " AND time<" + endtime
+					+ startMounth + " where id=" + id + " AND time<" + endtime
 					+ " AND time>" + starttime + " ORDER BY time ASC";
 			System.out.println(sql);
 			sqls.add(sql);
@@ -151,7 +151,7 @@ public class DaoAssessment {
 					&& startMounth.equals(endMounth))) {
 				// 先从开始的月开始查询
 				String sql = "select value,time from " + table + "_" + startYear
-						+ startMounth + "_test" + " where id=" + id + " AND time<"
+						+ startMounth + " where id=" + id + " AND time<"
 						+ endtime + " AND time>" + starttime
 						+ " ORDER BY time ASC";
 				System.out.println(sql);
