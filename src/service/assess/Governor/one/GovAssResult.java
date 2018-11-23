@@ -1,4 +1,4 @@
-package service.assess.Governor.one.output;
+package service.assess.Governor.one;
 
 import java.util.List;
 

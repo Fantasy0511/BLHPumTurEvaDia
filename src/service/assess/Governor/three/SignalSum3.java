@@ -21,7 +21,7 @@ public class SignalSum3 {
 		BoolAssess bool860=new BoolAssess();
 		int U3=bool860.BooleanAssess(860,time);
 		
-		double score=0.15*U3+0.45*U1+0.4*U2;
+		double score=0.2*U3+0.4*U1+0.4*U2;
 		
 		singleList.add(U1);
 		singleList.add(U2);

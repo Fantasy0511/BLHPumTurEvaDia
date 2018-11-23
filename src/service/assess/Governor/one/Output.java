@@ -1,24 +1,19 @@
-package service.assess.Governor.one.output;
+package service.assess.Governor.one;
 
 import java.text.DecimalFormat;
 import java.util.List;
-
-import service.assess.Governor.one.History;
-import service.assess.Governor.one.FaultSignal.SignalSum;
-import service.assess.Governor.one.state.StateSum;
 
 public class Output {
 	public GovAssResult getGovAssessResult(long time) {
 		//控制小数点
 		DecimalFormat df=new DecimalFormat("#.0");
 
-		//油系统性能
-		StateSum SSM = new StateSum();
-		List<Number> U1 = SSM.getStateSum(time);
+		//调速系统性能状态
 		
-		//振动信号性能
-		SignalSum SS = new SignalSum();
-		List<Number> U2 = SS.getSignalSum(time);
+		List<Number> U1 = GovState.calAllScore(time);
+		
+		//调速故障信号
+		List<Number> U2 = GovFaultSignal.calAllScore(time);
         
 		//历史性能
 		History history = new History();

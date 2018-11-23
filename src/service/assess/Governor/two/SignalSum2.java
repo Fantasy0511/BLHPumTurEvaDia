@@ -22,7 +22,7 @@ public class SignalSum2 {
 		BoolAssess bool535=new BoolAssess();
 		int U3=bool535.BooleanAssess(535,time);
 		
-		double score=0.15*U3+0.45*U1+0.4*U2;
+		double score=0.2*U3+0.4*U1+0.4*U2;
 		
 		System.out.println("*********");
 		System.out.println("2号机组振动信号底层指标得分");
