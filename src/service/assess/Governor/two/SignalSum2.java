@@ -1,5 +1,6 @@
 package service.assess.Governor.two;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +23,12 @@ public class SignalSum2 {
 		BoolAssess bool535=new BoolAssess();
 		int U3=bool535.BooleanAssess(535,time);
 		
-		double score=0.2*U3+0.4*U1+0.4*U2;
 		
-		System.out.println("*********");
-		System.out.println("2号机组振动信号底层指标得分");
-		System.out.println("调速器电气过速报警："+U1);
-		System.out.println("调速器机械过速报警："+U2);
-		System.out.println("调速器油箱阻塞："+U3);
-		System.out.println("综合得分："+score);
-		System.out.println("************");
 		singleList.add(U1);
 		singleList.add(U2);
 		singleList.add(U3);
-		singleList.add(score);
+		DecimalFormat df=new DecimalFormat("#.0");
+		singleList.add(Double.parseDouble(df.format(0.2*U3+0.4*U1+0.4*U2)));
 		
 		return singleList;
 	}

@@ -1,5 +1,6 @@
 package service.assess.Governor.four;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class SignalSum4 {
 		BoolAssess bool2191=new BoolAssess();
 		int U3=bool2191.BooleanAssess(2191,time);
 		
-		double score=0.2*U3+0.4*U1+0.4*U2;
 		singleList.add(U1);
 		singleList.add(U2);
 		singleList.add(U3);
-		singleList.add(score);
+		DecimalFormat df=new DecimalFormat("#.0");
+		singleList.add(Double.parseDouble(df.format(0.2*U3+0.4*U1+0.4*U2)));
 		
 		return singleList;
 	}

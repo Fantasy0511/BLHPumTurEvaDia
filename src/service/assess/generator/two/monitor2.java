@@ -15,11 +15,10 @@ public class monitor2 {
 		DecimalFormat df = new DecimalFormat("#.0"); // 控制小数点位数
 
 		// 励磁电压
-		FloatAssessment float365 = new FloatAssessment();
-		int U2 = float365.FloatAssess(365, time, 600, 150);
+		FloatAssessment fa = new FloatAssessment();
+		int U2 = fa.FloatAssess(365, time, 600, 150);
 		// 机组频率
-		FloatAssessment float508 = new FloatAssessment();
-		int U3 = float508.FloatAssess(508, time, 0, 60);
+		int U3 = fa.FloatAssess(508, time, 0, 60);
 		double a = Double.parseDouble(df.format((U2 + U3) / 2));
 
 		mList.add(U2);

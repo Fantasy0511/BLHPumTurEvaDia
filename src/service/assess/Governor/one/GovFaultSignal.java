@@ -1,5 +1,6 @@
 package service.assess.Governor.one;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class GovFaultSignal {
 		allScore.add(U1);
 		allScore.add(U2);
 		allScore.add(U3);
-		allScore.add(0.2*U3+0.4*U1+0.4*U2);
+		DecimalFormat df=new DecimalFormat("#.0");
+		allScore.add(Double.parseDouble(df.format(0.2*U3+0.4*U1+0.4*U2)));
 		return allScore;
 		
 	}

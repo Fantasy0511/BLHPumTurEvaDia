@@ -20,35 +20,40 @@ public class GenerAssSum {
 		DecimalFormat df = new DecimalFormat("#.0"); // 控制小数点位数
 		// 励磁故障信号总得分
 		electricity3 guideVane = new electricity3();
-		double U0 = guideVane.getElectricity3(time).get(0).doubleValue();// 励磁电源故障
-		double U1 = guideVane.getElectricity3(time).get(1).doubleValue();// 电压/频率跳闸
-		double U2 = guideVane.getElectricity3(time).get(2).doubleValue();// 晶闸管桥风扇故障
-		double sum1 = guideVane.getElectricity3(time).get(3).doubleValue();// 励磁故障信号总得分
+		List<Number> exFault = guideVane.getElectricity3(time);
+		double U0 = exFault.get(0).doubleValue();// 励磁电源故障
+		double U1 = exFault.get(1).doubleValue();// 电压/频率跳闸
+		double U2 = exFault.get(2).doubleValue();// 晶闸管桥风扇故障
+		double sum1 = exFault.get(3).doubleValue();// 励磁故障信号总得分
 		// 机组监测电气量总得分
-		monitor3 history = new monitor3();
-		double h0 = history.getMonitor3(time).get(0).doubleValue();// 励磁电压
-		double h1 = history.getMonitor3(time).get(1).doubleValue();// 机组频率
-		double sum2 = history.getMonitor3(time).get(2).doubleValue();// 机组监测电气量总得分
+		monitor3 monitor = new monitor3();
+		List<Number> monitorFault = monitor.getMonitor3(time);
+		double h0 = monitorFault.get(0).doubleValue();// 励磁电压
+		double h1 = monitorFault.get(1).doubleValue();// 机组频率
+		double sum2 = monitorFault.get(2).doubleValue();// 机组监测电气量总得分
 		// 发电机故障信号总得分
 		malfunction3 mainShaftSeal = new malfunction3();
-		double m0 = mainShaftSeal.getMalfunction3(time).get(0).doubleValue(); // 转子绝缘报警
-		double m1 = mainShaftSeal.getMalfunction3(time).get(1).doubleValue();// 发电机停止报警
-		double m2 = mainShaftSeal.getMalfunction3(time).get(2).doubleValue();// 频率保护报警
-		double sum3 = mainShaftSeal.getMalfunction3(time).get(3).doubleValue();// 发电机故障信号总得分
+		List<Number> shaftFault = mainShaftSeal.getMalfunction3(time);
+		double m0 = shaftFault.get(0).doubleValue(); // 转子绝缘报警
+		double m1 = shaftFault.get(1).doubleValue();// 发电机停止报警
+		double m2 = shaftFault.get(2).doubleValue();// 频率保护报警
+		double sum3 = shaftFault.get(3).doubleValue();// 发电机故障信号总得分
 		// 温度总得分
 		temperature3 swingAss = new temperature3();
-		double t0 = swingAss.getTemperature3(time).get(0).doubleValue();// 发电机热风温度
-		double t1 = swingAss.getTemperature3(time).get(1).doubleValue();// 发电机冷风温度
-		double t2 = swingAss.getTemperature3(time).get(2).doubleValue();// 空冷器出水温度
-		double sum4 = swingAss.getTemperature3(time).get(3).doubleValue();// 发电机故障信号总得分
+		List<Number> tempFault = swingAss.getTemperature3(time);
+		double t0 = tempFault.get(0).doubleValue();// 发电机热风温度
+		double t1 = tempFault.get(1).doubleValue();// 发电机冷风温度
+		double t2 = tempFault.get(2).doubleValue();// 空冷器出水温度
+		double sum4 = tempFault.get(3).doubleValue();// 发电机故障信号总得分
 		// 灭磁开关动作总得分
-		Degauss3 temperatureAss = new Degauss3();
-		double d0 = temperatureAss.getDegauss3(time).get(0).doubleValue();// 励磁电流
-		double d1 = temperatureAss.getDegauss3(time).get(1).doubleValue();// 励磁电压
-		double sum5 = temperatureAss.getDegauss3(time).get(2).doubleValue(); // 灭磁开关动作总得分
+		Degauss3 degauss = new Degauss3();
+		List<Number> degaussFault = degauss.getDegauss3(time);
+		double d0 = degaussFault.get(0).doubleValue();// 励磁电流
+		double d1 = degaussFault.get(1).doubleValue();// 励磁电压
+		double sum5 = degaussFault.get(2).doubleValue(); // 灭磁开关动作总得分
 		// 正常来说权重比例应该是由判断矩阵算出来的
 		double sum = Double
-				.parseDouble(df.format(0.475 * sum1 + 0.055 * sum2 + 0.110 * sum3 + 0.090 * sum4 + 0.263 * sum5));
+				.parseDouble(df.format(0.475 * sum1 + 0.055 * sum2 + 0.110 * sum3 + 0.090 * sum4 + 0.27 * sum5));
 		// 评估页面数据
 		firstList.add(sum);  //总得分00
 		firstList.add(sum1); // 励磁故障信号总得分1

@@ -15,11 +15,10 @@ public class Degauss2 {
 		DecimalFormat df = new DecimalFormat("#.0"); // 控制小数点位数
 
 		// 励磁电流
-		FloatAssessment float364 = new FloatAssessment();
-		int U1 = float364.FloatAssess(364, time, 3600, 1200);
+		FloatAssessment fa = new FloatAssessment();
+		int U1 = fa.FloatAssess(364, time, 3600, 1200);
 		// 励磁电压
-		FloatAssessment float365 = new FloatAssessment();
-		int U2 = float365.FloatAssess(365, time, 600, 1500);
+		int U2 = fa.FloatAssess(365, time, 600, 1500);
 
 		double a = Double.parseDouble(df.format((U1+U2)/2));
 		dList.add(U1);

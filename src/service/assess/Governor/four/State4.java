@@ -11,7 +11,7 @@ public class State4 {
 
 	//4号机组调速油系统性能状态得分
 		public List<Number> getState4(long time){
-			DecimalFormat df=new DecimalFormat("#.0");
+			
 			List<Number> allScore = new ArrayList<Number>();
 			FloatAssessment fa=new FloatAssessment();
 			BoolAssess ba = new BoolAssess();
@@ -36,7 +36,8 @@ public class State4 {
 			allScore.add(U5);
 			allScore.add(U6);
 			allScore.add(U7);
-			allScore.add((U1+U2+U3+U4+U5+U6+U7)/7);
+			DecimalFormat df=new DecimalFormat("#.0");
+			allScore.add(Double.parseDouble(df.format((U1+U2+U3+U4+U5+U6+U7)/7)));
 			return allScore;
 		}
 }

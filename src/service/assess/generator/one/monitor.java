@@ -1,4 +1,4 @@
-package service.assess.generator.one.second;
+package service.assess.generator.one;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import bll.FloatAssessment;
 //机组监测电气量总得分
 public class monitor {
 
-	public List<Number> monitor1(long time) {
+	public static List<Number> monitor1(long time) {
 
 		List<Number> mList = new ArrayList<>();
 		DecimalFormat df = new DecimalFormat("#.0"); // 控制小数点位数

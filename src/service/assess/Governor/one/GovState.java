@@ -1,5 +1,6 @@
 package service.assess.Governor.one;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class GovState {
 		allScore.add(U5);
 		allScore.add(U6);
 		allScore.add(U7);
-		allScore.add((U1+U2+U3+U4+U5+U6+U7)/7);
+		DecimalFormat df=new DecimalFormat("#.0");
+		allScore.add(Double.parseDouble(df.format((U1+U2+U3+U4+U5+U6+U7)/7)));
 		return allScore;
 	}
 

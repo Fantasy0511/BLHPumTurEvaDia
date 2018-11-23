@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.assess.generator.excAssResult;
+import service.assess.generator.three.Degauss3;
+import service.assess.generator.three.electricity3;
+import service.assess.generator.three.malfunction3;
+import service.assess.generator.three.monitor3;
+import service.assess.generator.three.temperature3;
 import service.assess.generator.two.Degauss2;
 import service.assess.generator.two.electricity2;
 import service.assess.generator.two.malfunction2;
@@ -14,42 +19,46 @@ import service.assess.generator.two.temperature2;
 //励磁故障信号、机组监测电气量、发电电动机故障信号、温度指标和灭磁开关
 public class GenerAssSum {
 	// 发电电动机总得分
-	public excAssResult getGenerAssSum(long time) {
-
+public excAssResult getGenerAssSum(long time) {
+		
 		List<Number> firstList = new ArrayList<>();// 所有指标输出；存放“评估主页面”“显示子评估页面”饼图、柱状图、表格数据
 		DecimalFormat df = new DecimalFormat("#.0"); // 控制小数点位数
 		// 励磁故障信号总得分
 		electricity2 guideVane = new electricity2();
-		double U0 = guideVane.getElectricity2(time).get(0).doubleValue();// 励磁电源故障
-		double U1 = guideVane.getElectricity2(time).get(1).doubleValue();// 电压/频率跳闸
-		double U2 = guideVane.getElectricity2(time).get(2).doubleValue();// 晶闸管桥风扇故障
-		double sum1 = guideVane.getElectricity2(time).get(3).doubleValue();// 励磁故障信号总得分
+		List<Number> exFault = guideVane.getElectricity2(time);
+		double U0 = exFault.get(0).doubleValue();// 励磁电源故障
+		double U1 = exFault.get(1).doubleValue();// 电压/频率跳闸
+		double U2 = exFault.get(2).doubleValue();// 晶闸管桥风扇故障
+		double sum1 = exFault.get(3).doubleValue();// 励磁故障信号总得分
 		// 机组监测电气量总得分
-		monitor2 history = new monitor2();
-		double h0 = history.getMonitor2(time).get(0).doubleValue();// 励磁电压
-		double h1 = history.getMonitor2(time).get(1).doubleValue();// 机组频率
-		double sum2 = history.getMonitor2(time).get(2).doubleValue();// 机组监测电气量总得分
+		monitor2 monitor = new monitor2();
+		List<Number> monitorFault = monitor.getMonitor2(time);
+		double h0 = monitorFault.get(0).doubleValue();// 励磁电压
+		double h1 = monitorFault.get(1).doubleValue();// 机组频率
+		double sum2 = monitorFault.get(2).doubleValue();// 机组监测电气量总得分
 		// 发电机故障信号总得分
 		malfunction2 mainShaftSeal = new malfunction2();
-		double m0 = mainShaftSeal.getMalfunction2(time).get(0).doubleValue(); // 转子绝缘报警
-		double m1 = mainShaftSeal.getMalfunction2(time).get(1).doubleValue();// 发电机停止报警
-		double m2 = mainShaftSeal.getMalfunction2(time).get(2).doubleValue();// 频率保护报警
-		double sum3 = mainShaftSeal.getMalfunction2(time).get(3).doubleValue();// 发电机故障信号总得分
+		List<Number> shaftFault = mainShaftSeal.getMalfunction2(time);
+		double m0 = shaftFault.get(0).doubleValue(); // 转子绝缘报警
+		double m1 = shaftFault.get(1).doubleValue();// 发电机停止报警
+		double m2 = shaftFault.get(2).doubleValue();// 频率保护报警
+		double sum3 = shaftFault.get(3).doubleValue();// 发电机故障信号总得分
 		// 温度总得分
 		temperature2 swingAss = new temperature2();
-		double t0 = swingAss.getTemperature2(time).get(0).doubleValue();// 发电机热风温度
-		double t1 = swingAss.getTemperature2(time).get(1).doubleValue();// 发电机冷风温度
-		double t2 = swingAss.getTemperature2(time).get(2).doubleValue();// 空冷器出水温度
-		double sum4 = swingAss.getTemperature2(time).get(3).doubleValue();// 发电机故障信号总得分
+		List<Number> tempFault = swingAss.getTemperature2(time);
+		double t0 = tempFault.get(0).doubleValue();// 发电机热风温度
+		double t1 = tempFault.get(1).doubleValue();// 发电机冷风温度
+		double t2 = tempFault.get(2).doubleValue();// 空冷器出水温度
+		double sum4 = tempFault.get(3).doubleValue();// 发电机故障信号总得分
 		// 灭磁开关动作总得分
-		Degauss2 temperatureAss = new Degauss2();
-		double d0 = temperatureAss.getDegauss2(time).get(0).doubleValue();// 励磁电流
-		double d1 = temperatureAss.getDegauss2(time).get(1).doubleValue();// 励磁电压
-		double sum5 = temperatureAss.getDegauss2(time).get(2).doubleValue(); // 灭磁开关动作总得分
+		Degauss2 degauss = new Degauss2();
+		List<Number> degaussFault = degauss.getDegauss2(time);
+		double d0 = degaussFault.get(0).doubleValue();// 励磁电流
+		double d1 = degaussFault.get(1).doubleValue();// 励磁电压
+		double sum5 = degaussFault.get(2).doubleValue(); // 灭磁开关动作总得分
 		// 正常来说权重比例应该是由判断矩阵算出来的
 		double sum = Double
-				.parseDouble(df.format(0.475 * sum1 + 0.055 * sum2 + 0.110 * sum3 + 0.090 * sum4 + 0.263 * sum5));
-
+				.parseDouble(df.format(0.475 * sum1 + 0.055 * sum2 + 0.110 * sum3 + 0.090 * sum4 + 0.27 * sum5));
 		// 评估页面数据
 		firstList.add(sum);  //总得分00
 		firstList.add(sum1); // 励磁故障信号总得分1
@@ -75,6 +84,8 @@ public class GenerAssSum {
 		// 灭磁开关动作
 		firstList.add(d0); //励磁电流17
 		firstList.add(d1); ;//励磁电压18
+
+		
 
 		excAssResult generatorAssessResult = new excAssResult(firstList);
 		return generatorAssessResult;
