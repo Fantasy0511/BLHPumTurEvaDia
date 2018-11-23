@@ -9,7 +9,7 @@ import bll.FloatAssessment;
 public class temperature2 {
 
 	//2号机组主变压器温度
-	public List<Number> temperatureA(long time){
+	public List<Number> temperature(long time){
 			
 			List<Number> hList=new ArrayList<>();
 			DecimalFormat df=new DecimalFormat("#.0");  //控制小数点位数

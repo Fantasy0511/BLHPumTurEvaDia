@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.assess.transformer.TransferAssResult;
+import service.assess.transformer.four.histroy4;
+import service.assess.transformer.four.malfunction4;
+import service.assess.transformer.four.temperature4;
 
 public class output3 {
 	// 3号机组主变压器总得分
@@ -14,21 +17,23 @@ public class output3 {
 
 			List<Number> faultList = new ArrayList<>();// 主变故障信号底层指标输出，存放“显示子评估页面”，饼图、柱状图数据
 			
-			//主变压器温度
+			// 主变压器温度
 			temperature3 guideVane = new temperature3();
-			double U0 = guideVane.temperature(time).get(0).doubleValue();// 主变油温
-			double U1 = guideVane.temperature(time).get(1).doubleValue();// 高压侧绕组温度
-			double U2 = guideVane.temperature(time).get(2).doubleValue();// 冷却器出口水温
-			double sum1 = guideVane.temperature(time).get(3).doubleValue();// 主变温度总得分
-			//历史和巡检状态
+			List<Number> temp= guideVane.temperature(time);
+			double U0 = temp.get(0).doubleValue();// 主变油温
+			double U1 = temp.get(1).doubleValue();// 高压侧绕组温度
+			double U2 = temp.get(2).doubleValue();// 冷却器出口水温
+			double sum1 = temp.get(3).doubleValue();
+			// 历史和巡检状态
 			histroy3 history = new histroy3();
 			double sum3 = history.histroy(time).get(0).doubleValue();
-			//主变故障信号
+			// 主变故障信号
 			malfunction3 mainShaftSeal = new malfunction3();
-			double m1 = mainShaftSeal.malfunction(time).get(0).doubleValue();// 主变重瓦斯跳闸
-			double m2 = mainShaftSeal.malfunction(time).get(1).doubleValue();// 主变油位高报警
-			double m3 = mainShaftSeal.malfunction(time).get(2).doubleValue();// 机组电气停机报警
-			double sum2 = mainShaftSeal.malfunction(time).get(3).doubleValue();// 主变故障总得分
+			List<Number>  mList = mainShaftSeal.malfunction(time);
+			double m1 = mList.get(0).doubleValue();// 主变重瓦斯跳闸
+			double m2 = mList.get(1).doubleValue();// 主变油位高报警
+			double m3 = mList.get(2).doubleValue();// 机组电气停机报警
+			double sum2 = mList.get(3).doubleValue();// 主变故障总得分
 			
 			// 主变系统总得分
 			

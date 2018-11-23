@@ -3,10 +3,6 @@ package service.assess.Ballvalve.one;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import service.assess.Ballvalve.one.frist.Oilsystem;
-import service.assess.Ballvalve.one.second.histroy;
-import service.assess.Ballvalve.one.third.performance;
-
 public class BallAssSumOut {
 
 		// 球阀系统总得分

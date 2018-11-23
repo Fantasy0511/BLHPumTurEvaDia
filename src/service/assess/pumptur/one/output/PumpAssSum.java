@@ -17,8 +17,9 @@ public class PumpAssSum {
 		DecimalFormat df = new DecimalFormat("#.0");
 
 		// 1号机组 水轮机导叶打分
-		GuideVane1 guideVane = new GuideVane1();
-		double U1 = guideVane.GuideVane(time);
+		//GuideVane1 guideVane = new GuideVane1();
+		//double U1 = guideVane.GuideVane(time);
+		double U1 = 100.0;
 		// 1号机组 历史打分
 		History1 history = new History1();
 		double U2 = history.History(time);
@@ -51,7 +52,7 @@ public class PumpAssSum {
 		double U5 = result1.getScore();
 
 		// 正常来说权重比例应该是由判断矩阵算出来的
-		double score = 0.090 * U1 + 0.055 * U2 + 0.110 * U3 + (double)U4.get(U4.size() - 1) * 0.475 + 0.263 * U5;
+		double score = 0.097 * U1 + 0.055 * U2 + 0.110 * U3 + (double)U4.get(U4.size() - 1) * 0.475 + 0.263 * U5;
 		score=Double.parseDouble(df.format(score));
 		
 		PumpAssResult pumpAssResult = new PumpAssResult(U1, U2, U3, U4, U5, score, U31, U32, U33, U34, U51, U52, U53, U54,

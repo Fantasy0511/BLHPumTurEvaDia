@@ -1,4 +1,4 @@
-package service.assess.Ballvalve.one.second;
+package service.assess.Ballvalve.one;
 //历史和巡检状态
 public class histroy {
 	

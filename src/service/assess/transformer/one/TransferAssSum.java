@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.assess.transformer.TransferAssResult;
+import service.assess.transformer.four.histroy4;
+import service.assess.transformer.four.malfunction4;
+import service.assess.transformer.four.temperature4;
 import service.assess.transformer.one.frist.temperature;
 import service.assess.transformer.one.second.histroy;
 import service.assess.transformer.one.thrid.malfunction;
@@ -29,22 +32,24 @@ public class TransferAssSum {
 		DecimalFormat df=new DecimalFormat("#.0");  //控制小数点位数
 		// 主变压器温度
 		temperature guideVane = new temperature();
-		double U0 = guideVane.temperatureA(time).get(0).doubleValue();// 主变油温
-		double U1 = guideVane.temperatureA(time).get(1).doubleValue();// 高压侧绕组温度
-		double U2 = guideVane.temperatureA(time).get(2).doubleValue();// 冷却器出口水温
-		double sum1 = guideVane.temperatureA(time).get(3).doubleValue();// 主变温度总得分
-		// 主变故障信号
-		malfunction mainShaftSeal = new malfunction();
-		double m1 = mainShaftSeal.Malfunction(time).get(0).doubleValue();// 主变重瓦斯跳闸
-		double m2 = mainShaftSeal.Malfunction(time).get(1).doubleValue();// 主变油位高报警
-		double m3 = mainShaftSeal.Malfunction(time).get(2).doubleValue();// 机组电气停机报警
-		double sum2 = mainShaftSeal.Malfunction(time).get(3).doubleValue();// 主变故障总得分
+		List<Number> temp= guideVane.temperatureA(time);
+		double U0 = temp.get(0).doubleValue();// 主变油温
+		double U1 = temp.get(1).doubleValue();// 高压侧绕组温度
+		double U2 = temp.get(2).doubleValue();// 冷却器出口水温
+		double sum1 = temp.get(3).doubleValue();
 		// 历史和巡检状态
 		histroy history = new histroy();
-		double sum3 = history.histroy2(time).get(0).doubleValue();
+		double sum3 = history.histroy(time).get(0).doubleValue();
+		// 主变故障信号
+		malfunction mainShaftSeal = new malfunction();
+		List<Number>  mList = mainShaftSeal.Malfunction(time);
+		double m1 = mList.get(0).doubleValue();// 主变重瓦斯跳闸
+		double m2 = mList.get(1).doubleValue();// 主变油位高报警
+		double m3 = mList.get(2).doubleValue();// 机组电气停机报警
+		double sum2 = mList.get(3).doubleValue();// 主变故障总得分
+		
 		// 主变系统总得分
-		double sum = Double.parseDouble(df.format(0.5 * sum1 + 0.1 * sum2 + 0.4 * sum3));
-
+		double sum = 0.5 * sum1 + 0.1 * sum2 + 0.4 * sum3;
 		// 评估页面数据
 		firstList.add(sum);
 		firstList.add(sum1);
