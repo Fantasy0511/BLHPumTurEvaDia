@@ -1,18 +1,23 @@
 package service.assess.Governor.one.FaultSignal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bll.BoolAssess;
 
 //调速器过速报警
 public class OverspeedAlarm {
 
-	public int OverspeedAlarm(long time){
+	public List<Number> OverspeedAlarm(long time){
 		
-		BoolAssess bool212=new BoolAssess();
-		int U1=bool212.BooleanAssess(212,time);
+		BoolAssess OverspeedAlarm=new BoolAssess();
+		int U1=OverspeedAlarm.BooleanAssess(212,time);
+		int U2=OverspeedAlarm.BooleanAssess(213,time);
+	    
+		List<Number> aList=new ArrayList<>();
+	    aList.add(U1);
+	    aList.add(U2);
 		
-		BoolAssess bool213=new BoolAssess();
-		int U2=bool213.BooleanAssess(213,time);
-		int score=(U1+U2)/2;
-	    return score;
+	    return aList;
 }
 }
