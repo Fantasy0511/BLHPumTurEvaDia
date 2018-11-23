@@ -20,11 +20,12 @@ public class Output {
 		double U3 = history.getHistory(time);
 		
 		//综合得分     
-		double score = (double) U1.get(U1.size() - 1) * 0.6483
-				+ (double) U2.get(U2.size() - 1) * 0.2296 + U3 * 0.1220;
+		double score =Double.valueOf(String.valueOf(U1.get(U1.size()-1)))*0.6+
+				Double.valueOf(String.valueOf(U2.get(U2.size()-1)))*0.4;
 		
 		// 控制小数点位数
 		U3 =Double.parseDouble(df.format(U3));
+		
 		score=Double.parseDouble(df.format(score));
 		
 		GovAssResult govAssResult = new GovAssResult(U1, U2, U3, score);

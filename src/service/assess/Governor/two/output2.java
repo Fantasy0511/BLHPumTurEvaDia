@@ -18,10 +18,8 @@ public class output2 {
 		histroy2 history = new histroy2();
 		double U3 = history.histroy2(time);
 
-		
-		double U4 = 0.55 * (double) U1.get(U1.size() - 1) + 0.1 * U3 +
-				0.35 *(double) U2.get(U2.size() - 1);
-		
+		double U4 =Double.valueOf(String.valueOf(U1.get(U1.size()-1)))*0.55+
+				Double.valueOf(String.valueOf(U2.get(U2.size()-1)))*0.4+0.1 * U3;
 		
 		U3 =Double.parseDouble(df.format(U3));
 		U4 =Double.parseDouble(df.format(U4));

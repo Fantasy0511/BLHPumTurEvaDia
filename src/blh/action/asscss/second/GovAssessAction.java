@@ -50,8 +50,9 @@ public class GovAssessAction extends AbstractActionSupport {
 				govAssResult2.getState2().get(3).doubleValue(), govAssResult2.getState2().get(5).doubleValue(),
 				govAssResult2.getSignalSum2().get(0).doubleValue(), govAssResult2.getSignalSum2().get(1).doubleValue(),
 				govAssResult2.getSignalSum2().get(2).doubleValue(), };
-		String[] Names = { "油槽油温", "供油管油压", "压力油罐油位", "调速器油箱油位", "补气系统压力罐压力", "调速器电气过速报警", "调速器机械过速报警", "调速器油箱阻塞" };
-
+		String[] Names = { "调速器油槽油温", "调速器供油管油压", "压力油罐油位", "调速器油箱油位低","调速器油箱油位高", 
+				  			"补气系统气压罐压力高","补气系统气压罐压力低","调速器电气过速报警", "调速器机械过速报警", "调速器油箱阻塞" };
+		
 		Table bottomDetail = new Table(new String[] { "category", "name", "value" });
 		for (int i = 0; i < Names.length; i++) {
 			bottomDetail.withRow(category[i], Names[i], values[i]);
@@ -59,7 +60,7 @@ public class GovAssessAction extends AbstractActionSupport {
 
 		// 前端的“柱状图”里面的内容——对象middleBar
 		List<String> barName = Arrays.asList("调速系统性能状态", "调速故障信号", "历史性能");
-		List<Double> barValue = Arrays.asList(govAssResult2.getState2().get(5).doubleValue(),
+		List<Double> barValue = Arrays.asList(govAssResult2.getState2().get(6).doubleValue(),
 				govAssResult2.getSignalSum2().get(3).doubleValue(), (double) govAssResult2.getHistory2());
 		BarData middleBar = BarData.create("调速系统评估结果", "", "性能状态", "得分", barName, barValue);
 

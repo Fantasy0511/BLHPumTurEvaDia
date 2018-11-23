@@ -57,8 +57,8 @@ public class GovAssessAction extends AbstractActionSupport {
 				govAssResult4.getSignalSum4().get(1).doubleValue(),
 				govAssResult4.getSignalSum4().get(2).doubleValue(),
 				};
-		String[] names = { "油槽油温", "供油管油压", "压力油罐油位", "调速器油箱油位","补气系统压力罐压力",
-				"调速器电气过速报警", "调速器机械过速报警","调速器油箱阻塞"};
+		String[] names = { "调速器油槽油温", "调速器供油管油压", "压力油罐油位", "调速器油箱油位低","调速器油箱油位高", 
+							"补气系统气压罐压力高","补气系统气压罐压力低","调速器电气过速报警", "调速器机械过速报警","调速器油箱阻塞"};
 		
 		Table bottomDetail = new Table(new String[] { "category","name", "value" });
 		for (int i = 0; i < names.length; i++) {
