@@ -52,7 +52,7 @@ public class BallAssessAction extends AbstractActionSupport {
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i], names[i], values[i]);
 		}
-
+		bottomDetail.withRow("历史性能状态", "历史性能", ballAssessResult.getHistory());
 		// 前端的“柱状图”里面的内容——对象middleBar
 		List<String> barName = Arrays.asList("球阀油系统性能状态", "历史和巡检状态", "球阀性能状态");
 

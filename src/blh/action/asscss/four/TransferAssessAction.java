@@ -51,6 +51,8 @@ public class TransferAssessAction extends AbstractActionSupport {
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i],names[i], transferAssessResult.getFirstIndicator().get(i+4).doubleValue());
 		}
+	
+		bottomDetail.withRow("历史性能状态", "历史性能", transferAssessResult.getFirstIndicator().get(3).doubleValue());
 		
 		//评估主页面 柱状图
 		List<String> barName = Arrays.asList("主变压器温度", "历史和巡检状态", "主变压器故障信号");
