@@ -14,7 +14,7 @@ public class BoolAssess {
 		DataUtils data = as.queBool("bool", id, time);
 		ArrayList<Double> value = data.getValue();
 		int sumValue=value.size();
-		if (sumValue==0) {
+		if (value.size()==0||sumValue==0) {
 			return 100;
 		}
 		else {

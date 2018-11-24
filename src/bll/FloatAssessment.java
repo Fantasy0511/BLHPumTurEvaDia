@@ -29,6 +29,9 @@ public class FloatAssessment {
 		DaoAssessment as = new DaoAssessment();
 		DataUtils data = as.queFloat("float", id, time);
 		ArrayList<Double> value = data.getValue();
+		if(value.size()==0){
+			return full_marks;
+		}
 		double C2 = datainfo.getHLimite();//高报警
 		double C1 = datainfo.getLLimite();//低报警
 		if(C2==0&&C1==0) {
