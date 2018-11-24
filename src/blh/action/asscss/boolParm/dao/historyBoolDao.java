@@ -41,7 +41,8 @@ public class historyBoolDao {
 		
 		/*查询数据库 预测时间和值*/
 		String sql1 = "SELECT time,value  from " + tableName + " where ID ='"
-				+ objStr + "' AND [time]>"+time+" ORDER BY time;";
+				+ objStr + "' AND [time]<"+time+" AND [time]>"+(time-604800)+" ORDER BY time;";
+		
 		System.out.println(sql1);
 		try {
 			conn = GovDBConfig.getconnection();

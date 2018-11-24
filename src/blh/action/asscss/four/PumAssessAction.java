@@ -58,7 +58,7 @@ public class PumAssessAction extends AbstractActionSupport {
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i], names[i], values[i]);
 		}
-
+		bottomDetail.withRow("历史性能状态", "历史性能",  (double) pumpAssResult.getHistory());
 		// 前端的“柱状图”里面的内容——对象middleBar
 		List<String> barName = Arrays.asList("主轴密封状态得分", "水泵水轮机振动状态得分", "历史性能", "水泵水轮机温度状态得分");
 		List<Double> barValue = Arrays.asList((double) pumpAssResult.getMainShaftSeal(),

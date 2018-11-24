@@ -21,7 +21,7 @@ public class output4 {
 		// 历史和巡检状态
 		histroy4 history = new histroy4();
 		double U3 = history.histroy4(time);
-		double U4 = 0.55 * (double) U1.get(U1.size() - 1) + 0.1 * U3 + 0.35 * (double) U2.get(U2.size() - 1);
+		double U4 = 0.55 * U1.get(U1.size() - 1).doubleValue() + 0.1 * U3 + 0.35 * U2.get(U2.size() - 1).doubleValue();
 		
 		
 		U3 =Double.parseDouble(df.format(U3));

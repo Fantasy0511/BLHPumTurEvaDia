@@ -20,8 +20,8 @@ public class Output {
 		double U3 = history.getHistory(time);
 		
 		//综合得分     
-		double score =Double.valueOf(String.valueOf(U1.get(U1.size()-1)))*0.6+
-				Double.valueOf(String.valueOf(U2.get(U2.size()-1)))*0.4;
+		double score =U1.get(U1.size()-1).doubleValue()*0.6+
+				(U2.get(U2.size()-1)).doubleValue()*0.4;
 		
 		// 控制小数点位数
 		U3 =Double.parseDouble(df.format(U3));

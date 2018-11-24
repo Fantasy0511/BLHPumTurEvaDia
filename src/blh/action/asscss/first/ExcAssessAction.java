@@ -48,7 +48,7 @@ public class ExcAssessAction extends AbstractActionSupport {
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i], names[i], excAssResult.getIndicator().get(i + 6).doubleValue());
 		}
-
+		
 		// 柱状图数据
 		List<String> barName = Arrays.asList("励磁故障状态得分", "机组电气量状态得分", "发电机故障状态得分", "发电励磁系统温度得分", "灭磁开关动作得分");
 		List<Double> barValue = Arrays.asList(excAssResult.getIndicator().get(1).doubleValue(),

@@ -78,18 +78,18 @@ public class PredictService {
 			
 		}
 
-		double[] x1 = new double[predict.getAllPredictValues().size()];
+		/*double[] x1 = new double[predict.getAllPredictValues().size()];
 		for (int i = 0; i < x1.length; ++i) {
 			x1[i] = resultLine.getX().get(i)*1000;
-		}
+		}*/
 		
 		Vector<Double> predictedY = predict.getAllPredictValues();
 
 		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", x,
 						toDoubleArray(predict.getTransfer().getVy()))
-				.addSeries("线性回归预测", x1,toDoubleArray(resultLine.getY()))
-				.addSeries("ARMA预测", x1, toDoubleArray(predictedY)).build();
+				.addSeries("线性回归预测", x,toDoubleArray(resultLine.getY()))
+				.addSeries("ARMA预测", x, toDoubleArray(predictedY)).build();
 	}
 
 	private double[] toDoubleArray(Vector<Double> vector) {

@@ -15,6 +15,7 @@ import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
+import util.arrEveUtil;
 
 @Result(type = "json")
 public class BallAssessAction extends AbstractActionSupport {
@@ -69,7 +70,8 @@ public class BallAssessAction extends AbstractActionSupport {
 		List<Double> sonbarValue = Arrays.asList(ballAssessResult.getOilSystem().get(0).doubleValue(),
 				ballAssessResult.getOilSystem().get(1).doubleValue(),
 				ballAssessResult.getOilSystem().get(2).doubleValue());
-		List<Double> sonbarValueRatio = Arrays.asList(0.33, 0.33, 0.33);
+		arrEveUtil aUtil=new arrEveUtil();
+		List<Double> sonbarValueRatio =aUtil.list2arrayNumber(sonbarValue);
 
 		// govAssResult.getGovOilResult().get(0)是在数组List<Number>里面获取的，里面的每个值拿出来都是number类型的
 		// 这时需要获取这个number的double值，而不是给number转成double ，也转不成
@@ -82,7 +84,7 @@ public class BallAssessAction extends AbstractActionSupport {
 		List<Double> sonbarValue1 = Arrays.asList(ballAssessResult.getPerformance().get(0).doubleValue(),
 				ballAssessResult.getPerformance().get(1).doubleValue(),
 				ballAssessResult.getPerformance().get(2).doubleValue());
-		List<Double> sonbarValueRatio1 = Arrays.asList(0.33, 0.33, 0.33);
+		List<Double> sonbarValueRatio1 = aUtil.list2arrayNumber(sonbarValue1);
 		BarData performanceBar = BarData.create("球阀性能底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
 		PieData performancePie = PieData.create("球阀性能底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
 

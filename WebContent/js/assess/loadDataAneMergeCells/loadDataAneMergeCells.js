@@ -33,8 +33,8 @@ function loadDataAneMergeCells(id, data,system,unitNo) {
 			// 调速器的合并单元格
 			if (system == "gov") {
 					var index1 = 0;
-					var rowspan1 = 5;
-					var index2 = 5;
+					var rowspan1 = 7;
+					var index2 = 7;
 					var rowspan2 = 3;
 					var index3 = "";
 					var rowspan3 = "";

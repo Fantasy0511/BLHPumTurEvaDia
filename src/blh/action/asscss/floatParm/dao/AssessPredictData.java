@@ -42,7 +42,7 @@ public class AssessPredictData {
 		
 		/*查询数据库 预测时间和值*/
 		String sql1 = "SELECT  time,value from " + tableName + " where ID ='"
-				+ objStr + "' AND [time]>"+time+" AND [time]<"+(time+86400)+" ORDER BY time;";
+				+ objStr + "' AND [time]<"+time+" AND [time]>"+(time-86400)+" ORDER BY time;";
 		System.out.println(sql1);
 		try {
 			conn = GovDBConfig.getconnection();

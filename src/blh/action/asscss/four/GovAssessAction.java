@@ -15,6 +15,7 @@ import tool.exception.JudgeTime;
 import tool.highcharts.BarData;
 import tool.highcharts.PieData;
 import util.TimeUtils;
+import util.arrEveUtil;
 
 /**
  * 返回调速系统评估EasyUI视图
@@ -45,14 +46,16 @@ public class GovAssessAction extends AbstractActionSupport {
 		
 		//前端的“详细评估信息”里面的内容——对象：bottomDetail
 		String[] category = {
-	            "调速系统性能状态", "", "","","", "调速故障信号", "", ""
+	            "调速系统性能状态", "", "","","","","","调速故障信号", "", ""
 				  };
 		double[] values= {
 				govAssResult4.getState().get(0).doubleValue(),
 				govAssResult4.getState().get(1).doubleValue(),
 				govAssResult4.getState().get(2).doubleValue(),
 				govAssResult4.getState().get(3).doubleValue(),
+				govAssResult4.getState().get(4).doubleValue(),
 				govAssResult4.getState().get(5).doubleValue(),
+				govAssResult4.getState().get(6).doubleValue(),
 				govAssResult4.getSignalSum4().get(0).doubleValue(),
 				govAssResult4.getSignalSum4().get(1).doubleValue(),
 				govAssResult4.getSignalSum4().get(2).doubleValue(),
@@ -64,11 +67,12 @@ public class GovAssessAction extends AbstractActionSupport {
 		for (int i = 0; i < names.length; i++) {
 			bottomDetail.withRow(category[i],names[i],values[i]);
 		}
-
+		bottomDetail.withRow("历史性能状态","历史性能",(double) govAssResult4.getHistory());
+		
 		//前端的“柱状图”里面的内容——对象middleBar
 			List<String> barName = Arrays.asList("调速系统性能状态", "调速故障信号", "历史性能");
 			List<Double> barValue = Arrays.asList(
-					 govAssResult4.getState().get(5).doubleValue(),
+					 govAssResult4.getState().get(7).doubleValue(),
 					 govAssResult4.getSignalSum4().get(3).doubleValue(),
 					(double) govAssResult4.getHistory());
 			BarData middleBar = BarData.create("调速系统评估结果", "", "性能状态", "得分",
@@ -81,16 +85,21 @@ public class GovAssessAction extends AbstractActionSupport {
 			
 			// 小窗口显示的各个底层指标得分
 			// 油系统底层指标得分
-			List<String> sonbarName = Arrays.asList("油槽油温", "供油管油压", "压力油罐油位", "调速器油箱油位","补气系统压力罐压力");
+			List<String> sonbarName = Arrays.asList("调速器油槽油温", "调速器供油管油压", "压力油罐油位", "调速器油箱油位低","调速器油箱油位高", 
+					"补气系统气压罐压力高","补气系统气压罐压力低");
 			List<Double> sonbarValue = Arrays.asList(
 					govAssResult4.getState().get(0).doubleValue(),
 					govAssResult4.getState().get(1).doubleValue(),
 					govAssResult4.getState().get(2).doubleValue(),
 					govAssResult4.getState().get(3).doubleValue(),
-					govAssResult4.getState().get(5).doubleValue());
+					govAssResult4.getState().get(4).doubleValue(),
+					govAssResult4.getState().get(5).doubleValue(),
+					govAssResult4.getState().get(6).doubleValue());
 			// govAssResult.getGovOilResult().get(0)是在数组List<Number>里面获取的，里面的每个值拿出来都是number类型的
 			// 这时需要获取这个number的double值，而不是给number转成double ，也转不成
-			List<Double> sonbarValueRatio = Arrays.asList(0.25,0.25,0.2,0.15,0.15);
+			
+			arrEveUtil aUtil=new arrEveUtil();
+			List<Double> sonbarValueRatio = aUtil.list2arrayNumber(sonbarValue);
 			
 			BarData govOilBar = BarData.create("调速系统性能状态底层指标得分", "", "性能状态", "得分", sonbarName, sonbarValue);
 			PieData govOilPie = PieData.create("调速系统性能状态底层指标比例", sonbarName, sonbarValueRatio, "得分XXX");
@@ -101,7 +110,7 @@ public class GovAssessAction extends AbstractActionSupport {
 					govAssResult4.getSignalSum4().get(0).doubleValue(),
 					govAssResult4.getSignalSum4().get(1).doubleValue(),
 					govAssResult4.getSignalSum4().get(2).doubleValue());
-			List<Double> sonbarValueRatio1 = Arrays.asList(0.15,0.45,0.4);
+			List<Double> sonbarValueRatio1 =  aUtil.list2arrayNumber(sonbarValue1);
 			BarData govSingleBar = BarData.create("调速故障信号底层指标得分", "", "性能状态", "得分", sonbarName1, sonbarValue1);
 			PieData govSinglePie = PieData.create("调速故障信号底层指标得分", sonbarName1, sonbarValueRatio1, "得分XXX");
 
@@ -110,7 +119,7 @@ public class GovAssessAction extends AbstractActionSupport {
 	// 返回总的评估对象“assessView”
 	assessView = new AssessView(
 			govAssResult4.getOutput(), topRemark,
-			govAssResult4.getState().get(5).doubleValue()+"",
+			govAssResult4.getState().get(7).doubleValue()+"",
 			govAssResult4.getSignalSum4().get(3).doubleValue()+"",
 			govAssResult4.getHistory()+"" , bottomDetail, middleBar);
 	
