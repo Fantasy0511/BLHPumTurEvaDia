@@ -70,19 +70,31 @@
 
 .main-header{
     height:70px;
+    width:100%;
+    position:absolute;
+    overflow: auto;
     background:url(/BLHPumTurEvaDia/images/bg_header.jpg) bottom repeat-x;
 }
 .pull-left{padding-left: 0px;
     background: #EEEEEE;
     padding-right:20px;
     height: 100%;
-    width: 590px;
+    width: 480px;
     border-radius: 0 0 1.5em 1.5em;
 }
-
+.pull-right{
+	padding-left: 0px;
+    height: 100%;
+    width: 800px;
+    position:absolute;
+    left:560px;
+}
+.pull-right>ul{
+	left:0px;
+}
 
 .t-footer { height:25px; padding:5px; text-align:center; overflow:hidden; background:#e0ecff;}
-
+html { overflow: scroll; }
 </style> 
 
 
@@ -124,22 +136,24 @@
 	$(function() {
 		testDbException();
 		pageJump();
+		$("body").parent().css("overflow-y","auto");
 	});
 </script>
 </head>
 <body class="easyui-layout">
 
 	<!-- 导航栏  start-->
-	<div data-options="region:'north',border:false,split:true" style="height:70px;">
+	<div class="pre-scrollable" data-options="region:'north',border:false,split:true" style="height:70px;">
 	<nav class="navbar navbar-default navbar-fixed-top">  
        <div class="main-header" > 
 			<div class="logo-main pull-left">
 				<!-- 放在左边的类 -->
 				<div class="logo">
-					<img src="images/logo/logo1.png" height=34px width="auto" />
-					<img src="images/logo/logo2.png" height=34px width="auto" />
+					<img src="images/logo/logo1.png" height=56px width="auto" />
+					<img src="images/logo/logo2.png" height=56px width="auto" />
 				</div>
-				<span class="logoText"><b>莲蓄电站抽水蓄能机组状态评估及故障预警系统</b></span>
+				<span class="logoText"><b>莲蓄电站抽水蓄能机组<br/>状态评估及故障预警系统</b></span>
+				
 			</div>
 			<div class="pull-right">
 				<ul

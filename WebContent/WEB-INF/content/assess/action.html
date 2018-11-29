@@ -372,6 +372,7 @@
 			
 			//读取json数据
 			var eValue=eval('data['+untio+']['+'name'+']');  
+			console.log("读取的json数据："+eValue);
 			//正则 ，去掉非数字部分
 			var ID=eValue.replace(/[^0-9]/ig,"");
 			console.log("输出Id： "+ID);
