@@ -15,6 +15,7 @@ public class FloatAssessment {
 	public int FloatAssess(int id, long time, double Hlimite, double Llimite) {
 		
 		int full_marks = 100;//满分，从100开始扣分
+		full_marks = 97+(int)(Math.random()*(100+1-97)); //生成从m到n的随机整数[m,n]
 		ReadData readDB = new ReadData();
 		DataInfo datainfo = null;
 		try {

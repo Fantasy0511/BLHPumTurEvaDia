@@ -42,6 +42,8 @@ public class LinearRegression {
 	}
 	
 	public LinearRegression(String table,int id,String starttime,String endtime) {
+		//1号机组 无功功率  float10 2号机组 无功功率  float25 3号机组 无功功率  float40 4号机组 无功功率  float55
+		//1号机组 有功功率  float9 2号机组 有功功率  float24 3号机组 有功功率  float39 4号机组 有功功率  float54
 		ReadData rd = new ReadData();
 		try {
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
