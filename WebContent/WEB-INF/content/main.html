@@ -72,7 +72,6 @@
     height:70px;
     width:100%;
     position:absolute;
-    overflow: auto;
     background:url(/BLHPumTurEvaDia/images/bg_header.jpg) bottom repeat-x;
 }
 .pull-left{padding-left: 0px;
@@ -94,7 +93,6 @@
 }
 
 .t-footer { height:25px; padding:5px; text-align:center; overflow:hidden; background:#e0ecff;}
-html { overflow: scroll; }
 </style> 
 
 
@@ -133,10 +131,24 @@ html { overflow: scroll; }
 		}
 		getJSON(url, success);
 	}
+	function changeNavCSS(width){//改变导航栏样式，适应不同屏幕
+		if(width < 1280){
+			$(".pull-left").hide();
+			$(".pull-right").css("left","40px");
+			$(".pull-right>ul").css("left","0px");
+		}else{
+			$(".pull-left").show();
+			$(".pull-right").css("left","560px");
+			$(".pull-right>ul").css("left","0px");
+		}
+	}
 	$(function() {
 		testDbException();
 		pageJump();
-		$("body").parent().css("overflow-y","auto");
+		changeNavCSS($(window).width())
+		$(window).resize(function () {//当浏览器大小变化时
+			changeNavCSS($(window).width())
+		});
 	});
 </script>
 </head>
