@@ -1,6 +1,5 @@
 package algorithms.cos;
 
-import gnu.io.RS485PortEvent;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -286,12 +285,14 @@ public class Coscal {
 					inputx[i][j]=tmp_vector[j]>0?1:0; //简单的稀疏下
 				}
 			}
-			float[] sparse_vector = new float[len];
+			float[] sparse_vector = new float[len]; //这个是当前的故障特征向量
 			HashMap<String, Double> sys_pro = new HashMap<String, Double>();
 			for(int i=0;i<len;i++){
 				sparse_vector[i] = vector[i]>0?1:0; //稀疏
 			}
+			
 			String[] keys = {"水泵水轮机","调速器系统","发电机及励磁系统","主变系统","球阀系统"};
+			/*之前用的lr，但数据量太小，效果不好，改成：用余弦相似度计算后，每个系统的相似度求平均
 			for(int k=0;k<keys.length;k++){//分为5个lr训练
 				//设置输出label
 				float[] outputy = new float[faultVectors.size()];
@@ -306,6 +307,22 @@ public class Coscal {
 				LogRegression lr = new LogRegression();
 				lr.train(inputx,outputy, 0.011f, 2000, (short)1);
 				sys_pro.put(keys[k], lr.pred(sparse_vector)<0.001?0.001:(double) lr.pred(sparse_vector));
+			}
+			*/
+			//新的算法
+			HashMap<String, Double> sys_count = new HashMap<String, Double>();
+			for(int i=0;i<keys.length;i++){
+				sys_pro.put(keys[i],0.0);
+				sys_count.put(keys[i],0.0);
+			}
+			ArrayList<Double> rs = this.getSimilarityDegree();
+			for(int i=0;i<rs.size();i++){
+				String sys_name = allfaults.get(i).getSystem();
+				sys_pro.put(sys_name, sys_pro.get(sys_name)+rs.get(i));
+				sys_count.put(sys_name, sys_count.get(sys_name)+1);
+			}
+			for(int i=0;i<keys.length;i++){
+				sys_pro.put(keys[i],sys_pro.get(keys[i])/sys_count.get(keys[i]));
 			}
 			return sys_pro;
 		}
@@ -385,7 +402,6 @@ public class Coscal {
 	public  HashMap<String, Double> getFaultSimilarityOfSystemgs(){
 		HashMap<String, Double> fault_pro = new HashMap<String, Double>();
 		ArrayList<Double> rs = this.getSimilarityDegree();
-		double total = 0;
 		for(int i=0;i<rs.size();i++){
 			String key = allfaults.get(i).getFaultName();
 			double cos = rs.get(i);
@@ -408,23 +424,12 @@ public class Coscal {
             
         });
         
-//        for(int i=0;i<list.size();i++){ 
-//        	java.lang.System.out.println(list.get(i).getKey()+":"+list.get(i).getValue());
-//          } 
-        //只显示前5个
+        //只显示前10个
         fault_pro = new HashMap<String, Double>();
-        total = 0;
-        int size = list.size()<8?list.size():8;
+        int size = list.size()<8?list.size():10;
         for(int i=0;i<size;i++){ 
-        	total += list.get(i).getValue();
         	fault_pro.put(list.get(i).getKey(), list.get(i).getValue());
           } 
-        //重新计算相对值
-//		for (HashMap.Entry <String, Double> entry: fault_pro.entrySet()) {
-//			String key = entry.getKey();
-//			double cos = entry.getValue();
-//			fault_pro.put(key, cos/total);
-//		}
 		return fault_pro;
 	}
 	
