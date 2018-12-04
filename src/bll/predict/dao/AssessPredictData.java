@@ -71,7 +71,6 @@ public class AssessPredictData {
 		} finally {
 			GovDBConfig.closeConnection(rs1, stmt, conn);
 		}
-		
 		/*查询数据库获取time和value以及hlimite*/
 		PredictInput inputData = new PredictInput(StringList2Array(times),doubleList2Array(datas),doubleList2Array(Hlimite));
 		return inputData;

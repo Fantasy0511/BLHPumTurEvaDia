@@ -23,7 +23,7 @@ public class LinearRegression {
 	ArrayList<Long> x;
 	ArrayList<Double> y;
 	public static void main(String[] args) {
-		LinearRegression lRegression = new LinearRegression("float", 1097, "2014-07-25 00:00:00", "2014-07-26 00:00:00");
+		LinearRegression lRegression = new LinearRegression(1,"float", 1097, "2014-07-25 00:00:00", "2014-07-26 00:00:00");
 		
 		dataLine dl = lRegression.fit();
 		System.out.println(lRegression.alter);
@@ -41,11 +41,25 @@ public class LinearRegression {
 		return new dataLine(inputx,fity);
 	}
 	
-	public LinearRegression(String table,int id,String starttime,String endtime) {
-		//1号机组 无功功率  float10 2号机组 无功功率  float25 3号机组 无功功率  float40 4号机组 无功功率  float55
+	public LinearRegression(int unitNo,String table,int id,String starttime,String endtime) {
 		//1号机组 有功功率  float9 2号机组 有功功率  float24 3号机组 有功功率  float39 4号机组 有功功率  float54
+		int[] ids = new int[]{9,24,39,54};
 		ReadData rd = new ReadData();
 		try {
+			DataUtils powerData = rd.queRecord("float", ids[unitNo-1], starttime, endtime);
+			for(int i=0;i<powerData.getValue().size();i++){
+				if(powerData.getValue().get(i)<0){
+					alter = "机组当前运行工况为抽水工况。";
+					break;
+				}
+				if(powerData.getValue().get(i)>0){
+					alter = "机组当前运行工况为发电工况。";
+					break;
+				}
+			}
+			if(alter.length()<1){
+				alter = "机组当前运行工况为停机工况。";
+			}
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
 			x = data.getTime();
 			y = data.getValue();
@@ -73,7 +87,7 @@ public class LinearRegression {
 				name += " 阈值下限为"+l+info.getUnit();
 			}
 			if(k==0){
-				alter =  name+" 近期运行稳定。";
+				alter +=  name+" 近期运行稳定。";
 			}
 			else{
 				//往后延1个月
@@ -83,24 +97,24 @@ public class LinearRegression {
 					double inputx = TimeUtils.DatetoLong(excepteDate)-start;
 					double predy = inputx*k+b;
 					if(predy>h){
-						alter = name+" 将在"+TimeUtils.LongtoString((long)((h-b)/k+start))+"达到参数阈值上限，请注意检修！";
+						alter += name+" 将在"+TimeUtils.LongtoString((long)((h-b)/k+start))+"达到参数阈值上限，请注意检修！";
 					}
 					else{
-						alter = name+" 近期运行正常。";
+						alter += name+" 近期运行正常。";
 					}
 				}
 				else if(k<0 && l>0){//超过上限
 					double inputx = TimeUtils.DatetoLong(excepteDate)-start;
 					double predy = inputx*k+b;
 					if(predy<l){
-						alter = name+" 将在"+TimeUtils.LongtoString((long)((l-b)/k+start))+"达到参数阈值下限，请注意检修！";
+						alter += name+" 将在"+TimeUtils.LongtoString((long)((l-b)/k+start))+"达到参数阈值下限，请注意检修！";
 					}
 					else{
-						alter = name+" 近期运行正常。";
+						alter += name+" 近期运行正常。";
 					}
 				}
 				else{
-					alter = name+" 近期运行正常。";
+					alter += name+" 近期运行正常。";
 				}
 				
 			}

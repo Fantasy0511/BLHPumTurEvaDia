@@ -37,7 +37,7 @@ public class PredictService {
 		try {
 			predict.predictMain(input, step);
 			
-			LinearRegression lRegression = new LinearRegression("float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
+			LinearRegression lRegression = new LinearRegression(unitNo,"float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
 			alarmDetail2=lRegression.alter;
 			resultLine=lRegression.fit(); //输出线性回归x、y值
 			System.out.println("线性预测的x长度是："+resultLine.getX().get(2)+" y的值是："+resultLine.getY().size());
