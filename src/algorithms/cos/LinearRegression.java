@@ -46,6 +46,7 @@ public class LinearRegression {
 		int[] ids = new int[]{9,24,39,54};
 		ReadData rd = new ReadData();
 		try {
+			/*
 			DataUtils powerData = rd.queRecord("float", ids[unitNo-1], starttime, endtime);
 			for(int i=0;i<powerData.getValue().size();i++){
 				if(powerData.getValue().get(i)<0){
@@ -60,6 +61,8 @@ public class LinearRegression {
 			if(alter.length()<1){
 				alter = "机组当前运行工况为停机工况。";
 			}
+			*/
+			alter="";//不要工况判断了
 			DataUtils data = rd.queRecord(table, id, starttime, endtime);
 			x = data.getTime();
 			y = data.getValue();
