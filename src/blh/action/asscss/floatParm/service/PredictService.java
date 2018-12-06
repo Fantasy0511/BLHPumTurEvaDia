@@ -37,7 +37,7 @@ public class PredictService {
 		predict = new TendencyPredict();
 		try {
 			predict.predictMain(input, step);
-			LinearRegression lRegression = new LinearRegression(unitNo,"float", Integer.parseInt(item), TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
+			LinearRegression lRegression = new LinearRegression(unitNo,"float", Integer.parseInt(item), TimeUtils.LongtoString(time-86400),TimeUtils.LongtoString(time));
 			alarmDetail1=lRegression.alter;
 			System.out.println("   "+alarmDetail1);
 			resultLine=lRegression.fit();
