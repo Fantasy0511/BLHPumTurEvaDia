@@ -25,18 +25,28 @@ public class LinearRegression {
 	public static void main(String[] args) {
 		LinearRegression lRegression = new LinearRegression(1,"float", 1097, "2014-07-25 00:00:00", "2014-07-26 00:00:00");
 		
-		dataLine dl = lRegression.fit();
+		dataLine dl = lRegression.fit(2);
 		System.out.println(lRegression.alter);
 	}
 	
-	public dataLine fit() {
+	public dataLine fit(int step) {
 		Vector<Double> inputx = new Vector<Double>();
 		long start = x.get(0);
 		DecimalFormat df = new DecimalFormat("#.0000");
 		Vector<Double> fity = new Vector<Double>();
+		double interval = 0;//求取每个的间隔均值，再往后推预测步长
+		double current_x = 0; //保存接下来遍历时候最后一个x的值
 		for(int i=0;i<x.size();i++){
-			inputx.addElement((double)x.get(i));
-			fity.addElement(Double.parseDouble(df.format((k*(double)(x.get(i)-start)+b))));
+			current_x = (double)x.get(i);
+			if(i!=x.size()-1) interval += (double)(x.get(i+1)-current_x);
+			inputx.addElement(current_x);
+			fity.addElement(Double.parseDouble(df.format((k*(double)(current_x-start)+b))));
+		}
+		interval = Math.ceil(interval/(x.size()-1));
+		for(int s=0;s<step;s++){
+			current_x = current_x+interval;
+			inputx.addElement(current_x);
+			fity.addElement(Double.parseDouble(df.format((k*(double)(current_x-start)+b))));
 		}
 		return new dataLine(inputx,fity);
 	}
@@ -130,5 +140,4 @@ public class LinearRegression {
 		}
 		//alter = "该参数处于正常范围内。";
 	}
-
 }

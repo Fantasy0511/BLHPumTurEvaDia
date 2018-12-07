@@ -36,11 +36,10 @@ public class PredictService {
 		predict = new TendencyPredict();
 		try {
 			predict.predictMain(input, step);
-			
 			LinearRegression lRegression = new LinearRegression(unitNo,"float", id, TimeUtils.LongtoString(time), TimeUtils.LongtoString(time+86400));
 			alarmDetail2=lRegression.alter;
-			resultLine=lRegression.fit(); //输出线性回归x、y值
-			System.out.println("线性预测的x长度是："+resultLine.getX().get(2)+" y的值是："+resultLine.getY().size());
+			resultLine=lRegression.fit(step); //输出线性回归x、y值
+			System.out.println("线性预测的x长度是："+resultLine.getX().size()+" y的值是："+resultLine.getY().size());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,7 +56,7 @@ public class PredictService {
 		String[] predictedX = predict.getTransfer().getVTime();
 		
 		/*预测值*/
-		Vector<Double> predictedY = predict.getFinalResult();
+		Vector<Double> predictedY = predict.getcompleteResult();
 		/*实测值*/
 		
 		Vector<Double> originalY = predict.getTransfer().getOriginalY();
@@ -73,34 +72,34 @@ public class PredictService {
 	}
 
 	public LineData getComparison(String item) {
-		double[] x = new double[predict.getTransfer().getVy().size()];
-		hlimit=new ArrayList<>();
-		for (int i = 0; i < x.length; ++i) {
-			x[i] = resultLine.getX().get(i)*1000;
+		
+		double[] pred_x = new double[resultLine.getX().size()]; //含有预测量的时间横坐标
+		for (int i = 0; i < pred_x.length; ++i) {
+			pred_x[i] = resultLine.getX().get(i)*1000;
+		}
+		
+		double[] original_x = new double[pred_x.length-predict.getStepOutput().size()];//不含预测时间的横坐标
+		for (int i = 0; i < original_x.length; ++i) {
+			original_x[i] = pred_x[i];
 			
 		}
-
-		double[] x1 = new double[predict.getAllPredictValues().size()];
-		for (int i = 0; i < x1.length; ++i) {
-			x1[i] = resultLine.getX().get(i)*1000;
-		}
 		
-		Vector<Double> predictedY = predict.getAllPredictValues();
+		Vector<Double> predictedY = predict.getcompleteResult(); //svm预测结果
 		
-		
-		int a=x.length;
-		int b=x1.length;
+		/*
+		int a=original_x.length;
+		int b=pred_x.length;
 		int c=toDoubleArray(predict.getTransfer().getVy()).length;
 		int d=toDoubleArray(resultLine.getY()).length;
 		int e=toDoubleArray(predictedY).length;
 		System.out.println(a+" "+b+" "+c+" "+d+" "+e);
 		System.out.println("x轴值："+resultLine.getX().size());
-		
+		*/
 		return LineDataBuilder.createBuilder("", "", item)
-				.addSeries("实测值", x,
-						toDoubleArray(predict.getTransfer().getVy()))
-				.addSeries("线性回归预测", x1,toDoubleArray(resultLine.getY()))
-				.addSeries("ARMA预测", x1, toDoubleArray(predictedY)).build();
+				.addSeries("实测值", original_x,
+						predict.getInput().getData())
+				.addSeries("线性回归预测", pred_x,toDoubleArray(resultLine.getY()))
+				.addSeries("ARMA预测", pred_x, toDoubleArray(predictedY)).build();
 	}
 
 	private double[] toDoubleArray(Vector<Double> vector) {

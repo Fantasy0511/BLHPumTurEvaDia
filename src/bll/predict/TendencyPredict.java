@@ -98,6 +98,22 @@ public class TendencyPredict {
 		}
 		return result;
 	}
+	
+	/**
+	 * 获得与输入长度一直的输出，把前几位的嵌入维度补充上
+	 * */
+	public Vector<Double> getcompleteResult() {
+		Vector<Double> result = new Vector<>();
+		for (int i=0;i<transfer.getLen();i++) {
+			result.add(LangUtil.keepDigits(this.getInput().getData()[i], 3));
+		}
+		for (int i = 0; i < finalResult.size(); i++)
+			result.add(LangUtil.keepDigits(finalResult.get(i), 3));
+		for (int i = 0; i < stepOutput.size(); i++)
+			result.add(LangUtil.keepDigits(stepOutput.get(i), 3));
+		return result;
+	}
+
 
 	public List<Double> getStepOutput() {
 		return stepOutput;
