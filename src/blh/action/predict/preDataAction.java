@@ -28,7 +28,11 @@ public class preDataAction extends AbstractActionSupport {
 		String item = getSecondInput();
 		String beginTime = getThirdInput();
 		int stepStr =Integer.parseInt(getInput(3));
-		int id= Integer.parseInt(itemConvert.valueOf(item).getitem());//获取ID
+		
+		//根据unitNo、item读取json文件获取id
+		PredictIdUtil aUtil=new PredictIdUtil();
+		int id= aUtil.getJsonID(item, getFirstInput());//获取ID
+		
 		Long time = TimeUtils.StringtoLong(beginTime + " 00:00:00");
 		String tableName = "float" + "_" + beginTime.split("-")[0]
 				+ beginTime.split("-")[1];
