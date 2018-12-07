@@ -73,19 +73,33 @@ public class PredictService {
 
 	public LineData getComparison(String item) {
 		
-		double[] pred_x = new double[resultLine.getX().size()]; //含有预测量的时间横坐标
-		for (int i = 0; i < pred_x.length; ++i) {
-			pred_x[i] = resultLine.getX().get(i)*1000;
+		double[] lr_pred_x = new double[resultLine.getX().size()]; //含有预测量的时间横坐标
+		for (int i = 0; i < lr_pred_x.length; ++i) {
+			lr_pred_x[i] = resultLine.getX().get(i)*1000;
 		}
 		
-		double[] original_x = new double[pred_x.length-predict.getStepOutput().size()];//不含预测时间的横坐标
-		for (int i = 0; i < original_x.length; ++i) {
-			original_x[i] = pred_x[i];
-			
+		double[] original_x = new double[lr_pred_x.length-predict.getStepOutput().size()];//不含预测时间的横坐标
+		double[] only_pred_x = new double[predict.getStepOutput().size()+1];//只含有预测时间的横坐标
+		for (int i = 0; i < lr_pred_x.length; ++i) {
+			if(i<original_x.length){
+				original_x[i] = lr_pred_x[i];
+			}
+			if(i>=original_x.length-1){
+				only_pred_x[i-original_x.length+1] = lr_pred_x[i];
+			} 
 		}
 		
-		Vector<Double> predictedY = predict.getcompleteResult(); //svm预测结果
 		
+		List<Double> predictedY = predict.getStepOutput(); //svm预测结果
+		double[] ex_predictedY = new double[only_pred_x.length];//svm预测结果加上最后一个真实值，让曲线自然过渡
+		for(int i=0;i<ex_predictedY.length;i++){
+			if(i==0){
+				ex_predictedY[i] = predict.getInput().getData()[original_x.length-1];
+			}
+			else{
+				ex_predictedY[i] = predictedY.get(i-1);
+			}
+		}
 		/*
 		int a=original_x.length;
 		int b=pred_x.length;
@@ -98,11 +112,19 @@ public class PredictService {
 		return LineDataBuilder.createBuilder("", "", item)
 				.addSeries("实测值", original_x,
 						predict.getInput().getData())
-				.addSeries("线性回归预测", pred_x,toDoubleArray(resultLine.getY()))
-				.addSeries("ARMA预测", pred_x, toDoubleArray(predictedY)).build();
+				.addSeries("线性回归预测", lr_pred_x,toDoubleArray(resultLine.getY()))
+				.addSeries("ARMA预测", only_pred_x, ex_predictedY).build();
 	}
 
 	private double[] toDoubleArray(Vector<Double> vector) {
+		double[] result = new double[vector.size()];
+		for (int i = 0; i < vector.size(); ++i) {
+			result[i] = vector.get(i);
+		}
+		return result;
+	}
+	
+	private double[] ListtoDoubleArray(List<Double> vector) {
 		double[] result = new double[vector.size()];
 		for (int i = 0; i < vector.size(); ++i) {
 			result[i] = vector.get(i);

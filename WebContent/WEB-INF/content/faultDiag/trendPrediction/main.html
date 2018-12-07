@@ -112,15 +112,12 @@
 			<option value="B145">水导Y轴振摆速率</option>
 			<option value="B146">水导Z轴振摆速率</option>
 		</select> 
-		<label for="model">预测歩长：</label>
-		<select id="number" class="easyui-combobox" style="width: 50px;">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
+		<label for="model">预测时长：</label>
+		<select id="number" class="easyui-combobox" style="width: 100px;">
+			<option value="12">1小时</option>
+			<option value="72">6小时</option>
+			<option value="144">12小时</option>
+			<option value="288">24小时</option>
 		</select>
 		<a id="bt_predict" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-ok'">开始预测</a>
@@ -150,7 +147,7 @@
 				<div id="chart_comparison" style="width: 98%;float:left;height:380px">
 					<pre>    暂无结果</pre>
 				</div>
-				<div id="alarmText" style="text-align: left;height:25px;width:100%;float:left;">
+				<div id="alarmText" style="text-align: center;height:25px;width:100%;float:left;">
 				</div>
 			</div>
 		</div>

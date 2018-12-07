@@ -164,10 +164,19 @@ public class TendencyPredict {
 			input[j].index = j + 1;
 			input[j].value = normalizedLastInput[n + j].value;
 		}
-		for (int k = 0; k < n; k++) {
-			input[j + k] = new svm_node();
-			input[j + k].index = j + k + 1;
-			input[j + k].value = normalizedStepOutput.get(k);
+		if(size-n>0){
+			for (int k = 0; k < n; k++) {
+				input[j + k] = new svm_node();
+				input[j + k].index = j + k + 1;
+				input[j + k].value = normalizedStepOutput.get(k);
+			}
+		}
+		else{//当预测出的结果超出嵌入维度后
+			for (int k = 0; k < size; k++) {
+				input[k] = new svm_node();
+				input[k].index = k + 1;
+				input[k].value = normalizedStepOutput.get(n-size+k);
+			}
 		}
 		return input;
 	}

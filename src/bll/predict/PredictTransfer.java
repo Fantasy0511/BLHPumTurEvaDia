@@ -11,7 +11,7 @@ import libsvm.svm_node;
  * @author dragon 若样本数较少，要将嵌入维数len改小点，如3或4
  */
 public class PredictTransfer {
-	private int len = 5; // 嵌入维数，默认设为8，由8个预测下一个
+	private int len = 10; // 嵌入维数，默认设为8，由8个预测下一个
 
 	private double[][] max_min_x;
 	private double[] max_min_y;
