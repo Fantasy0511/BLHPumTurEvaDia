@@ -62,11 +62,12 @@ div.app_main {
 }
 
 .logoText {
-	font-size: 18px;
+	font-size: 16px;
 	color: #006698;
 	vertical-align: middle;
 	position: absolute;
     padding-left: 10px;
+    padding-top:5px;
 }
 
 .app_top_nav {

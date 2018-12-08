@@ -209,14 +209,13 @@ body {
 }
 .logo-main .logo{
     background-size:  150px;
-    height: 58px;
+    height: 26px;
    /*  line-height: 66px; */
     width: auto;
     padding-left: 10px;
-    display:inline-block;
 }
 .logo-main b{
-    font-size: 25px;
+    font-size: 24px;
 }
 
 
