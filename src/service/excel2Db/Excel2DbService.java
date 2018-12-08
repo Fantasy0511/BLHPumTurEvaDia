@@ -15,21 +15,24 @@ import jxl.read.biff.BiffException;
 public class Excel2DbService {
 	Excel2Table excel2Table = new Excel2Table();
 	Table2Db table2Db = new Table2Db();
+	private Table fileTable;
+	private String message;
 
 	public void upLoadExcelToDb(String filePath)
 			throws BiffException, IOException, ClassNotFoundException, SQLException {
-		/*String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1,
-				filePath.lastIndexOf("."));*/
 		System.out.println("输出绝对路径："+filePath);
 		if (filePath.contains("xls")) {
-			table2Db.saveTableToDb(excel2Table.readExcel2Table2(filePath));
+			fileTable=excel2Table.readExcel2Table2(filePath);
+			table2Db.saveTableToDb(fileTable);
+			table2Db.saveFileToRecordTable(fileTable.getTableName(),fileTable.getFileTimeValue());
 		}else {
-			table2Db.saveTableToDb(excel2Table.readCsv2Table(filePath));
+			fileTable=excel2Table.readCsv2Table(filePath);
+			message=table2Db.saveFileToRecordTable(fileTable.getTableName(),fileTable.getFileTimeValue());
+			if (message.equals("0")) {
+				table2Db.saveTableToDb(fileTable);
+				System.out.println("。。。。。文件上传成功！");
+			}
 		}
 		
-		// 在数据库上建一个“Table对象”，每个table实例代表一张表,并在数据库中建立了一个表，比如“float_201805”之类的
-		/*table2Db.saveTable2TestTable(tableName);*/
-		table2Db.saveFileToRecordTable(filePath);
-		// 执行sql语句，存储上传文件信息保存到数据库表 "upload_file_record"
 	}
 }

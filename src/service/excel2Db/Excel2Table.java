@@ -18,6 +18,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import service.excel2Db.TransDb.TransDbMain;
 import util.DataInfo;
+import util.TimeUtils;
 
 public class Excel2Table {
 	/**
@@ -90,10 +91,11 @@ public class Excel2Table {
 	 */
 	public Table readCsv2Table(String pathName) throws ClassNotFoundException, SQLException, IOException {
 		
-			String tableName = pathName.substring(pathName.lastIndexOf("\\") + 1, pathName.lastIndexOf("."));
+			String pathType = pathName.substring(pathName.indexOf("_")+1,pathName.lastIndexOf("."));
+			
 			// 获取map数据，用于table数据填充
 			TransDbMain aDbMain = new TransDbMain();
-			HashMap<String, DataInfo> aHashMap = aDbMain.getExcle(tableName.split("_")[0]);
+			HashMap<String, DataInfo> aHashMap = aDbMain.getExcle(pathType);
 
 			// 用来保存数据
 			ArrayList<String[]> csvFileList = new ArrayList<String[]>();
@@ -103,24 +105,24 @@ public class Excel2Table {
 			/* reader.readHeaders(); */
 			// 逐行读入除表头的数据
 			while (reader.readRecord()) {
-				/* System.out.println(reader.getRawRecord()); */
+				/*System.out.println(reader.getRawRecord()); */
 				csvFileList.add(reader.getValues());
 			}
 			reader.close();
 			
-			
-			System.out.println("csv文件读取成功！");
+			//查询csv文件中的时间，将文件名更改为形如bool_201201
+			String tableDate=TimeUtils.LongtoString(Long.parseUnsignedLong(csvFileList.get(0)[1]));
+			String tableName=pathType+"_"+tableDate.substring(0, 7).replace("-", "");
+			System.out.println("csv文件读取成功！   "+tableName);
 
 			List<TableRow> tableRows1 = new ArrayList<>();
 
-			// 遍历读取的CSV文件
+			// csv文件数据写入Table对象
 			for (int row = 0; row < csvFileList.size(); row++) {
-
 				if (tableName.split("_")[0].equals("float")) {
 					List<String> list = new ArrayList<>();
 					// 取得第row行第0列的数据
 					String cell0 = csvFileList.get(row)[0];
-					System.out.println("输出行数。。。。。："+cell0);
 					String cell1 = aHashMap.get(tableName.split("_")[0] + cell0).getPosition();
 					String cell2 = csvFileList.get(row)[1];
 					String cell3 = csvFileList.get(row)[2];
@@ -128,11 +130,9 @@ public class Excel2Table {
 					list.add(cell1);
 					list.add(cell2);
 					list.add(cell3);
-					TableRow tableRow = new TableRow(list);
-					tableRows1.add(tableRow);
+					tableRows1.add(new TableRow(list));
 				} else {
 					List<String> list = new ArrayList<>();
-					/* System.out.println("输出文件名字："+tableName.split("_")[0]); */
 					String cell0 = csvFileList.get(row)[0];
 					String cell1 = aHashMap.get(tableName.split("_")[0] + cell0).getPosition();
 					String cell2 = aHashMap.get(tableName.split("_")[0] + cell0).getDescription();
@@ -143,15 +143,14 @@ public class Excel2Table {
 					list.add(cell2);
 					list.add(cell3);
 					list.add(cell4);
-					TableRow tableRow = new TableRow(list);
-					tableRows1.add(tableRow);
+					tableRows1.add(new TableRow(list));
 				}
 			}
-			return new Table(tableName, tableRows1);
+			return new Table(tableName, csvFileList.get(0)[1]+"-"+csvFileList.get(0)[0],tableRows1);
 	}
 
 	/**
-	 * 适用于FaultInfoTable
+	 * 适用于"缺陷月度缺陷表"
 	 * 
 	 * @param pathName
 	 * @return
@@ -174,7 +173,7 @@ public class Excel2Table {
 			List<String> list = new ArrayList<>();
 			for (int j = 0; j < needs.length; j++) {
 				String cell = sheet.getCell(needs[j], i).getContents();
-			System.out.println("输出cell:"+cell);
+				/*System.out.println("输出cell:"+cell);*/
 				list.add(cell);
 			}
 			TableRow tableRow = new TableRow(list);

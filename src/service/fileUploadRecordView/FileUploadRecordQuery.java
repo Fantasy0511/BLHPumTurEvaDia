@@ -2,6 +2,7 @@ package service.fileUploadRecordView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 	 * @return
 	 */
 	public List<HistoryReportRecord> getFileRecords(String begin, String end) {
-		String sqlString = "SELECT * FROM UPLOAD_FILE_RECORD WHERE RECORDTIME BETWEEN ? AND ?";
+		String sqlString = "SELECT * FROM UPLOAD_FILE_RECORD WHERE RECORDTIME BETWEEN ? AND ? order by id";
 		return getJdbcTemplate().query(sqlString, new ResultSetExtractor<List<HistoryReportRecord>>() {
 
 			@Override
@@ -33,9 +34,8 @@ public class FileUploadRecordQuery extends JdbcDaoUtil {
 				List<HistoryReportRecord> records = new ArrayList<>();
 				while (rs.next()) {
 					records.add(new HistoryReportRecord(rs.getInt("id"), rs.getString("fileName"),
-							TimeUtils.LongtoString(Long.parseLong(rs.getString("recordTime")))));
+						TimeUtils.LongtoString(rs.getLong("recordTime"))));
 				}
-
 				return records;
 			}
 		}, begin, end);

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 
 import util.TimeUtils;
@@ -22,23 +23,20 @@ public class Table2Db extends JdbcDaoUtil {
 	 */
 	public void saveTableToDb(Table table) {
 		String tableName = table.getTableName();
-
+		List<TableRow> list = table.getTableRows();
 		// 新建bool和double表
 		if (tableName.contains("bool") || tableName.contains("double")) {
 			creatNewStateTableByName(tableName);
 			String sql = "insert into " + tableName + "(ID,pos,state,time,value) values(?,?,?,?,?);";
 			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
-
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					List<TableRow> list = table.getTableRows();
 					ps.setString(1, list.get(i).getId());
 					ps.setString(2, list.get(i).getPos());
 					ps.setString(3, list.get(i).getState());           
 					ps.setString(4, list.get(i).getTime());
 					ps.setString(5, list.get(i).getValue());
 				}
-
 				@Override
 				public int getBatchSize() {
 					return (int)table.getTableRows().size()/10;
@@ -50,10 +48,8 @@ public class Table2Db extends JdbcDaoUtil {
 			creatNewFloatTableByName(tableName);
 			String sql = "insert into " + tableName + "(ID,pos,time,value) values(?,?,?,?);";
 			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
-
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					List<TableRow> list = table.getTableRows();
 					ps.setString(1, list.get(i).getId());
 					ps.setString(2, list.get(i).getPos());
 					ps.setString(3, list.get(i).getTime());
@@ -71,9 +67,9 @@ public class Table2Db extends JdbcDaoUtil {
 		// 缺陷月度情况表中添加数据
 		if (tableName.contains("缺陷月度情况表")) {
 			/*creatNewFaultInfoTable(tableName);*/
-			String insertSql = "insert into " + tableName + " (Serial,FaultLevel,Defect,Team,Reason,Deal,StartTime,EndTime,Remarks) values(?,?,?,?,?,?,?,?,?);";
+			String insertSql = "insert into " + tableName + " (Serial,FaultLevel,Defect,Team,Reason,Deal,StartTime,EndTime,Remarks) values"
+					+ "(?,?,?,?,?,?,?,?,?);";
 			System.out.println(insertSql);
-			
 			getJdbcTemplate().batchUpdate(insertSql, new BatchPreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -102,7 +98,6 @@ public class Table2Db extends JdbcDaoUtil {
 	/**
 	 * 根据文件名新建表，文件名如果有"bool"或者"double"
 	 */
-
 	public void creatNewStateTableByName(String tableName) {
 		String sql = "if not exists(select * from sysobjects where id = object_id('" + tableName + "')) "
 				+ "begin create table " + tableName
@@ -110,7 +105,7 @@ public class Table2Db extends JdbcDaoUtil {
 		System.out.println(sql);
 		getJdbcTemplate().update(sql);
 	}
-
+	
 	/**
 	 * 根据文件名新建表，文件名如果有"float"
 	 */
@@ -139,13 +134,22 @@ public class Table2Db extends JdbcDaoUtil {
 	 * 存储上传文件信息保存到数据库表 upload_file_record
 	 */
 
-	public void saveFileToRecordTable(String filePath) {
-		String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1, filePath.lastIndexOf("."));
+	public String saveFileToRecordTable(String filePath,String fileTimeValue) {
+		//String tableName = filePath.substring(filePath.lastIndexOf("\\") + 1, filePath.lastIndexOf("."));
+		String tableName=filePath;
 		String date = String.valueOf(TimeUtils.DatetoLong(new Date())); // 获取当前时间,录入表中的时候还是long型
-		String insertRecordSql = "insert into upload_file_record(fileName,recordTime) values('" + tableName + "','"
-				+ date + "')";
+		String insertRecordSql = "insert into upload_file_record(fileName,recordTime,fileTimeValue) values('"+tableName+" ','"+ date+" ','"+fileTimeValue+"')";
 		System.out.println(insertRecordSql);
-		getJdbcTemplate().execute(insertRecordSql);
+		try {
+			getJdbcTemplate().execute(insertRecordSql);
+			return "0";
+		} catch (DataAccessException e) {
+			SQLException exception = (SQLException)e.getCause();
+		    // 通过exception获取ErrorCode、Message等信息
+			System.out.println(exception.getMessage());
+			return "1";
+		}
+		
 	}
 
 	/**

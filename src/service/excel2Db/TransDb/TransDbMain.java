@@ -15,7 +15,7 @@ public class TransDbMain {
 
 	public HashMap<String, DataInfo> getExcle(String typeData) throws ClassNotFoundException, SQLException {
 		ReadData rd = new ReadData();
-		HashMap<String, DataInfo> maps;
+		;
 		if (typeData.equals("bool")) {
 			typeData="status";
 		}
@@ -25,7 +25,7 @@ public class TransDbMain {
 		if (typeData.equals("float")) {
 			typeData="analog";
 		}
-		maps = rd.ExcleInfo(typeData);
+		HashMap<String, DataInfo> maps = rd.ExcleInfo(typeData);
 		return maps;
 	}
 	

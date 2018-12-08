@@ -27,17 +27,18 @@ public class RecordAction extends AbstractActionSupport {
 	@Override
 	public String execute() throws Exception {
 		System.out.println(getFirstInput());
-		beginTime = String
-				.valueOf(TimeUtils.StringtoLong(getFirstInput() + " 00:00:00"));
-		endTime = String.valueOf(
-				TimeUtils.StringtoLong(getSecondInput() + " 23:59:59"));
+		beginTime = String.valueOf(TimeUtils.StringtoLong(getFirstInput() + " 00:00:00"));
+		endTime = String.valueOf(TimeUtils.StringtoLong(getSecondInput() + " 23:59:59"));
 		
 		System.out.println("开始时间："+getFirstInput() + "  结束时间：" + getSecondInput());
-		List<HistoryReportRecord> records = fileUploadRecordQuery
-				.getFileRecords(beginTime, endTime);
+		List<HistoryReportRecord> records = fileUploadRecordQuery.getFileRecords(beginTime, endTime);
 		table = new Table(records);
 
 		return super.execute();
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
 	}
 
 	public void setBeginTime(String beginTime) {
